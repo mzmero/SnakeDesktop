@@ -1,0 +1,58 @@
+# Eclipse
+# -------
+/bin
+*.classpath
+*.project
+*.settings
+atlassian-ide-plugin.xml
+
+# Gradle
+# ------
+.gradle
+build/
+/local.properties
+gradle-app.setting
+!gradle-wrapper.jar
+
+# IDEA
+# ----
+.idea
+.shelf
+/*.iml
+/*.ipr
+/*.iws
+out
+
+# Logs
+# ----
+logs
+*.log
+
+# NetBeans
+# --------
+dist/
+.nb-gradle
+.nb-gradle-properties
+
+# OS X
+# ----
+.DS_Store
+
+# Windows
+# -------
+*.stackdump
+*.lnk
+Desktop.ini
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
+*.cab
+*.msi
+*.msm
+*.msp
+$RECYCLE.BIN/
+
+# Snake
+# -----
+cache
+*.db
