@@ -1,0 +1,19 @@
+@font-face {
+  src: url("font.ttf");
+}
+
+* {
+  -fx-font-family: "Minecraft";
+}
+
+.button150x25 {
+  -fx-background-image: url('../button150x25.png')
+}
+
+.button400x35 {
+  -fx-background-image: url('../button400x35.png')
+}
+
+.button:focused {
+  -fx-text-fill: white;
+}
