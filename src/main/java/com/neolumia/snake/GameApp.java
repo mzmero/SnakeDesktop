@@ -26,7 +26,6 @@ package com.neolumia.snake;
 
 import com.neolumia.snake.game.Game;
 import com.neolumia.snake.game.GameType;
-import com.neolumia.snake.game.duo.DuoGame;
 import com.neolumia.snake.game.single.SingleGame;
 import com.neolumia.snake.item.Item;
 import com.neolumia.snake.view.GameWindow;

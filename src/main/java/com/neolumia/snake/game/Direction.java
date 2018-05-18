@@ -25,10 +25,8 @@
 package com.neolumia.snake.game;
 
 public enum Direction {
-  NORTH,
-  EAST,
-  SOUTH,
-  WEST;
+
+  NORTH, EAST, SOUTH, WEST;
 
   public Direction opposite() {
     switch (this) {

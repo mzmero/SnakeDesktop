@@ -24,8 +24,6 @@
 
 package com.neolumia.snake.view;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 import com.neolumia.snake.GameApp;
 import com.neolumia.snake.game.Game;
 import javafx.application.Platform;
@@ -34,6 +32,8 @@ import javafx.scene.Group;
 import javafx.scene.control.Label;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 public final class DeadWindow extends Window {
 

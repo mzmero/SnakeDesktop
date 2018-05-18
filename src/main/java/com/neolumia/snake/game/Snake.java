@@ -24,15 +24,11 @@
 
 package com.neolumia.snake.game;
 
-import java.util.Optional;
-import java.util.concurrent.ConcurrentLinkedDeque;
-
 import javafx.scene.paint.Color;
 
 import javax.annotation.Nullable;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import java.util.Optional;
+import java.util.concurrent.ConcurrentLinkedDeque;
 
 public abstract class Snake<T extends Game> {
 

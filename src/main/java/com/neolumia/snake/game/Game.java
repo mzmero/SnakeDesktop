@@ -25,16 +25,12 @@
 package com.neolumia.snake.game;
 
 import com.neolumia.snake.GameApp;
-import com.neolumia.snake.item.Item;
-import com.neolumia.snake.item.ItemType;
 import com.neolumia.snake.view.DeadWindow;
 import javafx.application.Platform;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Optional;
 import java.util.Random;
 
 public abstract class Game extends Pane {

@@ -29,13 +29,11 @@ import javafx.scene.shape.Circle;
 
 public final class RetroFood extends Food {
 
-  private Circle circle;
+  private final Circle circle;
 
   public RetroFood() {
     super("Retro");
-    this.circle = new Circle(0, Color.BLACK);
-
-    getChildren().add(circle);
+    getChildren().add(circle = new Circle(0, Color.BLACK));
   }
 
   @Override

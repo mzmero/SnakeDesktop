@@ -27,13 +27,13 @@ package com.neolumia.snake.game.single;
 import com.neolumia.snake.GameApp;
 import com.neolumia.snake.game.Game;
 import com.neolumia.snake.game.GameType;
-import com.neolumia.snake.game.Snake;
 import com.neolumia.snake.game.Tile;
 import com.neolumia.snake.item.Item;
 import com.neolumia.snake.item.ItemType;
-import java.util.Optional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.Optional;
 
 public final class SingleGame extends Game {
 

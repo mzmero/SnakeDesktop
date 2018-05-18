@@ -26,8 +26,5 @@ package com.neolumia.snake.item;
 
 public enum ItemType {
 
-  FOOD,
-  BUFF,
-  DEBUFF,
-  MULTIPLIER
+  FOOD, BUFF, DEBUFF, MULTIPLIER
 }

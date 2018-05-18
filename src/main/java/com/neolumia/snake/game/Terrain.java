@@ -24,13 +24,15 @@
 
 package com.neolumia.snake.game;
 
-import java.util.*;
-import java.util.stream.Stream;
-
-import com.neolumia.snake.item.Item;
 import javafx.application.Platform;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 public final class Terrain extends Pane {
 

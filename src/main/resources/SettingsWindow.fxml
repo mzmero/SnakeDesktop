@@ -5,171 +5,142 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
 <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="493.0" minWidth="10.0" prefWidth="305.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="696.0" minWidth="10.0" prefWidth="695.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="493.0" minWidth="10.0" prefWidth="305.0"/>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="696.0" minWidth="10.0" prefWidth="695.0"/>
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints maxHeight="95.0" minHeight="0.0" percentHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="95.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="95.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="95.0" minHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="265.0" minHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="265.0" minHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="265.0" minHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="265.0" minHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="265.0" minHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="271.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="81.0" minHeight="0.0" prefHeight="74.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="64.0" minHeight="10.0" prefHeight="11.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="95.0" minHeight="0.0" percentHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES"/>
+    <RowConstraints maxHeight="95.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES"/>
+    <RowConstraints maxHeight="95.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES"/>
+    <RowConstraints maxHeight="95.0" minHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES"/>
+    <RowConstraints maxHeight="265.0" minHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES"/>
+    <RowConstraints maxHeight="265.0" minHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES"/>
+    <RowConstraints maxHeight="265.0" minHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES"/>
+    <RowConstraints maxHeight="265.0" minHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES"/>
+    <RowConstraints maxHeight="265.0" minHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES"/>
+    <RowConstraints maxHeight="271.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES"/>
+    <RowConstraints maxHeight="81.0" minHeight="0.0" prefHeight="74.0" vgrow="SOMETIMES"/>
+    <RowConstraints maxHeight="64.0" minHeight="10.0" prefHeight="11.0" vgrow="SOMETIMES"/>
   </rowConstraints>
-   <children>
-      <Label onMouseClicked="#back" prefHeight="39.0" prefWidth="339.0" text="Zurück">
-         <font>
-            <Font size="27.0" />
-         </font>
-         <GridPane.margin>
-            <Insets right="35.0" />
-         </GridPane.margin>
-         <padding>
-            <Insets left="35.0" />
-         </padding>
-      </Label>
-      <StackPane GridPane.rowIndex="4">
-         <children>
-            <Label text="Schwierigkeit:">
-               <font>
-                  <Font size="34.0" />
-               </font>
-            </Label>
-         </children>
-      </StackPane>
-      <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
-         <children>
-            <VBox alignment="CENTER">
-               <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <Button minHeight="25.0" minWidth="150.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button150x25" text="Einfach">
-                           <HBox.margin>
-                              <Insets left="35.0" right="35.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button minHeight="25.0" minWidth="150.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button150x25" text="Mittel">
-                           <HBox.margin>
-                              <Insets left="35.0" right="35.0" />
-                           </HBox.margin></Button>
-                        <Button minHeight="25.0" minWidth="150.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button150x25" text="Schwer">
-                           <HBox.margin>
-                              <Insets left="35.0" right="35.0" />
-                           </HBox.margin></Button>
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-         </children>
-      </StackPane>
-      <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="5">
-         <children>
-            <Label text="Weltkarte:">
-               <font>
-                  <Font size="34.0" />
-               </font>
-            </Label>
-         </children>
-      </StackPane>
-      <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="5">
-         <children>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Button minHeight="25.0" minWidth="150.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button150x25" text="Klein">
-                     <HBox.margin>
-                        <Insets left="35.0" right="35.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button minHeight="25.0" minWidth="150.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button150x25" text="Normal">
-                     <HBox.margin>
-                        <Insets left="35.0" right="35.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button minHeight="25.0" minWidth="150.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button150x25" text="Gross">
-                     <HBox.margin>
-                        <Insets left="35.0" right="35.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-      <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="3">
-         <children>
-            <Label text="Spielmodus:">
-               <font>
-                  <Font size="34.0" />
-               </font>
-            </Label>
-         </children>
-      </StackPane>
-      <VBox alignment="CENTER" layoutX="315.0" layoutY="196.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-         <children>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Button minHeight="25.0" minWidth="150.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button150x25" text="Retro">
-                     <HBox.margin>
-                        <Insets left="35.0" right="35.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button minHeight="25.0" minWidth="150.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button150x25" text="Classic">
-                     <HBox.margin>
-                        <Insets left="35.0" right="35.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-      <StackPane layoutX="10.0" layoutY="168.0" prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="7">
-         <children>
-            <Label text="Spielername:">
-               <font>
-                  <Font size="34.0" />
-               </font>
-            </Label>
-         </children>
-      </StackPane>
-      <TextField fx:id="playerName" prefHeight="39.0" prefWidth="625.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
-         <padding>
-            <Insets left="35.0" right="35.0" />
-         </padding>
-         <GridPane.margin>
-            <Insets left="35.0" right="35.0" />
-         </GridPane.margin>
-         <font>
-            <Font size="16.0" />
-         </font>
-      </TextField>
-      <StackPane layoutX="10.0" layoutY="258.0" prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="8">
-         <children>
-            <Label>
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </Label>
-         </children>
-      </StackPane>
-      <CheckBox fx:id="leaderboard" maxHeight="20.0" minHeight="20.0" minWidth="500.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="500.0" scaleShape="false" text="Ich will in der Statistik angezeigt werden" GridPane.columnIndex="1" GridPane.rowIndex="8">
-         <GridPane.margin>
-            <Insets bottom="35.0" left="35.0" top="35.0" />
-         </GridPane.margin>
-      </CheckBox>
-   </children>
+  <Label onMouseClicked="#back" prefHeight="39.0" prefWidth="339.0" text="Zurück">
+    <font>
+      <Font size="27.0"/>
+    </font>
+    <GridPane.margin>
+      <Insets right="35.0"/>
+    </GridPane.margin>
+    <padding>
+      <Insets left="35.0"/>
+    </padding>
+  </Label>
+  <StackPane GridPane.rowIndex="4">
+    <Label text="Schwierigkeit:">
+      <font>
+        <Font size="34.0"/>
+      </font>
+    </Label>
+  </StackPane>
+  <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+    <VBox alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+        <Button minHeight="25.0" minWidth="150.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button150x25" text="Einfach">
+          <HBox.margin>
+            <Insets left="35.0" right="35.0"/>
+          </HBox.margin>
+        </Button>
+        <Button minHeight="25.0" minWidth="150.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button150x25" text="Mittel">
+          <HBox.margin>
+            <Insets left="35.0" right="35.0"/>
+          </HBox.margin>
+        </Button>
+        <Button minHeight="25.0" minWidth="150.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button150x25" text="Schwer">
+          <HBox.margin>
+            <Insets left="35.0" right="35.0"/>
+          </HBox.margin>
+        </Button>
+      </HBox>
+    </VBox>
+  </StackPane>
+  <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="5">
+    <Label text="Weltkarte:">
+      <font>
+        <Font size="34.0"/>
+      </font>
+    </Label>
+  </StackPane>
+  <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="5">
+    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+      <Button minHeight="25.0" minWidth="150.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button150x25" text="Klein">
+        <HBox.margin>
+          <Insets left="35.0" right="35.0"/>
+        </HBox.margin>
+      </Button>
+      <Button minHeight="25.0" minWidth="150.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button150x25" text="Normal">
+        <HBox.margin>
+          <Insets left="35.0" right="35.0"/>
+        </HBox.margin>
+      </Button>
+      <Button minHeight="25.0" minWidth="150.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button150x25" text="Gross">
+        <HBox.margin>
+          <Insets left="35.0" right="35.0"/>
+        </HBox.margin>
+      </Button>
+    </HBox>
+  </VBox>
+  <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="3">
+    <Label text="Spielmodus:">
+      <font>
+        <Font size="34.0"/>
+      </font>
+    </Label>
+  </StackPane>
+  <VBox alignment="CENTER" layoutX="315.0" layoutY="196.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+      <Button minHeight="25.0" minWidth="150.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button150x25" text="Retro">
+        <HBox.margin>
+          <Insets left="35.0" right="35.0"/>
+        </HBox.margin>
+      </Button>
+      <Button minHeight="25.0" minWidth="150.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button150x25" text="Classic">
+        <HBox.margin>
+          <Insets left="35.0" right="35.0"/>
+        </HBox.margin>
+      </Button>
+    </HBox>
+  </VBox>
+  <StackPane layoutX="10.0" layoutY="168.0" prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="7">
+    <Label text="Spielername:">
+      <font>
+        <Font size="34.0"/>
+      </font>
+    </Label>
+  </StackPane>
+  <TextField fx:id="playerName" prefHeight="39.0" prefWidth="625.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+    <padding>
+      <Insets left="35.0" right="35.0"/>
+    </padding>
+    <GridPane.margin>
+      <Insets left="35.0" right="35.0"/>
+    </GridPane.margin>
+    <font>
+      <Font size="16.0"/>
+    </font>
+  </TextField>
+  <StackPane layoutX="10.0" layoutY="258.0" prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="8">
+    <Label>
+      <font>
+        <Font size="21.0"/>
+      </font>
+    </Label>
+  </StackPane>
+  <CheckBox fx:id="leaderboard" maxHeight="20.0" minHeight="20.0" minWidth="500.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="500.0" scaleShape="false" text="Ich will in der Statistik angezeigt werden" GridPane.columnIndex="1" GridPane.rowIndex="8">
+    <GridPane.margin>
+      <Insets bottom="35.0" left="35.0" top="35.0"/>
+    </GridPane.margin>
+  </CheckBox>
 </GridPane>

@@ -27,8 +27,8 @@ package com.neolumia.snake.game;
 import javafx.scene.paint.Color;
 
 public enum GameType {
-  CLASSIC(Color.LIGHTGREEN),
-  RETRO(Color.WHITE);
+
+  CLASSIC(Color.LIGHTGREEN), RETRO(Color.WHITE);
 
   private final Color background;
 
