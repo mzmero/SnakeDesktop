@@ -38,14 +38,14 @@ public final class SettingsWindow extends Window {
 
   SettingsWindow(GameApp app) {
     this.app = app;
-    playerName.setText(app.getSettings().getPlayerName());
-    leaderboard.setSelected(app.getSettings().isLeaderboard());
+    playerName.setText(app.getSettings().playerName);
+    leaderboard.setSelected(app.getSettings().leaderboard);
   }
 
   @FXML
   public void back() throws Exception {
-    app.getSettings().setPlayerName(playerName.getText());
-    app.getSettings().setLeaderboard(leaderboard.isSelected());
+    app.getSettings().playerName = playerName.getText();
+    app.getSettings().leaderboard = leaderboard.isSelected();
     app.getDatabase().saveSettings(app.getSettings());
 
     app.getWindowManager().request(new MenuWindow(app));
