@@ -28,12 +28,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.ResourceBundle;
+
 public abstract class Window {
 
   private final FXMLLoader loader;
 
   Window() {
-    loader = new FXMLLoader(getClass().getResource('/' + getResourceName()));
+    loader = new FXMLLoader(getClass().getResource('/' + getResourceName()), ResourceBundle.getBundle("snake"));
     loader.setController(this);
     try {
       loader.load();

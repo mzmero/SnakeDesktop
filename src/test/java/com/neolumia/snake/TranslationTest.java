@@ -22,29 +22,21 @@
  * SOFTWARE.
  */
 
-package com.neolumia.snake.view;
+package com.neolumia.snake;
 
-import com.neolumia.snake.GameApp;
-import javafx.fxml.FXML;
-import javafx.scene.layout.GridPane;
+import org.junit.Test;
 
-public final class MenuWindow extends Window {
+import static org.junit.Assert.assertEquals;
 
-  private final GameApp app;
+public final class TranslationTest {
 
-  @FXML GridPane root;
-
-  public MenuWindow(GameApp app) {
-    this.app = app;
+  @Test
+  public void test() {
+    assertEquals("Peter", GameApp.t("name"));
   }
 
-  @FXML
-  public void play() {
-    app.newGame(null);
-  }
-
-  @FXML
-  public void settings() {
-    app.getWindowManager().request(new SettingsWindow(app));
+  @Test
+  public void testArgs() {
+    assertEquals("Peter is very nice", GameApp.t("text", "Peter", "nice"));
   }
 }

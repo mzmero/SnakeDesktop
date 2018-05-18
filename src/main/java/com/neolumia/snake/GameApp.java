@@ -38,6 +38,9 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.text.MessageFormat;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 public final class GameApp extends Application {
 
@@ -52,6 +55,14 @@ public final class GameApp extends Application {
 
   public static void main(String[] args) {
     launch(args);
+  }
+
+  public static String t(String key, String... args) {
+    try {
+      return MessageFormat.format(ResourceBundle.getBundle("snake").getString(key), (Object[]) args);
+    } catch (MissingResourceException ex) {
+      return '!' + key.toUpperCase();
+    }
   }
 
   @Override
