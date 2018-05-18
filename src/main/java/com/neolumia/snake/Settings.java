@@ -26,27 +26,11 @@ package com.neolumia.snake;
 
 public final class Settings {
 
-  private String playerName;
-  private boolean leaderboard;
+  public String playerName;
+  public boolean leaderboard;
 
   Settings(String playerName, boolean leaderboard) {
     this.playerName = playerName;
-    this.leaderboard = leaderboard;
-  }
-
-  public String getPlayerName() {
-    return playerName;
-  }
-
-  public void setPlayerName(String playerName) {
-    this.playerName = playerName;
-  }
-
-  public boolean isLeaderboard() {
-    return leaderboard;
-  }
-
-  public void setLeaderboard(boolean leaderboard) {
     this.leaderboard = leaderboard;
   }
 }

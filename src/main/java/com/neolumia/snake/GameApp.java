@@ -29,27 +29,20 @@ import com.neolumia.snake.game.GameType;
 import com.neolumia.snake.game.single.SingleGame;
 import com.neolumia.snake.item.Item;
 import com.neolumia.snake.view.GameWindow;
-import com.neolumia.snake.view.LoadingWindow;
 import com.neolumia.snake.view.MenuWindow;
 import com.neolumia.snake.view.WindowManager;
 import javafx.application.Application;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Scene;
-import javafx.scene.paint.Color;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
-import java.nio.file.Files;
 import java.nio.file.Path;
 
 public final class GameApp extends Application {
 
   private static final Logger LOGGER = LogManager.getLogger(GameApp.class);
-  private final Path root = new File("").toPath();
+  private static final Path ROOT = new File("").toPath();
 
   private Database database;
   private WindowManager windowManager;
@@ -63,7 +56,7 @@ public final class GameApp extends Application {
 
   @Override
   public void start(Stage stage) {
-    run(stage);
+    run();
   }
 
   public synchronized void newGame(GameType type) {
@@ -72,10 +65,6 @@ public final class GameApp extends Application {
     getWindowManager().request(new GameWindow(this, game));
     game.init();
     game.run();
-  }
-
-  public Path getRoot() {
-    return root;
   }
 
   public Settings getSettings() {
@@ -98,29 +87,18 @@ public final class GameApp extends Application {
     return windowManager;
   }
 
-  private void run(Stage stage) {
+  Path getRoot() {
+    return ROOT;
+  }
+
+  private void run() {
     LOGGER.info("Starting application..");
     try {
       final long start = System.currentTimeMillis();
 
-      final LoadingWindow window = new LoadingWindow();
-      final Scene loading = new Scene(window.getLoader().getRoot());
-      loading.setFill(Color.TRANSPARENT);
-
-      stage.setScene(loading);
-      stage.initStyle(StageStyle.TRANSPARENT);
-      stage.show(); // Jap, das ist notwendig
-      stage.hide();
-      final Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-      stage.setX((screenBounds.getWidth() - stage.getWidth()) / 2);
-      stage.setY((screenBounds.getHeight() - stage.getHeight()) / 2);
-      stage.setOpacity(1);
-      stage.show();
+      LOGGER.info("Using \"{}\" as root folder", ROOT.toAbsolutePath());
 
       Item.registerDefaults();
-
-      LOGGER.info("Using \"{}\" as root folder", root.toAbsolutePath());
-      Files.createDirectories(root.resolve("cache"));
 
       database = new Database(this);
       database.init();
@@ -134,11 +112,10 @@ public final class GameApp extends Application {
       final long end = System.currentTimeMillis();
       LOGGER.info("Application initialized ({}ms)", end - start);
 
-      stage.hide();
-
       windowManager.request(new MenuWindow(this));
+      LOGGER.info("Application is now ready");
     } catch (Throwable throwable) {
-      LOGGER.error("Failed to start application", throwable);
+      LOGGER.error("Could not start application", throwable);
     }
   }
 }

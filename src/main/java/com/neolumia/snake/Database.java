@@ -65,7 +65,7 @@ public final class Database {
     }
   }
 
-  public int getHighscore() throws SQLException {
+  int getHighscore() throws SQLException {
     try (Connection connection = dataSource.getConnection()) {
       try (PreparedStatement statement = connection.prepareStatement(HIGHSCORE)) {
         try (ResultSet result = statement.executeQuery()) {
@@ -87,7 +87,7 @@ public final class Database {
     }
   }
 
-  public Settings getSettings() throws SQLException {
+  Settings getSettings() throws SQLException {
     try (Connection connection = dataSource.getConnection()) {
       try (PreparedStatement statement = connection.prepareStatement(LOAD_SETTINGS)) {
         try (ResultSet result = statement.executeQuery()) {
@@ -106,10 +106,10 @@ public final class Database {
   public void saveSettings(Settings settings) throws SQLException {
     try (Connection connection = dataSource.getConnection()) {
       try (PreparedStatement statement = connection.prepareStatement(SAVE_SETTINGS)) {
-        statement.setString(1, settings.getPlayerName());
-        statement.setBoolean(2, settings.isLeaderboard());
-        statement.setString(3, settings.getPlayerName());
-        statement.setBoolean(4, settings.isLeaderboard());
+        statement.setString(1, settings.playerName);
+        statement.setBoolean(2, settings.leaderboard);
+        statement.setString(3, settings.playerName);
+        statement.setBoolean(4, settings.leaderboard);
         statement.executeUpdate();
       }
     }
