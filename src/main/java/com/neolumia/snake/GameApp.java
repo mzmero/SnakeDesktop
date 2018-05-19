@@ -47,6 +47,8 @@ public final class GameApp extends Application {
   private static final Logger LOGGER = LogManager.getLogger(GameApp.class);
   private static final Path ROOT = new File("").toPath();
 
+  private static GameApp instance;
+
   private Database database;
   private WindowManager windowManager;
 
@@ -59,14 +61,23 @@ public final class GameApp extends Application {
 
   public static String t(String key, Object... args) {
     try {
-      return MessageFormat.format(ResourceBundle.getBundle("snake").getString(key), args);
+      return MessageFormat.format(getBundle().getString(key), args);
     } catch (MissingResourceException ex) {
       return '!' + key.toUpperCase();
     }
   }
 
+  public static ResourceBundle getBundle() {
+    try {
+      return ResourceBundle.getBundle("snake", instance.getSettings().locale.getLocale());
+    } catch (Exception ex) {
+      return ResourceBundle.getBundle("snake");
+    }
+  }
+
   @Override
   public void start(Stage stage) {
+    instance = this;
     run();
   }
 
@@ -112,8 +123,6 @@ public final class GameApp extends Application {
 
       LOGGER.info("Using \"{}\" as root folder", ROOT.toAbsolutePath());
 
-      Item.registerDefaults();
-
       database = new Database(this);
       database.init();
 
@@ -122,6 +131,8 @@ public final class GameApp extends Application {
 
       windowManager = new WindowManager();
       windowManager.init();
+
+      Item.registerDefaults();
 
       final long end = System.currentTimeMillis();
       LOGGER.info("Application initialized ({}ms)", end - start);

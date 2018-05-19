@@ -39,9 +39,9 @@ public final class Database {
   private static final String HIGHSCORE = "SELECT MAX(points) FROM games;";
   private static final String SAVE = "INSERT INTO games (points) VALUES (?);";
 
-  private static final String TABLE_SETTINGS = "CREATE TABLE IF NOT EXISTS settings (id BIGINT UNSIGNED NOT NULL PRIMARY KEY, name VARCHAR(255) NOT NULL, leaderboard TINYINT(1) UNSIGNED NOT NULL);";
-  private static final String LOAD_SETTINGS = "SELECT name, leaderboard FROM settings;";
-  private static final String SAVE_SETTINGS = "INSERT INTO settings (id, name, leaderboard) VALUES (0, ?, ?) ON DUPLICATE KEY UPDATE name=?, leaderboard=?;";
+  private static final String TABLE_SETTINGS = "CREATE TABLE IF NOT EXISTS settings (id BIGINT UNSIGNED NOT NULL PRIMARY KEY, locale VARCHAR(32) NOT NULL, name VARCHAR(255) NOT NULL, leaderboard TINYINT(1) UNSIGNED NOT NULL);";
+  private static final String LOAD_SETTINGS = "SELECT locale, name, leaderboard FROM settings;";
+  private static final String SAVE_SETTINGS = "INSERT INTO settings (id, locale, name, leaderboard) VALUES (0, ?, ?, ?) ON DUPLICATE KEY UPDATE locale=?, name=?, leaderboard=?;";
 
   private final HikariDataSource dataSource;
 
@@ -91,13 +91,15 @@ public final class Database {
     try (Connection connection = dataSource.getConnection()) {
       try (PreparedStatement statement = connection.prepareStatement(LOAD_SETTINGS)) {
         try (ResultSet result = statement.executeQuery()) {
+          Locales locale = Locales.ENGLISH;
           String name = "Dieter Bohlen";
           boolean leaderboard = false;
           if (result.next()) {
-            name = result.getString(1);
-            leaderboard = result.getBoolean(2);
+            locale = Locales.valueOf(result.getString(1));
+            name = result.getString(2);
+            leaderboard = result.getBoolean(3);
           }
-          return new Settings(name, leaderboard);
+          return new Settings(locale, name, leaderboard);
         }
       }
     }
@@ -106,10 +108,13 @@ public final class Database {
   public void saveSettings(Settings settings) throws SQLException {
     try (Connection connection = dataSource.getConnection()) {
       try (PreparedStatement statement = connection.prepareStatement(SAVE_SETTINGS)) {
-        statement.setString(1, settings.playerName);
-        statement.setBoolean(2, settings.leaderboard);
-        statement.setString(3, settings.playerName);
-        statement.setBoolean(4, settings.leaderboard);
+        statement.setString(1, settings.locale.name());
+        statement.setString(2, settings.playerName);
+        statement.setBoolean(3, settings.leaderboard);
+
+        statement.setString(4, settings.locale.name());
+        statement.setString(5, settings.playerName);
+        statement.setBoolean(6, settings.leaderboard);
         statement.executeUpdate();
       }
     }
