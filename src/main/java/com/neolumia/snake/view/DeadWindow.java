@@ -33,6 +33,8 @@ import javafx.scene.control.Label;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.text.MessageFormat;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public final class DeadWindow extends Window {
@@ -43,7 +45,8 @@ public final class DeadWindow extends Window {
   private final Game game;
 
   @FXML private Group group;
-  @FXML private Label head;
+  @FXML private Label headLost;
+  @FXML private Label headWon;
   @FXML private Label points;
   @FXML private Label highscore;
 
@@ -54,17 +57,19 @@ public final class DeadWindow extends Window {
     group.getChildren().add(game);
     group.setOpacity(0.4);
 
-    points.setText(String.format(points.getText(), game.getPoints()));
-    highscore.setText(String.format(highscore.getText(), app.getHighscore()));
+    points.setText(MessageFormat.format(points.getText(), game.getPoints()));
+    highscore.setText(MessageFormat.format(highscore.getText(), app.getHighscore()));
 
     if (won) {
-      head.setText("Rekord!");
+      headLost.setVisible(false);
+    } else {
+      headWon.setVisible(false);
     }
   }
 
   @FXML
   public void newGame() {
-    app.newGame(game.getType());
+    app.newGame();
   }
 
   @FXML

@@ -27,7 +27,7 @@
     <RowConstraints maxHeight="81.0" minHeight="0.0" prefHeight="74.0" vgrow="SOMETIMES"/>
     <RowConstraints maxHeight="64.0" minHeight="10.0" prefHeight="11.0" vgrow="SOMETIMES"/>
   </rowConstraints>
-  <Label onMouseClicked="#back" prefHeight="39.0" prefWidth="339.0" text="Zurück">
+  <Label onMouseClicked="#back" prefHeight="39.0" prefWidth="339.0" text="%menu.save">
     <font>
       <Font size="27.0"/>
     </font>
@@ -39,7 +39,7 @@
     </padding>
   </Label>
   <StackPane GridPane.rowIndex="4">
-    <Label text="Schwierigkeit:">
+    <Label text="%settings.difficulty">
       <font>
         <Font size="34.0"/>
       </font>
@@ -48,17 +48,17 @@
   <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
     <VBox alignment="CENTER">
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-        <Button minHeight="25.0" minWidth="150.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button150x25" text="Einfach">
+        <Button minHeight="25.0" minWidth="150.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button150x25" text="%settings.easy">
           <HBox.margin>
             <Insets left="35.0" right="35.0"/>
           </HBox.margin>
         </Button>
-        <Button minHeight="25.0" minWidth="150.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button150x25" text="Mittel">
+        <Button minHeight="25.0" minWidth="150.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button150x25" text="%settings.medium">
           <HBox.margin>
             <Insets left="35.0" right="35.0"/>
           </HBox.margin>
         </Button>
-        <Button minHeight="25.0" minWidth="150.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button150x25" text="Schwer">
+        <Button minHeight="25.0" minWidth="150.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button150x25" text="%settings.hard">
           <HBox.margin>
             <Insets left="35.0" right="35.0"/>
           </HBox.margin>
@@ -67,7 +67,7 @@
     </VBox>
   </StackPane>
   <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="5">
-    <Label text="Weltkarte:">
+    <Label text="%settings.terrain">
       <font>
         <Font size="34.0"/>
       </font>
@@ -75,17 +75,17 @@
   </StackPane>
   <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="5">
     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-      <Button minHeight="25.0" minWidth="150.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button150x25" text="Klein">
+      <Button minHeight="25.0" minWidth="150.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button150x25" text="%settings.small">
         <HBox.margin>
           <Insets left="35.0" right="35.0"/>
         </HBox.margin>
       </Button>
-      <Button minHeight="25.0" minWidth="150.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button150x25" text="Normal">
+      <Button minHeight="25.0" minWidth="150.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button150x25" text="%settings.medium">
         <HBox.margin>
           <Insets left="35.0" right="35.0"/>
         </HBox.margin>
       </Button>
-      <Button minHeight="25.0" minWidth="150.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button150x25" text="Gross">
+      <Button minHeight="25.0" minWidth="150.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button150x25" text="%settings.big">
         <HBox.margin>
           <Insets left="35.0" right="35.0"/>
         </HBox.margin>
@@ -114,7 +114,7 @@
     </HBox>
   </VBox>
   <StackPane layoutX="10.0" layoutY="168.0" prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="7">
-    <Label text="Spielername:">
+    <Label text="%settings.playerName">
       <font>
         <Font size="34.0"/>
       </font>
@@ -138,7 +138,7 @@
       </font>
     </Label>
   </StackPane>
-  <CheckBox fx:id="leaderboard" maxHeight="20.0" minHeight="20.0" minWidth="500.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="500.0" scaleShape="false" text="Ich will in der Statistik angezeigt werden" GridPane.columnIndex="1" GridPane.rowIndex="8">
+  <CheckBox fx:id="leaderboard" maxHeight="20.0" minHeight="20.0" minWidth="500.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="500.0" scaleShape="false" text="%settings.leaderboard" GridPane.columnIndex="1" GridPane.rowIndex="8">
     <GridPane.margin>
       <Insets bottom="35.0" left="35.0" top="35.0"/>
     </GridPane.margin>

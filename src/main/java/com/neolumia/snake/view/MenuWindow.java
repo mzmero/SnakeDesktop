@@ -40,7 +40,7 @@ public final class MenuWindow extends Window {
 
   @FXML
   public void play() {
-    app.newGame(null);
+    app.newGame();
   }
 
   @FXML

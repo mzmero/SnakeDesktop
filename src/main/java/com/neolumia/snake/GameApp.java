@@ -57,9 +57,9 @@ public final class GameApp extends Application {
     launch(args);
   }
 
-  public static String t(String key, String... args) {
+  public static String t(String key, Object... args) {
     try {
-      return MessageFormat.format(ResourceBundle.getBundle("snake").getString(key), (Object[]) args);
+      return MessageFormat.format(ResourceBundle.getBundle("snake").getString(key), args);
     } catch (MissingResourceException ex) {
       return '!' + key.toUpperCase();
     }
@@ -70,7 +70,10 @@ public final class GameApp extends Application {
     run();
   }
 
-  public synchronized void newGame(GameType type) {
+  public synchronized void newGame() {
+
+    GameType type = GameType.RETRO;
+
     LOGGER.info("Creating a new game with type " + type.name());
     final Game game = new SingleGame(this, type);
     getWindowManager().request(new GameWindow(this, game));

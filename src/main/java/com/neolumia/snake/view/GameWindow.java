@@ -41,10 +41,16 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.util.ResourceBundle;
+
+import static com.neolumia.snake.GameApp.t;
+
 public final class GameWindow extends Window {
 
   private final Game game;
   private final Label pause = new Label("Pause");
+
+  @FXML private ResourceBundle bundle;
 
   @FXML private StackPane root;
   @FXML private Group group;
@@ -57,8 +63,8 @@ public final class GameWindow extends Window {
     group.getChildren().add(game);
 
     final Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
-      points.setText("Punkte: " + game.getPoints());
-      highscore.setText("Highscore: " + (game.getPoints() > app.getHighscore() ? game.getPoints() : app.getHighscore()));
+      points.setText(t("gameOver.points", game.getPoints()));
+      highscore.setText(t("gameOver.highscore", app.getHighscore()));
     }));
 
     timeline.setCycleCount(Animation.INDEFINITE);
