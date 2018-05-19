@@ -39,9 +39,17 @@ public final class SettingsWindow extends Window {
   private final GameApp app;
 
   private final ToggleGroup locale = new ToggleGroup();
+  private final ToggleGroup difficulty = new ToggleGroup();
+  private final ToggleGroup terrain = new ToggleGroup();
 
   @FXML private ToggleButton localeGerman;
   @FXML private ToggleButton localeEnglish;
+  @FXML private ToggleButton difficultyEasy;
+  @FXML private ToggleButton difficultyMedium;
+  @FXML private ToggleButton difficultyHard;
+  @FXML private ToggleButton terrainSmall;
+  @FXML private ToggleButton terrainMedium;
+  @FXML private ToggleButton terrainBig;
 
   @FXML private TextField playerName;
   @FXML private CheckBox leaderboard;
@@ -52,15 +60,22 @@ public final class SettingsWindow extends Window {
     localeGerman.setToggleGroup(locale);
     localeEnglish.setToggleGroup(locale);
 
-    playerName.setText(app.getSettings().playerName);
-    leaderboard.setSelected(app.getSettings().leaderboard);
+    difficultyEasy.setToggleGroup(difficulty);
+    difficultyMedium.setToggleGroup(difficulty);
+    difficultyHard.setToggleGroup(difficulty);
 
-    locale.selectToggle(app.getSettings().locale == Locales.GERMAN ? localeGerman : localeEnglish);
+    terrainSmall.setToggleGroup(terrain);
+    terrainMedium.setToggleGroup(terrain);
+    terrainBig.setToggleGroup(terrain);
+
+    //playerName.setText(app.getSettings().playerName);
+    //leaderboard.setSelected(app.getSettings().leaderboard);
+
+    //locale.selectToggle(app.getSettings().locale == Locales.GERMAN ? localeGerman : localeEnglish);
   }
 
   @FXML
-  public void back() throws Exception {
-    save();
+  public void cancel() {
     app.getWindowManager().request(new MenuWindow(app));
   }
 
@@ -69,5 +84,6 @@ public final class SettingsWindow extends Window {
     app.getSettings().leaderboard = leaderboard.isSelected();
     app.getSettings().locale = locale.getSelectedToggle().equals(localeGerman) ? Locales.GERMAN : Locales.ENGLISH;
     app.getDatabase().saveSettings(app.getSettings());
+    cancel();
   }
 }
