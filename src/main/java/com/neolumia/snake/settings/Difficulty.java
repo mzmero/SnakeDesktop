@@ -26,12 +26,14 @@ package com.neolumia.snake.settings;
 
 public enum Difficulty {
 
-  EASY(0), MEDIUM(1), HARD(2);
+  EASY(0, 9), MEDIUM(1, 6), HARD(2, 4);
 
   private final int id;
+  private final int speed;
 
-  Difficulty(int id) {
+  Difficulty(int id, int speed) {
     this.id = id;
+    this.speed = speed;
   }
 
   public static Difficulty fromId(int id) {
@@ -45,5 +47,9 @@ public enum Difficulty {
 
   public int getId() {
     return id;
+  }
+
+  public int getSpeed() {
+    return speed;
   }
 }
