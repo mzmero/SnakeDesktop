@@ -25,6 +25,7 @@
 package com.neolumia.snake.game;
 
 import com.neolumia.snake.GameApp;
+import com.neolumia.snake.settings.Settings;
 import com.neolumia.snake.view.DeadWindow;
 import javafx.application.Platform;
 import javafx.scene.layout.Pane;
@@ -81,6 +82,10 @@ public abstract class Game extends Pane {
 
     LOGGER.info("The game has ended.");
     Platform.runLater(() -> app.getWindowManager().request(new DeadWindow(app, this, won)));
+  }
+
+  public Settings getSettings() {
+    return app.getSettings();
   }
 
   /**

@@ -37,20 +37,20 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
-import java.util.ResourceBundle;
 
 import static com.neolumia.snake.GameApp.t;
 
 public final class GameWindow extends Window {
 
+  private final GameApp app;
   private final Game game;
   private final Label pause = new Label("Pause");
 
-  @FXML private ResourceBundle bundle;
+  @FXML private GridPane gridRoot;
 
   @FXML private StackPane root;
   @FXML private Group group;
@@ -58,6 +58,7 @@ public final class GameWindow extends Window {
   @FXML private Label highscore;
 
   public GameWindow(GameApp app, Game game) {
+    this.app = app;
     this.game = game;
     root.setStyle("-fx-background-color: #E0FFFF;");
     group.getChildren().add(game);
@@ -66,7 +67,6 @@ public final class GameWindow extends Window {
       points.setText(t("gameOver.points", game.getPoints()));
       highscore.setText(t("gameOver.highscore", app.getHighscore()));
     }));
-
     timeline.setCycleCount(Animation.INDEFINITE);
     timeline.play();
   }
@@ -126,6 +126,10 @@ public final class GameWindow extends Window {
         }
       }
     });
+
+    stage.setMinWidth(game.getTerrain().getWidth() + 32);
+    stage.setMinHeight(game.getTerrain().getHeight() + 96);
+    app.getWindowManager().center();
   }
 
   private void updatePaused(boolean now) {
