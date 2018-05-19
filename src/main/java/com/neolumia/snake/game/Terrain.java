@@ -45,9 +45,13 @@ public final class Terrain extends Pane {
 
   public Terrain(Game game) {
     this.game = game;
-    this.width = 30;
-    this.height = 15;
+    System.out.println(game.getSettings().size.name());
+    this.width = game.getSettings().size.getWidth();
+    this.height = game.getSettings().size.getHeight();
     this.tiles = new Tile[width][height];
+
+    setWidth(32 * width);
+    setHeight(32 * height);
 
     game.getChildren().add(this);
   }

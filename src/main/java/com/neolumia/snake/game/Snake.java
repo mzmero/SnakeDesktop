@@ -35,6 +35,7 @@ public abstract class Snake<T extends Game> {
   private final ConcurrentLinkedDeque<SnakePart> parts = new ConcurrentLinkedDeque<>();
 
   protected final T game;
+  private final int speed;
 
   private Direction direction;
   private int ticks;
@@ -45,6 +46,7 @@ public abstract class Snake<T extends Game> {
   public Snake(T game, Direction direction) {
     this.game = game;
     this.direction = direction;
+    this.speed = game.getSettings().difficulty.getSpeed();
   }
 
   public abstract void init();
@@ -52,7 +54,7 @@ public abstract class Snake<T extends Game> {
   public abstract void onEat(Tile tile, TileObject object);
 
   public void tick() {
-    if (ticks % 10 == 0) {
+    if (ticks % speed == 0) {
       move();
     }
     ticks++;

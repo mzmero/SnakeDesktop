@@ -22,21 +22,27 @@
  * SOFTWARE.
  */
 
-package com.neolumia.snake;
+package com.neolumia.snake.settings;
 
-import java.util.Locale;
+public final class Settings {
 
-public enum Locales {
+  public static Locale DEFAULT_LOCALE = Locale.ENGLISH;
+  public static Difficulty DEFAULT_DIFFICULTY = Difficulty.MEDIUM;
+  public static Size DEFAULT_SIZE = Size.MEDIUM;
+  public static String DEFAULT_NAME = "Dieter Bohlen";
+  public static boolean DEFAULT_LEADERBOARD = false;
 
-  GERMAN(Locale.GERMAN), ENGLISH(Locale.ENGLISH);
+  public Locale locale;
+  public Difficulty difficulty;
+  public Size size;
+  public String playerName;
+  public boolean leaderboard;
 
-  private final Locale locale;
-
-  Locales(Locale locale) {
+  public Settings(Locale locale, Difficulty difficulty, Size size, String playerName, boolean leaderboard) {
     this.locale = locale;
-  }
-
-  public Locale getLocale() {
-    return locale;
+    this.difficulty = difficulty;
+    this.size = size;
+    this.playerName = playerName;
+    this.leaderboard = leaderboard;
   }
 }

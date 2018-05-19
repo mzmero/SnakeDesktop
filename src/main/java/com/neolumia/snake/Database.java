@@ -25,6 +25,10 @@
 package com.neolumia.snake;
 
 import com.neolumia.snake.game.Game;
+import com.neolumia.snake.settings.Difficulty;
+import com.neolumia.snake.settings.Locale;
+import com.neolumia.snake.settings.Settings;
+import com.neolumia.snake.settings.Size;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -39,9 +43,9 @@ public final class Database {
   private static final String HIGHSCORE = "SELECT MAX(points) FROM games;";
   private static final String SAVE = "INSERT INTO games (points) VALUES (?);";
 
-  private static final String TABLE_SETTINGS = "CREATE TABLE IF NOT EXISTS settings (id BIGINT UNSIGNED NOT NULL PRIMARY KEY, locale VARCHAR(32) NOT NULL, name VARCHAR(255) NOT NULL, leaderboard TINYINT(1) UNSIGNED NOT NULL);";
-  private static final String LOAD_SETTINGS = "SELECT locale, name, leaderboard FROM settings;";
-  private static final String SAVE_SETTINGS = "INSERT INTO settings (id, locale, name, leaderboard) VALUES (0, ?, ?, ?) ON DUPLICATE KEY UPDATE locale=?, name=?, leaderboard=?;";
+  private static final String TABLE_SETTINGS = "CREATE TABLE IF NOT EXISTS settings (id BIGINT UNSIGNED NOT NULL PRIMARY KEY, locale INT NOT NULL, difficulty INT NOT NULL, size INT NOT NULL, name VARCHAR(255) NOT NULL, leaderboard TINYINT(1) UNSIGNED NOT NULL);";
+  private static final String LOAD_SETTINGS = "SELECT locale, difficulty, size, name, leaderboard FROM settings;";
+  private static final String SAVE_SETTINGS = "INSERT INTO settings (id, locale, difficulty, size, name, leaderboard) VALUES (0, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE locale=?, difficulty=?, size=?, name=?, leaderboard=?;";
 
   private final HikariDataSource dataSource;
 
@@ -91,15 +95,22 @@ public final class Database {
     try (Connection connection = dataSource.getConnection()) {
       try (PreparedStatement statement = connection.prepareStatement(LOAD_SETTINGS)) {
         try (ResultSet result = statement.executeQuery()) {
-          Locales locale = Locales.ENGLISH;
-          String name = "Dieter Bohlen";
-          boolean leaderboard = false;
+
+          Locale locale = Settings.DEFAULT_LOCALE;
+          Difficulty difficulty = Settings.DEFAULT_DIFFICULTY;
+          Size size = Settings.DEFAULT_SIZE;
+          String name = Settings.DEFAULT_NAME;
+          boolean leaderboard = Settings.DEFAULT_LEADERBOARD;
+
           if (result.next()) {
-            locale = Locales.valueOf(result.getString(1));
-            name = result.getString(2);
-            leaderboard = result.getBoolean(3);
+            locale = Locale.fromId(result.getInt(1));
+            difficulty = Difficulty.fromId(result.getInt(2));
+            size = Size.fromId(result.getInt(3));
+            name = result.getString(4);
+            leaderboard = result.getBoolean(5);
           }
-          return new Settings(locale, name, leaderboard);
+
+          return new Settings(locale, difficulty, size, name, leaderboard);
         }
       }
     }
@@ -108,13 +119,17 @@ public final class Database {
   public void saveSettings(Settings settings) throws SQLException {
     try (Connection connection = dataSource.getConnection()) {
       try (PreparedStatement statement = connection.prepareStatement(SAVE_SETTINGS)) {
-        statement.setString(1, settings.locale.name());
-        statement.setString(2, settings.playerName);
-        statement.setBoolean(3, settings.leaderboard);
+        statement.setInt(1, settings.locale.getId());
+        statement.setInt(2, settings.difficulty.getId());
+        statement.setInt(3, settings.size.getId());
+        statement.setString(4, settings.playerName);
+        statement.setBoolean(5, settings.leaderboard);
 
-        statement.setString(4, settings.locale.name());
-        statement.setString(5, settings.playerName);
-        statement.setBoolean(6, settings.leaderboard);
+        statement.setInt(6, settings.locale.getId());
+        statement.setInt(7, settings.difficulty.getId());
+        statement.setInt(8, settings.size.getId());
+        statement.setString(9, settings.playerName);
+        statement.setBoolean(10, settings.leaderboard);
         statement.executeUpdate();
       }
     }
