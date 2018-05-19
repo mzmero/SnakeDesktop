@@ -25,7 +25,10 @@
 package com.neolumia.snake.view;
 
 import com.neolumia.snake.GameApp;
-import com.neolumia.snake.Locales;
+import com.neolumia.snake.settings.Difficulty;
+import com.neolumia.snake.settings.Locale;
+import com.neolumia.snake.settings.Settings;
+import com.neolumia.snake.settings.Size;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
@@ -50,7 +53,6 @@ public final class SettingsWindow extends Window {
   @FXML private ToggleButton terrainSmall;
   @FXML private ToggleButton terrainMedium;
   @FXML private ToggleButton terrainBig;
-
   @FXML private TextField playerName;
   @FXML private CheckBox leaderboard;
 
@@ -68,10 +70,34 @@ public final class SettingsWindow extends Window {
     terrainMedium.setToggleGroup(terrain);
     terrainBig.setToggleGroup(terrain);
 
-    //playerName.setText(app.getSettings().playerName);
-    //leaderboard.setSelected(app.getSettings().leaderboard);
+    locale.selectToggle(app.getSettings().locale == Locale.GERMAN ? localeGerman : localeEnglish);
 
-    //locale.selectToggle(app.getSettings().locale == Locales.GERMAN ? localeGerman : localeEnglish);
+    switch (app.getSettings().difficulty) {
+      case EASY:
+        difficulty.selectToggle(difficultyEasy);
+        break;
+      case MEDIUM:
+        difficulty.selectToggle(difficultyMedium);
+        break;
+      case HARD:
+        difficulty.selectToggle(difficultyHard);
+        break;
+    }
+
+    switch (app.getSettings().size) {
+      case SMALL:
+        terrain.selectToggle(terrainSmall);
+        break;
+      case MEDIUM:
+        terrain.selectToggle(terrainMedium);
+        break;
+      case BIG:
+        terrain.selectToggle(terrainBig);
+        break;
+    }
+
+    playerName.setText(app.getSettings().playerName);
+    leaderboard.setSelected(app.getSettings().leaderboard);
   }
 
   @FXML
@@ -79,10 +105,33 @@ public final class SettingsWindow extends Window {
     app.getWindowManager().request(new MenuWindow(app));
   }
 
+  @FXML
   public void save() throws SQLException {
+    app.getSettings().locale = locale.getSelectedToggle().equals(localeGerman) ? Locale.GERMAN : Locale.ENGLISH;
+
+    if(difficulty.getSelectedToggle() == difficultyEasy) {
+      app.getSettings().difficulty = Difficulty.EASY;
+    } else if(difficulty.getSelectedToggle() == difficultyMedium) {
+      app.getSettings().difficulty = Difficulty.MEDIUM;
+    } else if(difficulty.getSelectedToggle() == difficultyHard) {
+      app.getSettings().difficulty = Difficulty.HARD;
+    } else {
+      app.getSettings().difficulty = Settings.DEFAULT_DIFFICULTY;
+    }
+
+    if(terrain.getSelectedToggle() == terrainSmall) {
+      app.getSettings().size = Size.SMALL;
+    } else if(terrain.getSelectedToggle() == terrainMedium) {
+      app.getSettings().size = Size.MEDIUM;
+    } else if(terrain.getSelectedToggle() == terrainBig) {
+      app.getSettings().size = Size.BIG;
+    } else {
+      app.getSettings().size = Settings.DEFAULT_SIZE;
+    }
+
     app.getSettings().playerName = playerName.getText();
     app.getSettings().leaderboard = leaderboard.isSelected();
-    app.getSettings().locale = locale.getSelectedToggle().equals(localeGerman) ? Locales.GERMAN : Locales.ENGLISH;
+
     app.getDatabase().saveSettings(app.getSettings());
     cancel();
   }

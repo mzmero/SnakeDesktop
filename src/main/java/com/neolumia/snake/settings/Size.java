@@ -22,17 +22,28 @@
  * SOFTWARE.
  */
 
-package com.neolumia.snake;
+package com.neolumia.snake.settings;
 
-public final class Settings {
+public enum Size {
 
-  public Locales locale;
-  public String playerName;
-  public boolean leaderboard;
+  SMALL(0), MEDIUM(1), BIG(2);
 
-  Settings(Locales locale, String playerName, boolean leaderboard) {
-    this.locale = locale;
-    this.playerName = playerName;
-    this.leaderboard = leaderboard;
+  private final int id;
+
+  Size(int id) {
+    this.id = id;
+  }
+
+  public static Size fromId(int id) {
+    for (Size size : values()) {
+      if (size.id == id) {
+        return size;
+      }
+    }
+    return null;
+  }
+
+  public int getId() {
+    return id;
   }
 }

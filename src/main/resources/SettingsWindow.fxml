@@ -45,7 +45,7 @@
             </HBox>
             <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                <children>
-                  <Button maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button-small" text="Speichern">
+                  <Button maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#save" prefHeight="25.0" prefWidth="150.0" styleClass="button-small" text="Speichern">
                      <HBox.margin>
                         <Insets right="35.0" />
                      </HBox.margin>
@@ -91,12 +91,12 @@
                   <Insets left="35.0" right="35.0" />
                </GridPane.margin>
                <children>
-                  <TextField minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="630.0" text="...">
+                  <TextField fx:id="playerName" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="630.0" text="...">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </TextField>
-                  <CheckBox minHeight="20.0" minWidth="630.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="630.0" text="%settings.leaderboard" VBox.vgrow="NEVER">
+                  <CheckBox fx:id="leaderboard" minHeight="20.0" minWidth="630.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="630.0" text="%settings.leaderboard" VBox.vgrow="NEVER">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
