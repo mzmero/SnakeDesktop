@@ -17,3 +17,7 @@
 .button:focused {
   -fx-text-fill: white;
 }
+
+.toggle-button:selected {
+  -fx-text-fill: white;
+}

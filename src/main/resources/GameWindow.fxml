@@ -35,8 +35,8 @@
     </rowConstraints>
     <HBox alignment="CENTER">
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-        <Label fx:id="points" text="Punkte: 0"/>
-        <Label fx:id="highscore" text="Highscore: 0">
+        <Label fx:id="points"/>
+        <Label fx:id="highscore">
           <padding>
             <Insets left="35.0"/>
           </padding>

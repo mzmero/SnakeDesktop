@@ -24,15 +24,19 @@
 
 package com.neolumia.snake;
 
-public final class Settings {
+import org.junit.Test;
 
-  public Locales locale;
-  public String playerName;
-  public boolean leaderboard;
+import static org.junit.Assert.assertEquals;
 
-  Settings(Locales locale, String playerName, boolean leaderboard) {
-    this.locale = locale;
-    this.playerName = playerName;
-    this.leaderboard = leaderboard;
+public final class TranslationTest {
+
+  @Test
+  public void test() {
+    assertEquals("Peter", GameApp.t("name"));
+  }
+
+  @Test
+  public void testArgs() {
+    assertEquals("Peter is very nice", GameApp.t("text", "Peter", "nice"));
   }
 }

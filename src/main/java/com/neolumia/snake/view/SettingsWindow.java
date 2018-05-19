@@ -25,29 +25,49 @@
 package com.neolumia.snake.view;
 
 import com.neolumia.snake.GameApp;
+import com.neolumia.snake.Locales;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
+
+import java.sql.SQLException;
 
 public final class SettingsWindow extends Window {
 
   private final GameApp app;
+
+  private final ToggleGroup locale = new ToggleGroup();
+
+  @FXML private ToggleButton localeGerman;
+  @FXML private ToggleButton localeEnglish;
 
   @FXML private TextField playerName;
   @FXML private CheckBox leaderboard;
 
   SettingsWindow(GameApp app) {
     this.app = app;
+
+    localeGerman.setToggleGroup(locale);
+    localeEnglish.setToggleGroup(locale);
+
     playerName.setText(app.getSettings().playerName);
     leaderboard.setSelected(app.getSettings().leaderboard);
+
+    locale.selectToggle(app.getSettings().locale == Locales.GERMAN ? localeGerman : localeEnglish);
   }
 
   @FXML
   public void back() throws Exception {
+    save();
+    app.getWindowManager().request(new MenuWindow(app));
+  }
+
+  public void save() throws SQLException {
     app.getSettings().playerName = playerName.getText();
     app.getSettings().leaderboard = leaderboard.isSelected();
+    app.getSettings().locale = locale.getSelectedToggle().equals(localeGerman) ? Locales.GERMAN : Locales.ENGLISH;
     app.getDatabase().saveSettings(app.getSettings());
-
-    app.getWindowManager().request(new MenuWindow(app));
   }
 }

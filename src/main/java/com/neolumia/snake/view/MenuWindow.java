@@ -25,84 +25,26 @@
 package com.neolumia.snake.view;
 
 import com.neolumia.snake.GameApp;
-import com.neolumia.snake.game.GameType;
-import javafx.animation.Animation;
-import javafx.animation.Interpolator;
-import javafx.animation.Transition;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import javafx.util.Duration;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
-public final class MenuWindow extends Window implements Initializable {
+public final class MenuWindow extends Window {
 
   private final GameApp app;
 
   @FXML GridPane root;
-  @FXML private ImageView menuEdgeRight, menuEdgeLeft;
-
-  private GameType gameType = GameType.RETRO;
 
   public MenuWindow(GameApp app) {
     this.app = app;
   }
 
-  @Override
-  public void initialize(URL location, ResourceBundle resources) {
-    menuEdgeRight.setImage(new Image("/lib/menu_edge.png"));
-    menuEdgeLeft.setImage(new Image("/lib/menu_edge.png"));
-    root.setStyle("-fx-background: #FFFFFF;");
-  }
-
   @FXML
-  public void start() {
-    app.newGame(gameType);
+  public void play() {
+    app.newGame();
   }
 
   @FXML
   public void settings() {
     app.getWindowManager().request(new SettingsWindow(app));
-  }
-
-  @FXML
-  public void change() {
-    switch (gameType) {
-      case RETRO:
-        this.gameType = GameType.CLASSIC;
-        break;
-      case CLASSIC:
-        this.gameType = GameType.RETRO;
-        break;
-    }
-
-    final Animation animation =
-        new Transition() {
-          {
-            setCycleDuration(Duration.millis(2000));
-            setInterpolator(Interpolator.LINEAR);
-          }
-
-          @Override
-          protected void interpolate(double frac) {
-            final Color c = (Color) root.getBackground().getFills().get(0).getFill();
-            root.setBackground(
-                new Background(
-                    new BackgroundFill(
-                        c.interpolate(gameType.getBackground(), frac),
-                        CornerRadii.EMPTY,
-                        Insets.EMPTY)));
-          }
-        };
-    animation.play();
   }
 }

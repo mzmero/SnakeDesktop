@@ -24,15 +24,19 @@
 
 package com.neolumia.snake;
 
-public final class Settings {
+import java.util.Locale;
 
-  public Locales locale;
-  public String playerName;
-  public boolean leaderboard;
+public enum Locales {
 
-  Settings(Locales locale, String playerName, boolean leaderboard) {
+  GERMAN(Locale.GERMAN), ENGLISH(Locale.ENGLISH);
+
+  private final Locale locale;
+
+  Locales(Locale locale) {
     this.locale = locale;
-    this.playerName = playerName;
-    this.leaderboard = leaderboard;
+  }
+
+  public Locale getLocale() {
+    return locale;
   }
 }
