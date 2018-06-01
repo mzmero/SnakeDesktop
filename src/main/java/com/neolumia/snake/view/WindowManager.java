@@ -75,7 +75,7 @@ public final class WindowManager {
     });
     stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
     stage.setScene(scene);
-    stage.setTitle("Project Snake");
+    stage.setTitle("Snake");
     stage.show();
   }
 
