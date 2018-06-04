@@ -26,10 +26,9 @@ package com.neolumia.snake.view;
 
 import com.neolumia.snake.GameApp;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.util.ResourceBundle;
 
 public abstract class Window {
 
@@ -47,6 +46,16 @@ public abstract class Window {
 
   public final FXMLLoader getLoader() {
     return loader;
+  }
+
+  public Node render(String name) {
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/_" + name + ".fxml"), GameApp.getBundle());
+      loader.setController(this);
+      return loader.load();
+    } catch (Exception ex) {
+      throw new RuntimeException(ex);
+    }
   }
 
   private String getResourceName() {

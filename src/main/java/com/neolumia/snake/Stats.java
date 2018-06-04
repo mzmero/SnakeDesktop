@@ -22,34 +22,33 @@
  * SOFTWARE.
  */
 
-package com.neolumia.snake.view;
+package com.neolumia.snake;
 
-import com.neolumia.snake.GameApp;
-import javafx.fxml.FXML;
-import javafx.scene.layout.GridPane;
+import com.google.common.base.MoreObjects;
 
-public final class MenuWindow extends Window {
+public final class Stats {
 
-  private final GameApp app;
+  public int playtime;
+  public int games;
+  public int items;
+  public int walls;
 
-  @FXML GridPane root;
+  public Stats() {}
 
-  public MenuWindow(GameApp app) {
-    this.app = app;
+  public Stats(int playtime, int games, int items, int walls) {
+    this.playtime = playtime;
+    this.games = games;
+    this.items = items;
+    this.walls = walls;
   }
 
-  @FXML
-  public void play() {
-    app.newGame();
-  }
-
-  @FXML
-  public void statistics() {
-    app.getWindowManager().request(new StatisticsWindow(app));
-  }
-
-  @FXML
-  public void settings() {
-    app.getWindowManager().request(new SettingsWindow(app));
+  @Override
+  public String toString() {
+    return MoreObjects.toStringHelper(this)
+      .add("playtime", playtime)
+      .add("games", games)
+      .add("items", items)
+      .add("walls", walls)
+      .toString();
   }
 }

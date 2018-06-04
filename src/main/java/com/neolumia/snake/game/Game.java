@@ -25,6 +25,7 @@
 package com.neolumia.snake.game;
 
 import com.neolumia.snake.GameApp;
+import com.neolumia.snake.Stats;
 import com.neolumia.snake.settings.Settings;
 import com.neolumia.snake.view.DeadWindow;
 import javafx.application.Platform;
@@ -32,6 +33,7 @@ import javafx.scene.layout.Pane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.sql.SQLException;
 import java.util.Random;
 
 public abstract class Game extends Pane {
@@ -39,6 +41,8 @@ public abstract class Game extends Pane {
   private static final Logger LOGGER = LogManager.getLogger(Game.class);
 
   protected final Random random = new Random();
+  protected final Stats stats = new Stats();
+
   protected final GameApp app;
   protected final GameType type;
   protected final Terrain terrain;
@@ -80,12 +84,28 @@ public abstract class Game extends Pane {
       LOGGER.info("The new highscore is " + points);
     }
 
+    stats.games++;
+
+    try {
+      app.updateStats(stats);
+      LOGGER.info("Statistics updated.");
+    } catch (SQLException ex) {
+      LOGGER.error("Could not update statistics", ex);
+    }
+
     LOGGER.info("The game has ended.");
     Platform.runLater(() -> app.getWindowManager().request(new DeadWindow(app, this, won)));
   }
 
   public Settings getSettings() {
     return app.getSettings();
+  }
+
+  /**
+   * Returns the stats object.
+   */
+  public Stats getStats() {
+    return stats;
   }
 
   /**

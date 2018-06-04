@@ -36,6 +36,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public final class Database {
 
@@ -46,6 +47,9 @@ public final class Database {
   private static final String TABLE_SETTINGS = "CREATE TABLE IF NOT EXISTS settings (id BIGINT UNSIGNED NOT NULL PRIMARY KEY, locale INT NOT NULL, difficulty INT NOT NULL, size INT NOT NULL, name VARCHAR(255) NOT NULL, leaderboard TINYINT(1) UNSIGNED NOT NULL);";
   private static final String LOAD_SETTINGS = "SELECT locale, difficulty, size, name, leaderboard FROM settings;";
   private static final String SAVE_SETTINGS = "INSERT INTO settings (id, locale, difficulty, size, name, leaderboard) VALUES (0, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE locale=?, difficulty=?, size=?, name=?, leaderboard=?;";
+
+  private static final String TABLE_STATS = "CREATE TABLE IF NOT EXISTS stats (id INT UNSIGNED NOT NULL PRIMARY KEY, playtime INT UNSIGNED NOT NULL, games INT UNSIGNED NOT NULL, items INT UNSIGNED NOT NULL, walls INT UNSIGNED NOT NULL);";
+  private static final String SAVE_STATS = "INSERT INTO stats (id, playtime, games, items, walls) VALUES (0, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE playtime = playtime + ?, games = games + ?, items = items + ?, walls = walls + ?;";
 
   private final HikariDataSource dataSource;
 
@@ -64,6 +68,9 @@ public final class Database {
         statement.executeUpdate();
       }
       try (PreparedStatement statement = connection.prepareStatement(TABLE_SETTINGS)) {
+        statement.executeUpdate();
+      }
+      try (PreparedStatement statement = connection.prepareStatement(TABLE_STATS)) {
         statement.executeUpdate();
       }
     }
@@ -131,6 +138,31 @@ public final class Database {
         statement.setString(9, settings.playerName);
         statement.setBoolean(10, settings.leaderboard);
         statement.executeUpdate();
+      }
+    }
+  }
+
+  Stats updateStats(Stats stats) throws SQLException {
+    try (Connection connection = dataSource.getConnection()) {
+      try (PreparedStatement statement = connection.prepareStatement(SAVE_STATS, Statement.RETURN_GENERATED_KEYS)) {
+        statement.setInt(1, stats.playtime);
+        statement.setInt(2, stats.games);
+        statement.setInt(3, stats.items);
+        statement.setInt(4, stats.walls);
+
+        statement.setInt(5, stats.playtime);
+        statement.setInt(6, stats.games);
+        statement.setInt(7, stats.items);
+        statement.setInt(8, stats.walls);
+
+        statement.executeUpdate();
+
+        try (ResultSet result = statement.getGeneratedKeys()) {
+          if (result.next()) {
+            return new Stats(result.getInt(1), result.getInt(2), result.getInt(3), result.getInt(4));
+          }
+          return new Stats(0, 0, 0, 0);
+        }
       }
     }
   }

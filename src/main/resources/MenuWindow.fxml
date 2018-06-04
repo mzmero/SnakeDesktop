@@ -30,19 +30,19 @@
   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
     <Button defaultButton="true" maxHeight="35.0" maxWidth="400.0" minHeight="35.0" minWidth="400.0" mnemonicParsing="false" onMouseClicked="#play" prefHeight="35.0" prefWidth="400.0" styleClass="button400x35" text="%title.play">
       <VBox.margin>
-        <Insets bottom="10.0"/>
+        <Insets bottom="10.0" />
       </VBox.margin>
     </Button>
     <Button layoutX="310.0" layoutY="55.0" maxHeight="35.0" maxWidth="400.0" minHeight="35.0" minWidth="400.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="400.0" styleClass="button400x35" text="%title.design">
       <VBox.margin>
-        <Insets bottom="10.0"/>
+        <Insets bottom="10.0" />
       </VBox.margin>
     </Button>
-    <Button maxHeight="35.0" maxWidth="400.0" minHeight="35.0" minWidth="400.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="400.0" styleClass="button400x35" text="%title.stats">
+    <Button maxHeight="35.0" maxWidth="400.0" minHeight="35.0" minWidth="400.0" mnemonicParsing="false" onMouseClicked="#statistics" prefHeight="35.0" prefWidth="400.0" styleClass="button400x35" text="%title.stats">
       <VBox.margin>
-        <Insets bottom="10.0"/>
+        <Insets bottom="10.0" />
       </VBox.margin>
     </Button>
-    <Button maxHeight="35.0" maxWidth="400.0" minHeight="35.0" minWidth="400.0" mnemonicParsing="false" onMouseClicked="#settings" prefHeight="35.0" prefWidth="400.0" styleClass="button400x35" text="%title.settings"/>
+    <Button maxHeight="35.0" maxWidth="400.0" minHeight="35.0" minWidth="400.0" mnemonicParsing="false" onMouseClicked="#settings" prefHeight="35.0" prefWidth="400.0" styleClass="button400x35" text="%title.settings" />
   </VBox>
 </GridPane>

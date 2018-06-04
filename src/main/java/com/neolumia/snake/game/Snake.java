@@ -119,6 +119,7 @@ public abstract class Snake<T extends Game> {
 
     if (!tile.isPresent()) {
       // -> Hit the wall
+      game.getStats().walls++;
       game.end();
       return;
     }
@@ -140,6 +141,7 @@ public abstract class Snake<T extends Game> {
     }
 
     if (eat) {
+      game.getStats().items++;
       onEat(tile.get(), item.get());
     }
 

@@ -39,6 +39,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.sql.SQLException;
 import java.text.MessageFormat;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -53,6 +54,7 @@ public final class GameApp extends Application {
   private Database database;
   private WindowManager windowManager;
 
+  private Stats stats = new Stats();
   private Settings settings;
   private int highscore = -1;
 
@@ -91,6 +93,21 @@ public final class GameApp extends Application {
     getWindowManager().request(new GameWindow(this, game));
     game.init();
     game.run();
+  }
+
+  public void updateStats(Stats stats) throws SQLException {
+    synchronized (this) {
+      this.stats.playtime += stats.playtime;
+      this.stats.games += stats.games;
+      this.stats.items += stats.items;
+      this.stats.walls += stats.walls;
+    }
+    database.updateStats(stats);
+    System.out.println(this.stats.toString());
+  }
+
+  public Stats getStats() {
+    return stats;
   }
 
   public Settings getSettings() {
