@@ -27,6 +27,7 @@ package com.neolumia.snake.view;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -68,6 +69,10 @@ public final class WindowManager {
       if (e.getCode() == KeyCode.MINUS) {
         center();
       }
+    });
+    stage.onCloseRequestProperty().addListener((ob, ov, nv) -> {
+      Platform.exit();
+      System.exit(0);
     });
     stage.fullScreenProperty().addListener((observable, oldValue, newValue) -> {
       if (!newValue) {
