@@ -30,6 +30,7 @@ import javafx.animation.Timeline;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -76,6 +77,7 @@ public final class WindowManager {
     stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
     stage.setScene(scene);
     stage.setTitle("Snake");
+    stage.getIcons().add(new Image(getClass().getResourceAsStream("/logo.png")));
     stage.show();
   }
 
