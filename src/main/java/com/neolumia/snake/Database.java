@@ -36,7 +36,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public final class Database {
 
@@ -49,6 +48,7 @@ public final class Database {
   private static final String SAVE_SETTINGS = "INSERT INTO settings (id, locale, difficulty, size, name, leaderboard) VALUES (0, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE locale=?, difficulty=?, size=?, name=?, leaderboard=?;";
 
   private static final String TABLE_STATS = "CREATE TABLE IF NOT EXISTS stats (id INT UNSIGNED NOT NULL PRIMARY KEY, playtime INT UNSIGNED NOT NULL, games INT UNSIGNED NOT NULL, items INT UNSIGNED NOT NULL, walls INT UNSIGNED NOT NULL);";
+  private static final String LOAD_STATS = "SELECT playtime, games, items, walls FROM stats WHERE id = 0;";
   private static final String SAVE_STATS = "INSERT INTO stats (id, playtime, games, items, walls) VALUES (0, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE playtime = playtime + ?, games = games + ?, items = items + ?, walls = walls + ?;";
 
   private final HikariDataSource dataSource;
@@ -142,9 +142,22 @@ public final class Database {
     }
   }
 
-  Stats updateStats(Stats stats) throws SQLException {
+  Stats loadStats() throws SQLException {
     try (Connection connection = dataSource.getConnection()) {
-      try (PreparedStatement statement = connection.prepareStatement(SAVE_STATS, Statement.RETURN_GENERATED_KEYS)) {
+      try (PreparedStatement statement = connection.prepareStatement(LOAD_STATS)) {
+        try (ResultSet result = statement.executeQuery()) {
+          if (result.next()) {
+            return new Stats(result.getInt(1), result.getInt(2), result.getInt(3), result.getInt(4));
+          }
+          return new Stats();
+        }
+      }
+    }
+  }
+
+  void updateStats(Stats stats) throws SQLException {
+    try (Connection connection = dataSource.getConnection()) {
+      try (PreparedStatement statement = connection.prepareStatement(SAVE_STATS)) {
         statement.setInt(1, stats.playtime);
         statement.setInt(2, stats.games);
         statement.setInt(3, stats.items);
@@ -156,13 +169,6 @@ public final class Database {
         statement.setInt(8, stats.walls);
 
         statement.executeUpdate();
-
-        try (ResultSet result = statement.getGeneratedKeys()) {
-          if (result.next()) {
-            return new Stats(result.getInt(1), result.getInt(2), result.getInt(3), result.getInt(4));
-          }
-          return new Stats(0, 0, 0, 0);
-        }
       }
     }
   }

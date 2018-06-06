@@ -146,6 +146,9 @@ public final class GameApp extends Application {
 
       settings = database.getSettings();
       highscore = database.getHighscore();
+      stats = database.loadStats();
+
+      LOGGER.info(stats);
 
       windowManager = new WindowManager();
       windowManager.init();
