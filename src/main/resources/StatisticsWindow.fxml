@@ -28,7 +28,7 @@
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#cancel" prefHeight="25.0" prefWidth="150.0" styleClass="button-small" text="Abbrechen" textFill="#cd1010">
+                  <Button maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#cancel" prefHeight="25.0" prefWidth="150.0" styleClass="button-small" text="%menu.back" textFill="#cd1010">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -40,17 +40,17 @@
             </HBox>
             <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                <children>
-                  <ToggleButton fx:id="stats" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button-small" text="Statistik">
+                  <ToggleButton fx:id="stats" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button-small" text="%stats.stats">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
                   </ToggleButton>
-                  <ToggleButton fx:id="history" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button-small" text="Historie">
+                  <ToggleButton fx:id="history" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button-small" text="%stats.history">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
                   </ToggleButton>
-                  <ToggleButton fx:id="leaderboard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button-small" text="Rangliste">
+                  <ToggleButton fx:id="leaderboard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button-small" text="%stats.leaderboard">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
