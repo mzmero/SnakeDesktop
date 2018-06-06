@@ -63,12 +63,15 @@ public final class GameWindow extends Window {
     root.setStyle("-fx-background-color: #E0FFFF;");
     group.getChildren().add(game);
 
-    final Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
-      points.setText(t("gameOver.points", game.getPoints()));
-      highscore.setText(t("gameOver.highscore", app.getHighscore()));
-    }));
+    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> update()));
     timeline.setCycleCount(Animation.INDEFINITE);
     timeline.play();
+    update();
+  }
+
+  private void update() {
+    points.setText(t("gameOver.points", game.getPoints()));
+    highscore.setText(t("gameOver.highscore", app.getHighscore()));
   }
 
   @Override
