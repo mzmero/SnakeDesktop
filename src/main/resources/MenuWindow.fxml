@@ -24,7 +24,7 @@
   </rowConstraints>
  <StackPane GridPane.columnIndex="1">
    <ImageView fitHeight="205.0" fitWidth="447.0" pickOnBounds="true">
-     <Image url="@logo.png" />
+     <Image url="@title.png" />
    </ImageView>
  </StackPane>
   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
