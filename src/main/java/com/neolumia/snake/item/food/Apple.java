@@ -24,9 +24,9 @@
 
 package com.neolumia.snake.item.food;
 
-public final class Apple extends Food {
+public final class Apple extends AbstractFood {
 
   public Apple() {
-    super("Apfel");
+    super("Apple", "apple.png");
   }
 }

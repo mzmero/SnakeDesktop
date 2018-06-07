@@ -87,7 +87,7 @@ public final class GameApp extends Application {
 
   public synchronized void newGame() {
 
-    GameType type = GameType.RETRO;
+    GameType type = GameType.CLASSIC;
 
     LOGGER.info("Creating a new game with type " + type.name());
     final Game game = new SingleGame(this, type);

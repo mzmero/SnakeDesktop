@@ -29,6 +29,8 @@ import com.google.common.collect.Maps;
 import com.neolumia.snake.game.GameType;
 import com.neolumia.snake.game.TileObject;
 import com.neolumia.snake.item.food.Apple;
+import com.neolumia.snake.item.food.Banana;
+import com.neolumia.snake.item.food.Cherry;
 import com.neolumia.snake.item.food.RetroFood;
 import javafx.scene.layout.Pane;
 
@@ -67,6 +69,9 @@ public abstract class Item extends TileObject {
 
   public static void registerDefaults() {
     register(of(ItemType.FOOD, GameType.CLASSIC), Apple::new);
+    register(of(ItemType.FOOD, GameType.CLASSIC), Banana::new);
+    register(of(ItemType.FOOD, GameType.CLASSIC), Cherry::new);
+
     register(of(ItemType.FOOD, GameType.RETRO), RetroFood::new);
   }
 

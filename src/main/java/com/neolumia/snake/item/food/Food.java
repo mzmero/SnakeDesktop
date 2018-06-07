@@ -29,7 +29,7 @@ import com.neolumia.snake.item.ItemType;
 
 public abstract class Food extends Item {
 
-  public Food(String name) {
+  Food(String name) {
     super(ItemType.FOOD, name);
   }
 }
