@@ -28,15 +28,21 @@ import javafx.scene.paint.Color;
 
 public enum GameType {
 
-  CLASSIC(Color.LIGHTGREEN), RETRO(Color.WHITE);
+  CLASSIC(Color.LIGHTGREEN, "/lib/title_classic.png"), RETRO(Color.WHITE, "/lib/title_retro.png");
 
   private final Color background;
+  private final String file;
 
-  GameType(Color background) {
+  GameType(Color background, String file) {
     this.background = background;
+    this.file = file;
   }
 
   public Color getBackground() {
     return background;
+  }
+
+  public String getFile() {
+    return file;
   }
 }

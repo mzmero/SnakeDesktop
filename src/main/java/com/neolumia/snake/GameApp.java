@@ -85,15 +85,14 @@ public final class GameApp extends Application {
     run();
   }
 
-  public synchronized void newGame() {
-
-    GameType type = GameType.CLASSIC;
-
-    LOGGER.info("Creating a new game with type " + type.name());
-    final Game game = new SingleGame(this, type);
-    getWindowManager().request(new GameWindow(this, game));
-    game.init();
-    game.run();
+  public void newGame(GameType type) {
+    synchronized (this) {
+      LOGGER.info("Creating a new game with type " + type.name());
+      Game game = new SingleGame(this, type);
+      getWindowManager().request(new GameWindow(this, game));
+      game.init();
+      game.run();
+    }
   }
 
   public void updateStats(Stats stats) throws SQLException {

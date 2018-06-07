@@ -23,8 +23,8 @@
       <RowConstraints />
   </rowConstraints>
  <StackPane GridPane.columnIndex="1">
-   <ImageView fitHeight="205.0" fitWidth="447.0" pickOnBounds="true">
-     <Image url="@title.png" />
+   <ImageView fx:id="typeView" fitHeight="297.0" fitWidth="529.0" onMouseClicked="#clickTitle" pickOnBounds="true" preserveRatio="true">
+     <Image url="@lib/title_classic.png" />
    </ImageView>
  </StackPane>
   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3">

@@ -69,7 +69,7 @@ public final class DeadWindow extends Window {
 
   @FXML
   public void newGame() {
-    app.newGame();
+    app.newGame(game.getType());
   }
 
   @FXML
