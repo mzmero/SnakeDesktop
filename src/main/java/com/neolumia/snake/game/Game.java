@@ -35,6 +35,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public abstract class Game extends Pane {
 
@@ -46,9 +47,12 @@ public abstract class Game extends Pane {
   protected final GameApp app;
   protected final GameType type;
   protected final Terrain terrain;
+
   private boolean running;
   private boolean paused;
+  private boolean auto;
   private int points;
+  private long start;
 
   public Game(GameApp app, GameType type) {
     this.app = app;
@@ -70,6 +74,7 @@ public abstract class Game extends Pane {
 
   public void end() {
     running = false;
+    long stop = System.currentTimeMillis();
 
     final boolean won = points > app.getHighscore();
 
@@ -85,10 +90,10 @@ public abstract class Game extends Pane {
     }
 
     stats.games++;
+    stats.playtime += TimeUnit.MILLISECONDS.toSeconds(stop - start);
 
     try {
       app.updateStats(stats);
-      LOGGER.info("Statistics updated.");
     } catch (SQLException ex) {
       LOGGER.error("Could not update statistics", ex);
     }
@@ -130,8 +135,17 @@ public abstract class Game extends Pane {
     return this.paused = paused;
   }
 
+  public boolean isAuto() {
+    return auto;
+  }
+
+  public void setAuto(boolean auto) {
+    this.auto = auto;
+  }
+
   public void run() {
     running = true;
+    start = System.currentTimeMillis();
 
     new Thread(() -> {
       try {

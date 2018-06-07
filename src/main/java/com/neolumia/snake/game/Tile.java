@@ -27,6 +27,8 @@ package com.neolumia.snake.game;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
+import java.util.Optional;
+
 public final class Tile extends Rectangle {
 
   private final int x;
@@ -45,6 +47,26 @@ public final class Tile extends Rectangle {
 
   public int getTileY() {
     return y;
+  }
+
+  public Optional<Tile> getRelative(Game game, Direction direction) {
+    int nextX = x;
+    int nextY = y;
+    switch (direction) {
+      case NORTH:
+        nextY--;
+        break;
+      case SOUTH:
+        nextY++;
+        break;
+      case EAST:
+        nextX++;
+        break;
+      case WEST:
+        nextX--;
+        break;
+    }
+    return game.getTerrain().getTile(nextX, nextY);
   }
 
   public void setSize(int size) {

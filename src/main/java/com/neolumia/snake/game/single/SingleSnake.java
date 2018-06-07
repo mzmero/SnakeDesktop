@@ -28,11 +28,17 @@ import com.neolumia.snake.game.Direction;
 import com.neolumia.snake.game.Snake;
 import com.neolumia.snake.game.Tile;
 import com.neolumia.snake.game.TileObject;
+import com.neolumia.snake.item.food.Food;
+
+import java.util.Optional;
 
 public final class SingleSnake extends Snake<SingleGame> {
 
   SingleSnake(SingleGame game) {
-    super(game, Direction.WEST);
+    super(game, Direction.WEST, node -> {
+      final Optional<TileObject> object = game.getTerrain().get(node.getTile());
+      return object.isPresent() && !(object.get() instanceof Food);
+    });
   }
 
   @Override
@@ -49,5 +55,15 @@ public final class SingleSnake extends Snake<SingleGame> {
     game.spawnFood();
     game.getTerrain().put(tile, null);
     game.setPoints(game.getPoints() + 1);
+  }
+
+  @Override
+  protected int getFoodX() {
+    return game.getFood().getTileX();
+  }
+
+  @Override
+  protected int getFoodY() {
+    return game.getFood().getTileY();
   }
 }

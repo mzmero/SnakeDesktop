@@ -24,17 +24,22 @@
 
 package com.neolumia.snake.game;
 
+import com.neolumia.snake.item.food.Food;
+import com.neolumia.snake.solver.Node;
+import com.neolumia.snake.solver.Solver;
 import javafx.scene.paint.Color;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.function.Predicate;
 
 public abstract class Snake<T extends Game> {
 
   private final ConcurrentLinkedDeque<SnakePart> parts = new ConcurrentLinkedDeque<>();
 
   protected final T game;
+  private final Predicate<Node> blocking;
   private final int speed;
 
   private Direction direction;
@@ -43,9 +48,10 @@ public abstract class Snake<T extends Game> {
   @Nullable
   private Direction next;
 
-  public Snake(T game, Direction direction) {
+  public Snake(T game, Direction direction, Predicate<Node> blocking) {
     this.game = game;
     this.direction = direction;
+    this.blocking = blocking;
     this.speed = game.getSettings().difficulty.getSpeed();
   }
 
@@ -54,7 +60,7 @@ public abstract class Snake<T extends Game> {
   public abstract void onEat(Tile tile, TileObject object);
 
   public void tick() {
-    if (ticks % speed == 0) {
+    if (ticks % (game.isAuto() ? speed / 2 : speed) == 0) {
       move();
     }
     ticks++;
@@ -85,15 +91,37 @@ public abstract class Snake<T extends Game> {
     parts.addLast(sp);
   }
 
+  protected abstract int getFoodX();
+
+  protected abstract int getFoodY();
+
   private void move() {
 
     if (parts.isEmpty()) {
       return;
     }
 
-    if (next != null) {
-      direction = next;
-      next = null;
+    if (game.isAuto()) {
+      Direction best = findBest();
+      if (best == null) {
+        best = findTail();
+      }
+      if (best == null) {
+        for (Direction direction : Direction.values()) {
+          if (moveable(direction)) {
+            best = direction;
+            break;
+          }
+        }
+      }
+      if (best != null) {
+        direction = best;
+      }
+    } else {
+      if (next != null) {
+        direction = next;
+        next = null;
+      }
     }
 
     final Tile current = parts.getFirst().getTile();
@@ -147,5 +175,24 @@ public abstract class Snake<T extends Game> {
 
 
     addPart(tile.get(), direction.opposite(), true);
+  }
+
+  private boolean moveable(Direction direction) {
+    final Optional<Tile> next = parts.getFirst().getTile().getRelative(game, direction);
+    if (!next.isPresent()) {
+      return false;
+    }
+    final Optional<TileObject> obj = game.getTerrain().get(next.get());
+    return !obj.isPresent() || obj.get() instanceof Food;
+  }
+
+  private Direction findBest() {
+    final Solver solver = new Solver(game, parts.getFirst().getTile(), getFoodX(), getFoodY(), blocking);
+    return solver.solve();
+  }
+
+  private Direction findTail() {
+    final Solver solver = new Solver(game, parts.getFirst().getTile(), parts.getLast().getTile().getTileX(), parts.getLast().getTile().getTileY(), blocking);
+    return solver.solve();
   }
 }

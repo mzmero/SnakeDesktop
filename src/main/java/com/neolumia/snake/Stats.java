@@ -28,14 +28,14 @@ import com.google.common.base.MoreObjects;
 
 public final class Stats {
 
-  public int playtime;
+  public double playtime;
   public int games;
   public int items;
   public int walls;
 
   public Stats() {}
 
-  public Stats(int playtime, int games, int items, int walls) {
+  public Stats(double playtime, int games, int items, int walls) {
     this.playtime = playtime;
     this.games = games;
     this.items = items;

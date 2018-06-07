@@ -31,7 +31,9 @@ import com.neolumia.snake.game.GameType;
 import com.neolumia.snake.game.Tile;
 import com.neolumia.snake.item.Item;
 import com.neolumia.snake.item.ItemType;
+
 import java.util.Optional;
+
 import javafx.scene.paint.Color;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -44,6 +46,9 @@ public final class DuoGame extends Game {
 
   private final DuoSnake first = new DuoSnake(this, true, FIRST, Direction.WEST);
   private final DuoSnake second = new DuoSnake(this, false, SECOND, Direction.EAST);
+
+  private Tile foodFirst;
+  private Tile foodSecond;
 
   public DuoGame(GameApp app, GameType type) {
     super(app, type);
@@ -72,6 +77,14 @@ public final class DuoGame extends Game {
     return second;
   }
 
+  public Tile getFoodFirst() {
+    return foodFirst;
+  }
+
+  public Tile getFoodSecond() {
+    return foodSecond;
+  }
+
   public void spawnFood(boolean first) {
     Tile tile;
     while (true) {
@@ -85,6 +98,11 @@ public final class DuoGame extends Game {
     }
     final Item item = Item.random(type, ItemType.FOOD).orElseThrow(IllegalStateException::new);
     item.setColor(first ? FIRST : SECOND);
+    if (first) {
+      foodFirst = tile;
+    } else {
+      foodSecond = tile;
+    }
     getTerrain().put(tile, item);
     LOGGER.info("Item spawned x={}, y={}", tile.getTileX(), tile.getTileY());
   }

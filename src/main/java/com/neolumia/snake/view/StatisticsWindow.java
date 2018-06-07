@@ -32,6 +32,8 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 
+import java.text.DecimalFormat;
+
 import static com.neolumia.snake.GameApp.t;
 
 public final class StatisticsWindow extends Window {
@@ -75,7 +77,7 @@ public final class StatisticsWindow extends Window {
   private void update(Stats stats) {
     statsGames.setText(t("stats.games", stats.games));
     statsItems.setText(t("stats.items", stats.items));
-    statsPlaytime.setText(t("stats.playtime", stats.playtime));
+    statsPlaytime.setText(t("stats.playtime", new DecimalFormat("#.##").format(stats.playtime)));
     statsWall.setText(t("stats.walls", stats.walls));
     statsGames.setVisible(true);
     statsItems.setVisible(true);

@@ -40,6 +40,7 @@ public final class SingleGame extends Game {
   private static final Logger LOGGER = LogManager.getLogger(SingleGame.class);
 
   private final SingleSnake snake = new SingleSnake(this);
+  private Tile food;
 
   public SingleGame(GameApp app, GameType type) {
     super(app, type);
@@ -60,6 +61,10 @@ public final class SingleGame extends Game {
     return snake;
   }
 
+  public Tile getFood() {
+    return food;
+  }
+
   public void spawnFood() {
     Tile tile;
     while (true) {
@@ -72,7 +77,7 @@ public final class SingleGame extends Game {
       }
     }
     final Optional<Item> item = Item.random(type, ItemType.FOOD);
-    getTerrain().put(tile, item.orElseThrow(IllegalStateException::new));
+    getTerrain().put(food = tile, item.orElseThrow(IllegalStateException::new));
     LOGGER.info("Item spawned x={}, y={}", tile.getTileX(), tile.getTileY());
   }
 }

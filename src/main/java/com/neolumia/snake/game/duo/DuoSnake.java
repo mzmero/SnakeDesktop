@@ -31,7 +31,10 @@ import com.neolumia.snake.game.SnakePart;
 import com.neolumia.snake.game.Tile;
 import com.neolumia.snake.game.TileObject;
 import com.neolumia.snake.item.Item;
+import com.neolumia.snake.item.food.Food;
 import javafx.scene.paint.Color;
+
+import java.util.Optional;
 
 public final class DuoSnake extends Snake<DuoGame> {
 
@@ -39,7 +42,18 @@ public final class DuoSnake extends Snake<DuoGame> {
   private Color color;
 
   DuoSnake(DuoGame game, boolean first, Color color, Direction direction) {
-    super(game, direction);
+    super(game, direction, node -> {
+      final Optional<TileObject> object = game.getTerrain().get(node.getTile());
+      if (object.isPresent()) {
+        if (object.get() instanceof SnakePart) {
+          return true;
+        }
+        if (object.get() instanceof Food) {
+          return !((Item) object.get()).getColor().equals(color);
+        }
+      }
+      return false;
+    });
     this.first = first;
     this.color = color;
   }
@@ -61,6 +75,16 @@ public final class DuoSnake extends Snake<DuoGame> {
   @Override
   protected SnakePart createPart(Tile tile, int size, Direction direction) {
     return new SnakePart(tile, color, size, direction);
+  }
+
+  @Override
+  protected int getFoodX() {
+    return first ? game.getFoodFirst().getTileX() : game.getFoodSecond().getTileX();
+  }
+
+  @Override
+  protected int getFoodY() {
+    return first ? game.getFoodFirst().getTileY() : game.getFoodSecond().getTileY();
   }
 
   @Override

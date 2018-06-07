@@ -50,12 +50,17 @@ public final class GameWindow extends Window {
   private final Game game;
   private final Label pause = new Label("Pause");
 
-  @FXML private GridPane gridRoot;
+  @FXML
+  private GridPane gridRoot;
 
-  @FXML private StackPane root;
-  @FXML private Group group;
-  @FXML private Label points;
-  @FXML private Label highscore;
+  @FXML
+  private StackPane root;
+  @FXML
+  private Group group;
+  @FXML
+  private Label points;
+  @FXML
+  private Label highscore;
 
   public GameWindow(GameApp app, Game game) {
     this.app = app;
@@ -80,6 +85,12 @@ public final class GameWindow extends Window {
 
       if (event.getCode() == KeyCode.ESCAPE) {
         updatePaused(game.setPaused(!game.isPaused()));
+        return;
+      }
+
+      if (event.getCode() == KeyCode.END) {
+        game.setAuto(!game.isAuto());
+        System.out.println("Auto: " + game.isAuto());
         return;
       }
 
