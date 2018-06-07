@@ -24,9 +24,9 @@
 
 package com.neolumia.snake.game;
 
+import com.neolumia.snake.util.Position;
 import javafx.application.Platform;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -59,7 +59,7 @@ public final class Terrain extends Pane {
   public void init() {
     for (int x = 0; x < width; x++) {
       for (int y = 0; y < height; y++) {
-        tiles[x][y] = new Tile(x, y, 32, color(x, y));
+        tiles[x][y] = new Tile(x, y, 32, game.getApp().getDesign().terrain.getColor().apply(Position.of(x, y)));
         getChildren().add(tiles[x][y]);
       }
     }
@@ -106,12 +106,5 @@ public final class Terrain extends Pane {
 
   public int getTileHeight() {
     return height;
-  }
-
-  private Color color(int x, int y) {
-    if (game.getType() == GameType.RETRO) {
-      return Color.rgb(157, 213, 3);
-    }
-    return (y + x) % 2 == 0 ? Color.rgb(111, 169, 111) : Color.rgb(127, 188, 124);
   }
 }

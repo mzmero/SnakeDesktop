@@ -24,6 +24,7 @@
 
 package com.neolumia.snake;
 
+import com.neolumia.snake.design.Design;
 import com.neolumia.snake.game.Game;
 import com.neolumia.snake.game.GameType;
 import com.neolumia.snake.game.duo.DuoGame;
@@ -37,6 +38,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import sun.security.krb5.internal.crypto.Des;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -55,7 +57,9 @@ public final class GameApp extends Application {
   private Database database;
   private WindowManager windowManager;
 
+  private Design design = new Design();
   private Stats stats = new Stats();
+
   private Settings settings;
   private int highscore = -1;
 
@@ -95,6 +99,14 @@ public final class GameApp extends Application {
     }
   }
 
+  public void updateDesign(Design design) {
+    try {
+      database.updateDesign(this.design = design);
+    } catch (SQLException ex) {
+      ex.printStackTrace();
+    }
+  }
+
   public void updateStats(Stats stats) throws SQLException {
     synchronized (this) {
       this.stats.playtime += stats.playtime;
@@ -104,6 +116,10 @@ public final class GameApp extends Application {
     }
     database.updateStats(stats);
     System.out.println(this.stats.toString());
+  }
+
+  public Design getDesign() {
+    return design;
   }
 
   public Stats getStats() {
@@ -146,6 +162,8 @@ public final class GameApp extends Application {
 
       settings = database.getSettings();
       highscore = database.getHighscore();
+
+      design = database.loadDesign();
       stats = database.loadStats();
 
       LOGGER.info(stats);

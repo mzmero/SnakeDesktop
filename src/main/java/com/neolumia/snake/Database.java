@@ -24,6 +24,9 @@
 
 package com.neolumia.snake;
 
+import com.neolumia.snake.design.BgDesign;
+import com.neolumia.snake.design.Design;
+import com.neolumia.snake.design.TerrainDesign;
 import com.neolumia.snake.game.Game;
 import com.neolumia.snake.settings.Difficulty;
 import com.neolumia.snake.settings.Locale;
@@ -51,6 +54,10 @@ public final class Database {
   private static final String LOAD_STATS = "SELECT playtime, games, items, walls FROM stats WHERE id = 0;";
   private static final String SAVE_STATS = "INSERT INTO stats (id, playtime, games, items, walls) VALUES (0, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE playtime = playtime + ?, games = games + ?, items = items + ?, walls = walls + ?;";
 
+  private static final String TABLE_DESIGN = "CREATE TABLE IF NOT EXISTS design (id INT UNSIGNED NOT NULL PRIMARY KEY, terrain VARCHAR(32) NOT NULL, background VARCHAR(32) NOT NULL);";
+  private static final String LOAD_DESIGN = "SELECT terrain, background FROM design WHERE id = 0;";
+  private static final String SAVE_DESIGN = "INSERT INTO design (id, terrain, background) VALUES (0, ?, ?) ON DUPLICATE KEY UPDATE terrain = ?, background = ?;";
+
   private final HikariDataSource dataSource;
 
   Database(GameApp app) {
@@ -67,10 +74,13 @@ public final class Database {
       try (PreparedStatement statement = connection.prepareStatement(TABLE)) {
         statement.executeUpdate();
       }
-      try (PreparedStatement statement = connection.prepareStatement(TABLE_SETTINGS)) {
+      try (PreparedStatement statement = connection.prepareStatement(TABLE_DESIGN)) {
         statement.executeUpdate();
       }
       try (PreparedStatement statement = connection.prepareStatement(TABLE_STATS)) {
+        statement.executeUpdate();
+      }
+      try (PreparedStatement statement = connection.prepareStatement(TABLE_SETTINGS)) {
         statement.executeUpdate();
       }
     }
@@ -137,6 +147,32 @@ public final class Database {
         statement.setInt(8, settings.size.getId());
         statement.setString(9, settings.playerName);
         statement.setBoolean(10, settings.leaderboard);
+        statement.executeUpdate();
+      }
+    }
+  }
+
+  Design loadDesign() throws SQLException {
+    try (Connection connection = dataSource.getConnection()) {
+      try (PreparedStatement statement = connection.prepareStatement(LOAD_DESIGN)) {
+        try (ResultSet result = statement.executeQuery()) {
+          if (result.next()) {
+            return new Design(TerrainDesign.valueOf(result.getString(1)), BgDesign.valueOf(result.getString(2)));
+          }
+          return new Design();
+        }
+      }
+    }
+  }
+
+  void updateDesign(Design design) throws SQLException {
+    try (Connection connection = dataSource.getConnection()) {
+      try (PreparedStatement statement = connection.prepareStatement(SAVE_DESIGN)) {
+        statement.setString(1, design.terrain.name());
+        statement.setString(2, design.background.name());
+
+        statement.setString(3, design.terrain.name());
+        statement.setString(4, design.background.name());
         statement.executeUpdate();
       }
     }

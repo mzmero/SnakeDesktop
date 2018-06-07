@@ -65,7 +65,7 @@ public final class GameWindow extends Window {
   public GameWindow(GameApp app, Game game) {
     this.app = app;
     this.game = game;
-    root.setStyle("-fx-background-color: #E0FFFF;");
+    root.setStyle("-fx-background-color: #" + Integer.toHexString(app.getDesign().background.getColor().hashCode()) + "");
     group.getChildren().add(game);
 
     Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> update()));

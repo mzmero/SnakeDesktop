@@ -50,6 +50,11 @@ public final class MenuWindow extends Window {
   }
 
   @FXML
+  public void design() {
+    app.getWindowManager().request(new DesignWindow(app));
+  }
+
+  @FXML
   public void statistics() {
     app.getWindowManager().request(new StatisticsWindow(app));
   }

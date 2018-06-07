@@ -33,7 +33,7 @@
         <Insets bottom="10.0" />
       </VBox.margin>
     </Button>
-    <Button layoutX="310.0" layoutY="55.0" maxHeight="35.0" maxWidth="400.0" minHeight="35.0" minWidth="400.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="400.0" styleClass="button400x35" text="%title.design">
+    <Button layoutX="310.0" layoutY="55.0" maxHeight="35.0" maxWidth="400.0" minHeight="35.0" minWidth="400.0" mnemonicParsing="false" onMouseClicked="#design" prefHeight="35.0" prefWidth="400.0" styleClass="button400x35" text="%title.design">
       <VBox.margin>
         <Insets bottom="10.0" />
       </VBox.margin>

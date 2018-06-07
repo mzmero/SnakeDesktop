@@ -64,6 +64,10 @@ public abstract class Game extends Pane {
     app.getWindowManager().getStage().maximizedProperty().addListener((ob, o, n) -> terrain.setSize(n ? 42 : 32));
   }
 
+  public GameApp getApp() {
+    return app;
+  }
+
   public GameType getType() {
     return type;
   }
