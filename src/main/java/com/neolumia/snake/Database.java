@@ -32,6 +32,7 @@ import com.neolumia.snake.settings.Difficulty;
 import com.neolumia.snake.settings.Locale;
 import com.neolumia.snake.settings.Settings;
 import com.neolumia.snake.settings.Size;
+import com.neolumia.snake.util.Q;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -41,22 +42,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public final class Database {
-
-  private static final String TABLE = "CREATE TABLE IF NOT EXISTS games (id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, points INT UNSIGNED NOT NULL);";
-  private static final String HIGHSCORE = "SELECT MAX(points) FROM games;";
-  private static final String SAVE = "INSERT INTO games (points) VALUES (?);";
-
-  private static final String TABLE_SETTINGS = "CREATE TABLE IF NOT EXISTS settings (id BIGINT UNSIGNED NOT NULL PRIMARY KEY, locale INT NOT NULL, difficulty INT NOT NULL, size INT NOT NULL, name VARCHAR(255) NOT NULL, leaderboard TINYINT(1) UNSIGNED NOT NULL);";
-  private static final String LOAD_SETTINGS = "SELECT locale, difficulty, size, name, leaderboard FROM settings;";
-  private static final String SAVE_SETTINGS = "INSERT INTO settings (id, locale, difficulty, size, name, leaderboard) VALUES (0, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE locale=?, difficulty=?, size=?, name=?, leaderboard=?;";
-
-  private static final String TABLE_STATS = "CREATE TABLE IF NOT EXISTS stats (id INT UNSIGNED NOT NULL PRIMARY KEY, playtime DOUBLE UNSIGNED NOT NULL, games INT UNSIGNED NOT NULL, items INT UNSIGNED NOT NULL, walls INT UNSIGNED NOT NULL);";
-  private static final String LOAD_STATS = "SELECT playtime, games, items, walls FROM stats WHERE id = 0;";
-  private static final String SAVE_STATS = "INSERT INTO stats (id, playtime, games, items, walls) VALUES (0, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE playtime = playtime + ?, games = games + ?, items = items + ?, walls = walls + ?;";
-
-  private static final String TABLE_DESIGN = "CREATE TABLE IF NOT EXISTS design (id INT UNSIGNED NOT NULL PRIMARY KEY, terrain VARCHAR(32) NOT NULL, background VARCHAR(32) NOT NULL);";
-  private static final String LOAD_DESIGN = "SELECT terrain, background FROM design WHERE id = 0;";
-  private static final String SAVE_DESIGN = "INSERT INTO design (id, terrain, background) VALUES (0, ?, ?) ON DUPLICATE KEY UPDATE terrain = ?, background = ?;";
 
   private final HikariDataSource dataSource;
 
@@ -71,16 +56,16 @@ public final class Database {
 
   public void init() throws SQLException {
     try (Connection connection = dataSource.getConnection()) {
-      try (PreparedStatement statement = connection.prepareStatement(TABLE)) {
+      try (PreparedStatement statement = connection.prepareStatement(Q.TABLE)) {
         statement.executeUpdate();
       }
-      try (PreparedStatement statement = connection.prepareStatement(TABLE_DESIGN)) {
+      try (PreparedStatement statement = connection.prepareStatement(Q.TABLE_DESIGN)) {
         statement.executeUpdate();
       }
-      try (PreparedStatement statement = connection.prepareStatement(TABLE_STATS)) {
+      try (PreparedStatement statement = connection.prepareStatement(Q.TABLE_STATS)) {
         statement.executeUpdate();
       }
-      try (PreparedStatement statement = connection.prepareStatement(TABLE_SETTINGS)) {
+      try (PreparedStatement statement = connection.prepareStatement(Q.TABLE_SETTINGS)) {
         statement.executeUpdate();
       }
     }
@@ -88,7 +73,7 @@ public final class Database {
 
   int getHighscore() throws SQLException {
     try (Connection connection = dataSource.getConnection()) {
-      try (PreparedStatement statement = connection.prepareStatement(HIGHSCORE)) {
+      try (PreparedStatement statement = connection.prepareStatement(Q.HIGHSCORE)) {
         try (ResultSet result = statement.executeQuery()) {
           if (result.next()) {
             return result.getInt(1);
@@ -101,7 +86,7 @@ public final class Database {
 
   public void saveGame(Game game) throws SQLException {
     try (Connection connection = dataSource.getConnection()) {
-      try (PreparedStatement statement = connection.prepareStatement(SAVE)) {
+      try (PreparedStatement statement = connection.prepareStatement(Q.SAVE)) {
         statement.setInt(1, game.getPoints());
         statement.executeUpdate();
       }
@@ -110,7 +95,7 @@ public final class Database {
 
   Settings getSettings() throws SQLException {
     try (Connection connection = dataSource.getConnection()) {
-      try (PreparedStatement statement = connection.prepareStatement(LOAD_SETTINGS)) {
+      try (PreparedStatement statement = connection.prepareStatement(Q.LOAD_SETTINGS)) {
         try (ResultSet result = statement.executeQuery()) {
 
           Locale locale = Settings.DEFAULT_LOCALE;
@@ -135,7 +120,7 @@ public final class Database {
 
   public void saveSettings(Settings settings) throws SQLException {
     try (Connection connection = dataSource.getConnection()) {
-      try (PreparedStatement statement = connection.prepareStatement(SAVE_SETTINGS)) {
+      try (PreparedStatement statement = connection.prepareStatement(Q.SAVE_SETTINGS)) {
         statement.setInt(1, settings.locale.getId());
         statement.setInt(2, settings.difficulty.getId());
         statement.setInt(3, settings.size.getId());
@@ -154,7 +139,7 @@ public final class Database {
 
   Design loadDesign() throws SQLException {
     try (Connection connection = dataSource.getConnection()) {
-      try (PreparedStatement statement = connection.prepareStatement(LOAD_DESIGN)) {
+      try (PreparedStatement statement = connection.prepareStatement(Q.LOAD_DESIGN)) {
         try (ResultSet result = statement.executeQuery()) {
           if (result.next()) {
             return new Design(TerrainDesign.valueOf(result.getString(1)), BgDesign.valueOf(result.getString(2)));
@@ -167,7 +152,7 @@ public final class Database {
 
   void updateDesign(Design design) throws SQLException {
     try (Connection connection = dataSource.getConnection()) {
-      try (PreparedStatement statement = connection.prepareStatement(SAVE_DESIGN)) {
+      try (PreparedStatement statement = connection.prepareStatement(Q.SAVE_DESIGN)) {
         statement.setString(1, design.terrain.name());
         statement.setString(2, design.background.name());
 
@@ -180,7 +165,7 @@ public final class Database {
 
   Stats loadStats() throws SQLException {
     try (Connection connection = dataSource.getConnection()) {
-      try (PreparedStatement statement = connection.prepareStatement(LOAD_STATS)) {
+      try (PreparedStatement statement = connection.prepareStatement(Q.LOAD_STATS)) {
         try (ResultSet result = statement.executeQuery()) {
           if (result.next()) {
             return new Stats(result.getInt(1), result.getInt(2), result.getInt(3), result.getInt(4));
@@ -193,7 +178,7 @@ public final class Database {
 
   void updateStats(Stats stats) throws SQLException {
     try (Connection connection = dataSource.getConnection()) {
-      try (PreparedStatement statement = connection.prepareStatement(SAVE_STATS)) {
+      try (PreparedStatement statement = connection.prepareStatement(Q.SAVE_STATS)) {
         statement.setDouble(1, stats.playtime);
         statement.setInt(2, stats.games);
         statement.setInt(3, stats.items);
