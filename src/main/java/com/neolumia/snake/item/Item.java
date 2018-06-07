@@ -32,7 +32,7 @@ import com.neolumia.snake.item.food.Apple;
 import com.neolumia.snake.item.food.Banana;
 import com.neolumia.snake.item.food.Cherry;
 import com.neolumia.snake.item.food.RetroFood;
-import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 
 import java.util.List;
 import java.util.Map;
@@ -40,7 +40,6 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
-import javafx.scene.paint.Color;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.neolumia.snake.item.Item.Arguments.of;

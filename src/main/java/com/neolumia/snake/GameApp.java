@@ -38,7 +38,6 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import sun.security.krb5.internal.crypto.Des;
 
 import java.io.File;
 import java.nio.file.Path;

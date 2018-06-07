@@ -33,7 +33,7 @@
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#cancel" prefHeight="25.0" prefWidth="150.0" styleClass="button-small" text="Abbrechen" textFill="#cd1010">
+                  <Button maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#cancel" prefHeight="25.0" prefWidth="150.0" styleClass="button-small" text="%menu.cancel" textFill="#cd1010">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -45,7 +45,7 @@
             </HBox>
             <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                <children>
-                  <Button maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#save" prefHeight="25.0" prefWidth="150.0" styleClass="button-small" text="Speichern">
+                  <Button maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#save" prefHeight="25.0" prefWidth="150.0" styleClass="button-small" text="%menu.save">
                      <HBox.margin>
                         <Insets right="35.0" />
                      </HBox.margin>
