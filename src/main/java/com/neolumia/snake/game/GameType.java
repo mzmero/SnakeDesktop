@@ -28,7 +28,9 @@ import javafx.scene.paint.Color;
 
 public enum GameType {
 
-  CLASSIC(Color.LIGHTGREEN, "/lib/title_classic.png"), RETRO(Color.WHITE, "/lib/title_retro.png");
+  CLASSIC(Color.LIGHTGREEN, "/lib/title_classic.png"),
+  RETRO(Color.WHITE, "/lib/title_retro.png"),
+  DUO(Color.WHITE, "/lib/title_duo.png");
 
   private final Color background;
   private final String file;
@@ -44,5 +46,9 @@ public enum GameType {
 
   public String getFile() {
     return file;
+  }
+
+  public GameType next() {
+    return values()[(ordinal() + 1) % values().length];
   }
 }

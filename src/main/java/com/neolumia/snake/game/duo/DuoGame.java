@@ -50,8 +50,8 @@ public final class DuoGame extends Game {
   private Tile foodFirst;
   private Tile foodSecond;
 
-  public DuoGame(GameApp app, GameType type) {
-    super(app, type);
+  public DuoGame(GameApp app) {
+    super(app, GameType.DUO);
   }
 
   @Override
@@ -96,7 +96,7 @@ public final class DuoGame extends Game {
         break;
       }
     }
-    final Item item = Item.random(type, ItemType.FOOD).orElseThrow(IllegalStateException::new);
+    final Item item = Item.random(GameType.RETRO, ItemType.FOOD).orElseThrow(IllegalStateException::new);
     item.setColor(first ? FIRST : SECOND);
     if (first) {
       foodFirst = tile;

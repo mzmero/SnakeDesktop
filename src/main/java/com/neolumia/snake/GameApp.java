@@ -92,7 +92,7 @@ public final class GameApp extends Application {
   public void newGame(GameType type) {
     synchronized (this) {
       LOGGER.info("Creating a new game with type " + type.name());
-      Game game = new SingleGame(this, type);
+      Game game = (type == GameType.DUO) ? new DuoGame(this) : new SingleGame(this, type);
       getWindowManager().request(new GameWindow(this, game));
       game.init();
       game.run();

@@ -65,14 +65,7 @@ public final class MenuWindow extends Window {
   }
 
   public void clickTitle() {
-    switch(type) {
-      case CLASSIC:
-        switchType(GameType.RETRO);
-        break;
-      case RETRO:
-        switchType(GameType.CLASSIC);
-        break;
-    }
+    switchType(type.next());
   }
 
   private void switchType(GameType type) {
