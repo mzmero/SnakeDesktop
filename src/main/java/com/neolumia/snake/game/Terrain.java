@@ -40,17 +40,16 @@ public final class Terrain extends Pane {
   private final int width;
   private final int height;
   private final Tile[][] tiles;
-
   private final Map<Tile, TileObject> objects = new HashMap<>();
 
-  public Terrain(Game game) {
+  private int size;
+
+  public Terrain(Game game, int size) {
     this.game = game;
     this.width = game.getSettings().size.getWidth();
     this.height = game.getSettings().size.getHeight();
     this.tiles = new Tile[width][height];
-
-    setWidth(32 * width);
-    setHeight(32 * height);
+    this.size = size;
 
     game.getChildren().add(this);
   }
@@ -58,10 +57,12 @@ public final class Terrain extends Pane {
   public void init() {
     for (int x = 0; x < width; x++) {
       for (int y = 0; y < height; y++) {
-        tiles[x][y] = new Tile(x, y, 32, game.getApp().getDesign().terrain.getColor().apply(Position.of(x, y)));
+        tiles[x][y] = new Tile(x, y, size, game.getApp().getDesign().terrain.getColor().apply(Position.of(x, y)));
         getChildren().add(tiles[x][y]);
       }
     }
+    setWidth(size * width);
+    setHeight(size * height);
   }
 
   public Optional<Tile> getTile(int x, int y) {
@@ -73,6 +74,7 @@ public final class Terrain extends Pane {
   }
 
   public void setSize(int size) {
+    this.size = size;
     Arrays.stream(tiles).flatMap(Arrays::stream).forEach(t -> t.setSize(size));
     objects.values().stream().filter(Objects::nonNull).forEach(o -> o.setSize(size));
   }
@@ -89,7 +91,7 @@ public final class Terrain extends Pane {
 
         pane.setX(tile.getTileX());
         pane.setY(tile.getTileY());
-        pane.setSize(32);
+        pane.setSize(size);
         pane.init();
 
         this.getChildren().add(pane);

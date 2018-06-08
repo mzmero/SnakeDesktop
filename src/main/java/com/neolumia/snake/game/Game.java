@@ -58,7 +58,7 @@ public abstract class Game extends Pane {
     this.app = app;
     this.type = type;
 
-    terrain = new Terrain(this);
+    terrain = new Terrain(this, app.getWindowManager().getStage().isMaximized() ? 43 : 32);
     terrain.init();
 
     app.getWindowManager().getStage().maximizedProperty().addListener((ob, o, n) -> terrain.setSize(n ? 42 : 32));
@@ -74,6 +74,38 @@ public abstract class Game extends Pane {
 
   public Terrain getTerrain() {
     return terrain;
+  }
+
+  public Settings getSettings() {
+    return app.getSettings();
+  }
+
+  public Stats getStats() {
+    return stats;
+  }
+
+  public int getPoints() {
+    return points;
+  }
+
+  public void setPoints(int points) {
+    this.points = points;
+  }
+
+  public boolean isPaused() {
+    return paused;
+  }
+
+  public boolean setPaused(boolean paused) {
+    return this.paused = paused;
+  }
+
+  public boolean isAuto() {
+    return auto;
+  }
+
+  public void setAuto(boolean auto) {
+    this.auto = auto;
   }
 
   public void end() {
@@ -104,47 +136,6 @@ public abstract class Game extends Pane {
 
     LOGGER.info("The game has ended.");
     Platform.runLater(() -> app.getWindowManager().request(new DeadWindow(app, this, won)));
-  }
-
-  public Settings getSettings() {
-    return app.getSettings();
-  }
-
-  /**
-   * Returns the stats object.
-   */
-  public Stats getStats() {
-    return stats;
-  }
-
-  /**
-   * Returns the amount of points.
-   */
-  public int getPoints() {
-    return points;
-  }
-
-  /**
-   * Sets the amount of points.
-   */
-  public void setPoints(int points) {
-    this.points = points;
-  }
-
-  public boolean isPaused() {
-    return paused;
-  }
-
-  public boolean setPaused(boolean paused) {
-    return this.paused = paused;
-  }
-
-  public boolean isAuto() {
-    return auto;
-  }
-
-  public void setAuto(boolean auto) {
-    this.auto = auto;
   }
 
   public void run() {
