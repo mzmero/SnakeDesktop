@@ -22,57 +22,17 @@
  * SOFTWARE.
  */
 
-package com.neolumia.snake.game;
+package com.neolumia.snake.design;
 
-import com.google.common.base.MoreObjects.ToStringHelper;
-import javafx.scene.paint.Color;
+import java.util.Optional;
 
-public abstract class SnakePart extends TileObject {
+public interface DesignOption<T> {
 
-  private SnakePart parent;
+  String getName();
 
-  private final Tile tile;
-  private final Direction direction;
-  private final Color color;
+  String getFile();
 
-  public SnakePart(SnakePart parent, Tile tile, Direction direction, Color color) {
-    this.parent = parent;
-    this.tile = tile;
-    this.direction = direction;
-    this.color = color;
-  }
+  Optional<T> next();
 
-  protected SnakePart getP() {
-    return parent;
-  }
-
-  void setP(SnakePart parent) {
-    this.parent = parent;
-  }
-
-  public Tile getTile() {
-    return tile;
-  }
-
-  public Direction getDirection() {
-    return direction;
-  }
-
-  public Color getColor() {
-    return color;
-  }
-
-  protected boolean isHead() {
-    return parent == null;
-  }
-
-  public abstract void update();
-
-  @Override
-  protected ToStringHelper toStringHelper() {
-    return super.toStringHelper()
-      .add("tile", tile)
-      .add("direction", direction)
-      .add("color", color);
-  }
+  Optional<T> before();
 }

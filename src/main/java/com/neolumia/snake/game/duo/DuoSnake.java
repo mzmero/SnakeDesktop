@@ -24,6 +24,7 @@
 
 package com.neolumia.snake.game.duo;
 
+import com.neolumia.snake.design.snake.PixelSnake;
 import com.neolumia.snake.game.Direction;
 import com.neolumia.snake.game.GameType;
 import com.neolumia.snake.game.Snake;
@@ -73,8 +74,8 @@ public final class DuoSnake extends Snake<DuoGame> {
   }
 
   @Override
-  protected SnakePart createPart(Tile tile, int size, Direction direction) {
-    return new SnakePart(tile, color, size, direction);
+  protected SnakePart createPart(Tile tile, Direction direction) {
+    return game.getApp().getDesign().snake.getPart().get(null, tile, direction, color);
   }
 
   @Override

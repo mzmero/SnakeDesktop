@@ -47,8 +47,12 @@
                 <Insets right="10.0"/>
               </HBox.margin>
             </ToggleButton>
-            <ToggleButton fx:id="background" layoutX="350.0" layoutY="23.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false"
-                          prefHeight="25.0" prefWidth="150.0" styleClass="button-small" text="%design.background">
+            <ToggleButton fx:id="snake" layoutX="350.0" layoutY="23.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button-small" text="%design.snake">
+              <HBox.margin>
+                <Insets right="10.0"/>
+              </HBox.margin>
+            </ToggleButton>
+            <ToggleButton fx:id="background" layoutX="350.0" layoutY="23.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button-small" text="%design.background">
               <HBox.margin>
                 <Insets right="10.0"/>
               </HBox.margin>

@@ -24,6 +24,8 @@
 
 package com.neolumia.snake.game;
 
+import com.google.common.base.MoreObjects;
+import com.google.common.base.MoreObjects.ToStringHelper;
 import javafx.scene.layout.Pane;
 
 public abstract class TileObject extends Pane {
@@ -31,6 +33,12 @@ public abstract class TileObject extends Pane {
   private int x;
   private int y;
   private int size;
+
+  public TileObject() {}
+
+  public TileObject(int size) {
+    this.size = size;
+  }
 
   public int getX() {
     return x;
@@ -54,5 +62,19 @@ public abstract class TileObject extends Pane {
 
   public void setSize(int size) {
     this.size = size;
+  }
+
+  public void init() {}
+
+  protected ToStringHelper toStringHelper() {
+    return MoreObjects.toStringHelper(this)
+      .add("x", x)
+      .add("y", y)
+      .add("size", size);
+  }
+
+  @Override
+  public String toString() {
+    return toStringHelper().toString();
   }
 }

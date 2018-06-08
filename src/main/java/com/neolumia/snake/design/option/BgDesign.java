@@ -22,57 +22,55 @@
  * SOFTWARE.
  */
 
-package com.neolumia.snake.game;
+package com.neolumia.snake.design.option;
 
-import com.google.common.base.MoreObjects.ToStringHelper;
+import com.neolumia.snake.design.DesignOption;
 import javafx.scene.paint.Color;
 
-public abstract class SnakePart extends TileObject {
+import java.util.Optional;
 
-  private SnakePart parent;
+public enum BgDesign implements DesignOption<BgDesign> {
 
-  private final Tile tile;
-  private final Direction direction;
+  CYAN("color.aqua", "/lib/bg_cyan.png", Color.rgb(224, 255, 255)),
+  WHITE("color.white", "/lib/bg_white.png", Color.WHITE);
+
+  private final String name;
+  private final String file;
   private final Color color;
 
-  public SnakePart(SnakePart parent, Tile tile, Direction direction, Color color) {
-    this.parent = parent;
-    this.tile = tile;
-    this.direction = direction;
+  BgDesign(String name, String file, Color color) {
+    this.name = name;
+    this.file = file;
     this.color = color;
   }
 
-  protected SnakePart getP() {
-    return parent;
+  @Override
+  public String getName() {
+    return name;
   }
 
-  void setP(SnakePart parent) {
-    this.parent = parent;
+  @Override
+  public String getFile() {
+    return file;
   }
 
-  public Tile getTile() {
-    return tile;
+  @Override
+  public Optional<BgDesign> before() {
+    if (ordinal() - 1 < 0) {
+      return Optional.empty();
+    }
+    return Optional.ofNullable(values()[ordinal() - 1]);
   }
 
-  public Direction getDirection() {
-    return direction;
+  @Override
+  public Optional<BgDesign> next() {
+    if (ordinal() + 1 >= values().length) {
+      return Optional.empty();
+    }
+    return Optional.ofNullable(values()[ordinal() + 1]);
   }
 
   public Color getColor() {
     return color;
-  }
-
-  protected boolean isHead() {
-    return parent == null;
-  }
-
-  public abstract void update();
-
-  @Override
-  protected ToStringHelper toStringHelper() {
-    return super.toStringHelper()
-      .add("tile", tile)
-      .add("direction", direction)
-      .add("color", color);
   }
 }

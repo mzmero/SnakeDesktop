@@ -25,9 +25,11 @@
 package com.neolumia.snake.view;
 
 import com.neolumia.snake.GameApp;
-import com.neolumia.snake.design.BgDesign;
+import com.neolumia.snake.design.DesignOption;
+import com.neolumia.snake.design.option.BgDesign;
 import com.neolumia.snake.design.Design;
-import com.neolumia.snake.design.TerrainDesign;
+import com.neolumia.snake.design.option.SnakeDesign;
+import com.neolumia.snake.design.option.TerrainDesign;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -45,11 +47,13 @@ public final class DesignWindow extends Window {
   private final ToggleGroup menu = new ToggleGroup();
 
   private TerrainDesign terrainDesign;
+  private SnakeDesign snakeDesign;
   private BgDesign bgDesign;
   private Node node;
 
   @FXML private GridPane grid;
   @FXML private ToggleButton terrain;
+  @FXML private ToggleButton snake;
   @FXML private ToggleButton background;
 
   @FXML private ImageView before;
@@ -61,23 +65,30 @@ public final class DesignWindow extends Window {
     this.app = app;
 
     terrain.setToggleGroup(menu);
+    snake.setToggleGroup(menu);
     background.setToggleGroup(menu);
 
     menu.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
       if (newValue.equals(terrain)) {
         grid.getChildren().removeAll(node);
         grid.add(node = render("terrain"), 0, 0);
-        updateTerrain(terrainDesign);
+        update(terrainDesign);
         return;
+      }
+      if (newValue.equals(snake)) {
+        grid.getChildren().removeAll(node);
+        grid.add(node = render("snake"), 0, 0);
+        update(snakeDesign);
       }
       if (newValue.equals(background)) {
         grid.getChildren().removeAll(node);
         grid.add(node = render("background"), 0, 0);
-        updateBackground(bgDesign);
+        update(bgDesign);
       }
     });
 
     this.terrainDesign = app.getDesign().terrain;
+    this.snakeDesign = app.getDesign().snake;
     this.bgDesign = app.getDesign().background;
 
     menu.selectToggle(terrain);
@@ -87,7 +98,7 @@ public final class DesignWindow extends Window {
   public void beforeTerrain() {
     terrainDesign.before().ifPresent(d -> {
       this.terrainDesign = d;
-      updateTerrain(d);
+      update(d);
     });
   }
 
@@ -95,7 +106,23 @@ public final class DesignWindow extends Window {
   public void nextTerrain() {
     terrainDesign.next().ifPresent(d -> {
       this.terrainDesign = d;
-      updateTerrain(d);
+      update(d);
+    });
+  }
+
+  @FXML
+  public void beforeSnake() {
+    snakeDesign.before().ifPresent(d -> {
+      this.snakeDesign = d;
+      update(d);
+    });
+  }
+
+  @FXML
+  public void nextSnake() {
+    snakeDesign.next().ifPresent(d -> {
+      this.snakeDesign = d;
+      update(d);
     });
   }
 
@@ -103,7 +130,7 @@ public final class DesignWindow extends Window {
   public void beforeBackground() {
     bgDesign.before().ifPresent(d -> {
       this.bgDesign = d;
-      updateBackground(d);
+      update(d);
     });
   }
 
@@ -111,27 +138,20 @@ public final class DesignWindow extends Window {
   public void nextBackground() {
     bgDesign.next().ifPresent(d -> {
       this.bgDesign = d;
-      updateBackground(d);
+      update(d);
     });
   }
 
   @FXML
   public void cancel() {
-    app.updateDesign(new Design(terrainDesign, bgDesign));
+    app.updateDesign(new Design(terrainDesign, snakeDesign, bgDesign));
     app.getWindowManager().request(new MenuWindow(app));
   }
 
-  private void updateTerrain(TerrainDesign design) {
-    before.setVisible(design.before().isPresent());
-    next.setVisible(design.next().isPresent());
-    current.setImage(new Image(getClass().getResourceAsStream(design.getFile())));
-    currentName.setText(t(design.getName()));
-  }
-
-  private void updateBackground(BgDesign design) {
-    before.setVisible(design.before().isPresent());
-    next.setVisible(design.next().isPresent());
-    current.setImage(new Image(getClass().getResourceAsStream(design.getFile())));
-    currentName.setText(t(design.getName()));
+  private void update(DesignOption option) {
+    before.setVisible(option.before().isPresent());
+    next.setVisible(option.next().isPresent());
+    current.setImage(new Image(getClass().getResourceAsStream(option.getFile())));
+    currentName.setText(t(option.getName()));
   }
 }

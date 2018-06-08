@@ -43,10 +43,10 @@ public final class SingleSnake extends Snake<SingleGame> {
 
   @Override
   public void init() {
-    for (int i = 0; i < 5; i++) {
+    for (int i = 5; i > 0; i--) {
       final int x = game.getTerrain().getTileWidth() / 2 + i;
       final int y = game.getTerrain().getTileHeight() / 2;
-      addPart(game.getTerrain().getTile(x, y).get(), Direction.EAST, false);
+      addPart(game.getTerrain().getTile(x, y).get(), Direction.EAST, true);
     }
   }
 

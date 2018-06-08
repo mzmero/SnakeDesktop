@@ -45,7 +45,6 @@ public final class Terrain extends Pane {
 
   public Terrain(Game game) {
     this.game = game;
-    System.out.println(game.getSettings().size.name());
     this.width = game.getSettings().size.getWidth();
     this.height = game.getSettings().size.getHeight();
     this.tiles = new Tile[width][height];
@@ -87,11 +86,13 @@ public final class Terrain extends Pane {
       }
 
       if (pane != null) {
-        this.getChildren().add(pane);
 
         pane.setX(tile.getTileX());
         pane.setY(tile.getTileY());
         pane.setSize(32);
+        pane.init();
+
+        this.getChildren().add(pane);
       }
     });
   }

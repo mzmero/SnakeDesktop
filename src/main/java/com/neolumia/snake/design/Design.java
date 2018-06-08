@@ -25,18 +25,23 @@
 package com.neolumia.snake.design;
 
 import com.google.common.base.MoreObjects;
+import com.neolumia.snake.design.option.BgDesign;
+import com.neolumia.snake.design.option.SnakeDesign;
+import com.neolumia.snake.design.option.TerrainDesign;
 
 import java.util.Objects;
 
 public final class Design {
 
   public TerrainDesign terrain = TerrainDesign.SIMPLE;
+  public SnakeDesign snake = SnakeDesign.FRED;
   public BgDesign background = BgDesign.CYAN;
 
   public Design() {}
 
-  public Design(TerrainDesign terrain, BgDesign background) {
+  public Design(TerrainDesign terrain, SnakeDesign snake, BgDesign background) {
     this.terrain = terrain;
+    this.snake = snake;
     this.background = background;
   }
 

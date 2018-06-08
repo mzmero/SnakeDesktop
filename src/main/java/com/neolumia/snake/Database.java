@@ -24,9 +24,10 @@
 
 package com.neolumia.snake;
 
-import com.neolumia.snake.design.BgDesign;
 import com.neolumia.snake.design.Design;
-import com.neolumia.snake.design.TerrainDesign;
+import com.neolumia.snake.design.option.BgDesign;
+import com.neolumia.snake.design.option.SnakeDesign;
+import com.neolumia.snake.design.option.TerrainDesign;
 import com.neolumia.snake.game.Game;
 import com.neolumia.snake.settings.Difficulty;
 import com.neolumia.snake.settings.Locale;
@@ -142,7 +143,11 @@ public final class Database {
       try (PreparedStatement statement = connection.prepareStatement(Q.LOAD_DESIGN)) {
         try (ResultSet result = statement.executeQuery()) {
           if (result.next()) {
-            return new Design(TerrainDesign.valueOf(result.getString(1)), BgDesign.valueOf(result.getString(2)));
+            return new Design(
+              TerrainDesign.valueOf(result.getString(1)),
+              SnakeDesign.valueOf(result.getString(2)),
+              BgDesign.valueOf(result.getString(3))
+            );
           }
           return new Design();
         }
@@ -154,10 +159,12 @@ public final class Database {
     try (Connection connection = dataSource.getConnection()) {
       try (PreparedStatement statement = connection.prepareStatement(Q.SAVE_DESIGN)) {
         statement.setString(1, design.terrain.name());
-        statement.setString(2, design.background.name());
+        statement.setString(2, design.snake.name());
+        statement.setString(3, design.background.name());
 
-        statement.setString(3, design.terrain.name());
-        statement.setString(4, design.background.name());
+        statement.setString(4, design.terrain.name());
+        statement.setString(5, design.snake.name());
+        statement.setString(6, design.background.name());
         statement.executeUpdate();
       }
     }

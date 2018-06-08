@@ -24,10 +24,10 @@
 
 package com.neolumia.snake.game;
 
+import com.neolumia.snake.design.snake.PixelSnake;
 import com.neolumia.snake.item.food.Food;
 import com.neolumia.snake.solver.Node;
 import com.neolumia.snake.solver.Solver;
-import javafx.scene.paint.Color;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
@@ -77,12 +77,16 @@ public abstract class Snake<T extends Game> {
     parts.forEach(p -> p.setSize(size));
   }
 
-  protected SnakePart createPart(Tile tile, int size, Direction direction) {
-    return new SnakePart(tile, Color.BLACK, size, direction);
+  protected SnakePart createPart(Tile tile, Direction direction) {
+    return game.getApp().getDesign().snake.getPart().get(null, tile, direction, null);
   }
 
   protected void addPart(Tile tile, Direction direction, boolean head) {
-    final SnakePart sp = createPart(tile, 32, direction);
+    final SnakePart sp = createPart(tile, direction);
+    if (!parts.isEmpty()) {
+      parts.getFirst().setP(sp);
+      parts.forEach(SnakePart::update);
+    }
     game.getTerrain().put(tile, sp);
     if (head) {
       parts.addFirst(sp);

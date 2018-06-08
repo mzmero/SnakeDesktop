@@ -22,57 +22,18 @@
  * SOFTWARE.
  */
 
-package com.neolumia.snake.game;
+package com.neolumia.snake.design.snake;
 
-import com.google.common.base.MoreObjects.ToStringHelper;
+import com.neolumia.snake.game.Direction;
+import com.neolumia.snake.game.SnakePart;
+import com.neolumia.snake.game.Tile;
 import javafx.scene.paint.Color;
 
-public abstract class SnakePart extends TileObject {
+import javax.annotation.Nullable;
 
-  private SnakePart parent;
+public final class FredGucciSnake extends FredSnake {
 
-  private final Tile tile;
-  private final Direction direction;
-  private final Color color;
-
-  public SnakePart(SnakePart parent, Tile tile, Direction direction, Color color) {
-    this.parent = parent;
-    this.tile = tile;
-    this.direction = direction;
-    this.color = color;
-  }
-
-  protected SnakePart getP() {
-    return parent;
-  }
-
-  void setP(SnakePart parent) {
-    this.parent = parent;
-  }
-
-  public Tile getTile() {
-    return tile;
-  }
-
-  public Direction getDirection() {
-    return direction;
-  }
-
-  public Color getColor() {
-    return color;
-  }
-
-  protected boolean isHead() {
-    return parent == null;
-  }
-
-  public abstract void update();
-
-  @Override
-  protected ToStringHelper toStringHelper() {
-    return super.toStringHelper()
-      .add("tile", tile)
-      .add("direction", direction)
-      .add("color", color);
+  public FredGucciSnake(SnakePart parent, Tile tile, Direction direction, @Nullable Color color) {
+    super(parent, tile, direction, color == null ? Color.GOLD : color);
   }
 }

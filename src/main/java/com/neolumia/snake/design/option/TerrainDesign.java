@@ -22,15 +22,16 @@
  * SOFTWARE.
  */
 
-package com.neolumia.snake.design;
+package com.neolumia.snake.design.option;
 
+import com.neolumia.snake.design.DesignOption;
 import com.neolumia.snake.util.Position;
 import javafx.scene.paint.Color;
 
 import java.util.Optional;
 import java.util.function.Function;
 
-public enum TerrainDesign {
+public enum TerrainDesign implements DesignOption<TerrainDesign> {
 
   SIMPLE("terrain.simple", "/lib/terrain_retro.png", pos -> Color.rgb(157, 213, 3)),
   GRASS("terrain.grass", "/lib/terrain_grass.png", pos -> (pos.getX() + pos.getY()) % 2 == 0 ? Color.rgb(111, 169, 111) : Color.rgb(127, 188, 124)),
@@ -46,18 +47,17 @@ public enum TerrainDesign {
     this.color = color;
   }
 
+  @Override
   public String getName() {
     return name;
   }
 
+  @Override
   public String getFile() {
     return file;
   }
 
-  public Function<Position, Color> getColor() {
-    return color;
-  }
-
+  @Override
   public Optional<TerrainDesign> before() {
     if (ordinal() - 1 < 0) {
       return Optional.empty();
@@ -65,10 +65,15 @@ public enum TerrainDesign {
     return Optional.ofNullable(values()[ordinal() - 1]);
   }
 
+  @Override
   public Optional<TerrainDesign> next() {
     if (ordinal() + 1 >= values().length) {
       return Optional.empty();
     }
     return Optional.ofNullable(values()[ordinal() + 1]);
+  }
+
+  public Function<Position, Color> getColor() {
+    return color;
   }
 }
