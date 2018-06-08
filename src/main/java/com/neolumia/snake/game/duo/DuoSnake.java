@@ -74,7 +74,7 @@ public final class DuoSnake extends Snake<DuoGame> {
 
   @Override
   protected SnakePart createPart(Tile tile, Direction direction) {
-    return game.getApp().getDesign().snake.getPart().get(null, tile, direction, color);
+    return game.getApp().getDesign().snake.getPart().get(this, tile, direction, color);
   }
 
   @Override

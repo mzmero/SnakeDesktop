@@ -30,6 +30,7 @@ import com.neolumia.snake.solver.Solver;
 import com.neolumia.snake.util.Direction;
 
 import javax.annotation.Nullable;
+import java.util.Deque;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.function.Predicate;
@@ -66,6 +67,10 @@ public abstract class Snake<T extends Game> {
     ticks++;
   }
 
+  public Deque<SnakePart> getParts() {
+    return parts;
+  }
+
   public void setNext(@Nullable Direction next) {
     if (direction != null && direction.opposite() == next) {
       return;
@@ -78,7 +83,7 @@ public abstract class Snake<T extends Game> {
   }
 
   protected SnakePart createPart(Tile tile, Direction direction) {
-    return game.getApp().getDesign().snake.getPart().get(null, tile, direction, null);
+    return game.getApp().getDesign().snake.getPart().get(this, tile, direction, null);
   }
 
   protected void addPart(Tile tile, Direction direction, boolean head) {

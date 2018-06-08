@@ -24,9 +24,10 @@
 
 package com.neolumia.snake.design.snake;
 
-import com.neolumia.snake.util.Direction;
+import com.neolumia.snake.game.Snake;
 import com.neolumia.snake.game.SnakePart;
 import com.neolumia.snake.game.Tile;
+import com.neolumia.snake.util.Direction;
 import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
@@ -44,8 +45,8 @@ public class FredSnake extends SnakePart {
   private final Circle head = new Circle(0, Color.BLACK);
   private final Rectangle body = new Rectangle(0, 0, Color.BLACK);
 
-  public FredSnake(SnakePart parent, Tile tile, Direction direction, @Nullable Color color) {
-    super(parent, tile, direction, color == null ? Color.WHITE : color);
+  public FredSnake(Snake snake, Tile tile, Direction direction, @Nullable Color color) {
+    super(snake, tile, direction, color == null ? Color.WHITE : color);
   }
 
   @Override
@@ -60,6 +61,32 @@ public class FredSnake extends SnakePart {
     head.setRadius(getSize() / 2);
     body.setFill(getColor());
 
+    if (isTail()) {
+
+      // TAIL
+
+      if (getP().getDirection() == Direction.EAST) {
+        tail(getX() * getSize(), getY() * getSize() + getSize() - MARGIN / 2, getSize() - (MARGIN / 2), getSize() - MARGIN, 0.0F);
+        return;
+      }
+
+      if (getP().getDirection() == Direction.WEST) {
+        tail(getX() * getSize() + getSize(), getY() * getSize() + getSize() - MARGIN / 2, getSize() - MARGIN / 2, getSize() - MARGIN, 90.0F);
+        return;
+      }
+
+      if (getP().getDirection() == Direction.NORTH) {
+        tail(getX() * getSize() + MARGIN / 2, getY() * getSize() + getSize(), getSize() - MARGIN, getSize() - MARGIN, 0.0F);
+        return;
+      }
+
+      if (getP().getDirection() == Direction.SOUTH) {
+        tail(getX() * getSize() + MARGIN / 2, getY() * getSize(), getSize() - MARGIN, getSize() - MARGIN, 270.0F);
+      }
+
+      return;
+    }
+
     if (isHead()) {
 
       // HEAD
@@ -69,7 +96,7 @@ public class FredSnake extends SnakePart {
           head.setCenterX(getX() * getSize() + (getSize() / 2));
           head.setCenterY(getY() * getSize() + (getSize() / 2));
 
-          body.setX(getX() * getSize() + getSize() / 2);
+          body.setX(getX() * getSize() + getSize() / 2 + 2);
           body.setY(getY() * getSize() + MARGIN / 2);
           body.setWidth(getSize() / 2);
           body.setHeight(getSize() - MARGIN);
@@ -102,7 +129,7 @@ public class FredSnake extends SnakePart {
           head.setCenterY(getY() * getSize() + getSize() / 2);
 
           body.setX(getX() * getSize() + MARGIN / 2);
-          body.setY(getY() * getSize());
+          body.setY(getY() * getSize() - 2);
           body.setWidth(getSize() - MARGIN);
           body.setHeight(getSize() / 2);
 
@@ -118,7 +145,7 @@ public class FredSnake extends SnakePart {
           head.setCenterY(getY() * getSize() + getSize() / 2);
 
           body.setX(getX() * getSize() + MARGIN / 2);
-          body.setY(getY() * getSize() + getSize() / 2);
+          body.setY(getY() * getSize() + getSize() / 2 + 2);
           body.setWidth(getSize() - MARGIN);
           body.setHeight(getSize() / 2);
 
@@ -203,11 +230,15 @@ public class FredSnake extends SnakePart {
   }
 
   private void arc(int centerX, int centerY, float angle) {
+    tail(centerX, centerY, getSize() - (MARGIN / 2), getSize() - (MARGIN / 2), angle);
+  }
+
+  private void tail(int centerX, int centerY, int radiusX, int radiusY, float angle) {
     Arc arc = new Arc();
     arc.setFill(getColor());
     arc.setType(ArcType.ROUND);
-    arc.setRadiusX(getSize() - (MARGIN / 2));
-    arc.setRadiusY(getSize() - (MARGIN / 2));
+    arc.setRadiusX(radiusX);
+    arc.setRadiusY(radiusY);
     arc.setCenterX(centerX);
     arc.setCenterY(centerY);
     arc.setStartAngle(angle);

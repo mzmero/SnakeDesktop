@@ -30,26 +30,21 @@ import javafx.scene.paint.Color;
 
 public abstract class SnakePart extends TileObject {
 
+  private Snake snake;
   private SnakePart parent;
 
   private final Tile tile;
   private final Direction direction;
   private final Color color;
 
-  public SnakePart(SnakePart parent, Tile tile, Direction direction, Color color) {
-    this.parent = parent;
+  public SnakePart(Snake snake, Tile tile, Direction direction, Color color) {
+    this.snake = snake;
     this.tile = tile;
     this.direction = direction;
     this.color = color;
   }
 
-  protected SnakePart getP() {
-    return parent;
-  }
-
-  void setP(SnakePart parent) {
-    this.parent = parent;
-  }
+  public abstract void update();
 
   public Tile getTile() {
     return tile;
@@ -63,11 +58,21 @@ public abstract class SnakePart extends TileObject {
     return color;
   }
 
+  protected SnakePart getP() {
+    return parent;
+  }
+
   protected boolean isHead() {
     return parent == null;
   }
 
-  public abstract void update();
+  protected boolean isTail() {
+    return snake.getParts().getLast().equals(this);
+  }
+
+  void setP(SnakePart parent) {
+    this.parent = parent;
+  }
 
   @Override
   protected ToStringHelper toStringHelper() {
@@ -75,5 +80,10 @@ public abstract class SnakePart extends TileObject {
       .add("tile", tile)
       .add("direction", direction)
       .add("color", color);
+  }
+
+  @Override
+  public final String toString() {
+    return toStringHelper().toString();
   }
 }

@@ -24,6 +24,7 @@
 
 package com.neolumia.snake.design;
 
+import com.neolumia.snake.game.Snake;
 import com.neolumia.snake.util.Direction;
 import com.neolumia.snake.game.SnakePart;
 import com.neolumia.snake.game.Tile;
@@ -33,5 +34,5 @@ import javax.annotation.Nullable;
 
 public interface SnakeSupplier<T extends SnakePart> {
 
-  T get(SnakePart parent, Tile tile, Direction direction, @Nullable Color color);
+  T get(Snake snake, Tile tile, Direction direction, @Nullable Color color);
 }

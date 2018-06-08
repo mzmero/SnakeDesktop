@@ -24,16 +24,16 @@
 
 package com.neolumia.snake.design.snake;
 
-import com.neolumia.snake.util.Direction;
-import com.neolumia.snake.game.SnakePart;
+import com.neolumia.snake.game.Snake;
 import com.neolumia.snake.game.Tile;
+import com.neolumia.snake.util.Direction;
 import javafx.scene.paint.Color;
 
 import javax.annotation.Nullable;
 
 public final class FredGucciSnake extends FredSnake {
 
-  public FredGucciSnake(SnakePart parent, Tile tile, Direction direction, @Nullable Color color) {
-    super(parent, tile, direction, color == null ? Color.GOLD : color);
+  public FredGucciSnake(Snake snake, Tile tile, Direction direction, @Nullable Color color) {
+    super(snake, tile, direction, color == null ? Color.GOLD : color);
   }
 }

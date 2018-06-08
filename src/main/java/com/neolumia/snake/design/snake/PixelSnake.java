@@ -24,9 +24,10 @@
 
 package com.neolumia.snake.design.snake;
 
-import com.neolumia.snake.util.Direction;
+import com.neolumia.snake.game.Snake;
 import com.neolumia.snake.game.SnakePart;
 import com.neolumia.snake.game.Tile;
+import com.neolumia.snake.util.Direction;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -40,13 +41,18 @@ public class PixelSnake extends SnakePart {
   private final Rectangle snake = new Rectangle(0, 0, Color.BLACK);
   private final Rectangle connector = new Rectangle(0, 0, Color.BLACK);
 
-  public PixelSnake(SnakePart parent, Tile tile, Direction direction, @Nullable Color color) {
-    super(parent, tile, direction, color == null ? Color.BLACK : color);
+  public PixelSnake(Snake snake2, Tile tile, Direction direction, @Nullable Color color) {
+    super(snake2, tile, direction, color == null ? Color.BLACK : color);
     getChildren().addAll(snake, connector);
   }
 
   @Override
-  public void update() {}
+  public void update() {
+    snake.setFill(getColor());
+    connector.setFill(getColor());
+    updateSize();
+    updateConnector();
+  }
 
   @Override
   public void init() {
