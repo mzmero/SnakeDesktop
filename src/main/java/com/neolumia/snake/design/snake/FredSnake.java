@@ -24,7 +24,7 @@
 
 package com.neolumia.snake.design.snake;
 
-import com.neolumia.snake.game.Direction;
+import com.neolumia.snake.util.Direction;
 import com.neolumia.snake.game.SnakePart;
 import com.neolumia.snake.game.Tile;
 import javafx.application.Platform;

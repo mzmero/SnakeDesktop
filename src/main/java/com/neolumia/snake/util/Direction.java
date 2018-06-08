@@ -22,48 +22,24 @@
  * SOFTWARE.
  */
 
-package com.neolumia.snake.game.single;
+package com.neolumia.snake.util;
 
-import com.neolumia.snake.util.Direction;
-import com.neolumia.snake.game.Snake;
-import com.neolumia.snake.game.Tile;
-import com.neolumia.snake.game.TileObject;
-import com.neolumia.snake.item.food.Food;
+public enum Direction {
 
-import java.util.Optional;
+  NORTH, EAST, SOUTH, WEST;
 
-public final class SingleSnake extends Snake<SingleGame> {
-
-  SingleSnake(SingleGame game) {
-    super(game, Direction.WEST, node -> {
-      final Optional<TileObject> object = game.getTerrain().get(node.getTile());
-      return object.isPresent() && !(object.get() instanceof Food);
-    });
-  }
-
-  @Override
-  public void init() {
-    for (int i = 5; i > 0; i--) {
-      final int x = game.getTerrain().getTileWidth() / 2 + i;
-      final int y = game.getTerrain().getTileHeight() / 2;
-      addPart(game.getTerrain().getTile(x, y).get(), Direction.EAST, true);
+  public Direction opposite() {
+    switch (this) {
+      case NORTH:
+        return SOUTH;
+      case SOUTH:
+        return NORTH;
+      case EAST:
+        return WEST;
+      case WEST:
+        return EAST;
+      default:
+        throw new RuntimeException();
     }
-  }
-
-  @Override
-  public void onEat(Tile tile, TileObject object) {
-    game.spawnFood();
-    game.getTerrain().put(tile, null);
-    game.setPoints(game.getPoints() + 1);
-  }
-
-  @Override
-  protected int getFoodX() {
-    return game.getFood().getTileX();
-  }
-
-  @Override
-  protected int getFoodY() {
-    return game.getFood().getTileY();
   }
 }

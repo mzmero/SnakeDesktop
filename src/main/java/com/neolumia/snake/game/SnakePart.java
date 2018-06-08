@@ -25,6 +25,7 @@
 package com.neolumia.snake.game;
 
 import com.google.common.base.MoreObjects.ToStringHelper;
+import com.neolumia.snake.util.Direction;
 import javafx.scene.paint.Color;
 
 public abstract class SnakePart extends TileObject {

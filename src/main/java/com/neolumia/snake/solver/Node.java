@@ -24,7 +24,7 @@
 
 package com.neolumia.snake.solver;
 
-import com.neolumia.snake.game.Direction;
+import com.neolumia.snake.util.Direction;
 import com.neolumia.snake.game.Tile;
 
 import java.util.Objects;

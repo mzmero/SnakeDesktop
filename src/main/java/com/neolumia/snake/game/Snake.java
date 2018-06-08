@@ -24,10 +24,10 @@
 
 package com.neolumia.snake.game;
 
-import com.neolumia.snake.design.snake.PixelSnake;
 import com.neolumia.snake.item.food.Food;
 import com.neolumia.snake.solver.Node;
 import com.neolumia.snake.solver.Solver;
+import com.neolumia.snake.util.Direction;
 
 import javax.annotation.Nullable;
 import java.util.Optional;

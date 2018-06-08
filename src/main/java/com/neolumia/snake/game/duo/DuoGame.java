@@ -25,7 +25,7 @@
 package com.neolumia.snake.game.duo;
 
 import com.neolumia.snake.GameApp;
-import com.neolumia.snake.game.Direction;
+import com.neolumia.snake.util.Direction;
 import com.neolumia.snake.game.Game;
 import com.neolumia.snake.game.GameType;
 import com.neolumia.snake.game.Tile;
