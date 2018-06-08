@@ -6,16 +6,12 @@
   -fx-font-family: "Minecraft";
 }
 
-.button150x25 {
-  -fx-background-image: url('../button150x25.png')
-}
-
 .button-small {
-  -fx-background-image: url('../button150x25.png')
+  -fx-background-image: url('../lib/button150x25.png')
 }
 
-.button400x35 {
-  -fx-background-image: url('../button400x35.png')
+.button-large {
+  -fx-background-image: url('../lib/button400x35.png')
 }
 
 .button:focused {
