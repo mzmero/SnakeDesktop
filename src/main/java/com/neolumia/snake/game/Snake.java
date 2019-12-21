@@ -155,7 +155,9 @@ public abstract class Snake<T extends Game> {
     final Optional<Tile> tile = game.getTerrain().getTile(nextX, nextY);
 
     if (!tile.isPresent()) {
-      // -> Hit the wall
+      // TODO
+      // -> Hit the wall -> check lived
+
       game.getStats().walls++;
       game.end();
       return;

@@ -65,6 +65,12 @@ public final class SingleGame extends Game {
     return food;
   }
 
+
+  //TODO
+  /**
+   * spawn various foods corresponding to thier diffenernt timers and
+   * restrictions
+   */
   public void spawnFood() {
     Tile tile;
     while (true) {
