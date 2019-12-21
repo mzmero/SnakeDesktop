@@ -22,59 +22,59 @@
  * SOFTWARE.
  */
 
-package com.neolumia.snake.view;
+package com.neolumia.snake.model.game;
 
-import com.neolumia.snake.GameApp;
-import com.neolumia.snake.model.game.GameType;
-import javafx.fxml.FXML;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
+import com.google.common.base.MoreObjects;
+import com.google.common.base.MoreObjects.ToStringHelper;
+import javafx.scene.layout.Pane;
 
-public final class MenuWindow extends Window {
+public abstract class TileObject extends Pane {
 
-  private final GameApp app;
+  private int x;
+  private int y;
+  private int size;
 
-  @FXML private GridPane root;
-  @FXML private ImageView typeView;
+  public TileObject() {}
 
-  private GameType type = GameType.CLASSIC;
-
-  public MenuWindow(GameApp app) {
-    this.app = app;
+  public TileObject(int size) {
+    this.size = size;
   }
 
-  @FXML
-  public void play() {
-    app.newGame(type);
+  public int getX() {
+    return x;
   }
 
-  @FXML
-  public void design() {
-    app.getWindowManager().request(new DesignWindow(app));
+  public void setX(int x) {
+    this.x = x;
   }
 
-  @FXML
-  public void statistics() {
-    app.getWindowManager().request(new StatisticsWindow(app));
+  public int getY() {
+    return y;
   }
 
-  @FXML
-  public void settings() {
-    app.getWindowManager().request(new SettingsWindow(app));
+  public void setY(int y) {
+    this.y = y;
   }
 
-  public void clickTitle() {
-    switchType(type.next());
+  public int getSize() {
+    return size;
   }
 
-  private void switchType(GameType type) {
-    if (this.type == type) {
-      return;
-    }
-    this.type = type;
-    typeView.setImage(new Image(getClass().getResourceAsStream(type.getFile())));
-    typeView.setSmooth(true);
-    typeView.setCache(true);
+  public void setSize(int size) {
+    this.size = size;
+  }
+
+  public void init() {}
+
+  protected ToStringHelper toStringHelper() {
+    return MoreObjects.toStringHelper(this)
+      .add("x", x)
+      .add("y", y)
+      .add("size", size);
+  }
+
+  @Override
+  public String toString() {
+    return toStringHelper().toString();
   }
 }

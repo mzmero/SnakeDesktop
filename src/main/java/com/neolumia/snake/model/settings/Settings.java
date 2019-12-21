@@ -22,59 +22,27 @@
  * SOFTWARE.
  */
 
-package com.neolumia.snake.view;
+package com.neolumia.snake.model.settings;
 
-import com.neolumia.snake.GameApp;
-import com.neolumia.snake.model.game.GameType;
-import javafx.fxml.FXML;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
+public final class Settings {
 
-public final class MenuWindow extends Window {
+  public static Locale DEFAULT_LOCALE = Locale.ENGLISH;
+  public static Difficulty DEFAULT_DIFFICULTY = Difficulty.MEDIUM;
+  public static Size DEFAULT_SIZE = Size.MEDIUM;
+  public static String DEFAULT_NAME = "Dieter Bohlen";
+  public static boolean DEFAULT_LEADERBOARD = false;
 
-  private final GameApp app;
+  public Locale locale;
+  public Difficulty difficulty;
+  public Size size;
+  public String playerName;
+  public boolean leaderboard;
 
-  @FXML private GridPane root;
-  @FXML private ImageView typeView;
-
-  private GameType type = GameType.CLASSIC;
-
-  public MenuWindow(GameApp app) {
-    this.app = app;
-  }
-
-  @FXML
-  public void play() {
-    app.newGame(type);
-  }
-
-  @FXML
-  public void design() {
-    app.getWindowManager().request(new DesignWindow(app));
-  }
-
-  @FXML
-  public void statistics() {
-    app.getWindowManager().request(new StatisticsWindow(app));
-  }
-
-  @FXML
-  public void settings() {
-    app.getWindowManager().request(new SettingsWindow(app));
-  }
-
-  public void clickTitle() {
-    switchType(type.next());
-  }
-
-  private void switchType(GameType type) {
-    if (this.type == type) {
-      return;
-    }
-    this.type = type;
-    typeView.setImage(new Image(getClass().getResourceAsStream(type.getFile())));
-    typeView.setSmooth(true);
-    typeView.setCache(true);
+  public Settings(Locale locale, Difficulty difficulty, Size size, String playerName, boolean leaderboard) {
+    this.locale = locale;
+    this.difficulty = difficulty;
+    this.size = size;
+    this.playerName = playerName;
+    this.leaderboard = leaderboard;
   }
 }

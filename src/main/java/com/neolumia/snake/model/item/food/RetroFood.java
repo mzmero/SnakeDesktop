@@ -22,59 +22,31 @@
  * SOFTWARE.
  */
 
-package com.neolumia.snake.view;
+package com.neolumia.snake.model.item.food;
 
-import com.neolumia.snake.GameApp;
-import com.neolumia.snake.model.game.GameType;
-import javafx.fxml.FXML;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
-public final class MenuWindow extends Window {
+public final class RetroFood extends Food {
 
-  private final GameApp app;
+  private final Circle circle;
 
-  @FXML private GridPane root;
-  @FXML private ImageView typeView;
-
-  private GameType type = GameType.CLASSIC;
-
-  public MenuWindow(GameApp app) {
-    this.app = app;
+  public RetroFood() {
+    super("Retro");
+    getChildren().add(circle = new Circle(0, Color.BLACK));
   }
 
-  @FXML
-  public void play() {
-    app.newGame(type);
+  @Override
+  public void setSize(int size) {
+    super.setSize(size);
+    circle.setRadius(16 - 6);
+    circle.setCenterX(x * size + 16 + 3);
+    circle.setCenterY(y * size + 16 + 3);
   }
 
-  @FXML
-  public void design() {
-    app.getWindowManager().request(new DesignWindow(app));
-  }
-
-  @FXML
-  public void statistics() {
-    app.getWindowManager().request(new StatisticsWindow(app));
-  }
-
-  @FXML
-  public void settings() {
-    app.getWindowManager().request(new SettingsWindow(app));
-  }
-
-  public void clickTitle() {
-    switchType(type.next());
-  }
-
-  private void switchType(GameType type) {
-    if (this.type == type) {
-      return;
-    }
-    this.type = type;
-    typeView.setImage(new Image(getClass().getResourceAsStream(type.getFile())));
-    typeView.setSmooth(true);
-    typeView.setCache(true);
+  @Override
+  public void setColor(Color color) {
+    super.setColor(color);
+    circle.setFill(color);
   }
 }

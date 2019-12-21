@@ -24,16 +24,16 @@
 
 package com.neolumia.snake;
 
-import com.neolumia.snake.design.Design;
-import com.neolumia.snake.design.option.BgDesign;
-import com.neolumia.snake.design.option.SnakeDesign;
-import com.neolumia.snake.design.option.TerrainDesign;
-import com.neolumia.snake.game.Game;
-import com.neolumia.snake.settings.Difficulty;
-import com.neolumia.snake.settings.Locale;
-import com.neolumia.snake.settings.Settings;
-import com.neolumia.snake.settings.Size;
-import com.neolumia.snake.util.Q;
+import com.neolumia.snake.model.design.Design;
+import com.neolumia.snake.model.design.option.BgDesign;
+import com.neolumia.snake.model.design.option.SnakeDesign;
+import com.neolumia.snake.model.design.option.TerrainDesign;
+import com.neolumia.snake.model.game.Game;
+import com.neolumia.snake.model.settings.Difficulty;
+import com.neolumia.snake.model.settings.Locale;
+import com.neolumia.snake.model.settings.Settings;
+import com.neolumia.snake.model.settings.Size;
+import com.neolumia.snake.model.util.Q;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 

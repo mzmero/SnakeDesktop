@@ -22,59 +22,51 @@
  * SOFTWARE.
  */
 
-package com.neolumia.snake.view;
+package com.neolumia.snake.model.design;
 
-import com.neolumia.snake.GameApp;
-import com.neolumia.snake.model.game.GameType;
-import javafx.fxml.FXML;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
+import com.google.common.base.MoreObjects;
+import com.neolumia.snake.model.design.option.BgDesign;
+import com.neolumia.snake.model.design.option.SnakeDesign;
+import com.neolumia.snake.model.design.option.TerrainDesign;
 
-public final class MenuWindow extends Window {
+import java.util.Objects;
 
-  private final GameApp app;
+public final class Design {
 
-  @FXML private GridPane root;
-  @FXML private ImageView typeView;
+  public TerrainDesign terrain = TerrainDesign.SIMPLE;
+  public SnakeDesign snake = SnakeDesign.FRED;
+  public BgDesign background = BgDesign.CYAN;
 
-  private GameType type = GameType.CLASSIC;
+  public Design() {}
 
-  public MenuWindow(GameApp app) {
-    this.app = app;
+  public Design(TerrainDesign terrain, SnakeDesign snake, BgDesign background) {
+    this.terrain = terrain;
+    this.snake = snake;
+    this.background = background;
   }
 
-  @FXML
-  public void play() {
-    app.newGame(type);
-  }
-
-  @FXML
-  public void design() {
-    app.getWindowManager().request(new DesignWindow(app));
-  }
-
-  @FXML
-  public void statistics() {
-    app.getWindowManager().request(new StatisticsWindow(app));
-  }
-
-  @FXML
-  public void settings() {
-    app.getWindowManager().request(new SettingsWindow(app));
-  }
-
-  public void clickTitle() {
-    switchType(type.next());
-  }
-
-  private void switchType(GameType type) {
-    if (this.type == type) {
-      return;
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
     }
-    this.type = type;
-    typeView.setImage(new Image(getClass().getResourceAsStream(type.getFile())));
-    typeView.setSmooth(true);
-    typeView.setCache(true);
+    if (!(o instanceof Design)) {
+      return false;
+    }
+    final Design design = (Design) o;
+    return terrain == design.terrain && background == design.background;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(terrain, background);
+  }
+
+  @Override
+  public String toString() {
+    return MoreObjects.toStringHelper(this)
+      .add("terrain", terrain)
+      .add("background", background)
+      .toString();
   }
 }

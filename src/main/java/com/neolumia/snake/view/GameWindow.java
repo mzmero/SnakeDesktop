@@ -25,10 +25,10 @@
 package com.neolumia.snake.view;
 
 import com.neolumia.snake.GameApp;
-import com.neolumia.snake.util.Direction;
-import com.neolumia.snake.game.Game;
-import com.neolumia.snake.game.duo.DuoGame;
-import com.neolumia.snake.game.single.SingleGame;
+import com.neolumia.snake.model.util.Direction;
+import com.neolumia.snake.model.game.Game;
+import com.neolumia.snake.model.game.duo.DuoGame;
+import com.neolumia.snake.model.game.single.SingleGame;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
