@@ -58,7 +58,7 @@ public abstract class Game extends Pane {
   public Game(GameApp app, GameType type) {
     this.app = app;
     this.type = type;
-
+    this.lives = 3;
     terrain = new Terrain(this, app.getWindowManager().getStage().isMaximized() ? 43 : 32);
     terrain.init();
 

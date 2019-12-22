@@ -45,7 +45,7 @@ public abstract class Snake<T extends Game> {
 
   private Direction direction;
   private int ticks;
-
+  private int lives;
   @Nullable
   private Direction next;
 
@@ -54,17 +54,22 @@ public abstract class Snake<T extends Game> {
     this.direction = direction;
     this.blocking = blocking;
     this.speed = game.getSettings().difficulty.getSpeed();
+    this.lives = 3;
   }
 
   public abstract void init();
 
   public abstract void onEat(Tile tile, TileObject object);
 
-  public void tick() {
-    if (ticks % (game.isAuto() ? speed / 2 : speed) == 0) {
-      move();
+  public boolean tick() {
+    while(true) {
+      if (ticks % (game.isAuto() ? speed / 2 : speed) == 0) {
+        return move();
+      }
+      ticks++;
     }
-    ticks++;
+
+
   }
 
   public Deque<SnakePart> getParts() {
@@ -104,10 +109,10 @@ public abstract class Snake<T extends Game> {
 
   protected abstract int getFoodY();
 
-  private void move() {
+  private boolean move() {
 
     if (parts.isEmpty()) {
-      return;
+      return false;
     }
 
     if (game.isAuto()) {
@@ -157,10 +162,20 @@ public abstract class Snake<T extends Game> {
     if (!tile.isPresent()) {
       // TODO
       // -> Hit the wall -> check lived
-
+      lives--;
       game.getStats().walls++;
+      game.setLives(lives);
+      if(lives == 0)
       game.end();
-      return;
+      else
+      {
+
+        game.getTerrain();
+        this.init();
+
+        game.setPaused(true);
+      }
+      return false;
     }
 
     boolean eat = false;
@@ -170,8 +185,18 @@ public abstract class Snake<T extends Game> {
 
       if (item.get() instanceof SnakePart) {
         // Hit himself --> End
-        game.end();
-        return;
+        lives--;
+        game.setLives(lives);
+        game.getStats().walls++;
+        if(lives == 0)
+          game.end();
+        else
+        {
+          this.init();
+          game.setPaused(true);
+        }
+        return false;
+
       }
 
       eat = true;
@@ -186,6 +211,7 @@ public abstract class Snake<T extends Game> {
 
 
     addPart(tile.get(), direction.opposite(), true);
+    return true;
   }
 
   private boolean moveable(Direction direction) {

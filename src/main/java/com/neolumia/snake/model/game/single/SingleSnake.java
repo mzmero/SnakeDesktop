@@ -24,12 +24,17 @@
 
 package com.neolumia.snake.model.game.single;
 
+import com.neolumia.snake.model.game.SnakePart;
+import com.neolumia.snake.model.item.food.Apple;
+import com.neolumia.snake.model.item.food.Banana;
+import com.neolumia.snake.model.item.food.Pear;
 import com.neolumia.snake.model.util.Direction;
 import com.neolumia.snake.model.game.Snake;
 import com.neolumia.snake.model.game.Tile;
 import com.neolumia.snake.model.game.TileObject;
 import com.neolumia.snake.model.item.food.Food;
 
+import java.util.Iterator;
 import java.util.Optional;
 
 public final class SingleSnake extends Snake<SingleGame> {
@@ -41,8 +46,22 @@ public final class SingleSnake extends Snake<SingleGame> {
     });
   }
 
+  /**
+   *  initiates Snake, and/or Clearing part from previous Life.
+   *
+   */
+
   @Override
   public void init() {
+
+    Iterator iterator = getParts().iterator();
+
+    while(iterator.hasNext()){
+      SnakePart sp = (SnakePart) iterator.next();
+      Tile tile = game.getTerrain().getTile(sp.getX(),sp.getY()).get();
+      game.getTerrain().put(tile,null);
+    }
+    this.getParts().clear();
     for (int i = 5; i > 0; i--) {
       final int x = game.getTerrain().getTileWidth() / 2 + i;
       final int y = game.getTerrain().getTileHeight() / 2;
@@ -52,9 +71,16 @@ public final class SingleSnake extends Snake<SingleGame> {
 
   @Override
   public void onEat(Tile tile, TileObject object) {
+
+
     game.spawnFood();
     game.getTerrain().put(tile, null);
-    game.setPoints(game.getPoints() + 1);
+    if(object instanceof Apple)
+    game.setPoints(game.getPoints() + 10);
+    if(object instanceof Banana)
+      game.setPoints(game.getPoints() + 15);
+    if(object instanceof Pear)
+      game.setPoints(game.getPoints() + 20);
   }
 
   @Override

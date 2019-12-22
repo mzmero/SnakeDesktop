@@ -61,6 +61,7 @@ public final class SingleGame extends Game {
     return snake;
   }
 
+
   public Tile getFood() {
     return food;
   }

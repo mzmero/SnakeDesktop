@@ -30,7 +30,7 @@ import com.neolumia.snake.model.game.GameType;
 import com.neolumia.snake.model.game.TileObject;
 import com.neolumia.snake.model.item.food.Apple;
 import com.neolumia.snake.model.item.food.Banana;
-import com.neolumia.snake.model.item.food.Cherry;
+import com.neolumia.snake.model.item.food.Pear;
 import com.neolumia.snake.model.item.food.RetroFood;
 import javafx.scene.paint.Color;
 
@@ -69,7 +69,7 @@ public abstract class Item extends TileObject {
   public static void registerDefaults() {
     register(of(ItemType.FOOD, GameType.CLASSIC), Apple::new);
     register(of(ItemType.FOOD, GameType.CLASSIC), Banana::new);
-    register(of(ItemType.FOOD, GameType.CLASSIC), Cherry::new);
+    register(of(ItemType.FOOD, GameType.CLASSIC), Pear::new);
 
     register(of(ItemType.FOOD, GameType.RETRO), RetroFood::new);
   }
