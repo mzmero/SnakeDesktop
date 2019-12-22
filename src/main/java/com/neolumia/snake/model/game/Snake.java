@@ -44,7 +44,7 @@ public abstract class Snake<T extends Game> {
   private final int speed;
 
   private Direction direction;
-  private int ticks;
+  private int ticks = 0;
   private int lives;
   @Nullable
   private Direction next;
@@ -54,6 +54,7 @@ public abstract class Snake<T extends Game> {
     this.direction = direction;
     this.blocking = blocking;
     this.speed = game.getSettings().difficulty.getSpeed();
+
     this.lives = 3;
   }
 
@@ -61,12 +62,14 @@ public abstract class Snake<T extends Game> {
 
   public abstract void onEat(Tile tile, TileObject object);
 
-  public boolean tick() {
+  public void tick() {
     while(true) {
-      if (ticks % (game.isAuto() ? speed / 2 : speed) == 0) {
-        return move();
-      }
+
+     if (ticks % (game.isAuto() ? speed / 2 : speed) == 0) {
+       move();
+     }
       ticks++;
+      break;
     }
 
 
