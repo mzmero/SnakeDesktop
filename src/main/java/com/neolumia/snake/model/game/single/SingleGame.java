@@ -61,10 +61,17 @@ public final class SingleGame extends Game {
     return snake;
   }
 
+
   public Tile getFood() {
     return food;
   }
 
+
+  //TODO
+  /**
+   * spawn various foods corresponding to thier diffenernt timers and
+   * restrictions
+   */
   public void spawnFood() {
     Tile tile;
     while (true) {

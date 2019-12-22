@@ -24,9 +24,9 @@
 
 package com.neolumia.snake.model.item.food;
 
-public final class Cherry extends AbstractFood {
+public final class Pear extends AbstractFood {
 
-  public Cherry() {
-    super("Cherry", "cherry.png");
+  public Pear() {
+    super("Pear", "pear.png");
   }
 }

@@ -4,13 +4,15 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 
-<GridPane fx:id="gridRoot" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane fx:id="gridRoot" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
   </columnConstraints>
@@ -43,5 +45,36 @@
         </Label>
       </HBox>
     </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+         <children>
+            <ImageView fx:id="life1" fitHeight="35.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+               <image>
+                  <Image url="@lib/heart.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="life2" fitHeight="35.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+               <image>
+                  <Image url="@lib/heart.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="life3" fitHeight="35.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+               <image>
+                  <Image url="@lib/heart.png" />
+               </image>
+            </ImageView>
+         </children>
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+      </HBox>
   </GridPane>
 </GridPane>

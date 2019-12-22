@@ -36,6 +36,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -61,6 +62,13 @@ public final class GameWindow extends Window {
   private Label points;
   @FXML
   private Label highscore;
+  @FXML
+  private ImageView  life1;
+  @FXML
+  private ImageView  life2;
+  @FXML
+  private ImageView  life3;
+
 
   public GameWindow(GameApp app, Game game) {
     this.app = app;
@@ -75,6 +83,23 @@ public final class GameWindow extends Window {
   }
 
   private void update() {
+    switch(game.getLives()){
+      case 1:
+        life1.visibleProperty().setValue(true);
+        life2.visibleProperty().setValue(false);
+        life3.visibleProperty().setValue(false);
+        break;
+      case 2:
+        life1.visibleProperty().setValue(true);
+        life2.visibleProperty().setValue(true);
+        life3.visibleProperty().setValue(false);
+        break;
+      case 3:
+        life1.visibleProperty().setValue(true);
+        life2.visibleProperty().setValue(true);
+        life3.visibleProperty().setValue(true);
+        break;
+    }
     points.setText(t("gameOver.points", game.getPoints()));
     highscore.setText(t("gameOver.highscore", app.getHighscore()));
   }

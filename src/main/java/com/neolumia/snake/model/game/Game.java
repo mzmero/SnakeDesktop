@@ -52,12 +52,13 @@ public abstract class Game extends Pane {
   private boolean paused;
   private boolean auto;
   private int points;
+  private int lives;
   private long start;
 
   public Game(GameApp app, GameType type) {
     this.app = app;
     this.type = type;
-
+    this.lives = 3;
     terrain = new Terrain(this, app.getWindowManager().getStage().isMaximized() ? 43 : 32);
     terrain.init();
 
@@ -88,9 +89,15 @@ public abstract class Game extends Pane {
     return points;
   }
 
+  public int getLives() {
+    return lives;
+  }
+
   public void setPoints(int points) {
     this.points = points;
   }
+
+  public void setLives(int lives) { this.lives = lives; }
 
   public boolean isPaused() {
     return paused;
@@ -108,7 +115,11 @@ public abstract class Game extends Pane {
     this.auto = auto;
   }
 
+  /**
+   *   check remaining lives and handle accordingly
+   */
   public void end() {
+
     running = false;
     long stop = System.currentTimeMillis();
 
@@ -138,6 +149,9 @@ public abstract class Game extends Pane {
     Platform.runLater(() -> app.getWindowManager().request(new DeadWindow(app, this, won)));
   }
 
+  /**
+   *
+   */
   public void run() {
     running = true;
     start = System.currentTimeMillis();
