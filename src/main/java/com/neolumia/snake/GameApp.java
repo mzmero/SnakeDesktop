@@ -24,13 +24,13 @@
 
 package com.neolumia.snake;
 
-import com.neolumia.snake.design.Design;
-import com.neolumia.snake.game.Game;
-import com.neolumia.snake.game.GameType;
-import com.neolumia.snake.game.duo.DuoGame;
-import com.neolumia.snake.game.single.SingleGame;
-import com.neolumia.snake.item.Item;
-import com.neolumia.snake.settings.Settings;
+import com.neolumia.snake.model.design.Design;
+import com.neolumia.snake.model.game.Game;
+import com.neolumia.snake.model.game.GameType;
+import com.neolumia.snake.model.game.duo.DuoGame;
+import com.neolumia.snake.model.game.single.SingleGame;
+import com.neolumia.snake.model.item.Item;
+import com.neolumia.snake.model.settings.Settings;
 import com.neolumia.snake.view.GameWindow;
 import com.neolumia.snake.view.MenuWindow;
 import com.neolumia.snake.view.WindowManager;

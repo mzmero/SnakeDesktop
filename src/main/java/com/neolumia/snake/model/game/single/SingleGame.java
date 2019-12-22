@@ -22,63 +22,62 @@
  * SOFTWARE.
  */
 
-package com.neolumia.snake.view;
+package com.neolumia.snake.model.game.single;
 
 import com.neolumia.snake.GameApp;
 import com.neolumia.snake.model.game.Game;
-import javafx.application.Platform;
-import javafx.fxml.FXML;
-import javafx.scene.Group;
-import javafx.scene.control.Label;
+import com.neolumia.snake.model.game.GameType;
+import com.neolumia.snake.model.game.Tile;
+import com.neolumia.snake.model.item.Item;
+import com.neolumia.snake.model.item.ItemType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.text.MessageFormat;
+import java.util.Optional;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+public final class SingleGame extends Game {
 
-public final class DeadWindow extends Window {
+  private static final Logger LOGGER = LogManager.getLogger(SingleGame.class);
 
-  private static final Logger LOGGER = LogManager.getLogger(DeadWindow.class);
+  private final SingleSnake snake = new SingleSnake(this);
+  private Tile food;
 
-  private final GameApp app;
-  private final Game game;
+  public SingleGame(GameApp app, GameType type) {
+    super(app, type);
+  }
 
-  @FXML private Group group;
-  @FXML private Label headLost;
-  @FXML private Label headWon;
-  @FXML private Label points;
-  @FXML private Label highscore;
+  @Override
+  public void init() {
+    snake.init();
+    spawnFood();
+  }
 
-  public DeadWindow(GameApp app, Game game, boolean won) {
-    this.app = checkNotNull(app);
-    this.game = checkNotNull(game);
+  @Override
+  public void tick() {
+    snake.tick();
+  }
 
-    group.getChildren().add(game);
-    group.setOpacity(0.4);
+  public SingleSnake getSnake() {
+    return snake;
+  }
 
-    points.setText(MessageFormat.format(points.getText(), game.getPoints()));
-    highscore.setText(MessageFormat.format(highscore.getText(), app.getHighscore()));
+  public Tile getFood() {
+    return food;
+  }
 
-    if (won) {
-      headLost.setVisible(false);
-    } else {
-      headWon.setVisible(false);
+  public void spawnFood() {
+    Tile tile;
+    while (true) {
+      int x = random.nextInt(terrain.getTileWidth());
+      int y = random.nextInt(terrain.getTileHeight());
+      final Optional<Tile> next = terrain.getTile(x, y);
+      if (next.isPresent() && !getTerrain().get(next.get()).isPresent()) {
+        tile = next.get();
+        break;
+      }
     }
-  }
-
-  @FXML
-  public void newGame() {
-    app.newGame(game.getType());
-  }
-
-  @FXML
-  public void back() {
-    app.getWindowManager().request(new MenuWindow(app));
-  }
-
-  @FXML
-  public void exit() {
-    Platform.exit();
+    final Optional<Item> item = Item.random(type, ItemType.FOOD);
+    getTerrain().put(food = tile, item.orElseThrow(IllegalStateException::new));
+    LOGGER.info("Item spawned x={}, y={}", tile.getTileX(), tile.getTileY());
   }
 }

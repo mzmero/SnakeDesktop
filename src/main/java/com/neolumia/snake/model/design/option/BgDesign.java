@@ -22,59 +22,55 @@
  * SOFTWARE.
  */
 
-package com.neolumia.snake.view;
+package com.neolumia.snake.model.design.option;
 
-import com.neolumia.snake.GameApp;
-import com.neolumia.snake.model.game.GameType;
-import javafx.fxml.FXML;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
+import com.neolumia.snake.model.design.DesignOption;
+import javafx.scene.paint.Color;
 
-public final class MenuWindow extends Window {
+import java.util.Optional;
 
-  private final GameApp app;
+public enum BgDesign implements DesignOption<BgDesign> {
 
-  @FXML private GridPane root;
-  @FXML private ImageView typeView;
+  CYAN("color.aqua", "/lib/bg_cyan.png", Color.rgb(224, 255, 255)),
+  WHITE("color.white", "/lib/bg_white.png", Color.WHITE);
 
-  private GameType type = GameType.CLASSIC;
+  private final String name;
+  private final String file;
+  private final Color color;
 
-  public MenuWindow(GameApp app) {
-    this.app = app;
+  BgDesign(String name, String file, Color color) {
+    this.name = name;
+    this.file = file;
+    this.color = color;
   }
 
-  @FXML
-  public void play() {
-    app.newGame(type);
+  @Override
+  public String getName() {
+    return name;
   }
 
-  @FXML
-  public void design() {
-    app.getWindowManager().request(new DesignWindow(app));
+  @Override
+  public String getFile() {
+    return file;
   }
 
-  @FXML
-  public void statistics() {
-    app.getWindowManager().request(new StatisticsWindow(app));
-  }
-
-  @FXML
-  public void settings() {
-    app.getWindowManager().request(new SettingsWindow(app));
-  }
-
-  public void clickTitle() {
-    switchType(type.next());
-  }
-
-  private void switchType(GameType type) {
-    if (this.type == type) {
-      return;
+  @Override
+  public Optional<BgDesign> before() {
+    if (ordinal() - 1 < 0) {
+      return Optional.empty();
     }
-    this.type = type;
-    typeView.setImage(new Image(getClass().getResourceAsStream(type.getFile())));
-    typeView.setSmooth(true);
-    typeView.setCache(true);
+    return Optional.ofNullable(values()[ordinal() - 1]);
+  }
+
+  @Override
+  public Optional<BgDesign> next() {
+    if (ordinal() + 1 >= values().length) {
+      return Optional.empty();
+    }
+    return Optional.ofNullable(values()[ordinal() + 1]);
+  }
+
+  public Color getColor() {
+    return color;
   }
 }

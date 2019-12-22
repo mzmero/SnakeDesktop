@@ -22,59 +22,18 @@
  * SOFTWARE.
  */
 
-package com.neolumia.snake.view;
+package com.neolumia.snake.model.design.snake;
 
-import com.neolumia.snake.GameApp;
-import com.neolumia.snake.model.game.GameType;
-import javafx.fxml.FXML;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
+import com.neolumia.snake.model.game.Snake;
+import com.neolumia.snake.model.game.Tile;
+import com.neolumia.snake.model.util.Direction;
+import javafx.scene.paint.Color;
 
-public final class MenuWindow extends Window {
+import javax.annotation.Nullable;
 
-  private final GameApp app;
+public final class PixelGucciSnake extends PixelSnake {
 
-  @FXML private GridPane root;
-  @FXML private ImageView typeView;
-
-  private GameType type = GameType.CLASSIC;
-
-  public MenuWindow(GameApp app) {
-    this.app = app;
-  }
-
-  @FXML
-  public void play() {
-    app.newGame(type);
-  }
-
-  @FXML
-  public void design() {
-    app.getWindowManager().request(new DesignWindow(app));
-  }
-
-  @FXML
-  public void statistics() {
-    app.getWindowManager().request(new StatisticsWindow(app));
-  }
-
-  @FXML
-  public void settings() {
-    app.getWindowManager().request(new SettingsWindow(app));
-  }
-
-  public void clickTitle() {
-    switchType(type.next());
-  }
-
-  private void switchType(GameType type) {
-    if (this.type == type) {
-      return;
-    }
-    this.type = type;
-    typeView.setImage(new Image(getClass().getResourceAsStream(type.getFile())));
-    typeView.setSmooth(true);
-    typeView.setCache(true);
+  public PixelGucciSnake(Snake snake, Tile tile, Direction direction, @Nullable Color color) {
+    super(snake, tile, direction, color == null ? Color.GOLD : color);
   }
 }

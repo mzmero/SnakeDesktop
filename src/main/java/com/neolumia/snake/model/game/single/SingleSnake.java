@@ -22,59 +22,48 @@
  * SOFTWARE.
  */
 
-package com.neolumia.snake.view;
+package com.neolumia.snake.model.game.single;
 
-import com.neolumia.snake.GameApp;
-import com.neolumia.snake.model.game.GameType;
-import javafx.fxml.FXML;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
+import com.neolumia.snake.model.util.Direction;
+import com.neolumia.snake.model.game.Snake;
+import com.neolumia.snake.model.game.Tile;
+import com.neolumia.snake.model.game.TileObject;
+import com.neolumia.snake.model.item.food.Food;
 
-public final class MenuWindow extends Window {
+import java.util.Optional;
 
-  private final GameApp app;
+public final class SingleSnake extends Snake<SingleGame> {
 
-  @FXML private GridPane root;
-  @FXML private ImageView typeView;
-
-  private GameType type = GameType.CLASSIC;
-
-  public MenuWindow(GameApp app) {
-    this.app = app;
+  SingleSnake(SingleGame game) {
+    super(game, Direction.WEST, node -> {
+      final Optional<TileObject> object = game.getTerrain().get(node.getTile());
+      return object.isPresent() && !(object.get() instanceof Food);
+    });
   }
 
-  @FXML
-  public void play() {
-    app.newGame(type);
-  }
-
-  @FXML
-  public void design() {
-    app.getWindowManager().request(new DesignWindow(app));
-  }
-
-  @FXML
-  public void statistics() {
-    app.getWindowManager().request(new StatisticsWindow(app));
-  }
-
-  @FXML
-  public void settings() {
-    app.getWindowManager().request(new SettingsWindow(app));
-  }
-
-  public void clickTitle() {
-    switchType(type.next());
-  }
-
-  private void switchType(GameType type) {
-    if (this.type == type) {
-      return;
+  @Override
+  public void init() {
+    for (int i = 5; i > 0; i--) {
+      final int x = game.getTerrain().getTileWidth() / 2 + i;
+      final int y = game.getTerrain().getTileHeight() / 2;
+      addPart(game.getTerrain().getTile(x, y).get(), Direction.EAST, true);
     }
-    this.type = type;
-    typeView.setImage(new Image(getClass().getResourceAsStream(type.getFile())));
-    typeView.setSmooth(true);
-    typeView.setCache(true);
+  }
+
+  @Override
+  public void onEat(Tile tile, TileObject object) {
+    game.spawnFood();
+    game.getTerrain().put(tile, null);
+    game.setPoints(game.getPoints() + 1);
+  }
+
+  @Override
+  protected int getFoodX() {
+    return game.getFood().getTileX();
+  }
+
+  @Override
+  protected int getFoodY() {
+    return game.getFood().getTileY();
   }
 }

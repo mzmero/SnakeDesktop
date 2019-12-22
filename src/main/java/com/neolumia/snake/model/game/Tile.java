@@ -22,59 +22,58 @@
  * SOFTWARE.
  */
 
-package com.neolumia.snake.view;
+package com.neolumia.snake.model.game;
 
-import com.neolumia.snake.GameApp;
-import com.neolumia.snake.model.game.GameType;
-import javafx.fxml.FXML;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
+import com.neolumia.snake.model.util.Direction;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 
-public final class MenuWindow extends Window {
+import java.util.Optional;
 
-  private final GameApp app;
+public final class Tile extends Rectangle {
 
-  @FXML private GridPane root;
-  @FXML private ImageView typeView;
+  private final int x;
+  private final int y;
 
-  private GameType type = GameType.CLASSIC;
-
-  public MenuWindow(GameApp app) {
-    this.app = app;
+  Tile(int x, int y, int size, Paint paint) {
+    super(x * size, y * size, size, size);
+    this.x = x;
+    this.y = y;
+    setFill(paint);
   }
 
-  @FXML
-  public void play() {
-    app.newGame(type);
+  public int getTileX() {
+    return x;
   }
 
-  @FXML
-  public void design() {
-    app.getWindowManager().request(new DesignWindow(app));
+  public int getTileY() {
+    return y;
   }
 
-  @FXML
-  public void statistics() {
-    app.getWindowManager().request(new StatisticsWindow(app));
-  }
-
-  @FXML
-  public void settings() {
-    app.getWindowManager().request(new SettingsWindow(app));
-  }
-
-  public void clickTitle() {
-    switchType(type.next());
-  }
-
-  private void switchType(GameType type) {
-    if (this.type == type) {
-      return;
+  public Optional<Tile> getRelative(Game game, Direction direction) {
+    int nextX = x;
+    int nextY = y;
+    switch (direction) {
+      case NORTH:
+        nextY--;
+        break;
+      case SOUTH:
+        nextY++;
+        break;
+      case EAST:
+        nextX++;
+        break;
+      case WEST:
+        nextX--;
+        break;
     }
-    this.type = type;
-    typeView.setImage(new Image(getClass().getResourceAsStream(type.getFile())));
-    typeView.setSmooth(true);
-    typeView.setCache(true);
+    return game.getTerrain().getTile(nextX, nextY);
+  }
+
+  public void setSize(int size) {
+    setX(x * size);
+    setY(y * size);
+    setHeight(size);
+    setWidth(size);
   }
 }

@@ -22,59 +22,34 @@
  * SOFTWARE.
  */
 
-package com.neolumia.snake.view;
+package com.neolumia.snake.model.settings;
 
-import com.neolumia.snake.GameApp;
-import com.neolumia.snake.model.game.GameType;
-import javafx.fxml.FXML;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
+public enum Locale {
 
-public final class MenuWindow extends Window {
+  ENGLISH(0, java.util.Locale.ENGLISH), GERMAN(1, java.util.Locale.GERMAN);
 
-  private final GameApp app;
+  private final int id;
+  private final java.util.Locale locale;
 
-  @FXML private GridPane root;
-  @FXML private ImageView typeView;
-
-  private GameType type = GameType.CLASSIC;
-
-  public MenuWindow(GameApp app) {
-    this.app = app;
+  Locale(int id, java.util.Locale locale) {
+    this.id = id;
+    this.locale = locale;
   }
 
-  @FXML
-  public void play() {
-    app.newGame(type);
-  }
-
-  @FXML
-  public void design() {
-    app.getWindowManager().request(new DesignWindow(app));
-  }
-
-  @FXML
-  public void statistics() {
-    app.getWindowManager().request(new StatisticsWindow(app));
-  }
-
-  @FXML
-  public void settings() {
-    app.getWindowManager().request(new SettingsWindow(app));
-  }
-
-  public void clickTitle() {
-    switchType(type.next());
-  }
-
-  private void switchType(GameType type) {
-    if (this.type == type) {
-      return;
+  public static Locale fromId(int id) {
+    for (Locale locale : values()) {
+      if (locale.id == id) {
+        return locale;
+      }
     }
-    this.type = type;
-    typeView.setImage(new Image(getClass().getResourceAsStream(type.getFile())));
-    typeView.setSmooth(true);
-    typeView.setCache(true);
+    return null;
+  }
+
+  public int getId() {
+    return id;
+  }
+
+  public java.util.Locale getLocale() {
+    return locale;
   }
 }

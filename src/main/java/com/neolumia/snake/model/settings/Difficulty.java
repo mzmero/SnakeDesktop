@@ -22,59 +22,34 @@
  * SOFTWARE.
  */
 
-package com.neolumia.snake.view;
+package com.neolumia.snake.model.settings;
 
-import com.neolumia.snake.GameApp;
-import com.neolumia.snake.model.game.GameType;
-import javafx.fxml.FXML;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
+public enum Difficulty {
 
-public final class MenuWindow extends Window {
+  EASY(0, 9), MEDIUM(1, 6), HARD(2, 4);
 
-  private final GameApp app;
+  private final int id;
+  private final int speed;
 
-  @FXML private GridPane root;
-  @FXML private ImageView typeView;
-
-  private GameType type = GameType.CLASSIC;
-
-  public MenuWindow(GameApp app) {
-    this.app = app;
+  Difficulty(int id, int speed) {
+    this.id = id;
+    this.speed = speed;
   }
 
-  @FXML
-  public void play() {
-    app.newGame(type);
-  }
-
-  @FXML
-  public void design() {
-    app.getWindowManager().request(new DesignWindow(app));
-  }
-
-  @FXML
-  public void statistics() {
-    app.getWindowManager().request(new StatisticsWindow(app));
-  }
-
-  @FXML
-  public void settings() {
-    app.getWindowManager().request(new SettingsWindow(app));
-  }
-
-  public void clickTitle() {
-    switchType(type.next());
-  }
-
-  private void switchType(GameType type) {
-    if (this.type == type) {
-      return;
+  public static Difficulty fromId(int id) {
+    for (Difficulty difficulty : values()) {
+      if (difficulty.id == id) {
+        return difficulty;
+      }
     }
-    this.type = type;
-    typeView.setImage(new Image(getClass().getResourceAsStream(type.getFile())));
-    typeView.setSmooth(true);
-    typeView.setCache(true);
+    return null;
+  }
+
+  public int getId() {
+    return id;
+  }
+
+  public int getSpeed() {
+    return speed;
   }
 }
