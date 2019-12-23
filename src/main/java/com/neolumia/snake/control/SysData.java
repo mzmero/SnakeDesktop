@@ -25,6 +25,10 @@ public class SysData {
   private ArrayList<Question> questions;
   private ArrayList<GameHistory> history;
 
+  /**
+   * Creates an instance from the sysData
+   * @return
+   */
   public static SysData getInstance() {
     if (single_instance == null) {
       single_instance = new SysData();
@@ -43,10 +47,19 @@ public class SysData {
     this.history = readHistoryFromJson();
   }
 
+  /**
+   * Sets the questions array to be equals to the array returned after reading from json
+   */
   public void setQuestions() {
     this.questions = readQuestionFromJson();
   }
 
+
+  /**
+   * Getter method for the questions array
+   *
+   * @return questions array
+   */
   public ArrayList<Question> getQuestions() {
     return questions;
   }
@@ -75,6 +88,12 @@ public class SysData {
     }
   }
 
+  /**
+   * This method inserts the question that was passed as a parameter and adds it to the questions array
+   *
+   * @param Q the question that we want to insert
+   * @return returns true if question was added successfully and false otherwise
+   */
   public boolean insertQuestion(Question Q) {
     boolean temp = ifExists(Q.getQuestion());
     if (temp)
@@ -94,11 +113,17 @@ public class SysData {
 
   }
 
+  /**
+   * Reads the questions from the json file and converts the questions to objects from the type question
+   *
+   * @return array which contains all the questions that were read
+   */
+
   public ArrayList<Question> readQuestionFromJson() {
     JSONParser jsonParser = new JSONParser();
     ArrayList<Question> result = new ArrayList<>();
     File file = new File(".");
-    for(String fileNames : file.list()) System.out.println(fileNames);
+    for (String fileNames : file.list()) System.out.println(fileNames);
     try (FileReader reader = new FileReader(new File("json/questions.json"))) {
       //Read JSON file
       Object obj = jsonParser.parse(reader);
@@ -133,6 +158,9 @@ public class SysData {
     }
   }
 
+  /**
+   * This method writes the questions from the questions array to the json file located in "json/questions.json"
+   */
   public void writeQuestionTojson() {
     JSONObject jObject = new JSONObject();
     try {
@@ -156,10 +184,16 @@ public class SysData {
     }
   }
 
-  public Question getQuestion(String id) {
+  /**
+   * Searches for question and returns question if exists
+   *
+   * @param questionBody - is the questions body
+   * @return question if exists, otherwise NULL
+   */
+  public Question getQuestion(String questionBody) {
     for (Question p : questions
     ) {
-      if (p != null && p.getQuestion().equals(id))
+      if (p != null && p.getQuestion().equals(questionBody))
         return p;
     }
     return null;

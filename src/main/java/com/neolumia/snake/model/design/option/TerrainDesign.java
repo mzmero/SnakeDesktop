@@ -32,7 +32,9 @@ import java.util.Optional;
 import java.util.function.Function;
 
 public enum TerrainDesign implements DesignOption<TerrainDesign> {
-
+  /**
+   * Terrain designs : SIMPLE , CHESS , GRASS
+   */
   SIMPLE("terrain.simple", "/lib/terrain_retro.png", pos -> Color.rgb(157, 213, 3)),
   GRASS("terrain.grass", "/lib/terrain_grass.png", pos -> (pos.getX() + pos.getY()) % 2 == 0 ? Color.rgb(111, 169, 111) : Color.rgb(127, 188, 124)),
   CHESS("terrain.chess", "/lib/terrain_chess.png", pos -> (pos.getX() + pos.getY()) % 2 == 0 ? Color.rgb(207, 137, 72) : Color.rgb(255, 204, 156));
@@ -41,6 +43,12 @@ public enum TerrainDesign implements DesignOption<TerrainDesign> {
   private final String file;
   private final Function<Position, Color> color;
 
+  /**
+   * Constructs the terrain design
+   * @param name - name of design
+   * @param file - image associated with design
+   * @param color - suitable color for the design
+   */
   TerrainDesign(String name, String file, Function<Position, Color> color) {
     this.name = name;
     this.file = file;

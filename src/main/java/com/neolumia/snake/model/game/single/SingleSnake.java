@@ -39,6 +39,7 @@ import java.util.Optional;
 
 public final class SingleSnake extends Snake<SingleGame> {
 
+
   SingleSnake(SingleGame game) {
     super(game, Direction.WEST, node -> {
       final Optional<TileObject> object = game.getTerrain().get(node.getTile());
@@ -47,19 +48,17 @@ public final class SingleSnake extends Snake<SingleGame> {
   }
 
   /**
-   *  initiates Snake, and/or Clearing part from previous Life.
-   *
+   * Initiates Snake, and/or Clearing part from previous Life.
    */
-
   @Override
   public void init() {
 
     Iterator iterator = getParts().iterator();
 
-    while(iterator.hasNext()){
+    while (iterator.hasNext()) {
       SnakePart sp = (SnakePart) iterator.next();
-      Tile tile = game.getTerrain().getTile(sp.getX(),sp.getY()).get();
-      game.getTerrain().put(tile,null);
+      Tile tile = game.getTerrain().getTile(sp.getX(), sp.getY()).get();
+      game.getTerrain().put(tile, null);
     }
     this.getParts().clear();
     for (int i = 5; i > 0; i--) {
@@ -69,17 +68,21 @@ public final class SingleSnake extends Snake<SingleGame> {
     }
   }
 
+  /**
+   * This method update info according to the object that was eaten.
+   *
+   * @param tile   - location
+   * @param object - objects that was eater
+   */
   @Override
   public void onEat(Tile tile, TileObject object) {
-
-
     game.spawnFood();
     game.getTerrain().put(tile, null);
-    if(object instanceof Apple)
-    game.setPoints(game.getPoints() + 10);
-    if(object instanceof Banana)
+    if (object instanceof Apple)
+      game.setPoints(game.getPoints() + 10);
+    if (object instanceof Banana)
       game.setPoints(game.getPoints() + 15);
-    if(object instanceof Pear)
+    if (object instanceof Pear)
       game.setPoints(game.getPoints() + 20);
   }
 

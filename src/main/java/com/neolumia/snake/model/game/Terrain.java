@@ -34,6 +34,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * This class represents board matrix
+ */
 public final class Terrain extends Pane {
 
   private final Game game;

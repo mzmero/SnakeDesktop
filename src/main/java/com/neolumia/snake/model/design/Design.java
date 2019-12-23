@@ -33,6 +33,10 @@ import java.util.Objects;
 
 public final class Design {
 
+  /**
+   * Defines the design of the game (with defaults) and option to customize
+   */
+
   public TerrainDesign terrain = TerrainDesign.SIMPLE;
   public SnakeDesign snake = SnakeDesign.FRED;
   public BgDesign background = BgDesign.CYAN;

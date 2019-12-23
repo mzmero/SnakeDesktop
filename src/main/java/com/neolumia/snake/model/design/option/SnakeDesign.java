@@ -36,6 +36,9 @@ import java.util.Optional;
 
 public enum SnakeDesign implements DesignOption<SnakeDesign> {
 
+  /**
+   * Snake designs : PIXEL ,PIXEL_GUCCI, FRED, FRED_GUCCI
+   */
   PIXEL("design.pixel", "/lib/snake_pixel.png", PixelSnake::new),
   PIXEL_GUCCI("design.pixel.gucci", "/lib/snake_pixel_gucci.png", PixelGucciSnake::new),
   FRED("design.fred", "/lib/snake_fred.png", FredSnake::new),

@@ -37,6 +37,9 @@ import java.text.MessageFormat;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+/**
+ * This is the class which is responsible for the GAME OVER view - which is shown when user loses
+ */
 public final class DeadWindow extends Window {
 
   private static final Logger LOGGER = LogManager.getLogger(DeadWindow.class);

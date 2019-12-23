@@ -33,6 +33,13 @@ import javax.annotation.Nullable;
 
 public final class PixelGucciSnake extends PixelSnake {
 
+  /**
+   * Constructs the PixelGucciSnake which is inherited from PixelSnake
+   * @param snake - default snake
+   * @param tile - Location
+   * @param direction - snake direction
+   * @param color - color of the snake
+   */
   public PixelGucciSnake(Snake snake, Tile tile, Direction direction, @Nullable Color color) {
     super(snake, tile, direction, color == null ? Color.GOLD : color);
   }

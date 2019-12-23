@@ -37,6 +37,9 @@ import java.text.DecimalFormat;
 
 import static com.neolumia.snake.GameApp.t;
 
+/**
+ * This class is responsible for the statistics - games leaderboard and more
+ */
 public final class StatisticsWindow extends Window {
 
   private final GameApp app;

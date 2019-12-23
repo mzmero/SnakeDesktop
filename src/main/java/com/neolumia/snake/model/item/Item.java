@@ -44,7 +44,11 @@ import java.util.stream.Collectors;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.neolumia.snake.model.item.Item.Arguments.of;
 
+/**
+ * An abstract representation of an item in the game
+ */
 public abstract class Item extends TileObject {
+
 
   private static final Map<Arguments, Supplier<Item>> items = Maps.newConcurrentMap();
   private static final Random random = new Random();
