@@ -26,6 +26,7 @@ package com.neolumia.snake.view;
 
 import com.neolumia.snake.GameApp;
 import com.neolumia.snake.Stats;
+import com.neolumia.snake.control.SysData;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
@@ -53,6 +54,9 @@ public final class StatisticsWindow extends Window {
   @FXML private Label statsItems;
   @FXML private Label statsPlaytime;
   @FXML private Label statsWall;
+  @FXML private Label board;
+  @FXML private Label board1;
+
 
   StatisticsWindow(GameApp app) {
     this.app = app;
@@ -64,20 +68,52 @@ public final class StatisticsWindow extends Window {
     menu.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
       if (newValue.equals(stats)) {
         grid.add(render("stats"), 0, 0);
+        menu.selectToggle(stats);
+
+        update(app.getStats());
+      }      if (newValue.equals(history)) {
+        grid.add(render("history"), 0, 0);
+        menu.selectToggle(history);
+        fillHistory();
+      } if(newValue.equals(leaderboard)){
+        grid.add(render("leaderboard"), 0, 0);
+        menu.selectToggle(leaderboard);
+        fillboard();
       }
     });
 
-    menu.selectToggle(stats);
 
-    update(app.getStats());
   }
 
   @FXML
   public void cancel() {
     app.getWindowManager().request(new MenuWindow(app));
   }
+  private void fillHistory(){
+    board.setText(SysData.getInstance().getHistory().toString());
+    if(statsGames!=null && statsItems!=null && statsPlaytime!=null &&statsWall!=null){
+    statsGames.setVisible(false);
+    statsItems.setVisible(false);
+    statsPlaytime.setVisible(false);
+    statsWall.setVisible(false);}
+    if(board1!=null) board1.setVisible(false);
+    board.setVisible(true);
+  }
 
+  public void fillboard(){
+    board1.setText(SysData.getInstance().getHistory().toString());
+    if(statsGames!=null && statsItems!=null && statsPlaytime!=null &&statsWall!=null){
+      statsGames.setVisible(false);
+      statsItems.setVisible(false);
+      statsPlaytime.setVisible(false);
+      statsWall.setVisible(false);}
+    if(board!=null) board.setVisible(false);
+    board1.setVisible(true);
+
+  }
   private void update(Stats stats) {
+    if(board!=null) board.setVisible(false);
+    if(board1!=null) board1.setVisible(false);
     statsGames.setText(t("stats.games", stats.games));
     statsItems.setText(t("stats.items", stats.items));
     statsPlaytime.setText(t("stats.playtime", new DecimalFormat("#.##").format(stats.playtime)));
