@@ -24,6 +24,7 @@
 
 package com.neolumia.snake.model.game;
 
+import com.neolumia.snake.control.Game;
 import com.neolumia.snake.model.util.Direction;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;

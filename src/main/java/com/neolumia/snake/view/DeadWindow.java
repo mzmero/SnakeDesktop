@@ -25,7 +25,7 @@
 package com.neolumia.snake.view;
 
 import com.neolumia.snake.GameApp;
-import com.neolumia.snake.model.game.Game;
+import com.neolumia.snake.control.Game;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Group;

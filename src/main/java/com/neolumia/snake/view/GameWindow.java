@@ -3,9 +3,8 @@ package com.neolumia.snake.view;
 
 import com.neolumia.snake.GameApp;
 import com.neolumia.snake.model.util.Direction;
-import com.neolumia.snake.model.game.Game;
-import com.neolumia.snake.model.game.duo.DuoGame;
-import com.neolumia.snake.model.game.single.SingleGame;
+import com.neolumia.snake.control.Game;
+import com.neolumia.snake.control.SingleGame;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -114,35 +113,35 @@ public final class GameWindow extends Window {
             break;
         }
       }
-
-      if (game instanceof DuoGame) {
-        switch (event.getCode()) {
-          case UP:
-            ((DuoGame) game).getSecond().setNext(Direction.NORTH);
-            break;
-          case DOWN:
-            ((DuoGame) game).getSecond().setNext(Direction.SOUTH);
-            break;
-          case LEFT:
-            ((DuoGame) game).getSecond().setNext(Direction.WEST);
-            break;
-          case RIGHT:
-            ((DuoGame) game).getSecond().setNext(Direction.EAST);
-            break;
-          case W:
-            ((DuoGame) game).getFirst().setNext(Direction.NORTH);
-            break;
-          case S:
-            ((DuoGame) game).getFirst().setNext(Direction.SOUTH);
-            break;
-          case A:
-            ((DuoGame) game).getFirst().setNext(Direction.WEST);
-            break;
-          case D:
-            ((DuoGame) game).getFirst().setNext(Direction.EAST);
-            break;
-        }
-      }
+//
+//      if (game instanceof DuoGame) {
+//        switch (event.getCode()) {
+//          case UP:
+//            ((DuoGame) game).getSecond().setNext(Direction.NORTH);
+//            break;
+//          case DOWN:
+//            ((DuoGame) game).getSecond().setNext(Direction.SOUTH);
+//            break;
+//          case LEFT:
+//            ((DuoGame) game).getSecond().setNext(Direction.WEST);
+//            break;
+//          case RIGHT:
+//            ((DuoGame) game).getSecond().setNext(Direction.EAST);
+//            break;
+//          case W:
+//            ((DuoGame) game).getFirst().setNext(Direction.NORTH);
+//            break;
+//          case S:
+//            ((DuoGame) game).getFirst().setNext(Direction.SOUTH);
+//            break;
+//          case A:
+//            ((DuoGame) game).getFirst().setNext(Direction.WEST);
+//            break;
+//          case D:
+//            ((DuoGame) game).getFirst().setNext(Direction.EAST);
+//            break;
+//        }
+//      }
     });
 
     stage.setMinWidth(game.getTerrain().getWidth() + 32);

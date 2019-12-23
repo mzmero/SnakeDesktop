@@ -28,7 +28,7 @@ import com.neolumia.snake.model.design.Design;
 import com.neolumia.snake.model.design.option.BgDesign;
 import com.neolumia.snake.model.design.option.SnakeDesign;
 import com.neolumia.snake.model.design.option.TerrainDesign;
-import com.neolumia.snake.model.game.Game;
+import com.neolumia.snake.control.Game;
 import com.neolumia.snake.model.settings.Difficulty;
 import com.neolumia.snake.model.settings.Locale;
 import com.neolumia.snake.model.settings.Settings;

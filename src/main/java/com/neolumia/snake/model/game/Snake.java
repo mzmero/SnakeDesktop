@@ -24,6 +24,7 @@
 
 package com.neolumia.snake.model.game;
 
+import com.neolumia.snake.control.Game;
 import com.neolumia.snake.model.item.food.Food;
 import com.neolumia.snake.model.solver.Node;
 import com.neolumia.snake.model.solver.Solver;

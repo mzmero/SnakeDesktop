@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.neolumia.snake.model.game.single;
+package com.neolumia.snake.control;
 
 import com.neolumia.snake.model.game.SnakePart;
 import com.neolumia.snake.model.item.food.Apple;

@@ -25,10 +25,9 @@
 package com.neolumia.snake;
 
 import com.neolumia.snake.model.design.Design;
-import com.neolumia.snake.model.game.Game;
+import com.neolumia.snake.control.Game;
 import com.neolumia.snake.model.game.GameType;
-import com.neolumia.snake.model.game.duo.DuoGame;
-import com.neolumia.snake.model.game.single.SingleGame;
+import com.neolumia.snake.control.SingleGame;
 import com.neolumia.snake.model.item.Item;
 import com.neolumia.snake.model.settings.Settings;
 import com.neolumia.snake.view.GameWindow;
@@ -94,7 +93,7 @@ public final class GameApp extends Application {
   public void newGame(GameType type) {
     synchronized (this) {
       LOGGER.info("Creating a new game with type " + type.name());
-      Game game = (type == GameType.DUO) ? new DuoGame(this) : new SingleGame(this, type);
+      Game game = (type == GameType.DUO) ?new SingleGame(this, type) : new SingleGame(this, type);
       getWindowManager().request(new GameWindow(this, game));
       game.init();
       game.run();

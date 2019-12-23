@@ -1,8 +1,7 @@
 
-package com.neolumia.snake.model.game.single;
+package com.neolumia.snake.control;
 
 import com.neolumia.snake.GameApp;
-import com.neolumia.snake.model.game.Game;
 import com.neolumia.snake.model.game.GameType;
 import com.neolumia.snake.model.game.Tile;
 import com.neolumia.snake.model.item.Item;

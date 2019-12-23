@@ -24,6 +24,7 @@
 
 package com.neolumia.snake.model.game;
 
+import com.neolumia.snake.control.Game;
 import com.neolumia.snake.model.util.Position;
 import javafx.application.Platform;
 import javafx.scene.layout.Pane;
