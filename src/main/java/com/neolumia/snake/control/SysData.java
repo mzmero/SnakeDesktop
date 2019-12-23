@@ -1,6 +1,7 @@
 package com.neolumia.snake.control;
 
 
+import com.neolumia.snake.model.game.GameHistory;
 import com.neolumia.snake.model.questions.Question;
 import com.neolumia.snake.model.questions.QuestionLevel;
 import org.json.simple.JSONArray;
@@ -15,20 +16,31 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
 public class SysData {
 
   private static SysData single_instance = null;
   private ArrayList<Question> questions;
+  private ArrayList<GameHistory> history;
 
   public static SysData getInstance() {
     if (single_instance == null) {
       single_instance = new SysData();
       single_instance.setQuestions();
+      single_instance.setHistory();
     }
 
     return single_instance;
+  }
+
+  public ArrayList<GameHistory> getHistory() {
+    return history;
+  }
+
+  public void setHistory() {
+    this.history = readHistoryFromJson();
   }
 
   public void setQuestions() {
@@ -151,5 +163,53 @@ public class SysData {
         return p;
     }
     return null;
+  }
+
+
+  public ArrayList<GameHistory> readHistoryFromJson() {
+    JSONParser jsonParser = new JSONParser();
+    ArrayList<GameHistory> result = new ArrayList<>();
+    try (FileReader reader = new FileReader("json/history.json")) {
+      //Read JSON file
+      Object obj = jsonParser.parse(reader);
+      JSONObject obj2 = (JSONObject) obj;
+      JSONArray arr = (JSONArray) obj2.get("history");
+      Iterator<Object> iterator = arr.iterator();
+      while (iterator.hasNext()) {
+        JSONObject object = (JSONObject) iterator.next();
+        result.add(new GameHistory((String) object.get("player"), (int) (long) object.get("score"), (int) (long) object.get("numOfSouls")));
+      }
+      Collections.sort(result);
+      return result;
+
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+      return null;
+    } catch (IOException e) {
+      e.printStackTrace();
+      return null;
+    } catch (ParseException e) {
+      e.printStackTrace();
+      return null;
+    }
+  }
+
+  public void writeHistoryTojson() {
+    JSONObject jObject = new JSONObject();
+    try {
+      JSONArray jArray = new JSONArray();
+      for (GameHistory h : history) {
+        JSONObject play = new JSONObject();
+        play.put("player", h.getPlayer());
+        play.put("score", h.getPoints());
+        play.put("numOfSouls", h.getLives());
+        jArray.add(play);
+      }
+      jObject.put("history", jArray);
+      Files.write(Paths.get("json/history.json"), jObject.toJSONString().getBytes());
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 }
