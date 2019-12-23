@@ -119,12 +119,13 @@ public class SysData {
       e.printStackTrace();
       return null;
     }
-  }
 
+  }
   public void writeQuestionTojson() {
     JSONObject jObject = new JSONObject();
     try {
       JSONArray jArray = new JSONArray();
+      System.out.print("hala");
       for (Question Q : questions) {
         JSONObject Question = new JSONObject();
         Question.put("question", Q.getQuestion());
