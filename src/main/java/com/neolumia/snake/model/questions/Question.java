@@ -5,9 +5,17 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * This class represents the software engineering questions which will be shown during the game
+ */
 public class Question implements Serializable {
-
+  /**
+   * question : body of the question
+   * answers : string array for the ansers of the question
+   * correctAns : the right anser to the question
+   * level : the difficulty of the level
+   * team : which team has added this question
+   */
     private String question;
     private ArrayList<String> answers = null;
     private String correctAns;

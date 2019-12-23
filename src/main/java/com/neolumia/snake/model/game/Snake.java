@@ -54,7 +54,6 @@ public abstract class Snake<T extends Game> {
     this.direction = direction;
     this.blocking = blocking;
     this.speed = game.getSettings().difficulty.getSpeed();
-
     this.lives = 3;
   }
 

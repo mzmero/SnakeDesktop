@@ -26,6 +26,9 @@ package com.neolumia.snake.model.settings;
 
 public final class Settings {
 
+  /**
+   * This class is for defining the settings like difficulty, size, player name and more
+   */
   public static Locale DEFAULT_LOCALE = Locale.ENGLISH;
   public static Difficulty DEFAULT_DIFFICULTY = Difficulty.MEDIUM;
   public static Size DEFAULT_SIZE = Size.MEDIUM;

@@ -46,7 +46,9 @@ import javafx.scene.layout.GridPane;
 import java.util.ArrayList;
 
 import static com.neolumia.snake.GameApp.t;
-
+/**
+ * This is the class which is responsible for the design Management view - which manages the design
+ */
 public final class DesignWindow extends Window {
 
   private final GameApp app;

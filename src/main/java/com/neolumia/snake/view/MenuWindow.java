@@ -30,7 +30,9 @@ import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-
+/**
+ * This is the class which is responsible of the GAME view
+ */
 public final class MenuWindow extends Window {
 
   private final GameApp app;

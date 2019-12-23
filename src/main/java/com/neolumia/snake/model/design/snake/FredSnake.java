@@ -1,26 +1,3 @@
-/*
- * This file is part of Snake, licensed under the MIT License (MIT).
- *
- * Copyright (c) 2018 Neolumia
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
 
 package com.neolumia.snake.model.design.snake;
 
@@ -39,16 +16,35 @@ import javafx.scene.shape.Rectangle;
 import javax.annotation.Nullable;
 
 public class FredSnake extends SnakePart {
-
+  /**
+   * FredSnake is the default snake in the game
+   */
   private static final int MARGIN = 4;
 
+  /**
+   * Head of the snake
+   */
   private final Circle head = new Circle(0, Color.BLACK);
+
+  /**
+   * Body of the snake
+   */
   private final Rectangle body = new Rectangle(0, 0, Color.BLACK);
 
+  /**
+   * Constructs the FredSnake
+   * @param snake
+   * @param tile
+   * @param direction
+   * @param color
+   */
   public FredSnake(Snake snake, Tile tile, Direction direction, @Nullable Color color) {
     super(snake, tile, direction, color == null ? Color.WHITE : color);
   }
 
+  /**
+   * Initializer method for the snake
+   */
   @Override
   public void init() {
     head.setFill(getColor());
@@ -56,6 +52,9 @@ public class FredSnake extends SnakePart {
     update();
   }
 
+  /**
+   * This method updates the parts of the FredSnake and the heard according to the direction of each one on board on board
+   */
   @Override
   public void update() {
     head.setRadius(getSize() / 2);
@@ -222,6 +221,12 @@ public class FredSnake extends SnakePart {
     }
   }
 
+  /**
+   * Sets the eyes of the snake
+   * @param x - x coordinate
+   * @param y - y coordinate
+   * @return
+   */
   private Circle eye(int x, int y) {
     final Circle eye = new Circle(1.5, Color.BLACK);
     eye.setCenterX(x);
@@ -229,10 +234,24 @@ public class FredSnake extends SnakePart {
     return eye;
   }
 
+  /**
+   * Sets the arc - body part of the snake
+   * @param centerX - x coordinate
+   * @param centerY - y coordinate
+   * @param angle
+   */
   private void arc(int centerX, int centerY, float angle) {
     tail(centerX, centerY, getSize() - (MARGIN / 2), getSize() - (MARGIN / 2), angle);
   }
 
+  /**
+   * Sets the tail of the snake
+   * @param centerX - x coordinate
+   * @param centerY - y coordinate
+   * @param radiusX - x rad
+   * @param radiusY - y rad
+   * @param angle
+   */
   private void tail(int centerX, int centerY, int radiusX, int radiusY, float angle) {
     Arc arc = new Arc();
     arc.setFill(getColor());

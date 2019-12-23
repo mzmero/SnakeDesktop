@@ -46,6 +46,9 @@ import java.text.MessageFormat;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+/**
+ * This is the main class of the application which runs all modules
+ */
 public final class GameApp extends Application {
 
   private static final Logger LOGGER = LogManager.getLogger(GameApp.class);

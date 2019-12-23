@@ -41,6 +41,9 @@ import javafx.util.Duration;
 
 import javax.annotation.Nullable;
 
+/**
+ * This class manages JavaFX Stage and Scene displayed
+ */
 public final class WindowManager {
 
   private static final String CSS_FILE = "style/styles.css";

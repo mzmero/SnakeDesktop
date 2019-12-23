@@ -30,6 +30,9 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * This class is responsible for windows management and link with the FXML file
+ */
 public abstract class Window {
 
   private final FXMLLoader loader;

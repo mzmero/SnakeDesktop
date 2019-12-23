@@ -35,6 +35,7 @@ import javax.annotation.Nullable;
 
 public class PixelSnake extends SnakePart {
 
+
   private static final int MARGIN = 6;
   private static final int CON_SIZE = 6;
 

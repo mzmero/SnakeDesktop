@@ -32,6 +32,9 @@ import java.util.Optional;
 
 public final class Tile extends Rectangle {
 
+  /**
+   * Tile defines the location of the object of board by two coordinates X and Y and used for mapping objects in game
+   */
   private final int x;
   private final int y;
 
@@ -50,6 +53,12 @@ public final class Tile extends Rectangle {
     return y;
   }
 
+  /**
+   * This method returns the suitable tile according to the game and direction received
+   * @param game - the current game
+   * @param direction - the desired direction
+   * @return a tile object which is the result of the move - direction requested
+   */
   public Optional<Tile> getRelative(Game game, Direction direction) {
     int nextX = x;
     int nextY = y;
@@ -70,6 +79,10 @@ public final class Tile extends Rectangle {
     return game.getTerrain().getTile(nextX, nextY);
   }
 
+  /**
+   * Setting the size of the tile
+   * @param size - desired size
+   */
   public void setSize(int size) {
     setX(x * size);
     setY(y * size);

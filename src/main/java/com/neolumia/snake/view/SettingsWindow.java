@@ -37,6 +37,9 @@ import javafx.scene.control.ToggleGroup;
 
 import java.sql.SQLException;
 
+/**
+ * This is the class which is responsible for the Question Management view - which manages the SE qustion insert, update and delete
+ */
 public final class SettingsWindow extends Window {
 
   private final GameApp app;
