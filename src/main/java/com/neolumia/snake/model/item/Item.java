@@ -51,8 +51,12 @@ public abstract class Item extends TileObject {
     register(of(ItemType.FOOD, GameType.CLASSIC), Apple::new);
     register(of(ItemType.FOOD, GameType.CLASSIC), Banana::new);
     register(of(ItemType.FOOD, GameType.CLASSIC), Pear::new);
-
     register(of(ItemType.FOOD, GameType.RETRO), RetroFood::new);
+  }
+
+
+  public static Map<Arguments, Supplier<Item>> getItems() {
+    return items;
   }
 
   public static Optional<Item> random(GameType gameType, ItemType... types) {
@@ -117,9 +121,28 @@ public abstract class Item extends TileObject {
     private GameType[] gameTypes;
     private ItemType type;
 
+    public GameType[] getGameTypes() {
+      return gameTypes;
+    }
+
+    public void setGameTypes(GameType[] gameTypes) {
+      this.gameTypes = gameTypes;
+    }
+
+    public ItemType getType() {
+      return type;
+    }
+
+    public void setType(ItemType type) {
+      this.type = type;
+    }
+
     Arguments(ItemType type, GameType... types) {
       this.type = type;
       this.gameTypes = types;
+
+
+
     }
 
     public static Arguments of(ItemType type, GameType... types) {
