@@ -4,6 +4,7 @@ package com.neolumia.snake.control;
 
 import com.neolumia.snake.GameApp;
 import com.neolumia.snake.Stats;
+import com.neolumia.snake.model.game.GameHistory;
 import com.neolumia.snake.model.game.GameType;
 import com.neolumia.snake.model.game.Terrain;
 import com.neolumia.snake.model.settings.Settings;
@@ -35,6 +36,7 @@ public abstract class Game extends Pane {
   protected final GameApp app;
   protected final GameType type;
   protected final Terrain terrain;
+  static String playerName;
 
   private boolean running;
   private boolean paused;
@@ -47,9 +49,9 @@ public abstract class Game extends Pane {
     this.app = app;
     this.type = type;
     this.lives = 3;
+    playerName=app.getSettings().playerName;
     terrain = new Terrain(this, app.getWindowManager().getStage().isMaximized() ? 43 : 32);
     terrain.init();
-
     app.getWindowManager().getStage().maximizedProperty().addListener((ob, o, n) -> terrain.setSize(n ? 42 : 32));
   }
 
@@ -115,6 +117,7 @@ public abstract class Game extends Pane {
 
     try {
       app.getDatabase().saveGame(this);
+      SysData.getInstance().addGameToHistory(new GameHistory(getSettings().playerName,points,lives));
     } catch (Exception ex) {
       ex.printStackTrace();
     }

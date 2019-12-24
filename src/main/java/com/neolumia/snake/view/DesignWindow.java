@@ -150,7 +150,7 @@ public final class DesignWindow extends Window {
     ArrayList<String> levels = new ArrayList<>();
     QuestionLevel[] values = QuestionLevel.values();
     for (QuestionLevel ql : values)
-      levels.add(ql.toString());
+      levels.add(ql.getLevel());
     ComboUpdateLevel.getItems().addAll(levels);
     CoInsertlevel.getItems().addAll(levels);
 
@@ -345,18 +345,7 @@ public final class DesignWindow extends Window {
         newAnsInsert.add(An3);
         newAnsInsert.add(An4);
 
-        QuestionLevel level = null;
-        System.out.print(L);
-        switch (L) {
-          case "ONE":
-            level = QuestionLevel.ONE;
-          case "TWO":
-            level = QuestionLevel.TWO;
-          case "THREE":
-            level = QuestionLevel.THREE;
-        }
-
-        Question InserQuestion = new Question(InsertThisQuestion, newAnsInsert, CorrectAnsNum, level, T);
+        Question InserQuestion = new Question(InsertThisQuestion, newAnsInsert, CorrectAnsNum,L, T);
         System.out.println(SysData.getInstance().insertQuestion(InserQuestion));
         System.out.println(SysData.getInstance().getQuestions());
       }

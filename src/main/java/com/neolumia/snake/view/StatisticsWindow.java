@@ -26,6 +26,7 @@ package com.neolumia.snake.view;
 
 import com.neolumia.snake.GameApp;
 import com.neolumia.snake.Stats;
+import com.neolumia.snake.control.Game;
 import com.neolumia.snake.control.SysData;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -77,8 +78,7 @@ public final class StatisticsWindow extends Window {
   /**
    * History Controls
    */
-  private final ObservableList<TableItem> data =
-    FXCollections.observableArrayList(SysData.getInstance().getHistoryTableItems());
+
   @FXML
   private TableView<TableItem> historyTable = new TableView<TableItem>();
   @FXML
@@ -177,7 +177,8 @@ public final class StatisticsWindow extends Window {
     lives.setMinWidth(200);
     lives.setCellValueFactory(
       new PropertyValueFactory<TableItem, String>("lives"));
-
+    final ObservableList<TableItem> data =
+      FXCollections.observableArrayList(SysData.getInstance().getPlayerHistory(app.getSettings().playerName));
     historyTable.setItems(data);
     historyTable.getColumns().addAll(player, points, lives);
   }

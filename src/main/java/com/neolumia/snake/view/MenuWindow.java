@@ -7,6 +7,12 @@ import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Popup;
+import javafx.stage.PopupBuilder;
+
+import java.awt.*;
+
 /**
  * This is the class which is responsible of the GAME view
  */
@@ -24,9 +30,7 @@ public final class MenuWindow extends Window {
   }
 
   @FXML
-  public void play() {
-    app.newGame(type);
-  }
+  public void play() { app.newGame(type); }
 
   @FXML
   public void design() {

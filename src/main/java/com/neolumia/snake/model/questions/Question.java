@@ -19,14 +19,14 @@ public class Question implements Serializable {
     private String question;
     private ArrayList<String> answers = null;
     private String correctAns;
-    private QuestionLevel level;
+    private String level;
     private String team;
     private final static long serialVersionUID = 2895261579048435587L;
 
     public Question() {
     }
 
-    public Question(String question, ArrayList<String> answers, String correctAns, QuestionLevel level, String team) {
+    public Question(String question, ArrayList<String> answers, String correctAns, String level, String team) {
         super();
         this.question = question;
         this.answers = answers;
@@ -74,11 +74,11 @@ public class Question implements Serializable {
         return this;
     }
 
-    public QuestionLevel getLevel() {
+    public String getLevel() {
         return level;
     }
 
-    public void setLevel(QuestionLevel level) {
+    public void setLevel(String level) {
         this.level = level;
     }
 

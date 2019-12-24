@@ -9,7 +9,7 @@ public final class Settings {
   public static Locale DEFAULT_LOCALE = Locale.ENGLISH;
   public static Difficulty DEFAULT_DIFFICULTY = Difficulty.MEDIUM;
   public static Size DEFAULT_SIZE = Size.MEDIUM;
-  public static String DEFAULT_NAME = "Dieter Bohlen";
+  public static String DEFAULT_NAME = "Fadi";
   public static boolean DEFAULT_LEADERBOARD = false;
 
   public Locale locale;

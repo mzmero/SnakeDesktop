@@ -11,10 +11,14 @@ import com.neolumia.snake.view.GameWindow;
 import com.neolumia.snake.view.MenuWindow;
 import com.neolumia.snake.view.WindowManager;
 import javafx.application.Application;
+import javafx.scene.layout.VBox;
+import javafx.stage.Popup;
+import javafx.stage.PopupBuilder;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.awt.*;
 import java.io.File;
 import java.nio.file.Path;
 import java.sql.SQLException;
@@ -71,6 +75,7 @@ public final class GameApp extends Application {
     synchronized (this) {
       LOGGER.info("Creating a new game with type " + type.name());
       Game game = (type == GameType.DUO) ?new SingleGame(this, type) : new SingleGame(this, type);
+
       getWindowManager().request(new GameWindow(this, game));
       game.init();
       game.run();

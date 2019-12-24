@@ -96,6 +96,7 @@ public class SysData {
           DeleteQ = Q;
       }
       questions.remove(DeleteQ);
+      writeQuestionTojson();
       return true;
     }
   }
@@ -110,7 +111,11 @@ public class SysData {
     boolean temp = ifExists(Q.getQuestion());
     if (temp)
       return false;
-    else return (questions.add(Q));
+    else {
+      questions.add(Q);
+      writeQuestionTojson();
+      return true;
+    }
   }
 
   public boolean updateQuestion(String question, String Updated, ArrayList<String> answer, String correctAns, String level, String team) {
@@ -119,7 +124,8 @@ public class SysData {
 
     if (!deleteQuestion(question)) return false;
 
-    questions.add(new Question(Updated, answer, correctAns, QuestionLevel.valueOf(level), team));
+    questions.add(new Question(Updated, answer, correctAns, level, team));
+    writeQuestionTojson();
     return true;
 
 
@@ -145,15 +151,7 @@ public class SysData {
       while (iterator.hasNext()) {
         JSONObject object = (JSONObject) iterator.next();
         ArrayList<String> answers = (JSONArray) object.get("answers");
-        QuestionLevel level = null;
-        switch ((String) object.get("level")) {
-          case "1":
-            level = QuestionLevel.ONE;
-          case "2":
-            level = QuestionLevel.TWO;
-          case "3":
-            level = QuestionLevel.THREE;
-        }
+        String level = (String) object.get("level");
         result.add(new Question((String) object.get("question"), answers, (String) object.get("correct_ans"), level, (String) object.get("team")));
       }
       return result;
@@ -257,5 +255,22 @@ public class SysData {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  /**
+   * This Method Adds game to the game history array at the end of each game
+   *
+   * @param gameHistory - game details
+   */
+  public void addGameToHistory(GameHistory gameHistory) {
+    history.add(gameHistory);
+    writeHistoryTojson();
+  }
+
+  public ArrayList<TableItem> getPlayerHistory(String playerName) {
+    ArrayList<TableItem> gameHistories = new ArrayList<>();
+    for (int i = 0; i < history.size() && history.get(i).getPlayer().equals(Game.playerName); i++)
+      gameHistories.add(new TableItem(history.get(i).getPlayer(), Integer.toString(history.get(i).getPoints()), Integer.toString(history.get(i).getLives())));
+    return gameHistories;
   }
 }
