@@ -61,6 +61,8 @@ public final class GameWindow extends Window {
   private Label points;
   @FXML
   private Label highscore;
+  @FXML
+  private GridPane remainingLives;
 
   public GameWindow(GameApp app, Game game) {
     this.app = app;

@@ -64,7 +64,13 @@ public final class SingleGame extends Game {
   public Tile getFood() {
     return food;
   }
+ // TODO
 
+  /**
+   * make spawnning parrallel, add quisitons , add static mouse
+   *
+   *
+   */
   public void spawnFood() {
     Tile tile;
     while (true) {
