@@ -24,19 +24,131 @@
 
 package com.neolumia.snake;
 
+import com.neolumia.snake.control.SysData;
+import com.neolumia.snake.model.game.GameHistory;
+import com.neolumia.snake.model.questions.Question;
+import com.neolumia.snake.model.questions.QuestionLevel;
+import com.neolumia.snake.view.GameWindow;
+import com.neolumia.snake.view.StatisticsWindow;
+import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+
+import static org.junit.Assert.*;
 
 public final class TranslationTest {
-
   @Test
-  public void test() {
-    assertEquals("Peter", GameApp.t("name"));
+  public void testInsertQuestion(){
+    ArrayList<String> answers=new ArrayList<>(); // preparing the question object
+    answers.add("1");
+    answers.add("2");
+    answers.add("3");
+    answers.add("4");
+    Question q= new Question("q1",answers,"3",QuestionLevel.TWO,"animal"); // adding new question q1 thats existed
+    assertFalse(SysData.getInstance().insertQuestion(q));
+    q=new Question("q4",answers,"3",QuestionLevel.TWO,"animal");  // adding a new answer that doest exist
+    assertTrue(SysData.getInstance().insertQuestion(q));
+
   }
 
   @Test
-  public void testArgs() {
-    assertEquals("Peter is very nice", GameApp.t("text", "Peter", "nice"));
+  public void testDeleteQuestion(){
+    assertTrue(SysData.getInstance().deleteQuestion("q2"));      // preparing to delete a question that exist
+    assertFalse(SysData.getInstance().deleteQuestion("q5"));    // in the other hand , deleting a non existing question
   }
-}
+
+  @Test
+  public void testUpdateQuestion(){
+    ArrayList<String> answers=new ArrayList<>();      //preparing question for update
+    answers.add("1");
+    answers.add("2");
+    answers.add("3");
+    answers.add("4");
+    assertTrue(SysData.getInstance().updateQuestion("q1","q1",answers,"2","1","animal")); // update questionn q1 thats exist
+
+    Question temp=null;
+    for(Question i: SysData.getInstance().getQuestions()){  // checking if the question updatedsuccessfully
+      if(i.getQuestion().equals("q1") && i.getCorrectAns().equals("2")&& i.getLevel()==QuestionLevel.ONE && i.getTeam().equals("animal")){
+        ArrayList<String> l= (ArrayList<String>)i.getAnswers();
+        Collections.sort(l);
+        Collections.sort(answers);
+        if(l.get(0).equals(answers.get(0)) && l.get(1).equals(answers.get(1)) && l.get(2).equals(answers.get(2))
+            && l.get(3).equals(answers.get(3))   )
+            temp=i;
+      }
+    }
+    assertNotNull(temp); // the temp should have the object of q1
+    assertFalse(SysData.getInstance().updateQuestion("q7","q1",answers,"2","1","animal")); // update Question q7 that doesnt exist
+  }
+
+  @Test
+  public void testReadhistoryfromjson(){
+    GameHistory g= new GameHistory("3",20,1); // preparing the gamehistory object
+    SysData.getInstance().getHistory().add(g);   // adding the object to data structure
+    SysData.getInstance().writeHistoryTojson();  // write the new object to json
+
+   boolean flag=false;
+   for(GameHistory h:SysData.getInstance().readHistoryFromJson()){ // searching for the object after reading the jsonfile
+       if(h.equals(g)) flag=true;
+   }
+   assertTrue(flag);
+   SysData.getInstance().getHistory().remove(g); // removing the object so we dont disturb the real data
+   SysData.getInstance().writeHistoryTojson();
+  }
+
+
+  @Test
+  public void testReadQuestionFromJson(){
+
+    ArrayList<String> answers=new ArrayList<>(); // preparing the question object
+    answers.add("1");
+    answers.add("2");
+    answers.add("3");
+    answers.add("4");
+    Question q=new Question("q8",answers,"3",QuestionLevel.TWO,"animal");
+    SysData.getInstance().getQuestions().add(q);
+    SysData.getInstance().writeQuestionTojson();
+
+    Question temp=null;
+
+
+    for(Question i: SysData.getInstance().getQuestions()){  // checking if the question added successfully
+      if(i.getQuestion().equals(q.getQuestion()) && i.getCorrectAns().equals(q.getCorrectAns())&& i.getLevel()==q.getLevel() && i.getTeam().equals(q.getTeam())){
+        ArrayList<String> l= (ArrayList<String>)i.getAnswers();
+        Collections.sort(l);
+        Collections.sort(answers);
+        if(l.get(0).equals(answers.get(0)) && l.get(1).equals(answers.get(1)) && l.get(2).equals(answers.get(2))
+          && l.get(3).equals(answers.get(3))   )
+          temp=i;
+      }
+    }
+
+
+    assertNotNull(temp);
+    SysData.getInstance().getQuestions().remove(temp);
+    SysData.getInstance().writeQuestionTojson();
+
+    }
+
+
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

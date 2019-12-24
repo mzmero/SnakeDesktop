@@ -1,6 +1,7 @@
 package com.neolumia.snake.model.game;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class GameHistory implements Comparable {
   private String player;
@@ -53,5 +54,20 @@ public class GameHistory implements Comparable {
    if( this.getPoints()<g.getPoints()) return 1;
    else if (this.getPoints()==g.getPoints()) return 0;
    else return -1;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GameHistory that = (GameHistory) o;
+    return points == that.getPoints() &&
+      lives == that.getLives()&&
+      Objects.equals(player, that.getPlayer());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(player, points, lives);
   }
 }
