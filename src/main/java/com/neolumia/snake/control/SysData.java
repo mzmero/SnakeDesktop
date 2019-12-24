@@ -4,6 +4,7 @@ package com.neolumia.snake.control;
 import com.neolumia.snake.model.game.GameHistory;
 import com.neolumia.snake.model.questions.Question;
 import com.neolumia.snake.model.questions.QuestionLevel;
+import com.neolumia.snake.view.TableItem;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -27,6 +28,7 @@ public class SysData {
 
   /**
    * Creates an instance from the sysData
+   *
    * @return
    */
   public static SysData getInstance() {
@@ -41,6 +43,16 @@ public class SysData {
 
   public ArrayList<GameHistory> getHistory() {
     return history;
+  }
+
+  public ArrayList<TableItem> getHistoryTableItems() {
+    ArrayList<TableItem> tableItems = new ArrayList<>();
+    for (GameHistory gameHistory : history
+    ) {
+      TableItem tableItem = new TableItem(gameHistory.getPlayer(), Integer.toString(gameHistory.getPoints()), Integer.toString(gameHistory.getLives()));
+      tableItems.add(tableItem);
+    }
+    return tableItems;
   }
 
   public void setHistory() {
