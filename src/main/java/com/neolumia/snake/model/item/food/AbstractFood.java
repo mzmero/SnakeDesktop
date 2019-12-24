@@ -28,7 +28,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public abstract class AbstractFood extends Food {
-
+  //TODO move to view
   private final ImageView view;
 
   AbstractFood(String name, String file) {
