@@ -1,44 +1,24 @@
-/*
- * This file is part of Snake, licensed under the MIT License (MIT).
- *
- * Copyright (c) 2018 Neolumia
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
 
 package com.neolumia.snake;
 
-import com.neolumia.snake.design.Design;
-import com.neolumia.snake.game.Game;
-import com.neolumia.snake.game.GameType;
-import com.neolumia.snake.game.duo.DuoGame;
-import com.neolumia.snake.game.single.SingleGame;
-import com.neolumia.snake.item.Item;
-import com.neolumia.snake.settings.Settings;
+import com.neolumia.snake.model.design.Design;
+import com.neolumia.snake.control.Game;
+import com.neolumia.snake.model.game.GameType;
+import com.neolumia.snake.control.SingleGame;
+import com.neolumia.snake.model.item.Item;
+import com.neolumia.snake.model.settings.Settings;
 import com.neolumia.snake.view.GameWindow;
 import com.neolumia.snake.view.MenuWindow;
 import com.neolumia.snake.view.WindowManager;
 import javafx.application.Application;
+import javafx.scene.layout.VBox;
+import javafx.stage.Popup;
+import javafx.stage.PopupBuilder;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.awt.*;
 import java.io.File;
 import java.nio.file.Path;
 import java.sql.SQLException;
@@ -46,6 +26,9 @@ import java.text.MessageFormat;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+/**
+ * This is the main class of the application which runs all modules
+ */
 public final class GameApp extends Application {
 
   private static final Logger LOGGER = LogManager.getLogger(GameApp.class);
@@ -91,7 +74,8 @@ public final class GameApp extends Application {
   public void newGame(GameType type) {
     synchronized (this) {
       LOGGER.info("Creating a new game with type " + type.name());
-      Game game = (type == GameType.DUO) ? new DuoGame(this) : new SingleGame(this, type);
+      Game game = (type == GameType.DUO) ?new SingleGame(this, type) : new SingleGame(this, type);
+
       getWindowManager().request(new GameWindow(this, game));
       game.init();
       game.run();

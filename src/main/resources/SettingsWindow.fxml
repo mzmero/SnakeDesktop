@@ -115,7 +115,7 @@
                               <Insets left="35.0" right="35.0" />
                            </HBox.margin>
                         </ToggleButton>
-                        <ToggleButton fx:id="localeGerman" minHeight="25.0" minWidth="150.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button-small" text="%locale.german">
+                        <ToggleButton fx:id="localeGerman" minHeight="25.0" minWidth="150.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="button-small" text="%locale.hebrew">
                            <HBox.margin>
                               <Insets left="35.0" right="35.0" />
                            </HBox.margin>
