@@ -26,7 +26,6 @@ package com.neolumia.snake.view;
 
 import com.neolumia.snake.GameApp;
 import com.neolumia.snake.Stats;
-import com.neolumia.snake.control.Game;
 import com.neolumia.snake.control.SysData;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -38,7 +37,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 
 import static com.neolumia.snake.GameApp.t;
 
@@ -78,12 +76,20 @@ public final class StatisticsWindow extends Window {
   /**
    * History Controls
    */
-  private final ObservableList<TableItem> data =
-    FXCollections.observableArrayList(SysData.getInstance().getHistoryTableItems());
+  private final ObservableList<TableItem> data;
   @FXML
   private TableView<TableItem> historyTable = new TableView<TableItem>();
   @FXML
   private Label historyTitle;
+  /**
+   * Board Controls
+   */
+  private final ObservableList<TableItem> boardData =
+    FXCollections.observableArrayList(SysData.getInstance().getHistoryTableItems());
+  @FXML
+  private TableView<TableItem> boardTable = new TableView<TableItem>();
+  @FXML
+  private Label boardTitle;
 
 
   StatisticsWindow(GameApp app) {
@@ -92,6 +98,8 @@ public final class StatisticsWindow extends Window {
     stats.setToggleGroup(menu);
     history.setToggleGroup(menu);
     leaderboard.setToggleGroup(menu);
+
+
 
     menu.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
       if (newValue.equals(stats)) {
@@ -107,11 +115,12 @@ public final class StatisticsWindow extends Window {
       if (newValue.equals(leaderboard)) {
         grid.add(render("leaderboard"), 0, 0);
         menu.selectToggle(leaderboard);
-        fillboard();
+        fillBoard();
       }
     });
 
 
+    data = FXCollections.observableArrayList(SysData.getInstance().getPlayerHistory(app.getSettings().playerName));
   }
 
 
@@ -127,13 +136,15 @@ public final class StatisticsWindow extends Window {
       statsPlaytime.setVisible(false);
       statsWall.setVisible(false);
     }
+    if (boardTable != null) boardTable.setVisible(false);
+    if (boardTitle != null) boardTitle.setVisible(false);
     historyTitle.setVisible(true);
     historyTable.setVisible(true);
     fillTable();
   }
 
 
-  public void fillboard() {
+  public void fillBoard() {
     if (statsGames != null && statsItems != null && statsPlaytime != null && statsWall != null) {
       statsGames.setVisible(false);
       statsItems.setVisible(false);
@@ -142,8 +153,11 @@ public final class StatisticsWindow extends Window {
     }
     if (historyTable != null) historyTable.setVisible(false);
     if (historyTitle != null) historyTitle.setVisible(false);
-
+    boardTitle.setVisible(true);
+    boardTable.setVisible(true);
+    fillBoardTable();
   }
+
 
   private void update(Stats stats) {
 
@@ -180,6 +194,26 @@ public final class StatisticsWindow extends Window {
       new PropertyValueFactory<TableItem, String>("lives"));
     historyTable.setItems(data);
     historyTable.getColumns().addAll(player, points, lives);
+  }
+
+
+  private void fillBoardTable() {
+    TableColumn player = new TableColumn("player");
+    player.setMinWidth(100);
+    player.setCellValueFactory(
+      new PropertyValueFactory<TableItem, String>("player"));
+
+    TableColumn points = new TableColumn("points");
+    points.setMinWidth(100);
+    points.setCellValueFactory(
+      new PropertyValueFactory<TableItem, String>("points"));
+
+    TableColumn lives = new TableColumn("lives");
+    lives.setMinWidth(200);
+    lives.setCellValueFactory(
+      new PropertyValueFactory<TableItem, String>("lives"));
+    boardTable.setItems(boardData);
+    boardTable.getColumns().addAll(player, points, lives);
   }
 
 

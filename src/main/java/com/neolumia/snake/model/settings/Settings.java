@@ -15,14 +15,14 @@ public final class Settings {
   public Locale locale;
   public Difficulty difficulty;
   public Size size;
-  public String playerName;
+  public String playerName = "Fadi";
   public boolean leaderboard;
 
   public Settings(Locale locale, Difficulty difficulty, Size size, String playerName, boolean leaderboard) {
     this.locale = locale;
     this.difficulty = difficulty;
     this.size = size;
-    this.playerName = playerName;
+    this.playerName = "Fadi";
     this.leaderboard = leaderboard;
   }
 }

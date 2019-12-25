@@ -1,6 +1,7 @@
 package com.neolumia.snake.control;
 
 
+import com.neolumia.snake.GameApp;
 import com.neolumia.snake.model.game.GameHistory;
 import com.neolumia.snake.model.questions.Question;
 import com.neolumia.snake.model.questions.QuestionLevel;
@@ -269,7 +270,7 @@ public class SysData {
 
   public ArrayList<TableItem> getPlayerHistory(String playerName) {
     ArrayList<TableItem> gameHistories = new ArrayList<>();
-    for (int i = 0; i < history.size() && history.get(i).getPlayer().equals(Game.playerName); i++)
+    for (int i = 0; i < history.size() && history.get(i).getPlayer().equals(playerName); i++)
       gameHistories.add(new TableItem(history.get(i).getPlayer(), Integer.toString(history.get(i).getPoints()), Integer.toString(history.get(i).getLives())));
     return gameHistories;
   }

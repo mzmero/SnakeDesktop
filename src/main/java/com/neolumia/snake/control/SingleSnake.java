@@ -45,10 +45,10 @@ public final class SingleSnake extends Snake<SingleGame> {
   }
 
   /**
-   * This method update info according to the object that was eaten.
+   * This method updates info according to the object that was eaten.
    *
    * @param tile   - location
-   * @param object - objects that was eater
+   * @param object - object that was eaten
    */
   @Override
   public void onEat(Tile tile, TileObject object) {
@@ -61,7 +61,23 @@ public final class SingleSnake extends Snake<SingleGame> {
     if (object instanceof Pear)
       game.setPoints(game.getPoints() + 20);
   }
-
+  /**
+   * This method updates info according to the question.
+   *
+   * @param tile   - location
+   * @param object - object that was eaten
+   */
+  @Override
+  public void onQuestion(Tile tile, TileObject object) {
+    game.spawnQuestion();
+    game.getTerrain().put(tile, null);
+//    if (object instanceof Apple)
+//      game.setPoints(game.getPoints() + 10);
+//    if (object instanceof Banana)
+//      game.setPoints(game.getPoints() + 15);
+//    if (object instanceof Pear)
+//      game.setPoints(game.getPoints() + 20);
+  }
   @Override
   protected int getFoodX() {
     return game.getFood().getTileX();
