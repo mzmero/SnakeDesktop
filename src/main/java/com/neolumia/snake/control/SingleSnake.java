@@ -9,12 +9,14 @@ import com.neolumia.snake.model.util.Direction;
 import com.neolumia.snake.model.game.Tile;
 import com.neolumia.snake.model.game.TileObject;
 import com.neolumia.snake.model.item.food.Food;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Iterator;
 import java.util.Optional;
 
 public final class SingleSnake extends Snake<SingleGame> {
-
+  private static final Logger LOGGER = LogManager.getLogger(SingleGame.class);
 
   SingleSnake(SingleGame game) {
     super(game, Direction.WEST, node -> {
@@ -52,14 +54,41 @@ public final class SingleSnake extends Snake<SingleGame> {
    */
   @Override
   public void onEat(Tile tile, TileObject object) {
-    game.spawnFood();
     game.getTerrain().put(tile, null);
-    if (object instanceof Apple)
+
+    if (object instanceof Apple) {
+      LOGGER.info(" {} eaten at  x={}, y={}","Apple", tile.getTileX(), tile.getTileY());
+      game.spawnApple();
       game.setPoints(game.getPoints() + 10);
-    if (object instanceof Banana)
+    }
+    if (object instanceof Banana){
+      LOGGER.info(" {} eaten at  x={}, y={}","Banana", tile.getTileX(), tile.getTileY());
       game.setPoints(game.getPoints() + 15);
-    if (object instanceof Pear)
+      game.spawnBanana();
+    }
+    if (object instanceof Pear){
+      LOGGER.info(" {} eaten at  x={}, y={}","Pear", tile.getTileX(), tile.getTileY());
       game.setPoints(game.getPoints() + 20);
+
+
+     int x = tile.getTileX();
+     int y = tile.getTileY();
+     System.out.print(x+" " + y);
+     if(x==0&&y==0)
+       game.spawnPear(1);
+     if(x == game.getTerrain().getTileWidth()-1 && y == 0){
+       game.spawnPear(2);
+     }
+     if(x==0&&y==game.getTerrain().getTileHeight()-1){
+       game.spawnPear(3);
+     }
+      if(x == game.getTerrain().getTileWidth()-1&&y==game.getTerrain().getTileHeight()-1){
+        game.spawnPear(4);
+      }
+
+    }
+
+
   }
   /**
    * This method updates info according to the question.

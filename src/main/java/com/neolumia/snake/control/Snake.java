@@ -230,3 +230,4 @@ public abstract class Snake<T extends Game> {
     return solver.solve();
   }
 }
+

@@ -57,6 +57,11 @@ public abstract class Item extends TileObject {
 
   }
 
+
+  public static Map<Arguments, Supplier<Item>> getItems() {
+    return items;
+  }
+
   public static Optional<Item> random(GameType gameType, ItemType... types) {
     final Map<Arguments, Supplier<Item>> map = ImmutableMap.copyOf(items);
 
@@ -119,9 +124,28 @@ public abstract class Item extends TileObject {
     private GameType[] gameTypes;
     private ItemType type;
 
+    public GameType[] getGameTypes() {
+      return gameTypes;
+    }
+
+    public void setGameTypes(GameType[] gameTypes) {
+      this.gameTypes = gameTypes;
+    }
+
+    public ItemType getType() {
+      return type;
+    }
+
+    public void setType(ItemType type) {
+      this.type = type;
+    }
+
     Arguments(ItemType type, GameType... types) {
       this.type = type;
       this.gameTypes = types;
+
+
+
     }
 
     public static Arguments of(ItemType type, GameType... types) {
