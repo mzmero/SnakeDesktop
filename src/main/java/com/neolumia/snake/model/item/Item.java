@@ -9,7 +9,10 @@ import com.neolumia.snake.model.item.food.Apple;
 import com.neolumia.snake.model.item.food.Banana;
 import com.neolumia.snake.model.item.food.Pear;
 import com.neolumia.snake.model.item.food.RetroFood;
-import com.neolumia.snake.model.questions.Question;
+import com.neolumia.snake.model.item.questions.Questionlvl1;
+import com.neolumia.snake.model.item.questions.Questionlvl2;
+import com.neolumia.snake.model.item.questions.Questionlvl3;
+import com.neolumia.snake.model.item.questions.SEQuestion;
 import javafx.scene.paint.Color;
 
 import java.util.List;
@@ -52,7 +55,9 @@ public abstract class Item extends TileObject {
     register(of(ItemType.FOOD, GameType.CLASSIC), Apple::new);
     register(of(ItemType.FOOD, GameType.CLASSIC), Banana::new);
     register(of(ItemType.FOOD, GameType.CLASSIC), Pear::new);
-    register(of(ItemType.QUESTION, GameType.CLASSIC),SEQuestion::new);
+    register(of(ItemType.QUESTION, GameType.CLASSIC), Questionlvl1::new);
+    register(of(ItemType.QUESTION, GameType.CLASSIC), Questionlvl2::new);
+    register(of(ItemType.QUESTION, GameType.CLASSIC), Questionlvl3::new);
     register(of(ItemType.FOOD, GameType.RETRO), RetroFood::new);
 
   }

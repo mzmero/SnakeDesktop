@@ -44,64 +44,65 @@ public void initSpawnFood(){
   Tile tile;
 
     for(Item.Arguments argument : Item.getItems().keySet()) {
-      if (argument.getType() == ItemType.FOOD && argument.getGameTypes()[0] == GameType.CLASSIC && !(Item.getItems().get(argument).get() instanceof Pear)) {
-        Item item = Item.getItems().get(argument).get();
+    if (argument.getGameTypes()[0] == GameType.CLASSIC && !(Item.getItems().get(argument).get() instanceof Pear)) {
+      Item item = Item.getItems().get(argument).get();
 
 
-        while (true) {
-          int x = random.nextInt(terrain.getTileWidth());
-          int y = random.nextInt(terrain.getTileHeight());
-          final Optional<Tile> next = terrain.getTile(x, y);
-          if (next.isPresent() && !getTerrain().get(next.get()).isPresent()) {
-            tile = next.get();
-            break;
-          }
-        }
-
-        getTerrain().put(food = tile, item);
-        LOGGER.info("Item spawned x={}, y={}", tile.getTileX(), tile.getTileY());
-
-      }else{
-
-      int corner = 1 + random.nextInt(4);
-
-      int x = 0, y = 0;
-
-      switch (corner) {
-        case 1: { //UpperRight
-
-          x = 0;
-          y = 0;
-          break;
-        }
-        case 2: {//UpperLeft
-          x = terrain.getTileWidth() - 1;
-          y = 0;
-          break;
-        }
-        case 3: { // LowerRight
-          x = 0;
-          y = terrain.getTileHeight() - 1;
-          break;
-        }
-        case 4: {
-          x = terrain.getTileWidth() - 1;
-          y = terrain.getTileHeight() - 1;
+      while (true) {
+        int x = random.nextInt(terrain.getTileWidth());
+        int y = random.nextInt(terrain.getTileHeight());
+        final Optional<Tile> next = terrain.getTile(x, y);
+        if (next.isPresent() && !getTerrain().get(next.get()).isPresent()) {
+          tile = next.get();
           break;
         }
       }
-      final Optional<Tile> next = terrain.getTile(x, y);
-      if (next.isPresent() && !getTerrain().get(next.get()).isPresent()) {
-        tile = next.get();
-        getTerrain().put(tile, new Pear());
-        LOGGER.info("Item spawned x={}, y={} , corener={} , corner.x={},corner.y={}", tile.getTileX(), tile.getTileY(), corner, x, y);
-      }
+
+      getTerrain().put(food = tile, item);
+      LOGGER.info("Item spawned x={}, y={}", tile.getTileX(), tile.getTileY());
+
     }
 
 
 
 
+  }
+  {
+
+    int corner = 1 + random.nextInt(4);
+
+    int x = 0, y = 0;
+
+    switch (corner) {
+      case 1: { //UpperRight
+
+        x = 0;
+        y = 0;
+        break;
+      }
+      case 2: {//UpperLeft
+        x = terrain.getTileWidth() - 1;
+        y = 0;
+        break;
+      }
+      case 3: { // LowerRight
+        x = 0;
+        y = terrain.getTileHeight() - 1;
+        break;
+      }
+      case 4: {
+        x = terrain.getTileWidth() - 1;
+        y = terrain.getTileHeight() - 1;
+        break;
+      }
     }
+    final Optional<Tile> next = terrain.getTile(x, y);
+    if (next.isPresent() && !getTerrain().get(next.get()).isPresent()) {
+      tile = next.get();
+      getTerrain().put(tile, new Pear());
+      LOGGER.info("Item spawned x={}, y={} , corener={} , corner.x={},corner.y={}", tile.getTileX(), tile.getTileY(), corner, x, y);
+    }
+  }
 
 
 

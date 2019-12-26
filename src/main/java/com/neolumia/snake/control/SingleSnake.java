@@ -5,6 +5,9 @@ import com.neolumia.snake.model.game.SnakePart;
 import com.neolumia.snake.model.item.food.Apple;
 import com.neolumia.snake.model.item.food.Banana;
 import com.neolumia.snake.model.item.food.Pear;
+import com.neolumia.snake.model.item.questions.Questionlvl1;
+import com.neolumia.snake.model.item.questions.Questionlvl2;
+import com.neolumia.snake.model.item.questions.Questionlvl3;
 import com.neolumia.snake.model.util.Direction;
 import com.neolumia.snake.model.game.Tile;
 import com.neolumia.snake.model.game.TileObject;
@@ -87,6 +90,9 @@ public final class SingleSnake extends Snake<SingleGame> {
       }
 
     }
+    if (object instanceof Questionlvl1){}
+    if (object instanceof Questionlvl2){}
+    if (object instanceof Questionlvl3){}
 
 
   }
