@@ -2,7 +2,9 @@ package com.neolumia.snake.view;
 
 import com.neolumia.snake.GameApp;
 import com.neolumia.snake.control.Game;
+import com.neolumia.snake.control.SingleGame;
 import com.neolumia.snake.model.questions.Question;
+import com.neolumia.snake.model.questions.QuestionLevel;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.IntegerBinding;
@@ -15,8 +17,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Popup;
-import javafx.stage.Stage;
-import jdk.nashorn.internal.runtime.QuotedStringTokenizer;
 
 
 public class PopUpQuestion extends Window {
@@ -49,7 +49,7 @@ public class PopUpQuestion extends Window {
   private IntegerBinding numCheckBoxesSelected = Bindings.size(selectedCheckBoxes);
   private final int maxNumSelected = 1;
 
-  public PopUpQuestion(Question q) {
+  public PopUpQuestion(SingleGame game, Question q) {
     System.out.println(q);
     question = q;
     checkBoxes[0] = checkBox1;
@@ -84,16 +84,22 @@ public class PopUpQuestion extends Window {
           @Override
           public void handle(MouseEvent event) {
             if (Integer.parseInt(question.getCorrectAns()) == (selectedCheckBox)) {
+              Toast.makeText(GameApp.windowManager.getStage(), "Correct Answer :)", 1500, 500,
+                500);
               submitButton.setDisable(true);
+              GameWindow.setQuestions();
+              updatePoints(game, true);
               Popup stg = (Popup) submitButton.getScene().getWindow();
               stg.hide();
-              GameWindow.setQuestions();
-              Toast.makeText(GameApp.windowManager.getStage(),"Correct Answer :)",1500, 500,
-                500);
+
             } else {
-              System.out.println("UNCorrect Answer");
-              Toast.makeText(GameApp.windowManager.getStage(),"Wrong Answer :(",1500, 500,
+              Toast.makeText(GameApp.windowManager.getStage(), "Wrong Answer :(", 1500, 500,
                 500);
+              submitButton.setDisable(true);
+              GameWindow.setQuestions();
+              updatePoints(game, false);
+              Popup stg = (Popup) submitButton.getScene().getWindow();
+              stg.hide();
             }
           }
         });
@@ -101,6 +107,33 @@ public class PopUpQuestion extends Window {
     });
 
 
+  }
+
+  private void updatePoints(SingleGame game, Boolean isCorrect) {
+    if (isCorrect) {
+      if (question.getLevel().equals(QuestionLevel.ONE.getLevel()))
+        game.setPoints(game.getPoints() + 1);
+      if (question.getLevel().equals(QuestionLevel.TWO.getLevel()))
+        game.setPoints(game.getPoints() + 2);
+      if (question.getLevel().equals(QuestionLevel.THREE.getLevel()))
+        game.setPoints(game.getPoints() + 3);
+    } else {
+      if (question.getLevel().equals(QuestionLevel.ONE.getLevel())) {
+        int points = game.getPoints() - 10;
+        if (points >= 0) game.setPoints(points);
+        else game.setPoints(0);
+      }
+      if (question.getLevel().equals(QuestionLevel.TWO.getLevel())) {
+        int points = game.getPoints() - 20;
+        if (points >= 0) game.setPoints(points);
+        else game.setPoints(0);
+      }
+      if (question.getLevel().equals(QuestionLevel.THREE.getLevel())) {
+        int points = game.getPoints() - 30;
+        if (points >= 0) game.setPoints(points);
+        else game.setPoints(0);
+      }
+    }
   }
 
   private void configureCheckBox(CheckBox checkBox) {
@@ -130,7 +163,6 @@ public class PopUpQuestion extends Window {
       this.selectedCheckBox = i + 1;
     }
   }
-
 
 
 }

@@ -120,7 +120,7 @@ public final class SingleSnake extends Snake<SingleGame> {
         FXMLLoader loader = new FXMLLoader(getClass().getResource('/' + "PopUpQuestion.fxml"), GameApp.getBundle());
         Question question = SysData.getInstance().getQuestion(game.getQuestions(), level);
         game.addQuestion(question);
-        loader.setController(new PopUpQuestion(question));
+        loader.setController(new PopUpQuestion(game,question));
 
         try {
           popup.getContent().add((Parent) loader.load());
