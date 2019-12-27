@@ -1,6 +1,7 @@
 package com.neolumia.snake.view;
 
 import com.neolumia.snake.GameApp;
+import com.neolumia.snake.control.Game;
 import com.neolumia.snake.model.questions.Question;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
@@ -84,12 +85,15 @@ public class PopUpQuestion extends Window {
           public void handle(MouseEvent event) {
             if (Integer.parseInt(question.getCorrectAns()) == (selectedCheckBox)) {
               submitButton.setDisable(true);
-              System.out.println("Correct Answer");
               Popup stg = (Popup) submitButton.getScene().getWindow();
               stg.hide();
               GameWindow.setQuestions();
+              Toast.makeText(GameApp.windowManager.getStage(),"Correct Answer :)",1500, 500,
+                500);
             } else {
               System.out.println("UNCorrect Answer");
+              Toast.makeText(GameApp.windowManager.getStage(),"Wrong Answer :(",1500, 500,
+                500);
             }
           }
         });
@@ -128,14 +132,5 @@ public class PopUpQuestion extends Window {
   }
 
 
-  @FXML
-  public void onClick(MouseEvent mouseEvent) {
-    if (Integer.parseInt(question.getCorrectAns()) == (selectedCheckBox)) {
-      submitButton.setDisable(true);
-      System.out.println("Correct Answer");
-    } else {
-      System.out.println("UNCorrect Answer");
-    }
-  }
 
 }

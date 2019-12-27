@@ -38,7 +38,7 @@ public final class GameApp extends Application {
   private static GameApp instance;
 
   private Database database;
-  private WindowManager windowManager;
+  public static WindowManager windowManager;
 
   private Design design = new Design();
   private Stats stats = new Stats();
