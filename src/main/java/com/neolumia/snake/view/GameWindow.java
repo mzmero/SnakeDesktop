@@ -89,8 +89,14 @@ public final class GameWindow extends Window {
     }
     points.setText(t("gameOver.points", game.getPoints()));
     highscore.setText(t("gameOver.highscore", app.getHighscore()));
-    if (isQuestion1 || isQuestion2 || isQuestion3)
+    if (isQuestion1)
       game.setPaused(true);
+    if(isQuestion2)
+      game.setPaused(true);
+    if(isQuestion3)
+      game.setPaused(true);
+
+    app.getWindowManager().getStage().requestFocus();
 
   }
 
