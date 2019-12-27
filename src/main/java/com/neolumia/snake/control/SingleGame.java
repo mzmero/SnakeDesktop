@@ -9,12 +9,14 @@ import com.neolumia.snake.model.item.ItemType;
 import com.neolumia.snake.model.item.food.Apple;
 import com.neolumia.snake.model.item.food.Banana;
 import com.neolumia.snake.model.item.food.Pear;
+import com.neolumia.snake.model.questions.Question;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.FileInputStream;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Timer;
 
@@ -28,6 +30,7 @@ public final class SingleGame extends Game {
   private final SingleSnake snake = new SingleSnake(this);
   private Tile food;
   private Tile question;
+  private ArrayList<Question> questions;
 
   public SingleGame(GameApp app, GameType type) {
     super(app, type);
@@ -37,10 +40,20 @@ public final class SingleGame extends Game {
   public void init() {
     snake.init();
     initSpawnFood();
+    questions=new ArrayList<>();
 //    spawnFood();
 //    spawnQuestion();
   }
-public void initSpawnFood(){
+
+  public ArrayList<Question> getQuestions() {
+    return questions;
+  }
+
+  public void setQuestions(ArrayList<Question> questions) {
+    this.questions = questions;
+  }
+
+  public void initSpawnFood(){
   Tile tile;
 
     for(Item.Arguments argument : Item.getItems().keySet()) {
@@ -60,7 +73,6 @@ public void initSpawnFood(){
 
       getTerrain().put(food = tile, item);
       LOGGER.info("Item spawned x={}, y={}", tile.getTileX(), tile.getTileY());
-
     }
 
 
@@ -281,15 +293,11 @@ public void spawnPear(int corner){
       }
     }
     final Optional<Item> itemQuestion = Item.random(type, ItemType.FOOD);
-    Image image = new Image("/lib/question.png");
-    BackgroundImage backgroundimage = new BackgroundImage(image,
-      BackgroundRepeat.NO_REPEAT,
-      BackgroundRepeat.NO_REPEAT,
-      BackgroundPosition.DEFAULT,
-      BackgroundSize.DEFAULT);
-    Background background = new Background(backgroundimage);
-    itemQuestion.get().setBackground(background);
     getTerrain().put(question = tileQuestion, itemQuestion.orElseThrow(IllegalStateException::new));
     LOGGER.info("Question spawned x={}, y={}", tileQuestion.getTileX(), tileQuestion.getTileY());
+  }
+
+  public void addQuestion(Question question) {
+  questions.add(question);
   }
 }

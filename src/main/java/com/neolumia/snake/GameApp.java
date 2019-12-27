@@ -1,6 +1,7 @@
 
 package com.neolumia.snake;
 
+import com.neolumia.snake.control.SysData;
 import com.neolumia.snake.model.design.Design;
 import com.neolumia.snake.control.Game;
 import com.neolumia.snake.model.game.GameType;

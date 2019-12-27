@@ -2,6 +2,8 @@
 package com.neolumia.snake.view;
 
 import com.neolumia.snake.GameApp;
+import com.neolumia.snake.model.questions.Question;
+import com.neolumia.snake.model.questions.QuestionLevel;
 import com.neolumia.snake.model.util.Direction;
 import com.neolumia.snake.control.Game;
 import com.neolumia.snake.control.SingleGame;
@@ -20,6 +22,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import static com.neolumia.snake.GameApp.t;
+
 /**
  * This is the class which is responsible for the GAME window
  */
@@ -41,12 +44,17 @@ public final class GameWindow extends Window {
   @FXML
   private Label highscore;
   @FXML
-  private ImageView  life1;
+  private ImageView life1;
   @FXML
-  private ImageView  life2;
+  private ImageView life2;
   @FXML
-  private ImageView  life3;
-
+  private ImageView life3;
+  public static boolean isQuestion1 = false;
+  public static boolean isQuestion2 = false;
+  public static boolean isQuestion3 = false;
+  public static Question question1;
+  public static Question question2;
+  public static Question question3;
 
   public GameWindow(GameApp app, Game game) {
     this.app = app;
@@ -61,7 +69,7 @@ public final class GameWindow extends Window {
   }
 
   private void update() {
-    switch(game.getLives()){
+    switch (game.getLives()) {
       case 1:
         life1.visibleProperty().setValue(true);
         life2.visibleProperty().setValue(false);
@@ -80,6 +88,10 @@ public final class GameWindow extends Window {
     }
     points.setText(t("gameOver.points", game.getPoints()));
     highscore.setText(t("gameOver.highscore", app.getHighscore()));
+    if (isQuestion1 || isQuestion2 || isQuestion3)
+      game.setPaused(true);
+    else
+      game.setPaused(false);
   }
 
   @Override
@@ -149,11 +161,18 @@ public final class GameWindow extends Window {
     app.getWindowManager().center();
   }
 
-  private void updatePaused(boolean now) {
+
+  public void updatePaused(boolean now) {
     if (now) {
       root.getChildren().add(pause);
     } else {
       root.getChildren().remove(pause);
     }
+  }
+
+  public static void setQuestions() {
+    isQuestion1 = false;
+    isQuestion2 = false;
+    isQuestion3 = false;
   }
 }

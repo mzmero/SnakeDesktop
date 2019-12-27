@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <Text fx:id="questionBody" strokeType="OUTSIDE" strokeWidth="0.0" text="QuestionBody" />
+            <HBox alignment="CENTER" prefHeight="25.0" prefWidth="200.0">
+               <children>
+                  <CheckBox fx:id="checkBox1" mnemonicParsing="false" />
+                  <Text fx:id="checkBox1_text" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="25.0" prefWidth="200.0">
+               <children>
+                  <CheckBox fx:id="checkBox2" mnemonicParsing="false" />
+                  <Text fx:id="checkBox2_text" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="35.0" prefHeight="25.0" prefWidth="200.0">
+               <children>
+                  <CheckBox fx:id="checkBox3" mnemonicParsing="false" />
+                  <Text fx:id="checkBox3_text" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="60.0" prefHeight="25.0" prefWidth="200.0">
+               <children>
+                  <CheckBox fx:id="checkBox4" mnemonicParsing="false" />
+                  <Text fx:id="checkBox4_text" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+               </children>
+            </HBox>
+            <Button fx:id="submitButton" mnemonicParsing="false"  text="Button" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

@@ -8,11 +8,13 @@ import com.neolumia.snake.model.game.TileObject;
 import com.neolumia.snake.model.item.Item;
 import com.neolumia.snake.model.item.ItemType;
 import com.neolumia.snake.model.item.food.Food;
+import com.neolumia.snake.model.questions.Question;
 import com.neolumia.snake.model.solver.Node;
 import com.neolumia.snake.model.solver.Solver;
 import com.neolumia.snake.model.util.Direction;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedDeque;
@@ -31,6 +33,7 @@ public abstract class Snake<T extends Game> {
   private int lives;
   @Nullable
   private Direction next;
+
 
   public Snake(T game, Direction direction, Predicate<Node> blocking) {
     this.game = game;
@@ -183,13 +186,13 @@ public abstract class Snake<T extends Game> {
         return false;
 
       }
-      if (item.get() instanceof Item) {
+/*      if (item.get() instanceof Item) {
         Item i = (Item) item.get();
         if (i.getType().equals(ItemType.QUESTION)) {
           quest = true;
         }
 
-      } else {
+      }*/ else {
         eat = true;
       }
     } else {

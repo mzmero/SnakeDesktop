@@ -5,6 +5,7 @@ import com.neolumia.snake.GameApp;
 import com.neolumia.snake.model.game.GameHistory;
 import com.neolumia.snake.model.questions.Question;
 import com.neolumia.snake.model.questions.QuestionLevel;
+import com.neolumia.snake.model.util.Q;
 import com.neolumia.snake.view.TableItem;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -20,6 +21,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.Random;
 
 public class SysData {
 
@@ -41,6 +43,7 @@ public class SysData {
 
     return single_instance;
   }
+
 
   public ArrayList<GameHistory> getHistory() {
     return history;
@@ -274,4 +277,23 @@ public class SysData {
       gameHistories.add(new TableItem(history.get(i).getPlayer(), Integer.toString(history.get(i).getPoints()), Integer.toString(history.get(i).getLives())));
     return gameHistories;
   }
+
+  /**
+   * Searches for question and returns question if exists
+   *
+   * @param questions
+   * @param level     - is the questions level
+   * @return question if exists, otherwise NULL
+   */
+  public Question getQuestion(ArrayList<Question> questions, QuestionLevel level) {
+    ArrayList<Question> array = new ArrayList<>();
+    for (Question p : this.questions
+    ) {
+      if (p != null && p.getLevel().equals(level.getLevel()) && !questions.contains(p))
+        array.add(p);
+    }
+    int rnd = new Random().nextInt(array.size());
+    return array.get(rnd);
+  }
+
 }
