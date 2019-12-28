@@ -7,6 +7,7 @@ import com.neolumia.snake.model.questions.QuestionLevel;
 import com.neolumia.snake.model.util.Direction;
 import com.neolumia.snake.control.Game;
 import com.neolumia.snake.control.SingleGame;
+import com.sun.javafx.sg.prism.NGAmbientLight;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -90,8 +91,7 @@ public final class GameWindow extends Window {
     highscore.setText(t("gameOver.highscore", app.getHighscore()));
     if (isQuestion1 || isQuestion2 || isQuestion3)
       game.setPaused(true);
-    else
-      game.setPaused(false);
+
   }
 
   @Override
@@ -170,9 +170,10 @@ public final class GameWindow extends Window {
     }
   }
 
-  public static void setQuestions() {
+  public static void setQuestions(Game game) {
     isQuestion1 = false;
     isQuestion2 = false;
     isQuestion3 = false;
+    game.setPaused(false);
   }
 }

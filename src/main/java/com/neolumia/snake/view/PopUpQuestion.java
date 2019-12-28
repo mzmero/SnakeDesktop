@@ -84,22 +84,17 @@ public class PopUpQuestion extends Window {
           @Override
           public void handle(MouseEvent event) {
             if (Integer.parseInt(question.getCorrectAns()) == (selectedCheckBox)) {
-              Toast.makeText(GameApp.windowManager.getStage(), "Correct Answer :)", 1500, 500,
-                500);
+              toast("Correct Answer :)");
               submitButton.setDisable(true);
-              GameWindow.setQuestions();
               updatePoints(game, true);
-              Popup stg = (Popup) submitButton.getScene().getWindow();
-              stg.hide();
-
+              submitButton.getScene().getWindow().hide();
+              GameWindow.setQuestions(game);
             } else {
-              Toast.makeText(GameApp.windowManager.getStage(), "Wrong Answer :(", 1500, 500,
-                500);
+              toast("Wrong Answer :(");
               submitButton.setDisable(true);
-              GameWindow.setQuestions();
               updatePoints(game, false);
-              Popup stg = (Popup) submitButton.getScene().getWindow();
-              stg.hide();
+              submitButton.getScene().getWindow().hide();
+              GameWindow.setQuestions(game);
             }
           }
         });
@@ -107,6 +102,11 @@ public class PopUpQuestion extends Window {
     });
 
 
+  }
+
+  private void toast(String s) {
+    Toast.makeText(GameApp.windowManager.getStage(), s, 1500, 500,
+      500);
   }
 
   private void updatePoints(SingleGame game, Boolean isCorrect) {
