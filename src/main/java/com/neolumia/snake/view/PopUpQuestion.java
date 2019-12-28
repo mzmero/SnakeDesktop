@@ -83,24 +83,25 @@ public class PopUpQuestion extends Window {
         submitButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
           @Override
           public void handle(MouseEvent event) {
-            if (Integer.parseInt(question.getCorrectAns()) == (selectedCheckBox)) {
-              toast("Correct Answer :)");
-              submitButton.setDisable(true);
-              updatePoints(game, true);
-              submitButton.getScene().getWindow().hide();
-              GameWindow.setQuestions(game);
-            } else {
-              toast("Wrong Answer :(");
-              submitButton.setDisable(true);
-              updatePoints(game, false);
-              submitButton.getScene().getWindow().hide();
-              GameWindow.setQuestions(game);
-            }
+            if (selectedCheckBoxes.size() != 0) {
+              if (Integer.parseInt(question.getCorrectAns()) == (selectedCheckBox)) {
+                toast("Correct Answer :)");
+                submitButton.setDisable(true);
+                updatePoints(game, true);
+                submitButton.getScene().getWindow().hide();
+                GameWindow.setQuestions(game);
+              } else {
+                toast("Wrong Answer :(");
+                submitButton.setDisable(true);
+                updatePoints(game, false);
+                submitButton.getScene().getWindow().hide();
+                GameWindow.setQuestions(game);
+              }
+            } else toast("Please Choose Answer");
           }
         });
       }
     });
-
 
   }
 
@@ -137,31 +138,22 @@ public class PopUpQuestion extends Window {
   }
 
   private void configureCheckBox(CheckBox checkBox) {
-
-    if (checkBox.isSelected()) {
+    if (checkBox.isSelected()) selectedCheckBoxes.add(checkBox);
+    else unselectedCheckBoxes.add(checkBox);
+    checkBox.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
+    if (isNowSelected) {
+      unselectedCheckBoxes.remove(checkBox);
       selectedCheckBoxes.add(checkBox);
+      updateSelected(checkBox);
     } else {
+      selectedCheckBoxes.remove(checkBox);
       unselectedCheckBoxes.add(checkBox);
     }
-
-    checkBox.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
-      if (isNowSelected) {
-        unselectedCheckBoxes.remove(checkBox);
-        selectedCheckBoxes.add(checkBox);
-        updateSelected(checkBox);
-      } else {
-        selectedCheckBoxes.remove(checkBox);
-        unselectedCheckBoxes.add(checkBox);
-      }
-
-    });
-
-  }
+  });
+}
 
   private void updateSelected(CheckBox checkBox) {
-    for (int i = 0; i < checkBoxes.length && checkBoxes[i].getId().equals(checkBox.getId()); i++) {
-      this.selectedCheckBox = i + 1;
-    }
+    for (int i = 0; i < checkBoxes.length && checkBoxes[i].getId().equals(checkBox.getId()); i++) this.selectedCheckBox = i + 1;
   }
 
 

@@ -41,14 +41,10 @@ public final class GameWindow extends Window {
   public static boolean isQuestion1 = false;
   public static boolean isQuestion2 = false;
   public static boolean isQuestion3 = false;
-  Circle ball;
-  Bounds bounds;
 
   public GameWindow(GameApp app, Game game) {
     this.app = app;
     this.game = game;
-    ball = new Circle(10, Color.RED);
-    bounds = group.getBoundsInLocal();
     root.setStyle("-fx-background-color: #" + Integer.toHexString(app.getDesign().background.getColor().hashCode()) + "");
     group.getChildren().add(game);
     Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> update()));
