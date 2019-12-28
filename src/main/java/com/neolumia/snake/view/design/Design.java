@@ -1,5 +1,4 @@
-
-package com.neolumia.snake.model.design;
+package com.neolumia.snake.view.design;
 
 import com.google.common.base.MoreObjects;
 import com.neolumia.snake.view.option.BgDesign;
@@ -10,11 +9,9 @@ import java.util.Objects;
 
 public final class Design {
 
-  /**
-   * Defines the design of the game (with defaults) and option to customize
-   */
-
+  /** Defines the design of the game (with defaults) and option to customize */
   public TerrainDesign terrain = TerrainDesign.SIMPLE;
+
   public SnakeDesign snake = SnakeDesign.FRED;
   public BgDesign background = BgDesign.CYAN;
 
@@ -46,8 +43,8 @@ public final class Design {
   @Override
   public String toString() {
     return MoreObjects.toStringHelper(this)
-      .add("terrain", terrain)
-      .add("background", background)
-      .toString();
+        .add("terrain", terrain)
+        .add("background", background)
+        .toString();
   }
 }

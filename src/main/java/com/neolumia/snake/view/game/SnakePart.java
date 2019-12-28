@@ -1,5 +1,4 @@
-
-package com.neolumia.snake.model.game;
+package com.neolumia.snake.view.game;
 
 import com.google.common.base.MoreObjects.ToStringHelper;
 import com.neolumia.snake.control.Snake;
@@ -55,10 +54,7 @@ public abstract class SnakePart extends TileObject {
 
   @Override
   protected ToStringHelper toStringHelper() {
-    return super.toStringHelper()
-      .add("tile", tile)
-      .add("direction", direction)
-      .add("color", color);
+    return super.toStringHelper().add("tile", tile).add("direction", direction).add("color", color);
   }
 
   @Override

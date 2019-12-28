@@ -1,9 +1,8 @@
-
 package com.neolumia.snake.model.solver;
 
 import com.neolumia.snake.model.util.Direction;
 import com.neolumia.snake.control.Game;
-import com.neolumia.snake.model.game.Tile;
+import com.neolumia.snake.view.game.Tile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,14 +40,30 @@ public final class Solver {
       if (isFinal(current)) {
         return getDirection(current);
       } else {
-        Optional<Tile> tileNorth = game.getTerrain().getTile(current.getTile().getTileX(), current.getTile().getTileY() - 1);
-        Optional<Tile> tileEast = game.getTerrain().getTile(current.getTile().getTileX() + 1, current.getTile().getTileY());
-        Optional<Tile> tileSouth = game.getTerrain().getTile(current.getTile().getTileX(), current.getTile().getTileY() + 1);
-        Optional<Tile> tileWest = game.getTerrain().getTile(current.getTile().getTileX() - 1, current.getTile().getTileY());
-        tileNorth.ifPresent(tile -> checkNode(current, nodes[tile.getTileX()][tile.getTileY()], Direction.NORTH, 10));
-        tileEast.ifPresent(tile -> checkNode(current, nodes[tile.getTileX()][tile.getTileY()], Direction.EAST, 10));
-        tileSouth.ifPresent(tile -> checkNode(current, nodes[tile.getTileX()][tile.getTileY()], Direction.SOUTH, 10));
-        tileWest.ifPresent(tile -> checkNode(current, nodes[tile.getTileX()][tile.getTileY()], Direction.WEST, 10));
+        Optional<Tile> tileNorth =
+            game.getTerrain()
+                .getTile(current.getTile().getTileX(), current.getTile().getTileY() - 1);
+        Optional<Tile> tileEast =
+            game.getTerrain()
+                .getTile(current.getTile().getTileX() + 1, current.getTile().getTileY());
+        Optional<Tile> tileSouth =
+            game.getTerrain()
+                .getTile(current.getTile().getTileX(), current.getTile().getTileY() + 1);
+        Optional<Tile> tileWest =
+            game.getTerrain()
+                .getTile(current.getTile().getTileX() - 1, current.getTile().getTileY());
+        tileNorth.ifPresent(
+            tile ->
+                checkNode(current, nodes[tile.getTileX()][tile.getTileY()], Direction.NORTH, 10));
+        tileEast.ifPresent(
+            tile ->
+                checkNode(current, nodes[tile.getTileX()][tile.getTileY()], Direction.EAST, 10));
+        tileSouth.ifPresent(
+            tile ->
+                checkNode(current, nodes[tile.getTileX()][tile.getTileY()], Direction.SOUTH, 10));
+        tileWest.ifPresent(
+            tile ->
+                checkNode(current, nodes[tile.getTileX()][tile.getTileY()], Direction.WEST, 10));
       }
     }
     return null;

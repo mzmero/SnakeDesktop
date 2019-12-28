@@ -1,9 +1,9 @@
 
-package com.neolumia.snake.model.design.snake;
+package com.neolumia.snake.view.design.snake;
 
 import com.neolumia.snake.control.Snake;
-import com.neolumia.snake.model.game.SnakePart;
-import com.neolumia.snake.model.game.Tile;
+import com.neolumia.snake.view.game.SnakePart;
+import com.neolumia.snake.view.game.Tile;
 import com.neolumia.snake.model.util.Direction;
 import javafx.application.Platform;
 import javafx.scene.Node;

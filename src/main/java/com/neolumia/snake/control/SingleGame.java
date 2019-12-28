@@ -1,9 +1,8 @@
-
 package com.neolumia.snake.control;
 
 import com.neolumia.snake.GameApp;
 import com.neolumia.snake.view.option.GameType;
-import com.neolumia.snake.model.game.Tile;
+import com.neolumia.snake.view.game.Tile;
 import com.neolumia.snake.view.item.Item;
 import com.neolumia.snake.view.item.ItemType;
 import com.neolumia.snake.view.item.Mouse;
@@ -18,9 +17,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Timer;
 
-/**
- * This class represents a single game - one player - and the snake associated with
- */
+/** This class represents a single game - one player - and the snake associated with */
 public final class SingleGame extends Game {
 
   private static final Logger LOGGER = LogManager.getLogger(SingleGame.class);
@@ -53,7 +50,8 @@ public final class SingleGame extends Game {
   public void initSpawnFood() {
     Tile tile;
     for (Item.Arguments argument : Item.getItems().keySet()) {
-      if (argument.getGameTypes()[0] == GameType.CLASSIC && !(Item.getItems().get(argument).get() instanceof Pear)) {
+      if (argument.getGameTypes()[0] == GameType.CLASSIC
+          && !(Item.getItems().get(argument).get() instanceof Pear)) {
         Item item = Item.getItems().get(argument).get();
         while (true) {
           int x = random.nextInt(terrain.getTileWidth());
@@ -72,36 +70,45 @@ public final class SingleGame extends Game {
       int corner = 1 + random.nextInt(4);
       int x = 0, y = 0;
       switch (corner) {
-        case 1: { //UpperRight
-          x = 0;
-          y = 0;
-          break;
-        }
-        case 2: {//UpperLeft
-          x = terrain.getTileWidth() - 1;
-          y = 0;
-          break;
-        }
-        case 3: { // LowerRight
-          x = 0;
-          y = terrain.getTileHeight() - 1;
-          break;
-        }
-        case 4: {
-          x = terrain.getTileWidth() - 1;
-          y = terrain.getTileHeight() - 1;
-          break;
-        }
+        case 1:
+          { // UpperRight
+            x = 0;
+            y = 0;
+            break;
+          }
+        case 2:
+          { // UpperLeft
+            x = terrain.getTileWidth() - 1;
+            y = 0;
+            break;
+          }
+        case 3:
+          { // LowerRight
+            x = 0;
+            y = terrain.getTileHeight() - 1;
+            break;
+          }
+        case 4:
+          {
+            x = terrain.getTileWidth() - 1;
+            y = terrain.getTileHeight() - 1;
+            break;
+          }
       }
       final Optional<Tile> next = terrain.getTile(x, y);
       if (next.isPresent() && !getTerrain().get(next.get()).isPresent()) {
         tile = next.get();
         getTerrain().put(tile, new Pear());
-        LOGGER.info("Item spawned x={}, y={} , corener={} , corner.x={},corner.y={}", tile.getTileX(), tile.getTileY(), corner, x, y);
+        LOGGER.info(
+            "Item spawned x={}, y={} , corener={} , corner.x={},corner.y={}",
+            tile.getTileX(),
+            tile.getTileY(),
+            corner,
+            x,
+            y);
       }
     }
   }
-
 
   @Override
   public void tick() {
@@ -112,7 +119,6 @@ public final class SingleGame extends Game {
     return snake;
   }
 
-
   public Tile getFood() {
     return food;
   }
@@ -120,55 +126,52 @@ public final class SingleGame extends Game {
   public void spawnApple() {
     Timer t = new java.util.Timer();
     t.schedule(
-      new java.util.TimerTask() {
-        @Override
-        public void run() {
-          Tile tile;
-          while (true) {
-            int x = random.nextInt(terrain.getTileWidth());
-            int y = random.nextInt(terrain.getTileHeight());
-            final Optional<Tile> next = terrain.getTile(x, y);
-            if (next.isPresent() && !getTerrain().get(next.get()).isPresent()) {
-              tile = next.get();
-              break;
+        new java.util.TimerTask() {
+          @Override
+          public void run() {
+            Tile tile;
+            while (true) {
+              int x = random.nextInt(terrain.getTileWidth());
+              int y = random.nextInt(terrain.getTileHeight());
+              final Optional<Tile> next = terrain.getTile(x, y);
+              if (next.isPresent() && !getTerrain().get(next.get()).isPresent()) {
+                tile = next.get();
+                break;
+              }
             }
+            getTerrain().put(food = tile, new Apple());
+            LOGGER.info("Item spawned x={}, y={}", tile.getTileX(), tile.getTileY());
+            // close the thread
+            t.cancel();
           }
-          getTerrain().put(food = tile, new Apple());
-          LOGGER.info("Item spawned x={}, y={}", tile.getTileX(), tile.getTileY());
-          // close the thread
-          t.cancel();
-        }
-      },
-      5000
-    );
+        },
+        5000);
   }
 
   public void spawnBanana() {
     Timer t = new java.util.Timer();
     t.schedule(
-      new java.util.TimerTask() {
-        @Override
-        public void run() {
-          Tile tile;
-          while (true) {
-            int x = random.nextInt(terrain.getTileWidth());
-            int y = random.nextInt(terrain.getTileHeight());
-            final Optional<Tile> next = terrain.getTile(x, y);
-            if (next.isPresent() && !getTerrain().get(next.get()).isPresent()) {
-              tile = next.get();
-              break;
+        new java.util.TimerTask() {
+          @Override
+          public void run() {
+            Tile tile;
+            while (true) {
+              int x = random.nextInt(terrain.getTileWidth());
+              int y = random.nextInt(terrain.getTileHeight());
+              final Optional<Tile> next = terrain.getTile(x, y);
+              if (next.isPresent() && !getTerrain().get(next.get()).isPresent()) {
+                tile = next.get();
+                break;
+              }
             }
+            getTerrain().put(food = tile, new Banana());
+            LOGGER.info("Item spawned x={}, y={}", tile.getTileX(), tile.getTileY());
+            // close the thread
+            t.cancel();
           }
-          getTerrain().put(food = tile, new Banana());
-          LOGGER.info("Item spawned x={}, y={}", tile.getTileX(), tile.getTileY());
-          // close the thread
-          t.cancel();
-        }
-      },
-      10000
-    );
+        },
+        10000);
   }
-
 
   /**
    * Spawn a Pear givin previouse Corner
@@ -187,26 +190,30 @@ public final class SingleGame extends Game {
     System.out.print("new corner :" + corner);
     int x = 0, y = 0;
     switch (corner) {
-      case 1: { //UpperRight
-        x = 0;
-        y = 0;
-        break;
-      }
-      case 2: {//UpperLeft
-        x = terrain.getTileWidth() - 1;
-        y = 0;
-        break;
-      }
-      case 3: { // LowerRight
-        x = 0;
-        y = terrain.getTileHeight() - 1;
-        break;
-      }
-      case 4: {
-        x = terrain.getTileWidth() - 1;
-        y = terrain.getTileHeight() - 1;
-        break;
-      }
+      case 1:
+        { // UpperRight
+          x = 0;
+          y = 0;
+          break;
+        }
+      case 2:
+        { // UpperLeft
+          x = terrain.getTileWidth() - 1;
+          y = 0;
+          break;
+        }
+      case 3:
+        { // LowerRight
+          x = 0;
+          y = terrain.getTileHeight() - 1;
+          break;
+        }
+      case 4:
+        {
+          x = terrain.getTileWidth() - 1;
+          y = terrain.getTileHeight() - 1;
+          break;
+        }
     }
     final Optional<Tile> next = terrain.getTile(x, y);
     if (next.isPresent() && !getTerrain().get(next.get()).isPresent()) {
@@ -215,7 +222,6 @@ public final class SingleGame extends Game {
     }
     LOGGER.info("Item spawned at x={}, y={}", x, y);
   }
-
 
   public void spawnQuestion() {
     Tile tileQuestion;
@@ -232,7 +238,6 @@ public final class SingleGame extends Game {
     getTerrain().put(question = tileQuestion, itemQuestion.orElseThrow(IllegalStateException::new));
     LOGGER.info("Question spawned x={}, y={}", tileQuestion.getTileX(), tileQuestion.getTileY());
   }
-
 
   public void addQuestion(Question question) {
     questions.add(question);

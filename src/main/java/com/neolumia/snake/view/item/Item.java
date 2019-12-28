@@ -1,4 +1,3 @@
-
 package com.neolumia.snake.view.item;
 
 import com.google.common.collect.ImmutableMap;
@@ -22,11 +21,8 @@ import java.util.stream.Collectors;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.neolumia.snake.view.item.Item.Arguments.of;
 
-/**
- * An abstract representation of an item in the game
- */
+/** An abstract representation of an item in the game */
 public abstract class Item extends TileObject {
-
 
   private static final Map<Arguments, Supplier<Item>> items = Maps.newConcurrentMap();
   private static final Random random = new Random();
@@ -56,9 +52,7 @@ public abstract class Item extends TileObject {
     register(of(ItemType.QUESTION, GameType.CLASSIC), Questionlvl3::new);
     register(of(ItemType.MOUSE, GameType.CLASSIC), Mouse::new);
     register(of(ItemType.FOOD, GameType.RETRO), RetroFood::new);
-
   }
-
 
   public static Map<Arguments, Supplier<Item>> getItems() {
     return items;
@@ -68,11 +62,10 @@ public abstract class Item extends TileObject {
     final Map<Arguments, Supplier<Item>> map = ImmutableMap.copyOf(items);
 
     final List<Supplier<Item>> valid =
-      map.entrySet()
-        .stream()
-        .filter(e -> e.getKey().matches(gameType, types))
-        .map(Map.Entry::getValue)
-        .collect(Collectors.toList());
+        map.entrySet().stream()
+            .filter(e -> e.getKey().matches(gameType, types))
+            .map(Map.Entry::getValue)
+            .collect(Collectors.toList());
 
     if (valid.isEmpty()) {
       return Optional.empty();

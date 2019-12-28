@@ -1,4 +1,3 @@
-
 package com.neolumia.snake.view;
 
 import com.neolumia.snake.GameApp;
@@ -22,9 +21,7 @@ import javafx.util.Duration;
 
 import static com.neolumia.snake.GameApp.t;
 
-/**
- * This is the class which is responsible for the GAME window
- */
+/** This is the class which is responsible for the GAME window */
 public final class GameWindow extends Window {
 
   private final GameApp app;
@@ -45,7 +42,10 @@ public final class GameWindow extends Window {
   public GameWindow(GameApp app, Game game) {
     this.app = app;
     this.game = game;
-    root.setStyle("-fx-background-color: #" + Integer.toHexString(app.getDesign().background.getColor().hashCode()) + "");
+    root.setStyle(
+        "-fx-background-color: #"
+            + Integer.toHexString(app.getDesign().background.getColor().hashCode())
+            + "");
     group.getChildren().add(game);
     Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> update()));
     timeline.setCycleCount(Animation.INDEFINITE);
@@ -82,41 +82,41 @@ public final class GameWindow extends Window {
   @Override
   public void load(Stage stage, Scene scene) {
 
-    scene.setOnKeyPressed(event -> {
-      if (event.getCode() == KeyCode.ESCAPE) {
-        updatePaused(game.setPaused(!game.isPaused()));
-        return;
-      }
+    scene.setOnKeyPressed(
+        event -> {
+          if (event.getCode() == KeyCode.ESCAPE) {
+            updatePaused(game.setPaused(!game.isPaused()));
+            return;
+          }
 
-      if (event.getCode() == KeyCode.END) {
-        game.setAuto(!game.isAuto());
-        System.out.println("Auto: " + game.isAuto());
-        return;
-      }
+          if (event.getCode() == KeyCode.END) {
+            game.setAuto(!game.isAuto());
+            System.out.println("Auto: " + game.isAuto());
+            return;
+          }
 
-      if (game instanceof SingleGame) {
-        switch (event.getCode()) {
-          case UP:
-            ((SingleGame) game).getSnake().setNext(Direction.NORTH);
-            break;
-          case DOWN:
-            ((SingleGame) game).getSnake().setNext(Direction.SOUTH);
-            break;
-          case LEFT:
-            ((SingleGame) game).getSnake().setNext(Direction.WEST);
-            break;
-          case RIGHT:
-            ((SingleGame) game).getSnake().setNext(Direction.EAST);
-            break;
-        }
-      }
-    });
+          if (game instanceof SingleGame) {
+            switch (event.getCode()) {
+              case UP:
+                ((SingleGame) game).getSnake().setNext(Direction.NORTH);
+                break;
+              case DOWN:
+                ((SingleGame) game).getSnake().setNext(Direction.SOUTH);
+                break;
+              case LEFT:
+                ((SingleGame) game).getSnake().setNext(Direction.WEST);
+                break;
+              case RIGHT:
+                ((SingleGame) game).getSnake().setNext(Direction.EAST);
+                break;
+            }
+          }
+        });
 
     stage.setMinWidth(game.getTerrain().getWidth() + 32);
     stage.setMinHeight(game.getTerrain().getHeight() + 96);
     app.getWindowManager().center();
   }
-
 
   public void updatePaused(boolean now) {
     if (now) root.getChildren().add(pause);
@@ -129,5 +129,4 @@ public final class GameWindow extends Window {
     isQuestion3 = false;
     game.setPaused(false);
   }
-
 }

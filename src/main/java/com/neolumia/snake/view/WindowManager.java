@@ -1,6 +1,4 @@
-
 package com.neolumia.snake.view;
-
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -18,17 +16,14 @@ import javafx.util.Duration;
 
 import javax.annotation.Nullable;
 
-/**
- * This class manages JavaFX Stage and Scene displayed
- */
+/** This class manages JavaFX Stage and Scene displayed */
 public final class WindowManager {
 
   private static final String CSS_FILE = "style/styles.css";
   private final Stage stage = new Stage();
   private final Scene scene = new Scene(new Group(), 1000, 520);
 
-  @Nullable
-  private Window window;
+  @Nullable private Window window;
 
   public void request(Window window) {
     if (this.window != null) {
@@ -41,24 +36,32 @@ public final class WindowManager {
 
   public void init() {
     scene.getStylesheets().add(CSS_FILE);
-    scene.addEventHandler(KeyEvent.KEY_PRESSED, e -> {
-      if (e.getCode() == KeyCode.F11) {
-        stage.setFullScreen(!stage.isFullScreen());
-        return;
-      }
-      if (e.getCode() == KeyCode.MINUS) {
-        center();
-      }
-    });
-    stage.onCloseRequestProperty().addListener((ob, ov, nv) -> {
-      Platform.exit();
-      System.exit(0);
-    });
-    stage.fullScreenProperty().addListener((observable, oldValue, newValue) -> {
-      if (!newValue) {
-        new Timeline(new KeyFrame(Duration.seconds(1), t -> center())).play();
-      }
-    });
+    scene.addEventHandler(
+        KeyEvent.KEY_PRESSED,
+        e -> {
+          if (e.getCode() == KeyCode.F11) {
+            stage.setFullScreen(!stage.isFullScreen());
+            return;
+          }
+          if (e.getCode() == KeyCode.MINUS) {
+            center();
+          }
+        });
+    stage
+        .onCloseRequestProperty()
+        .addListener(
+            (ob, ov, nv) -> {
+              Platform.exit();
+              System.exit(0);
+            });
+    stage
+        .fullScreenProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              if (!newValue) {
+                new Timeline(new KeyFrame(Duration.seconds(1), t -> center())).play();
+              }
+            });
     stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
     stage.setScene(scene);
     stage.setTitle("Snake");

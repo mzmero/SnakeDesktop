@@ -1,7 +1,7 @@
 
 package com.neolumia.snake;
 
-import com.neolumia.snake.model.design.Design;
+import com.neolumia.snake.view.design.Design;
 import com.neolumia.snake.view.option.BgDesign;
 import com.neolumia.snake.view.option.SnakeDesign;
 import com.neolumia.snake.view.option.TerrainDesign;

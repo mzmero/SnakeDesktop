@@ -1,15 +1,13 @@
-
 package com.neolumia.snake.model.util;
 
-/**
- * Represents the coordinates of an item in game by two coordinates
- */
+/** Represents the coordinates of an item in game by two coordinates */
 public final class Position {
   private final int x;
   private final int y;
 
   /**
    * Defines an position
+   *
    * @param x - x coordinate
    * @param y - y coordinate
    */

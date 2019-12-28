@@ -1,8 +1,7 @@
-
 package com.neolumia.snake.control;
 
-import com.neolumia.snake.model.game.SnakePart;
-import com.neolumia.snake.model.game.Tile;
+import com.neolumia.snake.view.game.SnakePart;
+import com.neolumia.snake.view.game.Tile;
 import com.neolumia.snake.view.item.TileObject;
 import com.neolumia.snake.view.item.food.Food;
 import com.neolumia.snake.model.solver.Node;
@@ -26,16 +25,14 @@ public abstract class Snake<T extends Game> {
   private Direction direction;
   private int ticks = 0;
   private int lives;
-  @Nullable
-  private Direction next;
-
+  @Nullable private Direction next;
 
   public Snake(T game, Direction direction, Predicate<Node> blocking) {
     this.game = game;
     this.direction = direction;
     this.blocking = blocking;
     this.speed = game.getSettings().difficulty.getSpeed();
-    //TODO lives must be in game
+    // TODO lives must be in game
     this.lives = 3;
   }
 
@@ -52,8 +49,6 @@ public abstract class Snake<T extends Game> {
       ticks++;
       break;
     }
-
-
   }
 
   public Deque<SnakePart> getParts() {
@@ -149,8 +144,7 @@ public abstract class Snake<T extends Game> {
       lives--;
       game.getStats().walls++;
       game.setLives(lives);
-      if (lives == 0)
-        game.end();
+      if (lives == 0) game.end();
       else {
 
         game.getTerrain();
@@ -172,8 +166,7 @@ public abstract class Snake<T extends Game> {
         lives--;
         game.setLives(lives);
         game.getStats().walls++;
-        if (lives == 0)
-          game.end();
+        if (lives == 0) game.end();
         else {
           this.init();
           game.setPaused(true);
@@ -181,7 +174,7 @@ public abstract class Snake<T extends Game> {
         return false;
 
       }
-/*      if (item.get() instanceof Item) {
+      /*      if (item.get() instanceof Item) {
         Item i = (Item) item.get();
         if (i.getType().equals(ItemType.QUESTION)) {
           quest = true;
@@ -202,7 +195,6 @@ public abstract class Snake<T extends Game> {
       //  game.getStats().items++;
     }
 
-
     addPart(tile.get(), direction.opposite(), true);
     return true;
   }
@@ -219,13 +211,19 @@ public abstract class Snake<T extends Game> {
   }
 
   private Direction findBest() {
-    final Solver solver = new Solver(game, parts.getFirst().getTile(), getFoodX(), getFoodY(), blocking);
+    final Solver solver =
+        new Solver(game, parts.getFirst().getTile(), getFoodX(), getFoodY(), blocking);
     return solver.solve();
   }
 
   private Direction findTail() {
-    final Solver solver = new Solver(game, parts.getFirst().getTile(), parts.getLast().getTile().getTileX(), parts.getLast().getTile().getTileY(), blocking);
+    final Solver solver =
+        new Solver(
+            game,
+            parts.getFirst().getTile(),
+            parts.getLast().getTile().getTileX(),
+            parts.getLast().getTile().getTileY(),
+            blocking);
     return solver.solve();
   }
 }
-

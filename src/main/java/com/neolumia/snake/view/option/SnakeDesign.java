@@ -1,13 +1,13 @@
 
 package com.neolumia.snake.view.option;
 
-import com.neolumia.snake.model.design.DesignOption;
-import com.neolumia.snake.model.design.SnakeSupplier;
-import com.neolumia.snake.model.design.snake.FredGucciSnake;
-import com.neolumia.snake.model.design.snake.FredSnake;
-import com.neolumia.snake.model.design.snake.PixelGucciSnake;
-import com.neolumia.snake.model.design.snake.PixelSnake;
-import com.neolumia.snake.model.game.SnakePart;
+import com.neolumia.snake.view.design.DesignOption;
+import com.neolumia.snake.view.design.SnakeSupplier;
+import com.neolumia.snake.view.design.snake.FredGucciSnake;
+import com.neolumia.snake.view.design.snake.FredSnake;
+import com.neolumia.snake.view.design.snake.PixelGucciSnake;
+import com.neolumia.snake.view.design.snake.PixelSnake;
+import com.neolumia.snake.view.game.SnakePart;
 
 import java.util.Optional;
 

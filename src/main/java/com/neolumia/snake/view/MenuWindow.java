@@ -1,4 +1,3 @@
-
 package com.neolumia.snake.view;
 
 import com.neolumia.snake.GameApp;
@@ -8,16 +7,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
-/**
- * This is the class which is responsible of the GAME view
- */
+/** This is the class which is responsible of the GAME view */
 public final class MenuWindow extends Window {
 
   private final GameApp app;
-  @FXML
-  private GridPane root;
-  @FXML
-  private ImageView typeView;
+  @FXML private GridPane root;
+  @FXML private ImageView typeView;
 
   private GameType type = GameType.CLASSIC;
 
@@ -41,7 +36,9 @@ public final class MenuWindow extends Window {
   }
 
   @FXML
-  public void settings() {app.getWindowManager().request(new SettingsWindow(app)); }
+  public void settings() {
+    app.getWindowManager().request(new SettingsWindow(app));
+  }
 
   public void clickTitle() {
     switchType(type.next());

@@ -1,27 +1,19 @@
-
 package com.neolumia.snake.view.item;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.MoreObjects.ToStringHelper;
 import javafx.scene.layout.Pane;
 
-/**
- * A general representation of a board tile in the game.
- */
+/** A general representation of a board tile in the game. */
 public abstract class TileObject extends Pane {
 
-
-  /**
-   * x - x coordinate
-   * y - y coordinate
-   * size - the size of the size
-   */
+  /** x - x coordinate y - y coordinate size - the size of the size */
   private int x;
+
   private int y;
   private int size;
 
-  public TileObject() {
-  }
+  public TileObject() {}
 
   public TileObject(int size) {
     this.size = size;
@@ -51,14 +43,10 @@ public abstract class TileObject extends Pane {
     this.size = size;
   }
 
-  public void init() {
-  }
+  public void init() {}
 
   protected ToStringHelper toStringHelper() {
-    return MoreObjects.toStringHelper(this)
-      .add("x", x)
-      .add("y", y)
-      .add("size", size);
+    return MoreObjects.toStringHelper(this).add("x", x).add("y", y).add("size", size);
   }
 
   @Override

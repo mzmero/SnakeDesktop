@@ -1,11 +1,8 @@
 package com.neolumia.snake.control;
 
-
-import com.neolumia.snake.GameApp;
-import com.neolumia.snake.model.game.GameHistory;
+import com.neolumia.snake.model.questions.History;
 import com.neolumia.snake.model.questions.Question;
 import com.neolumia.snake.model.questions.QuestionLevel;
-import com.neolumia.snake.model.util.Q;
 import com.neolumia.snake.view.TableItem;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -27,7 +24,7 @@ public class SysData {
 
   private static SysData single_instance = null;
   private ArrayList<Question> questions;
-  private ArrayList<GameHistory> history;
+  private ArrayList<History> history;
 
   /**
    * Creates an instance from the sysData
@@ -44,16 +41,18 @@ public class SysData {
     return single_instance;
   }
 
-
-  public ArrayList<GameHistory> getHistory() {
+  public ArrayList<History> getHistory() {
     return history;
   }
 
   public ArrayList<TableItem> getHistoryTableItems() {
     ArrayList<TableItem> tableItems = new ArrayList<>();
-    for (GameHistory gameHistory : history
-    ) {
-      TableItem tableItem = new TableItem(gameHistory.getPlayer(), Integer.toString(gameHistory.getPoints()), Integer.toString(gameHistory.getLives()));
+    for (History history : this.history) {
+      TableItem tableItem =
+          new TableItem(
+              history.getPlayer(),
+              Integer.toString(history.getPoints()),
+              Integer.toString(history.getLives()));
       tableItems.add(tableItem);
     }
     return tableItems;
@@ -63,13 +62,10 @@ public class SysData {
     this.history = readHistoryFromJson();
   }
 
-  /**
-   * Sets the questions array to be equals to the array returned after reading from json
-   */
+  /** Sets the questions array to be equals to the array returned after reading from json */
   public void setQuestions() {
     this.questions = readQuestionFromJson();
   }
-
 
   /**
    * Getter method for the questions array
@@ -83,8 +79,7 @@ public class SysData {
   public boolean ifExists(String ID) {
     Question temp = null;
     for (Question d : questions) {
-      if (d.getQuestion().equals(ID))
-        temp = d;
+      if (d.getQuestion().equals(ID)) temp = d;
       if (temp != null) return true;
     }
     return false;
@@ -96,8 +91,7 @@ public class SysData {
     if (!temp) return false;
     else {
       for (Question Q : getQuestions()) {
-        if (Q.getQuestion().equals(ID))
-          DeleteQ = Q;
+        if (Q.getQuestion().equals(ID)) DeleteQ = Q;
       }
       questions.remove(DeleteQ);
       writeQuestionTojson();
@@ -106,15 +100,15 @@ public class SysData {
   }
 
   /**
-   * This method inserts the question that was passed as a parameter and adds it to the questions array
+   * This method inserts the question that was passed as a parameter and adds it to the questions
+   * array
    *
    * @param Q the question that we want to insert
    * @return returns true if question was added successfully and false otherwise
    */
   public boolean insertQuestion(Question Q) {
     boolean temp = ifExists(Q.getQuestion());
-    if (temp)
-      return false;
+    if (temp) return false;
     else {
       questions.add(Q);
       writeQuestionTojson();
@@ -122,7 +116,13 @@ public class SysData {
     }
   }
 
-  public boolean updateQuestion(String question, String Updated, ArrayList<String> answer, String correctAns, String level, String team) {
+  public boolean updateQuestion(
+      String question,
+      String Updated,
+      ArrayList<String> answer,
+      String correctAns,
+      String level,
+      String team) {
 
     if (!ifExists(Updated)) return false;
 
@@ -131,23 +131,21 @@ public class SysData {
     questions.add(new Question(Updated, answer, correctAns, level, team));
     writeQuestionTojson();
     return true;
-
-
   }
 
   /**
-   * Reads the questions from the json file and converts the questions to objects from the type question
+   * Reads the questions from the json file and converts the questions to objects from the type
+   * question
    *
    * @return array which contains all the questions that were read
    */
-
   public ArrayList<Question> readQuestionFromJson() {
     JSONParser jsonParser = new JSONParser();
     ArrayList<Question> result = new ArrayList<>();
     File file = new File(".");
     for (String fileNames : file.list()) System.out.println(fileNames);
     try (FileReader reader = new FileReader(new File("json/questions.json"))) {
-      //Read JSON file
+      // Read JSON file
       Object obj = jsonParser.parse(reader);
       JSONObject obj2 = (JSONObject) obj;
       JSONArray arr = (JSONArray) obj2.get("questions");
@@ -156,7 +154,13 @@ public class SysData {
         JSONObject object = (JSONObject) iterator.next();
         ArrayList<String> answers = (JSONArray) object.get("answers");
         String level = (String) object.get("level");
-        result.add(new Question((String) object.get("question"), answers, (String) object.get("correct_ans"), level, (String) object.get("team")));
+        result.add(
+            new Question(
+                (String) object.get("question"),
+                answers,
+                (String) object.get("correct_ans"),
+                level,
+                (String) object.get("team")));
       }
       return result;
 
@@ -173,7 +177,8 @@ public class SysData {
   }
 
   /**
-   * This method writes the questions from the questions array to the json file located in "json/questions.json"
+   * This method writes the questions from the questions array to the json file located in
+   * "json/questions.json"
    */
   public void writeQuestionTojson() {
     JSONObject jObject = new JSONObject();
@@ -205,27 +210,28 @@ public class SysData {
    * @return question if exists, otherwise NULL
    */
   public Question getQuestion(String questionBody) {
-    for (Question p : questions
-    ) {
-      if (p != null && p.getQuestion().equals(questionBody))
-        return p;
+    for (Question p : questions) {
+      if (p != null && p.getQuestion().equals(questionBody)) return p;
     }
     return null;
   }
 
-
-  public ArrayList<GameHistory> readHistoryFromJson() {
+  public ArrayList<History> readHistoryFromJson() {
     JSONParser jsonParser = new JSONParser();
-    ArrayList<GameHistory> result = new ArrayList<>();
+    ArrayList<History> result = new ArrayList<>();
     try (FileReader reader = new FileReader("json/history.json")) {
-      //Read JSON file
+      // Read JSON file
       Object obj = jsonParser.parse(reader);
       JSONObject obj2 = (JSONObject) obj;
       JSONArray arr = (JSONArray) obj2.get("history");
       Iterator<Object> iterator = arr.iterator();
       while (iterator.hasNext()) {
         JSONObject object = (JSONObject) iterator.next();
-        result.add(new GameHistory((String) object.get("player"), (int) (long) object.get("score"), (int) (long) object.get("numOfSouls")));
+        result.add(
+            new History(
+                (String) object.get("player"),
+                (int) (long) object.get("score"),
+                (int) (long) object.get("numOfSouls")));
       }
       Collections.sort(result);
       return result;
@@ -246,7 +252,7 @@ public class SysData {
     JSONObject jObject = new JSONObject();
     try {
       JSONArray jArray = new JSONArray();
-      for (GameHistory h : history) {
+      for (History h : history) {
         JSONObject play = new JSONObject();
         play.put("player", h.getPlayer());
         play.put("score", h.getPoints());
@@ -264,17 +270,21 @@ public class SysData {
   /**
    * This Method Adds game to the game history array at the end of each game
    *
-   * @param gameHistory - game details
+   * @param history - game details
    */
-  public void addGameToHistory(GameHistory gameHistory) {
-    history.add(gameHistory);
+  public void addGameToHistory(History history) {
+    this.history.add(history);
     writeHistoryTojson();
   }
 
   public ArrayList<TableItem> getPlayerHistory(String playerName) {
     ArrayList<TableItem> gameHistories = new ArrayList<>();
     for (int i = 0; i < history.size() && history.get(i).getPlayer().equals(playerName); i++)
-      gameHistories.add(new TableItem(history.get(i).getPlayer(), Integer.toString(history.get(i).getPoints()), Integer.toString(history.get(i).getLives())));
+      gameHistories.add(
+          new TableItem(
+              history.get(i).getPlayer(),
+              Integer.toString(history.get(i).getPoints()),
+              Integer.toString(history.get(i).getLives())));
     return gameHistories;
   }
 
@@ -282,18 +292,16 @@ public class SysData {
    * Searches for question and returns question if exists
    *
    * @param questions
-   * @param level     - is the questions level
+   * @param level - is the questions level
    * @return question if exists, otherwise NULL
    */
   public Question getQuestion(ArrayList<Question> questions, QuestionLevel level) {
     ArrayList<Question> array = new ArrayList<>();
-    for (Question p : this.questions
-    ) {
+    for (Question p : this.questions) {
       if (p != null && p.getLevel().equals(level.getLevel()) && !questions.contains(p))
         array.add(p);
     }
     int rnd = new Random().nextInt(array.size());
     return array.get(rnd);
   }
-
 }

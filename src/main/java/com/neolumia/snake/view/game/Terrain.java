@@ -1,8 +1,6 @@
-
-package com.neolumia.snake.model.game;
+package com.neolumia.snake.view.game;
 
 import com.neolumia.snake.control.Game;
-import com.neolumia.snake.model.util.Position;
 import com.neolumia.snake.view.item.TileObject;
 import javafx.application.Platform;
 import javafx.scene.layout.*;
@@ -13,9 +11,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
-/**
- * This class represents board matrix
- */
+/** This class represents board matrix */
 public final class Terrain extends Pane {
 
   private final Game game;
@@ -32,14 +28,13 @@ public final class Terrain extends Pane {
     this.height = game.getSettings().size.getHeight();
     this.tiles = new Tile[width][height];
     this.size = size;
-
     game.getChildren().add(this);
   }
 
   public void init() {
     for (int x = 0; x < width; x++) {
       for (int y = 0; y < height; y++) {
-        tiles[x][y] = new Tile(x, y, size, game.getApp().getDesign().terrain.getColor().apply(Position.of(x, y)));
+        tiles[x][y] = new Tile(x, y, size);
         getChildren().add(tiles[x][y]);
       }
     }
@@ -65,21 +60,22 @@ public final class Terrain extends Pane {
 
     final Pane old = objects.put(tile, pane);
 
-    Platform.runLater(() -> {
-      if (old != null) {
-        this.getChildren().remove(old);
-      }
+    Platform.runLater(
+        () -> {
+          if (old != null) {
+            this.getChildren().remove(old);
+          }
 
-      if (pane != null) {
+          if (pane != null) {
 
-        pane.setX(tile.getTileX());
-        pane.setY(tile.getTileY());
-        pane.setSize(size);
-        pane.init();
+            pane.setX(tile.getTileX());
+            pane.setY(tile.getTileY());
+            pane.setSize(size);
+            pane.init();
 
-        this.getChildren().add(pane);
-      }
-    });
+            this.getChildren().add(pane);
+          }
+        });
   }
 
   public Optional<TileObject> get(Tile tile) {

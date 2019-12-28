@@ -1,12 +1,9 @@
-
 package com.neolumia.snake.model.settings;
 
+/** This class is for defining the settings like difficulty, size, player name and more */
 public final class Settings {
-
-  /**
-   * This class is for defining the settings like difficulty, size, player name and more
-   */
   public static Locale DEFAULT_LOCALE = Locale.ENGLISH;
+
   public static Difficulty DEFAULT_DIFFICULTY = Difficulty.MEDIUM;
   public static Size DEFAULT_SIZE = Size.MEDIUM;
   public static String DEFAULT_NAME = "Fadi";
@@ -18,7 +15,8 @@ public final class Settings {
   public String playerName = "Fadi";
   public boolean leaderboard;
 
-  public Settings(Locale locale, Difficulty difficulty, Size size, String playerName, boolean leaderboard) {
+  public Settings(
+      Locale locale, Difficulty difficulty, Size size, String playerName, boolean leaderboard) {
     this.locale = locale;
     this.difficulty = difficulty;
     this.size = size;

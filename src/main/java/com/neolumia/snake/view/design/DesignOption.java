@@ -1,5 +1,4 @@
-
-package com.neolumia.snake.model.design;
+package com.neolumia.snake.view.design;
 
 import java.util.Optional;
 

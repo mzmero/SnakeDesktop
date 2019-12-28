@@ -1,10 +1,9 @@
-
-package com.neolumia.snake.model.design;
+package com.neolumia.snake.view.design;
 
 import com.neolumia.snake.control.Snake;
 import com.neolumia.snake.model.util.Direction;
-import com.neolumia.snake.model.game.SnakePart;
-import com.neolumia.snake.model.game.Tile;
+import com.neolumia.snake.view.game.SnakePart;
+import com.neolumia.snake.view.game.Tile;
 import javafx.scene.paint.Color;
 
 import javax.annotation.Nullable;
