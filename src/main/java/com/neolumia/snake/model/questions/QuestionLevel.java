@@ -13,7 +13,7 @@ public enum QuestionLevel {
     return this.level;
   }
 
-  private QuestionLevel(String level) {
+  QuestionLevel(String level) {
     this.level = level;
   }
 

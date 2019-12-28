@@ -53,15 +53,7 @@ public final class SingleGame extends Game {
       if (argument.getGameTypes()[0] == GameType.CLASSIC
           && !(Item.getItems().get(argument).get() instanceof Pear)) {
         Item item = Item.getItems().get(argument).get();
-        while (true) {
-          int x = random.nextInt(terrain.getTileWidth());
-          int y = random.nextInt(terrain.getTileHeight());
-          final Optional<Tile> next = terrain.getTile(x, y);
-          if (next.isPresent() && !getTerrain().get(next.get()).isPresent()) {
-            tile = next.get();
-            break;
-          }
-        }
+        tile = getTile();
         getTerrain().put(food = tile, item);
         LOGGER.info("Item spawned x={}, y={}", tile.getTileX(), tile.getTileY());
       }
@@ -110,6 +102,20 @@ public final class SingleGame extends Game {
     }
   }
 
+  private Tile getTile() {
+    Tile tile;
+    while (true) {
+      int x = random.nextInt(terrain.getTileWidth());
+      int y = random.nextInt(terrain.getTileHeight());
+      final Optional<Tile> next = terrain.getTile(x, y);
+      if (next.isPresent() && !getTerrain().get(next.get()).isPresent()) {
+        tile = next.get();
+        break;
+      }
+    }
+    return tile;
+  }
+
   @Override
   public void tick() {
     snake.tick();
@@ -129,16 +135,7 @@ public final class SingleGame extends Game {
         new java.util.TimerTask() {
           @Override
           public void run() {
-            Tile tile;
-            while (true) {
-              int x = random.nextInt(terrain.getTileWidth());
-              int y = random.nextInt(terrain.getTileHeight());
-              final Optional<Tile> next = terrain.getTile(x, y);
-              if (next.isPresent() && !getTerrain().get(next.get()).isPresent()) {
-                tile = next.get();
-                break;
-              }
-            }
+            Tile tile = getTile();
             getTerrain().put(food = tile, new Apple());
             LOGGER.info("Item spawned x={}, y={}", tile.getTileX(), tile.getTileY());
             // close the thread
@@ -154,16 +151,7 @@ public final class SingleGame extends Game {
         new java.util.TimerTask() {
           @Override
           public void run() {
-            Tile tile;
-            while (true) {
-              int x = random.nextInt(terrain.getTileWidth());
-              int y = random.nextInt(terrain.getTileHeight());
-              final Optional<Tile> next = terrain.getTile(x, y);
-              if (next.isPresent() && !getTerrain().get(next.get()).isPresent()) {
-                tile = next.get();
-                break;
-              }
-            }
+            Tile tile = getTile();
             getTerrain().put(food = tile, new Banana());
             LOGGER.info("Item spawned x={}, y={}", tile.getTileX(), tile.getTileY());
             // close the thread
@@ -224,16 +212,7 @@ public final class SingleGame extends Game {
   }
 
   public void spawnQuestion() {
-    Tile tileQuestion;
-    while (true) {
-      int x = random.nextInt(terrain.getTileWidth());
-      int y = random.nextInt(terrain.getTileHeight());
-      final Optional<Tile> next = terrain.getTile(x, y);
-      if (next.isPresent() && !getTerrain().get(next.get()).isPresent()) {
-        tileQuestion = next.get();
-        break;
-      }
-    }
+    Tile tileQuestion = getTile();
     final Optional<Item> itemQuestion = Item.random(type, ItemType.FOOD);
     getTerrain().put(question = tileQuestion, itemQuestion.orElseThrow(IllegalStateException::new));
     LOGGER.info("Question spawned x={}, y={}", tileQuestion.getTileX(), tileQuestion.getTileY());
