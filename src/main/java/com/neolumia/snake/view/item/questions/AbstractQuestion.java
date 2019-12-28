@@ -1,4 +1,4 @@
-package com.neolumia.snake.model.item.questions;
+package com.neolumia.snake.view.item.questions;
 
 
 import javafx.scene.image.Image;

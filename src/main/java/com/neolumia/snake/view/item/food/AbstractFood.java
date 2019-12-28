@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.neolumia.snake.model.item.food;
+package com.neolumia.snake.view.item.food;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

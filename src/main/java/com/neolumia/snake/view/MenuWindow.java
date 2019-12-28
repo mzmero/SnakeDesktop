@@ -2,19 +2,11 @@
 package com.neolumia.snake.view;
 
 import com.neolumia.snake.GameApp;
-import com.neolumia.snake.model.game.GameType;
+import com.neolumia.snake.view.option.GameType;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Popup;
-import javafx.stage.PopupBuilder;
-
-import java.awt.*;
-import java.io.IOException;
 
 /**
  * This is the class which is responsible of the GAME view

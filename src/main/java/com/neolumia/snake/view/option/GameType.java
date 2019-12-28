@@ -1,5 +1,5 @@
 
-package com.neolumia.snake.model.game;
+package com.neolumia.snake.view.option;
 
 import javafx.scene.paint.Color;
 

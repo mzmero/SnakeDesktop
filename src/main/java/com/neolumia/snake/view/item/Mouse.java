@@ -1,4 +1,4 @@
-package com.neolumia.snake.model.item;
+package com.neolumia.snake.view.item;
 
 public class Mouse extends Item{
 

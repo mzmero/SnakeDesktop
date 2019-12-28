@@ -22,11 +22,26 @@
  * SOFTWARE.
  */
 
-package com.neolumia.snake.model.item.food;
+package com.neolumia.snake.view.item.food;
 
-public final class Banana extends AbstractFood {
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
-  public Banana() {
-    super("Banana", "banana.png");
+public final class RetroFood extends Food {
+
+  private final Circle circle;
+
+  public RetroFood() {
+    super("Retro");
+    getChildren().add(circle = new Circle(0, Color.BLACK));
   }
+
+  @Override
+  public void setSize(int size) {
+    super.setSize(size);
+    circle.setRadius(16 - 6);
+    circle.setCenterX(x * size + 16 + 3);
+    circle.setCenterY(y * size + 16 + 3);
+  }
+
 }

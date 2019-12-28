@@ -1,25 +1,20 @@
 
 package com.neolumia.snake;
 
-import com.neolumia.snake.control.SysData;
 import com.neolumia.snake.model.design.Design;
 import com.neolumia.snake.control.Game;
-import com.neolumia.snake.model.game.GameType;
+import com.neolumia.snake.view.option.GameType;
 import com.neolumia.snake.control.SingleGame;
-import com.neolumia.snake.model.item.Item;
+import com.neolumia.snake.view.item.Item;
 import com.neolumia.snake.model.settings.Settings;
 import com.neolumia.snake.view.GameWindow;
 import com.neolumia.snake.view.MenuWindow;
 import com.neolumia.snake.view.WindowManager;
 import javafx.application.Application;
-import javafx.scene.layout.VBox;
-import javafx.stage.Popup;
-import javafx.stage.PopupBuilder;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.awt.*;
 import java.io.File;
 import java.nio.file.Path;
 import java.sql.SQLException;

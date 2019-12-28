@@ -2,9 +2,9 @@
 package com.neolumia.snake.model.design;
 
 import com.google.common.base.MoreObjects;
-import com.neolumia.snake.model.design.option.BgDesign;
-import com.neolumia.snake.model.design.option.SnakeDesign;
-import com.neolumia.snake.model.design.option.TerrainDesign;
+import com.neolumia.snake.view.option.BgDesign;
+import com.neolumia.snake.view.option.SnakeDesign;
+import com.neolumia.snake.view.option.TerrainDesign;
 
 import java.util.Objects;
 

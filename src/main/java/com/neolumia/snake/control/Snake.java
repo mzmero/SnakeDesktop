@@ -1,20 +1,15 @@
 
 package com.neolumia.snake.control;
 
-import com.neolumia.snake.control.Game;
 import com.neolumia.snake.model.game.SnakePart;
 import com.neolumia.snake.model.game.Tile;
-import com.neolumia.snake.model.game.TileObject;
-import com.neolumia.snake.model.item.Item;
-import com.neolumia.snake.model.item.ItemType;
-import com.neolumia.snake.model.item.food.Food;
-import com.neolumia.snake.model.questions.Question;
+import com.neolumia.snake.view.item.TileObject;
+import com.neolumia.snake.view.item.food.Food;
 import com.neolumia.snake.model.solver.Node;
 import com.neolumia.snake.model.solver.Solver;
 import com.neolumia.snake.model.util.Direction;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.Deque;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedDeque;

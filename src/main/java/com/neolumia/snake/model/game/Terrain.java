@@ -3,11 +3,10 @@ package com.neolumia.snake.model.game;
 
 import com.neolumia.snake.control.Game;
 import com.neolumia.snake.model.util.Position;
+import com.neolumia.snake.view.item.TileObject;
 import javafx.application.Platform;
-import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 
-import java.io.FileInputStream;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;

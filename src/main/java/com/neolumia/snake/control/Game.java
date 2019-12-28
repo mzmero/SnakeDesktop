@@ -5,7 +5,7 @@ package com.neolumia.snake.control;
 import com.neolumia.snake.GameApp;
 import com.neolumia.snake.Stats;
 import com.neolumia.snake.model.game.GameHistory;
-import com.neolumia.snake.model.game.GameType;
+import com.neolumia.snake.view.option.GameType;
 import com.neolumia.snake.model.game.Terrain;
 import com.neolumia.snake.model.settings.Settings;
 import com.neolumia.snake.view.DeadWindow;

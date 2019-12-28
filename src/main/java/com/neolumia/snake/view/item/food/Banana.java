@@ -22,11 +22,11 @@
  * SOFTWARE.
  */
 
-package com.neolumia.snake.model.item.food;
+package com.neolumia.snake.view.item.food;
 
-public final class Pear extends AbstractFood {
+public final class Banana extends AbstractFood {
 
-  public Pear() {
-    super("Pear", "pear.png");
+  public Banana() {
+    super("Banana", "banana.png");
   }
 }

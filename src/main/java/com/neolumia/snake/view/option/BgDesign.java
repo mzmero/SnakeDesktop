@@ -1,5 +1,5 @@
 
-package com.neolumia.snake.model.design.option;
+package com.neolumia.snake.view.option;
 
 import com.neolumia.snake.model.design.DesignOption;
 import javafx.scene.paint.Color;

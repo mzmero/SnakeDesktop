@@ -2,14 +2,14 @@
 package com.neolumia.snake.control;
 
 import com.neolumia.snake.GameApp;
-import com.neolumia.snake.model.game.GameType;
+import com.neolumia.snake.view.option.GameType;
 import com.neolumia.snake.model.game.Tile;
-import com.neolumia.snake.model.item.Item;
-import com.neolumia.snake.model.item.ItemType;
-import com.neolumia.snake.model.item.Mouse;
-import com.neolumia.snake.model.item.food.Apple;
-import com.neolumia.snake.model.item.food.Banana;
-import com.neolumia.snake.model.item.food.Pear;
+import com.neolumia.snake.view.item.Item;
+import com.neolumia.snake.view.item.ItemType;
+import com.neolumia.snake.view.item.Mouse;
+import com.neolumia.snake.view.item.food.Apple;
+import com.neolumia.snake.view.item.food.Banana;
+import com.neolumia.snake.view.item.food.Pear;
 import com.neolumia.snake.model.questions.Question;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

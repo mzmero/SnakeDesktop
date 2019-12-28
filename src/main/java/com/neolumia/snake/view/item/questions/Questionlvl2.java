@@ -1,4 +1,4 @@
-package com.neolumia.snake.model.item.questions;
+package com.neolumia.snake.view.item.questions;
 
 public class Questionlvl2 extends AbstractQuestion {
   public Questionlvl2() {

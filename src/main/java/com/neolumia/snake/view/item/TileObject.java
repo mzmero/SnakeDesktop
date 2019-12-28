@@ -1,5 +1,5 @@
 
-package com.neolumia.snake.model.game;
+package com.neolumia.snake.view.item;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.MoreObjects.ToStringHelper;

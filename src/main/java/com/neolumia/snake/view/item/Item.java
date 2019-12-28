@@ -1,18 +1,16 @@
 
-package com.neolumia.snake.model.item;
+package com.neolumia.snake.view.item;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-import com.neolumia.snake.model.game.GameType;
-import com.neolumia.snake.model.game.TileObject;
-import com.neolumia.snake.model.item.food.Apple;
-import com.neolumia.snake.model.item.food.Banana;
-import com.neolumia.snake.model.item.food.Pear;
-import com.neolumia.snake.model.item.food.RetroFood;
-import com.neolumia.snake.model.item.questions.Questionlvl1;
-import com.neolumia.snake.model.item.questions.Questionlvl2;
-import com.neolumia.snake.model.item.questions.Questionlvl3;
-import javafx.scene.paint.Color;
+import com.neolumia.snake.view.option.GameType;
+import com.neolumia.snake.view.item.food.Apple;
+import com.neolumia.snake.view.item.food.Banana;
+import com.neolumia.snake.view.item.food.Pear;
+import com.neolumia.snake.view.item.food.RetroFood;
+import com.neolumia.snake.view.item.questions.Questionlvl1;
+import com.neolumia.snake.view.item.questions.Questionlvl2;
+import com.neolumia.snake.view.item.questions.Questionlvl3;
 
 import java.util.List;
 import java.util.Map;
@@ -22,7 +20,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static com.neolumia.snake.model.item.Item.Arguments.of;
+import static com.neolumia.snake.view.item.Item.Arguments.of;
 
 /**
  * An abstract representation of an item in the game
@@ -39,7 +37,6 @@ public abstract class Item extends TileObject {
   protected int x;
   protected int y;
   protected int size;
-  protected Color color;
 
   public Item(ItemType type, String name) {
     this.type = checkNotNull(type, "Item type cannot be null");
@@ -108,14 +105,6 @@ public abstract class Item extends TileObject {
     this.size = size;
   }
 
-  public Color getColor() {
-    return color;
-  }
-
-  public void setColor(Color color) {
-    this.color = color;
-  }
-
   public final ItemType getType() {
     return type;
   }
@@ -148,9 +137,6 @@ public abstract class Item extends TileObject {
     Arguments(ItemType type, GameType... types) {
       this.type = type;
       this.gameTypes = types;
-
-
-
     }
 
     public static Arguments of(ItemType type, GameType... types) {

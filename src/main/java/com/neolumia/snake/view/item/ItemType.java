@@ -1,5 +1,5 @@
 
-package com.neolumia.snake.model.item;
+package com.neolumia.snake.view.item;
 
 /**
  * Enum representation of the items on the board like food , question and more
