@@ -12,7 +12,6 @@ import com.neolumia.snake.model.item.food.RetroFood;
 import com.neolumia.snake.model.item.questions.Questionlvl1;
 import com.neolumia.snake.model.item.questions.Questionlvl2;
 import com.neolumia.snake.model.item.questions.Questionlvl3;
-import com.neolumia.snake.model.item.questions.SEQuestion;
 import javafx.scene.paint.Color;
 
 import java.util.List;
@@ -58,6 +57,7 @@ public abstract class Item extends TileObject {
     register(of(ItemType.QUESTION, GameType.CLASSIC), Questionlvl1::new);
     register(of(ItemType.QUESTION, GameType.CLASSIC), Questionlvl2::new);
     register(of(ItemType.QUESTION, GameType.CLASSIC), Questionlvl3::new);
+    register(of(ItemType.MOUSE, GameType.CLASSIC), Mouse::new);
     register(of(ItemType.FOOD, GameType.RETRO), RetroFood::new);
 
   }

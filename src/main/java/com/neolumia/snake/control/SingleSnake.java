@@ -35,6 +35,7 @@ public final class SingleSnake extends Snake<SingleGame> {
       final Optional<TileObject> object = game.getTerrain().get(node.getTile());
       return object.isPresent() && !(object.get() instanceof Food);
     });
+
   }
 
   /**
@@ -56,6 +57,7 @@ public final class SingleSnake extends Snake<SingleGame> {
       final int y = game.getTerrain().getTileHeight() / 2;
       addPart(game.getTerrain().getTile(x, y).get(), Direction.EAST, true);
     }
+
   }
 
   /**
@@ -121,7 +123,6 @@ public final class SingleSnake extends Snake<SingleGame> {
         Question question = SysData.getInstance().getQuestion(game.getQuestions(), level);
         game.addQuestion(question);
         loader.setController(new PopUpQuestion(game,question));
-
         try {
           popup.getContent().add((Parent) loader.load());
         } catch (IOException e) {
@@ -136,12 +137,7 @@ public final class SingleSnake extends Snake<SingleGame> {
   public void onQuestion(Tile tile, TileObject object) {
     game.spawnQuestion();
     game.getTerrain().put(tile, null);
-//    if (object instanceof Apple)
-//      game.setPoints(game.getPoints() + 10);
-//    if (object instanceof Banana)
-//      game.setPoints(game.getPoints() + 15);
-//    if (object instanceof Pear)
-//      game.setPoints(game.getPoints() + 20);
+    //TODO Complete This Method - New Questions Should Be Shown
   }
 
   @Override

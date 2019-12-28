@@ -2,16 +2,12 @@
 package com.neolumia.snake.view;
 
 import com.neolumia.snake.GameApp;
-import com.neolumia.snake.model.questions.Question;
-import com.neolumia.snake.model.questions.QuestionLevel;
 import com.neolumia.snake.model.util.Direction;
 import com.neolumia.snake.control.Game;
 import com.neolumia.snake.control.SingleGame;
-import com.sun.javafx.sg.prism.NGAmbientLight;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.fxml.FXML;
+import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -19,6 +15,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -32,37 +30,27 @@ public final class GameWindow extends Window {
   private final GameApp app;
   private final Game game;
   private final Label pause = new Label("Pause");
-
-  @FXML
-  private GridPane gridRoot;
-
-  @FXML
-  private StackPane root;
-  @FXML
-  private Group group;
-  @FXML
-  private Label points;
-  @FXML
-  private Label highscore;
-  @FXML
-  private ImageView life1;
-  @FXML
-  private ImageView life2;
-  @FXML
-  private ImageView life3;
+  @FXML private GridPane gridRoot;
+  @FXML private StackPane root;
+  @FXML private Group group;
+  @FXML private Label points;
+  @FXML private Label highscore;
+  @FXML private ImageView life1;
+  @FXML private ImageView life2;
+  @FXML private ImageView life3;
   public static boolean isQuestion1 = false;
   public static boolean isQuestion2 = false;
   public static boolean isQuestion3 = false;
-  public static Question question1;
-  public static Question question2;
-  public static Question question3;
+  Circle ball;
+  Bounds bounds;
 
   public GameWindow(GameApp app, Game game) {
     this.app = app;
     this.game = game;
+    ball = new Circle(10, Color.RED);
+    bounds = group.getBoundsInLocal();
     root.setStyle("-fx-background-color: #" + Integer.toHexString(app.getDesign().background.getColor().hashCode()) + "");
     group.getChildren().add(game);
-
     Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> update()));
     timeline.setCycleCount(Animation.INDEFINITE);
     timeline.play();
@@ -89,21 +77,16 @@ public final class GameWindow extends Window {
     }
     points.setText(t("gameOver.points", game.getPoints()));
     highscore.setText(t("gameOver.highscore", app.getHighscore()));
-    if (isQuestion1)
-      game.setPaused(true);
-    if(isQuestion2)
-      game.setPaused(true);
-    if(isQuestion3)
-      game.setPaused(true);
-
+    if (isQuestion1) game.setPaused(true);
+    if (isQuestion2) game.setPaused(true);
+    if (isQuestion3) game.setPaused(true);
     app.getWindowManager().getStage().requestFocus();
-
   }
 
   @Override
   public void load(Stage stage, Scene scene) {
-    scene.setOnKeyPressed(event -> {
 
+    scene.setOnKeyPressed(event -> {
       if (event.getCode() == KeyCode.ESCAPE) {
         updatePaused(game.setPaused(!game.isPaused()));
         return;
@@ -131,35 +114,6 @@ public final class GameWindow extends Window {
             break;
         }
       }
-//
-//      if (game instanceof DuoGame) {
-//        switch (event.getCode()) {
-//          case UP:
-//            ((DuoGame) game).getSecond().setNext(Direction.NORTH);
-//            break;
-//          case DOWN:
-//            ((DuoGame) game).getSecond().setNext(Direction.SOUTH);
-//            break;
-//          case LEFT:
-//            ((DuoGame) game).getSecond().setNext(Direction.WEST);
-//            break;
-//          case RIGHT:
-//            ((DuoGame) game).getSecond().setNext(Direction.EAST);
-//            break;
-//          case W:
-//            ((DuoGame) game).getFirst().setNext(Direction.NORTH);
-//            break;
-//          case S:
-//            ((DuoGame) game).getFirst().setNext(Direction.SOUTH);
-//            break;
-//          case A:
-//            ((DuoGame) game).getFirst().setNext(Direction.WEST);
-//            break;
-//          case D:
-//            ((DuoGame) game).getFirst().setNext(Direction.EAST);
-//            break;
-//        }
-//      }
     });
 
     stage.setMinWidth(game.getTerrain().getWidth() + 32);
@@ -169,11 +123,8 @@ public final class GameWindow extends Window {
 
 
   public void updatePaused(boolean now) {
-    if (now) {
-      root.getChildren().add(pause);
-    } else {
-      root.getChildren().remove(pause);
-    }
+    if (now) root.getChildren().add(pause);
+    else root.getChildren().remove(pause);
   }
 
   public static void setQuestions(Game game) {
@@ -182,4 +133,5 @@ public final class GameWindow extends Window {
     isQuestion3 = false;
     game.setPaused(false);
   }
+
 }

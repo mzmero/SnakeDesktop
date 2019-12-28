@@ -6,5 +6,5 @@ package com.neolumia.snake.model.item;
  */
 public enum ItemType {
 
-  FOOD, BUFF, DEBUFF, MULTIPLIER,QUESTION
+  FOOD, BUFF, DEBUFF, MULTIPLIER,QUESTION,MOUSE
 }

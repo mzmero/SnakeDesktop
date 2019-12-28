@@ -38,7 +38,6 @@ public final class Solver {
 
       closedList.add(current);
       openList.remove(current);
-
       if (isFinal(current)) {
         return getDirection(current);
       } else {
