@@ -99,15 +99,22 @@ public final class SingleSnake extends Snake<SingleGame> {
     if (object instanceof Questionlvl1) {
       GameWindow.isQuestion1 = true;
       popQuestion(QuestionLevel.ONE);
-
+      game.getTerrain().put(tile, null);
+      game.spawnQuestion(QuestionLevel.ONE);
     }
     if (object instanceof Questionlvl2) {
       GameWindow.isQuestion2 = true;
       popQuestion(QuestionLevel.TWO);
+      game.getTerrain().put(tile, null);
+      game.spawnQuestion(QuestionLevel.TWO);
+
     }
     if (object instanceof Questionlvl3) {
       GameWindow.isQuestion3 = true;
       popQuestion(QuestionLevel.THREE);
+      game.getTerrain().put(tile, null);
+      game.spawnQuestion(QuestionLevel.THREE);
+
     }
   }
 
@@ -133,12 +140,12 @@ public final class SingleSnake extends Snake<SingleGame> {
         });
   }
 
-  @Override
-  public void onQuestion(Tile tile, TileObject object) {
-    game.spawnQuestion();
-    game.getTerrain().put(tile, null);
-    // TODO Complete This Method - New Questions Should Be Shown
-  }
+//  @Override
+//  public void onQuestion(Tile tile, TileObject object) {
+//    game.spawnQuestion();
+//    game.getTerrain().put(tile, null);
+//    // TODO Complete This Method - New Questions Should Be Shown
+//  }
 
   @Override
   protected int getFoodX() {
@@ -148,5 +155,10 @@ public final class SingleSnake extends Snake<SingleGame> {
   @Override
   protected int getFoodY() {
     return game.getFood().getTileY();
+  }
+
+  @Override
+  protected void onQuestion(Tile tile, TileObject tileObject) {
+
   }
 }
