@@ -37,6 +37,7 @@ public final class SingleGame extends Game {
   public void init() {
     snake.init();
     initSpawnFood();
+
   }
 
   public ArrayList<Question> getQuestions() {

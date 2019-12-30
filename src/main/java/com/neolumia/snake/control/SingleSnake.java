@@ -99,6 +99,7 @@ public final class SingleSnake extends Snake<SingleGame> {
     if (object instanceof Questionlvl1) {
       GameWindow.isQuestion1 = true;
       popQuestion(QuestionLevel.ONE);
+
     }
     if (object instanceof Questionlvl2) {
       GameWindow.isQuestion2 = true;
