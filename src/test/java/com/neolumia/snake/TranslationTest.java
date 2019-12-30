@@ -47,16 +47,16 @@ public final class TranslationTest {
     answers.add("2");
     answers.add("3");
     answers.add("4");
-    Question q= new Question("q1",answers,"3",QuestionLevel.TWO,"animal"); // adding new question q1 thats existed
+    Question q= new Question("q1",answers,"3","2","animal"); // adding new question q1 thats existed
     assertFalse(SysData.getInstance().insertQuestion(q));
-    q=new Question("q4",answers,"3",QuestionLevel.TWO,"animal");  // adding a new answer that doest exist
+    q=new Question("q4",answers,"3","2","animal");  // adding a new answer that doest exist
     assertTrue(SysData.getInstance().insertQuestion(q));
 
   }
 
   @Test
   public void testDeleteQuestion(){
-    assertTrue(SysData.getInstance().deleteQuestion("q2"));      // preparing to delete a question that exist
+    assertTrue(SysData.getInstance().deleteQuestion("q1"));      // preparing to delete a question that exist
     assertFalse(SysData.getInstance().deleteQuestion("q5"));    // in the other hand , deleting a non existing question
   }
 
@@ -71,7 +71,7 @@ public final class TranslationTest {
 
     Question temp=null;
     for(Question i: SysData.getInstance().getQuestions()){  // checking if the question updatedsuccessfully
-      if(i.getQuestion().equals("q1") && i.getCorrectAns().equals("2")&& i.getLevel()==QuestionLevel.ONE && i.getTeam().equals("animal")){
+      if(i.getQuestion().equals("q1") && i.getCorrectAns().equals("2")&& i.getLevel()=="1" && i.getTeam().equals("animal")){
         ArrayList<String> l= (ArrayList<String>)i.getAnswers();
         Collections.sort(l);
         Collections.sort(answers);
@@ -108,7 +108,7 @@ public final class TranslationTest {
     answers.add("2");
     answers.add("3");
     answers.add("4");
-    Question q=new Question("q8",answers,"3",QuestionLevel.TWO,"animal");
+    Question q=new Question("q8",answers,"3","2","animal");
     SysData.getInstance().getQuestions().add(q);
     SysData.getInstance().writeQuestionTojson();
 

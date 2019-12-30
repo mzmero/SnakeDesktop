@@ -96,7 +96,7 @@ public class SysData {
           DeleteQ = Q;
       }
       questions.remove(DeleteQ);
-      writeQuestionTojson();
+    //  writeQuestionTojson();
       return true;
     }
   }
@@ -113,7 +113,7 @@ public class SysData {
       return false;
     else {
       questions.add(Q);
-      writeQuestionTojson();
+   //   writeQuestionTojson();
       return true;
     }
   }
@@ -125,7 +125,7 @@ public class SysData {
     if (!deleteQuestion(question)) return false;
 
     questions.add(new Question(Updated, answer, correctAns, level, team));
-    writeQuestionTojson();
+   // writeQuestionTojson();
     return true;
 
 
