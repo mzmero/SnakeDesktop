@@ -1,12 +1,10 @@
-
-
 package com.neolumia.snake.control;
 
 import com.neolumia.snake.GameApp;
 import com.neolumia.snake.Stats;
-import com.neolumia.snake.model.game.GameHistory;
-import com.neolumia.snake.model.game.GameType;
-import com.neolumia.snake.model.game.Terrain;
+import com.neolumia.snake.model.questions.History;
+import com.neolumia.snake.view.option.GameType;
+import com.neolumia.snake.view.game.Terrain;
 import com.neolumia.snake.model.settings.Settings;
 import com.neolumia.snake.view.DeadWindow;
 import javafx.application.Platform;
@@ -20,17 +18,11 @@ import java.util.concurrent.TimeUnit;
 
 public abstract class Game extends Pane {
 
-  /**
-   * Logger for documenting actions in app
-   */
+  /** Logger for documenting actions in app */
   private static final Logger LOGGER = LogManager.getLogger(Game.class);
-  /**
-   * Random instance for generating random numbers
-   */
+  /** Random instance for generating random numbers */
   protected final Random random = new Random();
-  /**
-   * Stats indicates the info
-   */
+  /** Stats indicates the info */
   protected final Stats stats = new Stats();
 
   protected final GameApp app;
@@ -49,10 +41,13 @@ public abstract class Game extends Pane {
     this.app = app;
     this.type = type;
     this.lives = 3;
-    playerName=app.getSettings().playerName;
+    playerName = app.getSettings().playerName;
     terrain = new Terrain(this, app.getWindowManager().getStage().isMaximized() ? 43 : 32);
     terrain.init();
-    app.getWindowManager().getStage().maximizedProperty().addListener((ob, o, n) -> terrain.setSize(n ? 42 : 32));
+    app.getWindowManager()
+        .getStage()
+        .maximizedProperty()
+        .addListener((ob, o, n) -> terrain.setSize(n ? 42 : 32));
   }
 
   public GameApp getApp() {
@@ -87,7 +82,9 @@ public abstract class Game extends Pane {
     this.points = points;
   }
 
-  public void setLives(int lives) { this.lives = lives; }
+  public void setLives(int lives) {
+    this.lives = lives;
+  }
 
   public boolean isPaused() {
     return paused;
@@ -105,9 +102,7 @@ public abstract class Game extends Pane {
     this.auto = auto;
   }
 
-  /**
-   *   check remaining lives and handle accordingly
-   */
+  /** check remaining lives and handle accordingly */
   public void end() {
 
     running = false;
@@ -117,7 +112,7 @@ public abstract class Game extends Pane {
 
     try {
       app.getDatabase().saveGame(this);
-      SysData.getInstance().addGameToHistory(new GameHistory(getSettings().playerName,points,lives));
+      SysData.getInstance().addGameToHistory(new History(getSettings().playerName, points, lives));
     } catch (Exception ex) {
       ex.printStackTrace();
     }
@@ -140,33 +135,33 @@ public abstract class Game extends Pane {
     Platform.runLater(() -> app.getWindowManager().request(new DeadWindow(app, this, won)));
   }
 
-  /**
-   * This method handles running the game
-   */
+  /** This method handles running the game */
   public void run() {
     running = true;
     start = System.currentTimeMillis();
 
-    new Thread(() -> {
-      try {
-        long start;
-        long diff;
-        long sleep;
-        while (running) {
-          start = System.currentTimeMillis();
-          if (!paused) {
-            tick();
-          }
-          diff = System.currentTimeMillis() - start;
-          sleep = (int) (1000 / 60 - diff);
-          if (sleep > 0) {
-            Thread.sleep(sleep);
-          }
-        }
-      } catch (Throwable throwable) {
-        throwable.printStackTrace();
-      }
-    }).start();
+    new Thread(
+            () -> {
+              try {
+                long start;
+                long diff;
+                long sleep;
+                while (running) {
+                  start = System.currentTimeMillis();
+                  if (!paused) {
+                    tick();
+                  }
+                  diff = System.currentTimeMillis() - start;
+                  sleep = (int) (1000 / 60 - diff);
+                  if (sleep > 0) {
+                    Thread.sleep(sleep);
+                  }
+                }
+              } catch (Throwable throwable) {
+                throwable.printStackTrace();
+              }
+            })
+        .start();
   }
 
   public abstract void init();

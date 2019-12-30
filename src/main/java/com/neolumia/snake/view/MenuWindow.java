@@ -1,25 +1,16 @@
-
 package com.neolumia.snake.view;
 
 import com.neolumia.snake.GameApp;
-import com.neolumia.snake.model.game.GameType;
+import com.neolumia.snake.view.option.GameType;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Popup;
-import javafx.stage.PopupBuilder;
 
-import java.awt.*;
-
-/**
- * This is the class which is responsible of the GAME view
- */
+/** This is the class which is responsible of the GAME view */
 public final class MenuWindow extends Window {
 
   private final GameApp app;
-
   @FXML private GridPane root;
   @FXML private ImageView typeView;
 
@@ -30,7 +21,9 @@ public final class MenuWindow extends Window {
   }
 
   @FXML
-  public void play() { app.newGame(type); }
+  public void play() {
+    app.newGame(type);
+  }
 
   @FXML
   public void design() {

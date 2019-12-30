@@ -1,4 +1,3 @@
-
 package com.neolumia.snake;
 
 import com.google.common.base.MoreObjects;
@@ -22,10 +21,10 @@ public final class Stats {
   @Override
   public String toString() {
     return MoreObjects.toStringHelper(this)
-      .add("playtime", playtime)
-      .add("games", games)
-      .add("items", items)
-      .add("walls", walls)
-      .toString();
+        .add("playtime", playtime)
+        .add("games", games)
+        .add("items", items)
+        .add("walls", walls)
+        .toString();
   }
 }

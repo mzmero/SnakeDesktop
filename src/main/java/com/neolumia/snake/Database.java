@@ -1,10 +1,10 @@
 
 package com.neolumia.snake;
 
-import com.neolumia.snake.model.design.Design;
-import com.neolumia.snake.model.design.option.BgDesign;
-import com.neolumia.snake.model.design.option.SnakeDesign;
-import com.neolumia.snake.model.design.option.TerrainDesign;
+import com.neolumia.snake.view.design.Design;
+import com.neolumia.snake.view.option.BgDesign;
+import com.neolumia.snake.view.option.SnakeDesign;
+import com.neolumia.snake.view.option.TerrainDesign;
 import com.neolumia.snake.control.Game;
 import com.neolumia.snake.model.settings.Difficulty;
 import com.neolumia.snake.model.settings.Locale;

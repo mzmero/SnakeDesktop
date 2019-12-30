@@ -1,4 +1,3 @@
-
 package com.neolumia.snake.view;
 
 import com.neolumia.snake.GameApp;
@@ -7,9 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-/**
- * This class is responsible for windows management and link with the FXML file
- */
+/** This class is responsible for windows management and link with the FXML file */
 public abstract class Window {
 
   private final FXMLLoader loader;
@@ -30,7 +27,8 @@ public abstract class Window {
 
   public Node render(String name) {
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/_" + name + ".fxml"), GameApp.getBundle());
+      FXMLLoader loader =
+          new FXMLLoader(getClass().getResource("/_" + name + ".fxml"), GameApp.getBundle());
       loader.setController(this);
       return loader.load();
     } catch (Exception ex) {

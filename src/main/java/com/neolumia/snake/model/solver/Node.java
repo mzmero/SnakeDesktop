@@ -1,8 +1,7 @@
-
 package com.neolumia.snake.model.solver;
 
 import com.neolumia.snake.model.util.Direction;
-import com.neolumia.snake.model.game.Tile;
+import com.neolumia.snake.view.game.Tile;
 
 import java.util.Objects;
 
@@ -37,6 +36,15 @@ public final class Node {
     return f;
   }
 
+  @Override
+  public int hashCode() {
+    return Objects.hash(tile.getTileX(), tile.getTileY());
+  }
+
+  void heuristics(int foodX, int foodY) {
+    this.h = Math.abs(foodX - tile.getTileX()) + Math.abs(foodY - tile.getTileY());
+  }
+
   void update(Node from, Direction direction, int cost) {
     this.parent = from;
     this.direction = direction;
@@ -51,10 +59,6 @@ public final class Node {
     }
   }
 
-  void heuristics(int foodX, int foodY) {
-    this.h = Math.abs(foodX - tile.getTileX()) + Math.abs(foodY - tile.getTileY());
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -65,10 +69,5 @@ public final class Node {
     }
     final Node node = (Node) o;
     return tile.getTileY() == node.tile.getTileY() && tile.getTileX() == node.tile.getTileX();
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(tile.getTileX(), tile.getTileY());
   }
 }

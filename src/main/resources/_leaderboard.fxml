@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<GridPane prefHeight="450.0" prefWidth="1005.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane prefHeight="450.0" prefWidth="1005.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
@@ -21,8 +17,8 @@
   <children>
     <Pane prefHeight="453.0" prefWidth="1005.0" GridPane.rowIndex="3">
       <children>
-        <TableView fx:id="historyTable" layoutX="15.0" layoutY="170.0" prefHeight="260.0" prefWidth="970.0" />
-        <Label fx:id="historyTitle"  layoutX="251.0" layoutY="58.0" text="Leader Board">
+        <TableView fx:id="boardTable" layoutX="15.0" layoutY="170.0" prefHeight="260.0" prefWidth="970.0" visible="false" />
+        <Label fx:id="boardTitle" layoutX="251.0" layoutY="58.0" text="Leader Board" visible="false">
           <font>
             <Font size="60.0" />
           </font>

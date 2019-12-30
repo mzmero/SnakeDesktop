@@ -1,12 +1,11 @@
-
 package com.neolumia.snake.model.settings;
 
 public enum Size {
 
-  /**
-   * Enum for customizing snake size
-   */
-  SMALL(0, 20, 10), MEDIUM(1, 30, 15), BIG(2, 45, 23);
+  /** Enum for customizing snake size */
+  SMALL(0, 20, 10),
+  MEDIUM(1, 30, 15),
+  BIG(2, 45, 23);
 
   private final int id;
   private final int width;

@@ -1,11 +1,9 @@
-
 package com.neolumia.snake.model.settings;
 
+/** The language of the game */
 public enum Locale {
-  /**
-   * The language of the game
-   */
-  ENGLISH(0, java.util.Locale.ENGLISH), GERMAN(1, java.util.Locale.GERMAN);
+  ENGLISH(0, java.util.Locale.ENGLISH),
+  GERMAN(1, java.util.Locale.GERMAN);
 
   private final int id;
   private final java.util.Locale locale;

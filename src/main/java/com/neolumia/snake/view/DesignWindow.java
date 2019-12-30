@@ -3,14 +3,13 @@ package com.neolumia.snake.view;
 
 import com.neolumia.snake.GameApp;
 import com.neolumia.snake.control.SysData;
-import com.neolumia.snake.model.design.DesignOption;
-import com.neolumia.snake.model.design.option.BgDesign;
-import com.neolumia.snake.model.design.Design;
-import com.neolumia.snake.model.design.option.SnakeDesign;
-import com.neolumia.snake.model.design.option.TerrainDesign;
+import com.neolumia.snake.view.design.DesignOption;
+import com.neolumia.snake.view.option.BgDesign;
+import com.neolumia.snake.view.design.Design;
+import com.neolumia.snake.view.option.SnakeDesign;
+import com.neolumia.snake.view.option.TerrainDesign;
 import com.neolumia.snake.model.questions.Question;
 import com.neolumia.snake.model.questions.QuestionLevel;
-import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
