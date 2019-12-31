@@ -1,4 +1,3 @@
-
 package com.neolumia.snake.view;
 
 import com.neolumia.snake.GameApp;

@@ -1,4 +1,3 @@
-
 package com.neolumia.snake.view;
 
 import com.neolumia.snake.GameApp;
@@ -15,7 +14,8 @@ import javafx.scene.control.ToggleGroup;
 import java.sql.SQLException;
 
 /**
- * This is the class which is responsible for the Question Management view - which manages the SE qustion insert, update and delete
+ * This is the class which is responsible for the Question Management view - which manages the SE
+ * qustion insert, update and delete
  */
 public final class SettingsWindow extends Window {
 
@@ -87,23 +87,24 @@ public final class SettingsWindow extends Window {
 
   @FXML
   public void save() throws SQLException {
-    app.getSettings().locale = locale.getSelectedToggle().equals(localeGerman) ? Locale.GERMAN : Locale.ENGLISH;
+    app.getSettings().locale =
+        locale.getSelectedToggle().equals(localeGerman) ? Locale.GERMAN : Locale.ENGLISH;
 
-    if(difficulty.getSelectedToggle() == difficultyEasy) {
+    if (difficulty.getSelectedToggle() == difficultyEasy) {
       app.getSettings().difficulty = Difficulty.EASY;
-    } else if(difficulty.getSelectedToggle() == difficultyMedium) {
+    } else if (difficulty.getSelectedToggle() == difficultyMedium) {
       app.getSettings().difficulty = Difficulty.MEDIUM;
-    } else if(difficulty.getSelectedToggle() == difficultyHard) {
+    } else if (difficulty.getSelectedToggle() == difficultyHard) {
       app.getSettings().difficulty = Difficulty.HARD;
     } else {
       app.getSettings().difficulty = Settings.DEFAULT_DIFFICULTY;
     }
 
-    if(terrain.getSelectedToggle() == terrainSmall) {
+    if (terrain.getSelectedToggle() == terrainSmall) {
       app.getSettings().size = Size.SMALL;
-    } else if(terrain.getSelectedToggle() == terrainMedium) {
+    } else if (terrain.getSelectedToggle() == terrainMedium) {
       app.getSettings().size = Size.MEDIUM;
-    } else if(terrain.getSelectedToggle() == terrainBig) {
+    } else if (terrain.getSelectedToggle() == terrainBig) {
       app.getSettings().size = Size.BIG;
     } else {
       app.getSettings().size = Settings.DEFAULT_SIZE;

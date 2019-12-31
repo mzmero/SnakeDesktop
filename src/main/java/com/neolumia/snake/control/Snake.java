@@ -1,11 +1,9 @@
-
 package com.neolumia.snake.control;
 
-import com.neolumia.snake.control.Game;
-import com.neolumia.snake.model.game.SnakePart;
-import com.neolumia.snake.model.game.Tile;
-import com.neolumia.snake.model.game.TileObject;
-import com.neolumia.snake.model.item.food.Food;
+import com.neolumia.snake.view.game.SnakePart;
+import com.neolumia.snake.view.game.Tile;
+import com.neolumia.snake.view.item.TileObject;
+import com.neolumia.snake.view.item.food.Food;
 import com.neolumia.snake.model.solver.Node;
 import com.neolumia.snake.model.solver.Solver;
 import com.neolumia.snake.model.util.Direction;
@@ -27,15 +25,14 @@ public abstract class Snake<T extends Game> {
   private Direction direction;
   private int ticks = 0;
   private int lives;
-  @Nullable
-  private Direction next;
+  @Nullable private Direction next;
 
   public Snake(T game, Direction direction, Predicate<Node> blocking) {
     this.game = game;
     this.direction = direction;
     this.blocking = blocking;
     this.speed = game.getSettings().difficulty.getSpeed();
-    //TODO lives must be in game
+    // TODO lives must be in game
     this.lives = 3;
   }
 
@@ -44,16 +41,14 @@ public abstract class Snake<T extends Game> {
   public abstract void onEat(Tile tile, TileObject object);
 
   public void tick() {
-    while(true) {
+    while (true) {
 
-     if (ticks % (game.isAuto() ? speed / 2 : speed) == 0) {
-       move();
-     }
+      if (ticks % (game.isAuto() ? speed / 2 : speed) == 0) {
+        move();
+      }
       ticks++;
       break;
     }
-
-
   }
 
   public Deque<SnakePart> getParts() {
@@ -149,10 +144,8 @@ public abstract class Snake<T extends Game> {
       lives--;
       game.getStats().walls++;
       game.setLives(lives);
-      if(lives == 0)
-      game.end();
-      else
-      {
+      if (lives == 0) game.end();
+      else {
 
         game.getTerrain();
         this.init();
@@ -163,6 +156,7 @@ public abstract class Snake<T extends Game> {
     }
 
     boolean eat = false;
+    boolean quest = false;
 
     final Optional<TileObject> item = game.getTerrain().get(tile.get());
     if (item.isPresent()) {
@@ -172,18 +166,23 @@ public abstract class Snake<T extends Game> {
         lives--;
         game.setLives(lives);
         game.getStats().walls++;
-        if(lives == 0)
-          game.end();
-        else
-        {
+        if (lives == 0) game.end();
+        else {
           this.init();
           game.setPaused(true);
         }
         return false;
 
       }
+      /*      if (item.get() instanceof Item) {
+        Item i = (Item) item.get();
+        if (i.getType().equals(ItemType.QUESTION)) {
+          quest = true;
+        }
 
-      eat = true;
+      }*/ else {
+        eat = true;
+      }
     } else {
       game.getTerrain().put(parts.removeLast().getTile(), null);
     }
@@ -191,12 +190,16 @@ public abstract class Snake<T extends Game> {
     if (eat) {
       game.getStats().items++;
       onEat(tile.get(), item.get());
+    } else if (quest) {
+      onQuestion(tile.get(), item.get());
+      //  game.getStats().items++;
     }
-
 
     addPart(tile.get(), direction.opposite(), true);
     return true;
   }
+
+  protected abstract void onQuestion(Tile tile, TileObject tileObject);
 
   private boolean moveable(Direction direction) {
     final Optional<Tile> next = parts.getFirst().getTile().getRelative(game, direction);
@@ -208,12 +211,19 @@ public abstract class Snake<T extends Game> {
   }
 
   private Direction findBest() {
-    final Solver solver = new Solver(game, parts.getFirst().getTile(), getFoodX(), getFoodY(), blocking);
+    final Solver solver =
+        new Solver(game, parts.getFirst().getTile(), getFoodX(), getFoodY(), blocking);
     return solver.solve();
   }
 
   private Direction findTail() {
-    final Solver solver = new Solver(game, parts.getFirst().getTile(), parts.getLast().getTile().getTileX(), parts.getLast().getTile().getTileY(), blocking);
+    final Solver solver =
+        new Solver(
+            game,
+            parts.getFirst().getTile(),
+            parts.getLast().getTile().getTileX(),
+            parts.getLast().getTile().getTileY(),
+            blocking);
     return solver.solve();
   }
 }
