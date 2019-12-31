@@ -2,6 +2,7 @@ package com.neolumia.snake.control;
 
 import com.neolumia.snake.GameApp;
 import com.neolumia.snake.view.game.SnakePart;
+import com.neolumia.snake.view.item.Mouse;
 import com.neolumia.snake.view.item.food.Apple;
 import com.neolumia.snake.view.item.food.Banana;
 import com.neolumia.snake.view.item.food.Pear;
@@ -116,6 +117,14 @@ public final class SingleSnake extends Snake<SingleGame> {
       game.spawnQuestion(QuestionLevel.THREE);
 
     }
+    if(object instanceof Mouse){
+      LOGGER.info(" {} eaten at  x={}, y={}", "Mouse", tile.getTileX(), tile.getTileY());
+      game.setPoints(game.getPoints() + 30 );
+      lives++;
+      game.setLives(lives);
+      game.spawnMouse();
+
+    }
   }
 
   private void popQuestion(QuestionLevel level) {
@@ -161,4 +170,5 @@ public final class SingleSnake extends Snake<SingleGame> {
   protected void onQuestion(Tile tile, TileObject tileObject) {
 
   }
+
 }

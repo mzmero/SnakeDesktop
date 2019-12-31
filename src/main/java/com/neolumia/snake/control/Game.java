@@ -164,6 +164,8 @@ public abstract class Game extends Pane {
         .start();
   }
 
+  protected abstract void moveMouse();
+
   public abstract void init();
 
   public abstract void tick();

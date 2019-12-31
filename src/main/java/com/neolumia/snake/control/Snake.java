@@ -2,11 +2,14 @@ package com.neolumia.snake.control;
 
 import com.neolumia.snake.view.game.SnakePart;
 import com.neolumia.snake.view.game.Tile;
+import com.neolumia.snake.view.item.Mouse;
 import com.neolumia.snake.view.item.TileObject;
+import com.neolumia.snake.view.item.food.Banana;
 import com.neolumia.snake.view.item.food.Food;
 import com.neolumia.snake.model.solver.Node;
 import com.neolumia.snake.model.solver.Solver;
 import com.neolumia.snake.model.util.Direction;
+import com.neolumia.snake.view.item.food.Pear;
 
 import javax.annotation.Nullable;
 import java.util.Deque;
@@ -24,7 +27,7 @@ public abstract class Snake<T extends Game> {
 
   private Direction direction;
   private int ticks = 0;
-  private int lives;
+  protected int lives;
   @Nullable private Direction next;
 
   public Snake(T game, Direction direction, Predicate<Node> blocking) {
@@ -45,6 +48,7 @@ public abstract class Snake<T extends Game> {
 
       if (ticks % (game.isAuto() ? speed / 2 : speed) == 0) {
         move();
+        game.moveMouse();
       }
       ticks++;
       break;
@@ -190,10 +194,13 @@ public abstract class Snake<T extends Game> {
     if (eat) {
       game.getStats().items++;
       onEat(tile.get(), item.get());
+   //   if(item.get() instanceof Mouse)
+    //  addPart(, direction.opposite(), false);
     } else if (quest) {
       onQuestion(tile.get(), item.get());
       //  game.getStats().items++;
     }
+
 
     addPart(tile.get(), direction.opposite(), true);
     return true;
