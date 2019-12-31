@@ -1,5 +1,6 @@
 package com.neolumia.snake;
 
+import com.neolumia.snake.view.Login;
 import com.neolumia.snake.view.design.Design;
 import com.neolumia.snake.control.Game;
 import com.neolumia.snake.view.option.GameType;
@@ -34,7 +35,7 @@ public final class GameApp extends Application {
 
   private Design design = new Design();
   private Stats stats = new Stats();
-
+  private String playerName;
   private Settings settings;
   private int highscore = -1;
 
@@ -91,7 +92,7 @@ public final class GameApp extends Application {
       this.stats.walls += stats.walls;
     }
     database.updateStats(stats);
-    System.out.println(this.stats.toString());
+
   }
 
   public Design getDesign() {
@@ -136,7 +137,7 @@ public final class GameApp extends Application {
       database = new Database(this);
       database.init();
 
-      settings = database.getSettings();
+     // settings = database.getSettings(); moved to MenuWindow Constructor to retive Sittings by plyer
       highscore = database.getHighscore();
 
       design = database.loadDesign();
@@ -151,11 +152,27 @@ public final class GameApp extends Application {
 
       final long end = System.currentTimeMillis();
       LOGGER.info("Application initialized ({}ms)", end - start);
+      //TODO add pop-up for player name
+     // System.out.print(database.getSettings().toString());
 
-      windowManager.request(new MenuWindow(this));
+
+      windowManager.request(new Login(this));
       LOGGER.info("Application is now ready");
     } catch (Throwable throwable) {
       LOGGER.error("Could not start application", throwable);
     }
   }
+
+  public String getPlayerName() {
+    return playerName;
+  }
+
+  public void setPlayerName(String playerName) {
+    this.playerName = playerName;
+  }
+
+  public void setSettings(Settings settings) {
+    this.settings = settings;
+  }
 }
+

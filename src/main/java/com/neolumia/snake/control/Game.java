@@ -126,6 +126,8 @@ public abstract class Game extends Pane {
     stats.playtime += TimeUnit.MILLISECONDS.toSeconds(stop - start);
 
     try {
+      //TODO update player stats
+      //TODO save stats to Json
       app.updateStats(stats);
     } catch (SQLException ex) {
       LOGGER.error("Could not update statistics", ex);

@@ -10,6 +10,8 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
 
@@ -18,6 +20,7 @@ import java.sql.SQLException;
  * qustion insert, update and delete
  */
 public final class SettingsWindow extends Window {
+  private static final Logger LOGGER = LogManager.getLogger(SettingsWindow.class);
 
   private final GameApp app;
 
@@ -82,7 +85,11 @@ public final class SettingsWindow extends Window {
 
   @FXML
   public void cancel() {
-    app.getWindowManager().request(new MenuWindow(app));
+    try {
+      app.getWindowManager().request(new MenuWindow(app));
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 
   @FXML
@@ -114,6 +121,9 @@ public final class SettingsWindow extends Window {
     app.getSettings().leaderboard = leaderboard.isSelected();
 
     app.getDatabase().saveSettings(app.getSettings());
+    LOGGER.info(app.getDatabase().GetAllsetttings().toString());
+    //System.out.print(app.getDatabase().getettings().toString());
+
     cancel();
   }
 }

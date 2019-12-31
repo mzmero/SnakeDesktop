@@ -19,6 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import static com.neolumia.snake.GameApp.t;
@@ -217,7 +218,7 @@ public final class DesignWindow extends Window {
   }
 
   @FXML
-  public void cancel() {
+  public void cancel() throws SQLException {
     app.updateDesign(new Design(terrainDesign, snakeDesign, bgDesign));
     app.getWindowManager().request(new MenuWindow(app));
   }
