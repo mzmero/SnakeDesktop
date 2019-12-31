@@ -4,6 +4,7 @@ package com.neolumia.snake.model.util;
 public final class Q {
   public static final String PLAYER_TABLE = "CREATE TABLE IF NOT EXISTS players (id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, name  VARCHAR(30)UNIQUE NOT NULL );";
   public static final String PLAYER_HIGHSCORE = "SELECT MAX(points) FROM games where games.playerName=?;";
+  public static final String PLAYER_SAVE = "INSERT INTO players (name) VALUES (?);";
 
 
 
@@ -11,9 +12,9 @@ public final class Q {
   public static final String HIGHSCORE = "SELECT MAX(points),playerName FROM games;";
   public static final String SAVE = "INSERT INTO games (points,playerName) VALUES (?,?);";
 
-  public static final String TABLE_SETTINGS = "CREATE TABLE IF NOT EXISTS settings (id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, locale INT NOT NULL, difficulty INT NOT NULL, size INT NOT NULL, name VARCHAR(255) NOT NULL, leaderboard TINYINT(1) UNSIGNED NOT NULL);";
-  public static final String LOAD_SETTINGS = "SELECT locale, difficulty, size, name, leaderboard FROM settings;";
-  public static final String SAVE_SETTINGS = "INSERT INTO settings (locale, difficulty, size, name, leaderboard) VALUES ( ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE locale=?, difficulty=?, size=?, name=?, leaderboard=?;";
+  public static final String TABLE_SETTINGS = "CREATE TABLE IF NOT EXISTS settings (id BIGINT UNSIGNED NOT NULL  PRIMARY KEY, locale INT NOT NULL, difficulty INT NOT NULL, size INT NOT NULL, name VARCHAR(255) NOT NULL, leaderboard TINYINT(1) UNSIGNED NOT NULL);";
+  public static final String LOAD_SETTINGS = "SELECT locale, difficulty, size, name, leaderboard FROM settings where name = ?;";
+  public static final String SAVE_SETTINGS = "INSERT INTO settings (id,locale, difficulty, size, name, leaderboard) VALUES ( ? , ? , ?, ?, ?, ?) ON DUPLICATE KEY UPDATE id = ? ,locale=?, difficulty=?, size=?, name=?, leaderboard=?;";
 
   public static final String TABLE_STATS = "CREATE TABLE IF NOT EXISTS stats (id INT UNSIGNED NOT NULL PRIMARY KEY, playtime DOUBLE UNSIGNED NOT NULL, games INT UNSIGNED NOT NULL, items INT UNSIGNED NOT NULL, walls INT UNSIGNED NOT NULL);";
   public static final String LOAD_STATS = "SELECT playtime, games, items, walls FROM stats WHERE id = 0;";
@@ -28,6 +29,9 @@ public final class Q {
   public static final String SAVE_DESIGN = "INSERT INTO design (id, terrain, snake, background) VALUES (0, ?, ?, ?) ON DUPLICATE KEY UPDATE terrain = ?, snake = ?, background = ?;";
   public static final String GET_SETTINGS = " SELECT * from settings";
   public static final String LOAD_PLAYER_SETTINGS = "SELECT locale,difficulty,size,name,leaderboard FROM settings WHERE settings.name =  ?";
+
+  public static final String GET_PLAYER_BY_ID = "SELECT id FROM players WHERE players.name =  ?";
+
 
   private Q() {}
 }

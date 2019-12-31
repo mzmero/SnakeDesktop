@@ -47,6 +47,9 @@ public final class Database {
       try (PreparedStatement statement = connection.prepareStatement(Q.TABLE_SETTINGS)) {
         statement.executeUpdate();
       }
+      try (PreparedStatement statement = connection.prepareStatement(Q.PLAYER_TABLE)) {
+        statement.executeUpdate();
+      }
     }
   }
 
@@ -67,20 +70,23 @@ public final class Database {
     try (Connection connection = dataSource.getConnection()) {
       try (PreparedStatement statement = connection.prepareStatement(Q.SAVE)) {
         statement.setInt(1, game.getPoints());
+        statement.setString(2, game.getApp().getPlayerName());
         statement.executeUpdate();
       }
     }
   }
 
-  public Settings getSettings() throws SQLException {
+  public Settings getSettings(String playerName) throws SQLException {
+
     try (Connection connection = dataSource.getConnection()) {
       try (PreparedStatement statement = connection.prepareStatement(Q.LOAD_SETTINGS)) {
+        statement.setString(1, playerName);
         try (ResultSet result = statement.executeQuery()) {
 
           Locale locale = Settings.DEFAULT_LOCALE;
           Difficulty difficulty = Settings.DEFAULT_DIFFICULTY;
           Size size = Settings.DEFAULT_SIZE;
-          String name = Settings.DEFAULT_NAME;
+          String name = playerName;
           boolean leaderboard = Settings.DEFAULT_LEADERBOARD;
 
           if (result.next()) {
@@ -100,17 +106,20 @@ public final class Database {
   public void saveSettings(Settings settings) throws SQLException {
     try (Connection connection = dataSource.getConnection()) {
       try (PreparedStatement statement = connection.prepareStatement(Q.SAVE_SETTINGS)) {
-        statement.setInt(1, settings.locale.getId());
-        statement.setInt(2, settings.difficulty.getId());
-        statement.setInt(3, settings.size.getId());
-        statement.setString(4, settings.playerName);
-        statement.setBoolean(5, settings.leaderboard);
 
-        statement.setInt(6, settings.locale.getId());
-        statement.setInt(7, settings.difficulty.getId());
-        statement.setInt(8, settings.size.getId());
-        statement.setString(9, settings.playerName);
-        statement.setBoolean(10, settings.leaderboard);
+        statement.setInt(1,player_ID(settings.playerName));
+        statement.setInt(2, settings.locale.getId());
+        statement.setInt(3, settings.difficulty.getId());
+        statement.setInt(4, settings.size.getId());
+        statement.setString(5, settings.playerName);
+        statement.setBoolean(6, settings.leaderboard);
+
+        statement.setInt(7,player_ID(settings.playerName));
+        statement.setInt(8, settings.locale.getId());
+        statement.setInt(9, settings.difficulty.getId());
+        statement.setInt(10, settings.size.getId());
+        statement.setString(11, settings.playerName);
+        statement.setBoolean(12, settings.leaderboard);
         statement.executeUpdate();
       }
     }
@@ -184,7 +193,7 @@ public final class Database {
     try (Connection connection = dataSource.getConnection()) {
       try (PreparedStatement statement = connection.prepareStatement(Q.GET_SETTINGS)) {
         try (ResultSet result = statement.executeQuery()) {
-           while(result.next()) {
+          while(result.next()) {
             Settings setting =  new Settings(
               Locale.fromId(result.getInt(2)),
               Difficulty.fromId(result.getInt(3)),
@@ -225,5 +234,35 @@ public final class Database {
       }
     }
   }
+  public Integer player_ID(String playerName) throws SQLException {
+    try (Connection connection = dataSource.getConnection()) {
+      try (PreparedStatement statement = connection.prepareStatement(Q.GET_PLAYER_BY_ID)) {
+        statement.setString(1, playerName);
+        try (ResultSet result = statement.executeQuery()) {
+
+          if (result.next()) {
+           int id = result.getInt(1);
+           return id;
+
+          }
+          return -1;
+
+        }
+      }
+    }
+
+  }
+  public void newPlayer(String playerName) throws SQLException {
+    try (Connection connection = dataSource.getConnection()) {
+      try (PreparedStatement statement = connection.prepareStatement(Q.PLAYER_SAVE)) {
+        statement.setString(1, playerName);
+
+        statement.executeUpdate();
+      }
+    }
+
+
+  }
+
 
 }

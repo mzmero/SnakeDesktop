@@ -138,7 +138,7 @@ public final class GameApp extends Application {
       database.init();
 
      // settings = database.getSettings(); moved to MenuWindow Constructor to retive Sittings by plyer
-      highscore = database.getHighscore();
+     // highscore = database.getHighscore();
 
       design = database.loadDesign();
       stats = database.loadStats();

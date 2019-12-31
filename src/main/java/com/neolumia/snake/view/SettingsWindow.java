@@ -117,7 +117,7 @@ public final class SettingsWindow extends Window {
       app.getSettings().size = Settings.DEFAULT_SIZE;
     }
 
-    app.getSettings().playerName = playerName.getText();
+    //app.getSettings().playerName = playerName.getText();
     app.getSettings().leaderboard = leaderboard.isSelected();
 
     app.getDatabase().saveSettings(app.getSettings());

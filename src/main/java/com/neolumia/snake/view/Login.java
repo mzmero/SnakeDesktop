@@ -23,10 +23,13 @@ public class Login extends Window {
   @FXML
   public void login(MouseEvent mouseEvent) throws SQLException {
     String playerName="";
+
     if(!this.playerName.getText().equals(""))
        playerName = this.playerName.getText();
-
+    if(app.getDatabase().player_ID(playerName)==-1)
+       app.getDatabase().newPlayer(playerName);
     app.setPlayerName(playerName);
+
 
     app.getWindowManager().request(new MenuWindow(app));
   }

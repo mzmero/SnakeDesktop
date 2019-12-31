@@ -107,24 +107,26 @@ public final class DesignWindow extends Window {
     snake.setToggleGroup(menu);
     background.setToggleGroup(menu);
 
-//    menu.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
-//      if (newValue.equals(terrain)) {
-//        grid.getChildren().removeAll(node);
-//        grid.add(node = render("terrain"), 0, 0);
-//        update(terrainDesign);
-//        return;
-//      }
-//      if (newValue.equals(snake)) {
-//        grid.getChildren().removeAll(node);
-//        grid.add(node = render("snake"), 0, 0);
-//        update(snakeDesign);
-//      }
-//      if (newValue.equals(background)) {
-//        grid.getChildren().removeAll(node);
-//        grid.add(node = render("background"), 0, 0);
-//        update(bgDesign);
-//      }
-//    });
+
+    menu.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+      if (newValue.equals(terrain)) {
+        grid.getChildren().removeAll(node);
+        grid.add(node = render("terrain"), 0, 0);
+        update(terrainDesign);
+        return;
+      }
+      if (newValue.equals(snake)) {
+        grid.getChildren().removeAll(node);
+        grid.add(node = render("snake"), 0, 0);
+        update(snakeDesign);
+      }
+      if (newValue.equals(background)) {
+        grid.getChildren().removeAll(node);
+        grid.add(node = render("background"), 0, 0);
+        update(bgDesign);
+      }
+    });
+
 
     this.terrainDesign = app.getDesign().terrain;
     this.snakeDesign = app.getDesign().snake;
