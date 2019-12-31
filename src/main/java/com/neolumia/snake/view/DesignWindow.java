@@ -325,7 +325,6 @@ public final class DesignWindow extends Window {
 
   @FXML
   public void InsertQ(MouseEvent event) {
-    System.out.print("i am here ya laila");
     String InsertThisQuestion = InsertQuestionBody.getText();
     if (!InsertThisQuestion.equals("")) {
       String T = CoInsertteams.getValue();
@@ -335,7 +334,6 @@ public final class DesignWindow extends Window {
       String An3 = InsertAnswer3.getText();
       String An4 = InsertAnswer4.getText();
       String CorrectAnsNum = CoInsertCorrectAnswer.getValue().toString();
-      System.out.println("shlav 2");
       if (T != null && L != null && An1 != null && An2 != null && An3 != null && An4 != null && CorrectAnsNum != "") {
         System.out.println("SysData.getInstance().insertQuestion(InserQuestion)");
         ArrayList<String> newAnsInsert = new ArrayList<>();  //answers array

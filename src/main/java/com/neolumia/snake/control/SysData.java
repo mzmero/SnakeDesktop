@@ -129,7 +129,7 @@ public class SysData {
     if (!deleteQuestion(question)) return false;
 
     questions.add(new Question(Updated, answer, correctAns, level, team));
-    writeQuestionTojson();
+   writeQuestionTojson();
     return true;
   }
 
@@ -187,9 +187,9 @@ public class SysData {
       for (Question Q : questions) {
         JSONObject Question = new JSONObject();
         Question.put("question", Q.getQuestion());
-        JSONArray array = new JSONArray();
-        array.add(Q.getAnswers());
-        Question.put("answers", array);
+       // JSONArray array = new JSONArray();
+       // array.add(Q.getAnswers());
+        Question.put("answers", Q.getAnswers());
         Question.put("correct_ans", Q.getCorrectAns());
         Question.put("level", Q.getLevel());
         Question.put("team", Q.getTeam());
