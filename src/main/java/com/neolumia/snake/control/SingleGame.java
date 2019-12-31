@@ -2,6 +2,7 @@ package com.neolumia.snake.control;
 
 import com.neolumia.snake.GameApp;
 import com.neolumia.snake.model.questions.QuestionLevel;
+import com.neolumia.snake.model.util.Direction;
 import com.neolumia.snake.view.item.TileObject;
 import com.neolumia.snake.view.item.questions.Questionlvl1;
 import com.neolumia.snake.view.item.questions.Questionlvl2;
@@ -34,82 +35,189 @@ public final class SingleGame extends Game {
   private Tile question;
   private Tile mouse_tile;
   private Mouse mouseObj;
+  private Direction mouseDirection;
   private ArrayList<Question> questions;
+  static private int counter=0;
 
   public SingleGame(GameApp app, GameType type) {
     super(app, type);
     questions = new ArrayList<>();
   }
+   protected void RandomMove(){
+    int Y=mouse_tile.getTileY();
+    int X=mouse_tile.getTileX();
+    int nextY=Y;
+    int nextX=X;
+    // final Optional<Tile> tile = getTerrain().getTile(nextX, nextY);
+    Optional<Tile> tile = null;
+    Optional<TileObject> item = null;
+      ArrayList<Integer> arr= new ArrayList<Integer>();
+      tile=getTerrain().getTile(++nextX,nextY);
+      if(checkifTileIsValid(tile)) arr.add(0);
+     nextY=Y;
+     nextX=X;
+      tile=getTerrain().getTile(nextX,++nextY);
+      if(checkifTileIsValid(tile)) arr.add(1);
+     nextY=Y;
+     nextX=X;
+      tile=getTerrain().getTile(--nextX,nextY);
+      if(checkifTileIsValid(tile)) arr.add(2);
+     nextY=Y;
+     nextX=X;
+      tile=getTerrain().getTile(nextX,--nextY);
+      if(checkifTileIsValid(tile)) arr.add(3);
+      if(!arr.isEmpty()) {
+        System.out.println(arr);
+        Random rand= new Random();
+        int num= rand.nextInt(4);
+
+        while(!arr.contains(num)) num=rand.nextInt(3);
+        switch (num){
+          case 0: X++; mouseDirection=Direction.EAST; break;
+          case 1:Y++; mouseDirection=Direction.SOUTH; break;
+          case 2:X--; mouseDirection=Direction.WEST; break;
+          case 3:Y--; mouseDirection=Direction.NORTH; break;
+        }
+        getTerrain().put(mouse_tile, null);
+        tile =getTerrain().getTile(X,Y);
+        getTerrain().put(mouse_tile=tile.get(), mouseObj);
+
+      }
+    }
+    public boolean checkifTileIsValid(Optional<Tile> t){
+    if(!t.isPresent()) return false;
+      Optional<TileObject> item =  getTerrain().get(t.get());
+      if(item.isPresent()) return false;
+      return true;
+    }
 
   @Override
   protected void moveMouse() {
     if(mouse_tile!=null){
-      int Y=mouse_tile.getTileY();
-      int X=mouse_tile.getTileX();
-      int nextY=Y;
-      int nextX=X;
-      // final Optional<Tile> tile = getTerrain().getTile(nextX, nextY);
-       Optional<Tile> tile = null;
-      Optional<TileObject> item = null;
-      Tile t=snake.getParts().getFirst().getTile();
-      if(calculateDistanceBetweenPoints(X,Y,t.getTileX(),t.getTileY())>10){
-        ArrayList<Integer> arr= new ArrayList<Integer>();
-        tile=getTerrain().getTile(++nextX,nextY);
-        nextY=Y;
-        nextX=X;
-        if(tile.isPresent()) {
-          item=getTerrain().get(tile.get());
-           if(!item.isPresent())  arr.add(0);
-        }
-
-          tile=getTerrain().getTile(nextX,++nextY);
-        nextY=Y;
-        nextX=X;
-          if(tile.isPresent()) {
-            item = getTerrain().get(tile.get());
-            if (!item.isPresent()) arr.add(1);
-          }
-          tile=getTerrain().getTile(--nextX,nextY);
-        nextY=Y;
-        nextX=X;
-          if(tile.isPresent()) {
-            item = getTerrain().get(tile.get());
-            if (!item.isPresent()) arr.add(2);
-          }
-        tile=getTerrain().getTile(nextX,--nextY);
-        nextY=Y;
-        nextX=X;
-        if(tile.isPresent()) {
-          item = getTerrain().get(tile.get());
-          if (!item.isPresent())arr.add(3);
-        }
-        System.out.println("x is :"+ X+" y is:"+Y);
-        System.out.println(arr);
-        if(!arr.isEmpty()) {
-          Random rand= new Random();
-          int num= rand.nextInt(3);
-
-          while(!arr.contains(num)) num=rand.nextInt(3);
-          System.out.println("number is: "+num);
-          switch (num){
-            case 0: X++; break;
-            case 1:Y++; break;
-            case 2:X--; break;
-            case 3:Y--; break;
-          }
-         getTerrain().put(mouse_tile, null);
-          System.out.println("x is :"+ X+" y is:"+Y);
-
-          tile =getTerrain().getTile(X,Y);
-          getTerrain().put(mouse_tile=tile.get(), mouseObj);
-
-        }
+       if(mouseDirection==null){
+         RandomMove();
+         counter++;
+       }else {
+         int x= mouse_tile.getTileX();
+         int y=mouse_tile.getTileY();
+         Tile head=snake.getParts().getFirst().getTile();
+         Optional<Tile> t =null;
+         if(calculateDistanceBetweenPoints(x,y,head.getTileX(),head.getTileY())>7){
+           if(counter%10!=0){
+         switch (mouseDirection){
+           case NORTH:
+             t=getTerrain().getTile(x,--y);
+             MouseTransfer(t);
+             counter++;
+             break;
+           case SOUTH:
+             t=getTerrain().getTile(x,++y);
+             MouseTransfer(t);
+             counter++;
+             break;
+           case EAST:
+             t=getTerrain().getTile(++x,y);
+             MouseTransfer(t);
+             counter++;
+             break;
+           case WEST:
+             t=getTerrain().getTile(--x,y);
+             MouseTransfer(t);
+             counter++;
+             break;
+         } } else {RandomMove(); counter=1;
+             }
 
 
-      }
+         }
+         else {
+           Direction dire=null;
+           double temp,maxDistance=-1;
+            t= getTerrain().getTile(x,y-1);
+           if(checkifTileIsValid(t)){
+              temp=calculateDistanceBetweenPoints(x,y-1,head.getTileX(),head.getTileY());
+             if(temp>maxDistance) {
+               maxDistance=temp;
+               dire=Direction.NORTH;
+             } }
+
+           t= getTerrain().getTile(x,y+1);
+           if(checkifTileIsValid(t)){
+              temp=calculateDistanceBetweenPoints(x,y+1,head.getTileX(),head.getTileY());
+             if(temp>maxDistance) {
+               maxDistance=temp;
+               dire=Direction.SOUTH;
+             } }
+
+           t= getTerrain().getTile(x+1,y);
+           if(checkifTileIsValid(t)){
+              temp=calculateDistanceBetweenPoints(x+1,y,head.getTileX(),head.getTileY());
+             if(temp>maxDistance) {
+               maxDistance=temp;
+               dire=Direction.EAST;
+             } }
+           t= getTerrain().getTile(x-1,y);
+           if(checkifTileIsValid(t)){
+              temp=calculateDistanceBetweenPoints(x-1,y,head.getTileX(),head.getTileY());
+             if(temp>maxDistance) {
+               maxDistance=temp;
+               dire=Direction.WEST;
+             } }
+
+           if(calculateDistanceBetweenPoints(0,0,x,y)< calculateDistanceBetweenPoints(x,y,head.getTileX(),head.getTileY())){
 
 
-    }
+
+           }else  if(calculateDistanceBetweenPoints(0,getTerrain().getTileHeight(),x,y)< calculateDistanceBetweenPoints(x,y,head.getTileX(),head.getTileY())){
+
+
+           }else  if(calculateDistanceBetweenPoints(getTerrain().getTileWidth(),0,x,y)< calculateDistanceBetweenPoints(x,y,head.getTileX(),head.getTileY())){
+
+
+           }else  if(calculateDistanceBetweenPoints(getTerrain().getTileWidth(),getTerrain().getTileHeight(),x,y)< calculateDistanceBetweenPoints(x,y,head.getTileX(),head.getTileY())){
+
+
+           }
+
+           if(dire!=null){
+             switch (dire){
+               case NORTH: mouseDirection=dire;
+               MouseTransfer(getTerrain().getTile(x,y-1));
+                 break;
+               case SOUTH:
+                 mouseDirection=dire;
+                 MouseTransfer(getTerrain().getTile(x,y+1));
+                 break;
+               case EAST: mouseDirection=dire;
+                 MouseTransfer(getTerrain().getTile(x+1,y));
+                 break;
+               case WEST:
+                 mouseDirection=dire;
+                 MouseTransfer(getTerrain().getTile(x-1,y));
+                 break;
+               default:break;
+             } }
+
+
+
+
+         }
+       }}
+  }
+
+
+  private void MouseTransfer(Optional<Tile> t) {
+     if(!t.isPresent()) {
+       RandomMove();
+       return;
+     }
+    Optional<TileObject> item =  getTerrain().get(t.get());
+     if(item.isPresent()) {
+       RandomMove();
+       return;
+     }
+       getTerrain().put(mouse_tile, null);
+       getTerrain().put(mouse_tile=t.get(), mouseObj);
   }
 
   @Override
@@ -307,6 +415,8 @@ public final class SingleGame extends Game {
     Timer t = new java.util.Timer();
     mouseObj=null;
     mouse_tile=null;
+    mouseDirection=null;
+    counter=0;
     t.schedule(
       new java.util.TimerTask() {
         @Override
