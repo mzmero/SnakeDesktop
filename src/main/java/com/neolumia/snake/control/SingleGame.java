@@ -2,6 +2,7 @@ package com.neolumia.snake.control;
 
 import com.neolumia.snake.GameApp;
 import com.neolumia.snake.model.questions.QuestionLevel;
+import com.neolumia.snake.view.item.TileObject;
 import com.neolumia.snake.view.item.questions.Questionlvl1;
 import com.neolumia.snake.view.item.questions.Questionlvl2;
 import com.neolumia.snake.view.item.questions.Questionlvl3;
@@ -19,6 +20,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.Random;
 import java.util.Timer;
 
 /**
@@ -40,11 +42,90 @@ public final class SingleGame extends Game {
   }
 
   @Override
+  protected void moveMouse() {
+    if(mouse_tile!=null){
+      int Y=mouse_tile.getTileY();
+      int X=mouse_tile.getTileX();
+      int nextY=Y;
+      int nextX=X;
+      // final Optional<Tile> tile = getTerrain().getTile(nextX, nextY);
+       Optional<Tile> tile = null;
+      Optional<TileObject> item = null;
+      Tile t=snake.getParts().getFirst().getTile();
+      if(calculateDistanceBetweenPoints(X,Y,t.getTileX(),t.getTileY())>10){
+        ArrayList<Integer> arr= new ArrayList<Integer>();
+        tile=getTerrain().getTile(++nextX,nextY);
+        nextY=Y;
+        nextX=X;
+        if(tile.isPresent()) {
+          item=getTerrain().get(tile.get());
+           if(!item.isPresent())  arr.add(0);
+        }
+
+          tile=getTerrain().getTile(nextX,++nextY);
+        nextY=Y;
+        nextX=X;
+          if(tile.isPresent()) {
+            item = getTerrain().get(tile.get());
+            if (!item.isPresent()) arr.add(1);
+          }
+          tile=getTerrain().getTile(--nextX,nextY);
+        nextY=Y;
+        nextX=X;
+          if(tile.isPresent()) {
+            item = getTerrain().get(tile.get());
+            if (!item.isPresent()) arr.add(2);
+          }
+        tile=getTerrain().getTile(nextX,--nextY);
+        nextY=Y;
+        nextX=X;
+        if(tile.isPresent()) {
+          item = getTerrain().get(tile.get());
+          if (!item.isPresent())arr.add(3);
+        }
+        System.out.println("x is :"+ X+" y is:"+Y);
+        System.out.println(arr);
+        if(!arr.isEmpty()) {
+          Random rand= new Random();
+          int num= rand.nextInt(3);
+
+          while(!arr.contains(num)) num=rand.nextInt(3);
+          System.out.println("number is: "+num);
+          switch (num){
+            case 0: X++; break;
+            case 1:Y++; break;
+            case 2:X--; break;
+            case 3:Y--; break;
+          }
+         getTerrain().put(mouse_tile, null);
+          System.out.println("x is :"+ X+" y is:"+Y);
+
+          tile =getTerrain().getTile(X,Y);
+          getTerrain().put(mouse_tile=tile.get(), mouseObj);
+
+        }
+
+
+      }
+
+
+    }
+  }
+
+  @Override
   public void init() {
     snake.init();
     initSpawnFood();
-
+    intSpawnMouse();
   }
+
+  private void intSpawnMouse() {
+    Tile tile = getTile();
+    mouseObj = new Mouse();
+    getTerrain().put(mouse_tile = tile, mouseObj);
+    LOGGER.info("Item spawned x={}, y={}", tile.getTileX(), tile.getTileY());
+  }
+
 
   public ArrayList<Question> getQuestions() {
     return questions;
@@ -58,7 +139,7 @@ public final class SingleGame extends Game {
     Tile tile;
     for (Item.Arguments argument : Item.getItems().keySet()) {
       if (argument.getGameTypes()[0] == GameType.CLASSIC
-        && !(Item.getItems().get(argument).get() instanceof Pear)) {
+        && !(Item.getItems().get(argument).get() instanceof Pear) &&  !(Item.getItems().get(argument).get() instanceof Mouse)) {
         Item item = Item.getItems().get(argument).get();
         tile = getTile();
         getTerrain().put(food = tile, item);
@@ -222,7 +303,34 @@ public final class SingleGame extends Game {
     LOGGER.info("Question spawned x={}, y={}", tileQuestion.getTileX(), tileQuestion.getTileY());
   }
 
+  public void spawnMouse() {
+    Timer t = new java.util.Timer();
+    mouseObj=null;
+    mouse_tile=null;
+    t.schedule(
+      new java.util.TimerTask() {
+        @Override
+        public void run() {
+          Tile tile = getTile();
+          mouseObj=new Mouse();
+          getTerrain().put(mouse_tile= tile, mouseObj);
+          LOGGER.info("mouse spawned x={}, y={}", tile.getTileX(), tile.getTileY());
+          // close the thread
+          t.cancel();
+        }
+      },
+      60000);
+
+  }
+
   public void addQuestion(Question question) {
     questions.add(question);
+  }
+  public double calculateDistanceBetweenPoints(
+    double x1,
+    double y1,
+    double x2,
+    double y2) {
+    return Math.sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1));
   }
 }
