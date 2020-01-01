@@ -41,7 +41,7 @@ public final class Database {
       try (PreparedStatement statement = connection.prepareStatement(Q.TABLE_DESIGN)) {
         statement.executeUpdate();
       }
-      try (PreparedStatement statement = connection.prepareStatement(Q.TABLE_STATS)) {
+      try (PreparedStatement statement = connection.prepareStatement(Q.TABLE_PlAYER_STATS)) {
         statement.executeUpdate();
       }
       try (PreparedStatement statement = connection.prepareStatement(Q.TABLE_SETTINGS)) {
@@ -160,9 +160,10 @@ public final class Database {
     }
   }
 
-  Stats loadStats() throws SQLException {
+  public Stats loadStats(String playerName) throws SQLException {
     try (Connection connection = dataSource.getConnection()) {
-      try (PreparedStatement statement = connection.prepareStatement(Q.LOAD_STATS)) {
+      try (PreparedStatement statement = connection.prepareStatement(Q.LOAD_PLAYER_STATS)) {
+        statement.setInt(1,player_ID(playerName));
         try (ResultSet result = statement.executeQuery()) {
           if (result.next()) {
             return new Stats(result.getInt(1), result.getInt(2), result.getInt(3), result.getInt(4));
@@ -173,18 +174,20 @@ public final class Database {
     }
   }
 
-  void updateStats(Stats stats) throws SQLException {
+  void updateStats(Stats stats,String playerName) throws SQLException {
     try (Connection connection = dataSource.getConnection()) {
-      try (PreparedStatement statement = connection.prepareStatement(Q.SAVE_STATS)) {
-        statement.setDouble(1, stats.playtime);
-        statement.setInt(2, stats.games);
-        statement.setInt(3, stats.items);
-        statement.setInt(4, stats.walls);
+      try (PreparedStatement statement = connection.prepareStatement(Q.SAVE_PLAYER_STATS)) {
+        statement.setInt(1, player_ID(playerName));
+        statement.setDouble(2, stats.playtime);
+        statement.setInt(3, stats.games);
+        statement.setInt(4, stats.items);
+        statement.setInt(5, stats.walls);
 
-        statement.setDouble(5, stats.playtime);
-        statement.setInt(6, stats.games);
-        statement.setInt(7, stats.items);
-        statement.setInt(8, stats.walls);
+        statement.setInt(6, player_ID(playerName));
+        statement.setDouble(7, stats.playtime);
+        statement.setInt(8, stats.games);
+        statement.setInt(9, stats.items);
+        statement.setInt(10, stats.walls);
         statement.executeUpdate();
       }
     }

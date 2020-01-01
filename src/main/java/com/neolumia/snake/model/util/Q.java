@@ -18,11 +18,11 @@ public final class Q {
 
   public static final String TABLE_STATS = "CREATE TABLE IF NOT EXISTS stats (id INT UNSIGNED NOT NULL PRIMARY KEY, playtime DOUBLE UNSIGNED NOT NULL, games INT UNSIGNED NOT NULL, items INT UNSIGNED NOT NULL, walls INT UNSIGNED NOT NULL);";
   public static final String LOAD_STATS = "SELECT playtime, games, items, walls FROM stats WHERE id = 0;";
-  public static final String SAVE_STATS = "INSERT INTO stats (id, playtime, games, items, walls) VALUES (0, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE playtime = playtime + ?, games = games + ?, items = items + ?, walls = walls + ?;";
+  public static final String SAVE_STATS = "INSERT INTO stats (id, playtime, games, items, walls) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE id = ?, playtime = playtime + ?, games = games + ?, items = items + ?, walls = walls + ?;";
 
   public static final String TABLE_PlAYER_STATS = "CREATE TABLE IF NOT EXISTS stats (id INT UNSIGNED NOT NULL PRIMARY KEY, playtime DOUBLE UNSIGNED NOT NULL, games INT UNSIGNED NOT NULL, items INT UNSIGNED NOT NULL, walls INT UNSIGNED NOT NULL);";
   public static final String LOAD_PLAYER_STATS = "SELECT playtime, games, items, walls FROM stats WHERE id = ?;";
-  public static final String SAVE_PLAYER_STATS = "INSERT INTO stats (id, playtime, games, items, walls) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE playtime = playtime + ?, games = games + ?, items = items + ?, walls = walls + ?;";
+  public static final String SAVE_PLAYER_STATS = "INSERT INTO stats (id, playtime, games, items, walls) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE id=?, playtime = playtime + ?, games = games + ?, items = items + ?, walls = walls + ?;";
 
   public static final String TABLE_DESIGN = "CREATE TABLE IF NOT EXISTS design (id INT UNSIGNED NOT NULL PRIMARY KEY, terrain VARCHAR(32) NOT NULL, snake VARCHAR(32) NOT NULL, background VARCHAR(32) NOT NULL);";
   public static final String LOAD_DESIGN = "SELECT terrain, snake, background FROM design WHERE id = ?;";

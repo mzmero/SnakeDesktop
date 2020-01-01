@@ -91,7 +91,7 @@ public final class GameApp extends Application {
       this.stats.items += stats.items;
       this.stats.walls += stats.walls;
     }
-    database.updateStats(stats);
+    database.updateStats(stats,playerName);
 
   }
 
@@ -141,7 +141,7 @@ public final class GameApp extends Application {
      // highscore = database.getHighscore();
 
       //design = database.loadDesign();
-      stats = database.loadStats();
+      //stats = database.loadStats();
 
       LOGGER.info(stats);
 
@@ -177,6 +177,10 @@ public final class GameApp extends Application {
 
   public void setDesign(Design design) {
     this.design = design;
+  }
+
+  public void setStats(Stats stats) {
+    this.stats = stats;
   }
 }
 
