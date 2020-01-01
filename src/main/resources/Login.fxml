@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" >
+   <children>
+      <Button layoutX="71.0" layoutY="59.0" mnemonicParsing="false" onMouseClicked="#login" text="Log-in!" />
+      <TextField fx:id="playerName" layoutX="14.0" layoutY="14.0" promptText=" " />
+   </children>
+</AnchorPane>

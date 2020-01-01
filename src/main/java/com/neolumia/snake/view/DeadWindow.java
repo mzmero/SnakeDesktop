@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.sql.SQLException;
 import java.text.MessageFormat;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -53,7 +54,11 @@ public final class DeadWindow extends Window {
 
   @FXML
   public void back() {
-    app.getWindowManager().request(new MenuWindow(app));
+    try {
+      app.getWindowManager().request(new MenuWindow(app));
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 
   @FXML

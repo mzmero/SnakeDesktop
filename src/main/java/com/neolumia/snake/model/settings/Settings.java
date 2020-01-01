@@ -12,7 +12,7 @@ public final class Settings {
   public Locale locale;
   public Difficulty difficulty;
   public Size size;
-  public String playerName = "Fadi";
+  public String playerName ;
   public boolean leaderboard;
 
   public Settings(
@@ -20,7 +20,18 @@ public final class Settings {
     this.locale = locale;
     this.difficulty = difficulty;
     this.size = size;
-    this.playerName = "Fadi";
+    this.playerName = playerName;
     this.leaderboard = leaderboard;
+  }
+
+  @Override
+  public String toString() {
+    return "Settings{" +
+      "locale=" + locale +
+      ", difficulty=" + difficulty +
+      ", size=" + size +
+      ", playerName='" + playerName + '\'' +
+      ", leaderboard=" + leaderboard +
+      '}';
   }
 }
