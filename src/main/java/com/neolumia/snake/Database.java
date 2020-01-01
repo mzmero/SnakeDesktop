@@ -125,9 +125,10 @@ public final class Database {
     }
   }
 
-  Design loadDesign() throws SQLException {
+ public Design loadDesign(String playerName) throws SQLException {
     try (Connection connection = dataSource.getConnection()) {
       try (PreparedStatement statement = connection.prepareStatement(Q.LOAD_DESIGN)) {
+        statement.setInt(1, player_ID(playerName));
         try (ResultSet result = statement.executeQuery()) {
           if (result.next()) {
             return new Design(
@@ -142,16 +143,18 @@ public final class Database {
     }
   }
 
-  void updateDesign(Design design) throws SQLException {
+  void updateDesign(Design design,String playerName) throws SQLException {
     try (Connection connection = dataSource.getConnection()) {
       try (PreparedStatement statement = connection.prepareStatement(Q.SAVE_DESIGN)) {
-        statement.setString(1, design.terrain.name());
-        statement.setString(2, design.snake.name());
-        statement.setString(3, design.background.name());
+        statement.setInt(1, player_ID(playerName));
+        statement.setString(2, design.terrain.name());
+        statement.setString(3, design.snake.name());
+        statement.setString(4, design.background.name());
 
-        statement.setString(4, design.terrain.name());
-        statement.setString(5, design.snake.name());
-        statement.setString(6, design.background.name());
+        statement.setInt(5, player_ID(playerName));
+        statement.setString(6, design.terrain.name());
+        statement.setString(7, design.snake.name());
+        statement.setString(8, design.background.name());
         statement.executeUpdate();
       }
     }

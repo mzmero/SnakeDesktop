@@ -30,6 +30,9 @@ public final class MenuWindow extends Window {
     this.app = app;
     System.out.print(app.getDatabase().getSettings(app.getPlayerName()).toString());
     this.app.setSettings(app.getDatabase().getSettings(app.getPlayerName()));
+    this.app.setDesign(app.getDatabase().loadDesign(app.getPlayerName()));
+
+
 
 
 

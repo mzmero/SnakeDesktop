@@ -78,7 +78,7 @@ public final class GameApp extends Application {
 
   public void updateDesign(Design design) {
     try {
-      database.updateDesign(this.design = design);
+      database.updateDesign(this.design = design,playerName);
     } catch (SQLException ex) {
       ex.printStackTrace();
     }
@@ -140,7 +140,7 @@ public final class GameApp extends Application {
      // settings = database.getSettings(); moved to MenuWindow Constructor to retive Sittings by plyer
      // highscore = database.getHighscore();
 
-      design = database.loadDesign();
+      //design = database.loadDesign();
       stats = database.loadStats();
 
       LOGGER.info(stats);
@@ -173,6 +173,10 @@ public final class GameApp extends Application {
 
   public void setSettings(Settings settings) {
     this.settings = settings;
+  }
+
+  public void setDesign(Design design) {
+    this.design = design;
   }
 }
 

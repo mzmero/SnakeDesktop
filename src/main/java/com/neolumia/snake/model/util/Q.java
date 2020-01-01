@@ -25,8 +25,8 @@ public final class Q {
   public static final String SAVE_PLAYER_STATS = "INSERT INTO stats (id, playtime, games, items, walls) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE playtime = playtime + ?, games = games + ?, items = items + ?, walls = walls + ?;";
 
   public static final String TABLE_DESIGN = "CREATE TABLE IF NOT EXISTS design (id INT UNSIGNED NOT NULL PRIMARY KEY, terrain VARCHAR(32) NOT NULL, snake VARCHAR(32) NOT NULL, background VARCHAR(32) NOT NULL);";
-  public static final String LOAD_DESIGN = "SELECT terrain, snake, background FROM design WHERE id = 0;";
-  public static final String SAVE_DESIGN = "INSERT INTO design (id, terrain, snake, background) VALUES (0, ?, ?, ?) ON DUPLICATE KEY UPDATE terrain = ?, snake = ?, background = ?;";
+  public static final String LOAD_DESIGN = "SELECT terrain, snake, background FROM design WHERE id = ?;";
+  public static final String SAVE_DESIGN = "INSERT INTO design (id, terrain, snake, background) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE id = ?,terrain = ?, snake = ?, background = ?;";
   public static final String GET_SETTINGS = " SELECT * from settings";
   public static final String LOAD_PLAYER_SETTINGS = "SELECT locale,difficulty,size,name,leaderboard FROM settings WHERE settings.name =  ?";
 

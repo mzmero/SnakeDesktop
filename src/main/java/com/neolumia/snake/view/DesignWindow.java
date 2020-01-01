@@ -221,7 +221,9 @@ public final class DesignWindow extends Window {
 
   @FXML
   public void cancel() throws SQLException {
+    System.out.print(terrainDesign);
     app.updateDesign(new Design(terrainDesign, snakeDesign, bgDesign));
+    
     app.getWindowManager().request(new MenuWindow(app));
   }
 
@@ -235,11 +237,11 @@ public final class DesignWindow extends Window {
   @FXML
   public void UpdateQ(MouseEvent event) {
     if (event.getSource().equals(btnUpdate)) {
-      System.out.println("x");
+
       String UpDateThisValue = ComboChooseQuestion.getValue();
       if (UpDateThisValue != null) {
         if (SysData.getInstance().ifExists(UpDateThisValue)) {
-          System.out.println("nooo");
+
           Question UpdateThisQ = null;
           for (Question Q : SysData.getInstance().getQuestions()) {
             if (Q.getQuestion().equals(UpDateThisValue)) {
@@ -286,7 +288,7 @@ public final class DesignWindow extends Window {
               System.out.println(DeleteThisQ.getAnswers());
             }
             if (DeleteThisQ != null) {
-              System.out.print("yesright");
+             ;
               if (SysData.getInstance().deleteQuestion(OnDeleteQ))
                 System.out.println("loo");
               System.out.println("after delete" + SysData.getInstance().getQuestions());
