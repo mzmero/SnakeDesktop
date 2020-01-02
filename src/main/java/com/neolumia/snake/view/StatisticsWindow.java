@@ -36,6 +36,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 
 import static com.neolumia.snake.GameApp.t;
@@ -105,7 +106,7 @@ public final class StatisticsWindow extends Window {
   }
 
   @FXML
-  public void cancel() {
+  public void cancel() throws SQLException {
     app.getWindowManager().request(new MenuWindow(app));
   }
 

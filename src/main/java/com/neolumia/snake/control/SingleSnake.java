@@ -16,9 +16,12 @@ import com.neolumia.snake.view.game.Tile;
 import com.neolumia.snake.view.item.TileObject;
 import com.neolumia.snake.view.item.food.Food;
 import com.neolumia.snake.view.*;
+import com.neolumia.snake.view.item.questions.SEQuestion;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Popup;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -36,8 +39,9 @@ public final class SingleSnake extends Snake<SingleGame> {
         Direction.WEST,
         node -> {
           final Optional<TileObject> object = game.getTerrain().get(node.getTile());
-          return object.isPresent() && !(object.get() instanceof Food);
+          return object.isPresent()&&!(object.get() instanceof Food || object.get() instanceof SEQuestion ||object.get() instanceof Mouse  ) ;//&&
         });
+
   }
 
   /** Initiates Snake, and/or Clearing part from previous Life. */
@@ -68,24 +72,29 @@ public final class SingleSnake extends Snake<SingleGame> {
   @Override
   public void onEat(Tile tile, TileObject object) {
     game.getTerrain().put(tile, null);
+    game.getFood().put(tile,false);
 
     if (object instanceof Apple) {
+      playOnEvent("Food.mp3");
+
       LOGGER.info(" {} eaten at  x={}, y={}", "Apple", tile.getTileX(), tile.getTileY());
       game.spawnApple();
       game.setPoints(game.getPoints() + 10);
     }
     if (object instanceof Banana) {
+      playOnEvent("Food.mp3");
       LOGGER.info(" {} eaten at  x={}, y={}", "Banana", tile.getTileX(), tile.getTileY());
       game.setPoints(game.getPoints() + 15);
       game.spawnBanana();
     }
     if (object instanceof Pear) {
+      playOnEvent("Food.mp3");
       LOGGER.info(" {} eaten at  x={}, y={}", "Pear", tile.getTileX(), tile.getTileY());
       game.setPoints(game.getPoints() + 20);
 
       int x = tile.getTileX();
       int y = tile.getTileY();
-      System.out.print(x + " " + y);
+
       if (x == 0 && y == 0) game.spawnPear(1);
       if (x == game.getTerrain().getTileWidth() - 1 && y == 0) {
         game.spawnPear(2);
@@ -98,12 +107,16 @@ public final class SingleSnake extends Snake<SingleGame> {
       }
     }
     if (object instanceof Questionlvl1) {
+      playOnEvent("Tome.mp3");
+      game.setPaused(true);
       GameWindow.isQuestion1 = true;
       popQuestion(QuestionLevel.ONE);
       game.getTerrain().put(tile, null);
       game.spawnQuestion(QuestionLevel.ONE);
     }
     if (object instanceof Questionlvl2) {
+      playOnEvent("Tome.mp3");
+      game.setPaused(true);
       GameWindow.isQuestion2 = true;
       popQuestion(QuestionLevel.TWO);
       game.getTerrain().put(tile, null);
@@ -111,6 +124,8 @@ public final class SingleSnake extends Snake<SingleGame> {
 
     }
     if (object instanceof Questionlvl3) {
+      playOnEvent("Tome.mp3");
+      game.setPaused(true);
       GameWindow.isQuestion3 = true;
       popQuestion(QuestionLevel.THREE);
       game.getTerrain().put(tile, null);
@@ -118,6 +133,7 @@ public final class SingleSnake extends Snake<SingleGame> {
 
     }
     if(object instanceof Mouse){
+      playOnEvent("Food.mp3");
       LOGGER.info(" {} eaten at  x={}, y={}", "Mouse", tile.getTileX(), tile.getTileY());
       game.setPoints(game.getPoints() + 30 );
       lives++;
@@ -125,6 +141,14 @@ public final class SingleSnake extends Snake<SingleGame> {
       game.spawnMouse();
 
     }
+  }
+
+public void playOnEvent(String fileName) {
+
+    String path = getClass().getResource("/sounds/" + fileName).toString();
+    Media media = new Media(path);
+    MediaPlayer mp = new MediaPlayer(media);
+    mp.play();
   }
 
   private void popQuestion(QuestionLevel level) {
@@ -155,17 +179,39 @@ public final class SingleSnake extends Snake<SingleGame> {
 //    game.getTerrain().put(tile, null);
 //    // TODO Complete This Method - New Questions Should Be Shown
 //  }
-
+/*
   @Override
   protected int getFoodX() {
-    return game.getFood().getTileX();
+    return game.getFood().get().getTileX();
   }
+*/
+  @Override
+  protected Tile getClosestFood(){
+    Tile closeTile = null;
+    double distance = 10000;
+    for(Tile tile : game.getFood().keySet()){
+      if(game.getFood().get(tile)) {
+        if (closeTile == null)
+          closeTile = tile;
+        else {
 
+          if (game.tilesDistance(tile, this.getParts().getFirst().getTile()) < distance)
+            closeTile = tile;
+
+
+        }
+      }
+    }
+    return closeTile;
+
+
+  }
+  /*
   @Override
   protected int getFoodY() {
-    return game.getFood().getTileY();
+    return game.getFood().get().getTileY();
   }
-
+*/
   @Override
   protected void onQuestion(Tile tile, TileObject tileObject) {
 

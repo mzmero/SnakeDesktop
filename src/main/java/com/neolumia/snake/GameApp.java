@@ -1,5 +1,6 @@
 package com.neolumia.snake;
 
+import com.neolumia.snake.view.Login;
 import com.neolumia.snake.view.design.Design;
 import com.neolumia.snake.control.Game;
 import com.neolumia.snake.view.option.GameType;
@@ -34,7 +35,7 @@ public final class GameApp extends Application {
 
   private Design design = new Design();
   private Stats stats = new Stats();
-
+  private String playerName;
   private Settings settings;
   private int highscore = -1;
 
@@ -77,7 +78,7 @@ public final class GameApp extends Application {
 
   public void updateDesign(Design design) {
     try {
-      database.updateDesign(this.design = design);
+      database.updateDesign(this.design = design,playerName);
     } catch (SQLException ex) {
       ex.printStackTrace();
     }
@@ -90,8 +91,8 @@ public final class GameApp extends Application {
       this.stats.items += stats.items;
       this.stats.walls += stats.walls;
     }
-    database.updateStats(stats);
-    System.out.println(this.stats.toString());
+    database.updateStats(stats,playerName);
+
   }
 
   public Design getDesign() {
@@ -136,11 +137,11 @@ public final class GameApp extends Application {
       database = new Database(this);
       database.init();
 
-      settings = database.getSettings();
-      highscore = database.getHighscore();
+     // settings = database.getSettings(); moved to MenuWindow Constructor to retive Sittings by plyer
+     // highscore = database.getHighscore();
 
-      design = database.loadDesign();
-      stats = database.loadStats();
+      //design = database.loadDesign();
+      //stats = database.loadStats();
 
       LOGGER.info(stats);
 
@@ -151,11 +152,35 @@ public final class GameApp extends Application {
 
       final long end = System.currentTimeMillis();
       LOGGER.info("Application initialized ({}ms)", end - start);
+      //TODO add pop-up for player name
+     // System.out.print(database.getSettings().toString());
 
-      windowManager.request(new MenuWindow(this));
+
+      windowManager.request(new Login(this));
       LOGGER.info("Application is now ready");
     } catch (Throwable throwable) {
       LOGGER.error("Could not start application", throwable);
     }
   }
+
+  public String getPlayerName() {
+    return playerName;
+  }
+
+  public void setPlayerName(String playerName) {
+    this.playerName = playerName;
+  }
+
+  public void setSettings(Settings settings) {
+    this.settings = settings;
+  }
+
+  public void setDesign(Design design) {
+    this.design = design;
+  }
+
+  public void setStats(Stats stats) {
+    this.stats = stats;
+  }
 }
+

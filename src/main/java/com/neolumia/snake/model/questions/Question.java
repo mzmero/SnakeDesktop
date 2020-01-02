@@ -13,7 +13,7 @@ import java.util.List;
  * level : the difficulty of the level
  * team : which team has added this question
  */
-public class Question implements Serializable {
+public class Question implements Serializable, Comparable{
 
   private String question;
   private ArrayList<String> answers = null;
@@ -81,5 +81,10 @@ public class Question implements Serializable {
   }
 
 
-
+  @Override
+  public int compareTo(Object o) {
+    Question q = (Question)o;
+    if(this.getQuestion().equals(((Question) o).getQuestion()))return 0;
+    return -1;
+  }
 }
