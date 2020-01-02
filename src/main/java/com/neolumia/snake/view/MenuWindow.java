@@ -21,8 +21,12 @@ public final class MenuWindow extends Window {
   public MenuWindow(GameApp app) throws SQLException {
 
     this.app = app;
+    //TODO move to login
     System.out.print(app.getDatabase().getSettings(app.getPlayerName()).toString());
     this.app.setSettings(app.getDatabase().getSettings(app.getPlayerName()));
+    this.app.setDesign(app.getDatabase().loadDesign(app.getPlayerName()));
+    this.app.setStats(app.getDatabase().loadStats(app.getPlayerName()));
+
 
 
 
