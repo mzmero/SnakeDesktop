@@ -37,6 +37,7 @@ public abstract class Snake<T extends Game> {
     this.speed = game.getSettings().difficulty.getSpeed();
     // TODO lives must be in game
     this.lives = 3;
+
   }
 
   public abstract void init();
@@ -88,9 +89,7 @@ public abstract class Snake<T extends Game> {
     parts.addLast(sp);
   }
 
-  protected abstract int getFoodX();
 
-  protected abstract int getFoodY();
 
   private boolean move() {
 
@@ -145,6 +144,7 @@ public abstract class Snake<T extends Game> {
     if (!tile.isPresent()) {
       // TODO
       // -> Hit the wall -> check lived
+      playOnEvent("Crash.mp3");
       lives--;
       game.getStats().walls++;
       game.setLives(lives);
@@ -167,6 +167,7 @@ public abstract class Snake<T extends Game> {
 
       if (item.get() instanceof SnakePart) {
         // Hit himself --> End
+        playOnEvent("Crash.mp3");
         lives--;
         game.setLives(lives);
         game.getStats().walls++;
@@ -206,6 +207,8 @@ public abstract class Snake<T extends Game> {
     return true;
   }
 
+  protected abstract void playOnEvent(String s);
+
   protected abstract void onQuestion(Tile tile, TileObject tileObject);
 
   private boolean moveable(Direction direction) {
@@ -218,10 +221,13 @@ public abstract class Snake<T extends Game> {
   }
 
   private Direction findBest() {
-    final Solver solver =
-        new Solver(game, parts.getFirst().getTile(), getFoodX(), getFoodY(), blocking);
+    Tile food = getClosestFood();
+  final Solver solver =
+        new Solver(game, parts.getFirst().getTile(), food.getTileX(), food.getTileY(), blocking);
     return solver.solve();
   }
+
+  protected abstract Tile getClosestFood();
 
   private Direction findTail() {
     final Solver solver =
