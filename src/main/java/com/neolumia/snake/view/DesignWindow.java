@@ -11,6 +11,8 @@ import com.neolumia.snake.view.option.TerrainDesign;
 import com.neolumia.snake.model.questions.Question;
 import com.neolumia.snake.model.questions.QuestionLevel;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -20,6 +22,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.neolumia.snake.GameApp.t;
 /**
@@ -29,6 +32,7 @@ public final class DesignWindow extends Window {
 
   private final GameApp app;
   private final ToggleGroup menu = new ToggleGroup();
+  private ObservableList<String> items = FXCollections.observableArrayList();
 
   private TerrainDesign terrainDesign;
   private SnakeDesign snakeDesign;
@@ -134,13 +138,10 @@ public final class DesignWindow extends Window {
   }
 
   private void initCB() {
-    ArrayList<Question> ArrQ = SysData.getInstance().getQuestions();
-    if (ArrQ != null)
-      for (Question Q : ArrQ) {
-        String s = Q.getQuestion();
-        ComboDelete.getItems().add(s);
-        ComboChooseQuestion.getItems().add(s);
-      }
+     ComboDelete.setItems(items);
+     ComboChooseQuestion.setItems(items);
+      items.setAll(reloadData());
+      System.out.println(items);
 
     String[] teams = {"Chimp", "Crocodile", "Scorpion", "Giraffe", "Spider", "Viper", "Panther", "Wolf", "Sloth", "Lion", "Panda", "Piranha", "Rabbit", "Shark", "Hawk", "Husky"};
     ComboUpdateTeam.getItems().addAll(teams);
@@ -163,9 +164,21 @@ public final class DesignWindow extends Window {
     ComboUpdateCorrectAns.getItems().addAll(CoreectAns);
 
     ComboDelete.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+      if(newValue!=null)
         QuestionBody.setText(SysData.getInstance().getQuestion(newValue).toString());
+      else QuestionBody.setText("");
       }
     );
+  }
+
+  private List<String> reloadData() {
+    List<String> items = new ArrayList<>();
+
+    for (Question q: SysData.getInstance().getQuestions()) {
+      items.add(q.getQuestion());
+    }
+    return items;
+
   }
 
   @FXML
@@ -231,12 +244,38 @@ public final class DesignWindow extends Window {
 
   @FXML
   public void UpdateQ(MouseEvent event) {
+    if(ComboChooseQuestion.getSelectionModel().isEmpty()){
+      Alert alert = new Alert(Alert.AlertType.ERROR);
+      alert.setTitle("Failed");
+      alert.setHeaderText("Something went wrong , please try again");
+      String s ="Please choose a question from the combobox";
+      alert.setContentText(s);
+      alert.show();
+
+    } else
+    if(UpdateQuestionBody.getText()!=null && !ComboUpdateTeam.getSelectionModel().isEmpty() && !ComboUpdateLevel.getSelectionModel().isEmpty()
+      && !ComboUpdateCorrectAns.getSelectionModel().isEmpty() && UpdateAnswer1.getText()!=null && UpdateAnswer2.getText()!=null &&
+      UpdateAnswer3.getText()!=null && UpdateAnswer4.getText()!=null){
+
+
+
+
+
+    }else {
+      Alert alert = new Alert(Alert.AlertType.ERROR);
+      alert.setTitle("Failed");
+      alert.setHeaderText("Something went wrong");
+      String s ="There could be some missing field , Please try again";
+      alert.setContentText(s);
+      alert.show();
+    }
+  }
+
+    /*
     if (event.getSource().equals(btnUpdate)) {
-      System.out.println("x");
       String UpDateThisValue = ComboChooseQuestion.getValue();
       if (UpDateThisValue != null) {
         if (SysData.getInstance().ifExists(UpDateThisValue)) {
-          System.out.println("nooo");
           Question UpdateThisQ = null;
           for (Question Q : SysData.getInstance().getQuestions()) {
             if (Q.getQuestion().equals(UpDateThisValue)) {
@@ -266,67 +305,46 @@ public final class DesignWindow extends Window {
       }
 
     }
-  }
+  }*/
 
   @FXML
   public void DeleteQ(MouseEvent event) {
-    if (event.getSource().equals(btnDelete)) {
-      String OnDeleteQ = ComboDelete.getValue();
-      if (OnDeleteQ != null) {
-        QuestionBody.setText(OnDeleteQ);
-        System.out.println(OnDeleteQ);
-        Question DeleteThisQ = null;
-        if (SysData.getInstance().ifExists(OnDeleteQ)) {
-          for (Question Q : SysData.getInstance().getQuestions()) {
-            if (Q.getQuestion().equals(OnDeleteQ)) {
-              DeleteThisQ = Q;
-              System.out.println(DeleteThisQ.getAnswers());
-            }
-            if (DeleteThisQ != null) {
-              System.out.print("yesright");
-              if (SysData.getInstance().deleteQuestion(OnDeleteQ))
-                System.out.println("loo");
-              System.out.println("after delete" + SysData.getInstance().getQuestions());
-            }
-          }
-        }
-      }
-    }
+        String DeleteQ=ComboDelete.getValue();
+        if(DeleteQ!=null) {
+          if (SysData.getInstance().deleteQuestion(DeleteQ)){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Delete Question");
+            alert.setHeaderText("The Question Deleted successfully");
+          //  String s =" ";
+           // alert.setContentText(s);
+            alert.show();
+            ComboDelete.getSelectionModel().clearSelection();
+            items.setAll(reloadData());
 
+              }
+          else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Failed");
+            alert.setHeaderText("Something went wrong , please try again");
+            //  String s =" ";
+            // alert.setContentText(s);
+            alert.show();
+          }}
+         else {
+          Alert alert = new Alert(Alert.AlertType.ERROR);
+          alert.setTitle("Failed");
+          alert.setHeaderText("you need to choose a question First");
+           //String s =" ";
+          // alert.setContentText(s);
+          alert.show();
+        }}
 
-  }
-
-  @FXML
-  public void populateFields(MouseEvent event) {
-    if (event.getSource().equals(ComboChooseQuestion)) {
-      System.out.println(ComboChooseQuestion.getValue());
-      String ComboValue = ComboChooseQuestion.getValue();
-      Question MyQuestion = null;
-      for (Question q : SysData.getInstance().getQuestions()) {
-        if (q.getQuestion().equals(ComboValue)) {
-          MyQuestion = q;
-        }
-      }
-      if (MyQuestion != null) {
-        System.out.println("loe");
-        System.out.println(MyQuestion.getTeam());
-        UpdateQuestionBody.setPromptText(ComboValue);
-        UpdateQuestionBody.setText(ComboValue);
-        ComboUpdateTeam.setValue(MyQuestion.getTeam());
-        ComboUpdateLevel.setValue(MyQuestion.getLevel().toString());
-        UpdateAnswer1.setText(MyQuestion.getAnswers().get(0));
-        UpdateAnswer2.setText(MyQuestion.getAnswers().get(1));
-        UpdateAnswer3.setText(MyQuestion.getAnswers().get(2));
-        UpdateAnswer4.setText(MyQuestion.getAnswers().get(3));
-        ComboUpdateCorrectAns.setValue(new Integer(MyQuestion.getCorrectAns()));
-      }
-    }
-  }
 
   @FXML
   public void InsertQ(MouseEvent event) {
     String InsertThisQuestion = InsertQuestionBody.getText();
-    if (!InsertThisQuestion.equals("")) {
+    if (!InsertThisQuestion.equals("") && InsertThisQuestion!=null && !CoInsertteams.getSelectionModel().isEmpty()
+      && !CoInsertlevel.getSelectionModel().isEmpty() &&!CoInsertCorrectAnswer.getSelectionModel().isEmpty()) {
       String T = CoInsertteams.getValue();
       String L = CoInsertlevel.getValue();
       String An1 = InsertAnswer1.getText();
@@ -335,7 +353,6 @@ public final class DesignWindow extends Window {
       String An4 = InsertAnswer4.getText();
       String CorrectAnsNum = CoInsertCorrectAnswer.getValue().toString();
       if (T != null && L != null && An1 != null && An2 != null && An3 != null && An4 != null && CorrectAnsNum != "") {
-        System.out.println("SysData.getInstance().insertQuestion(InserQuestion)");
         ArrayList<String> newAnsInsert = new ArrayList<>();  //answers array
         newAnsInsert.add(An1);
         newAnsInsert.add(An2);
@@ -343,9 +360,50 @@ public final class DesignWindow extends Window {
         newAnsInsert.add(An4);
 
         Question InserQuestion = new Question(InsertThisQuestion, newAnsInsert, CorrectAnsNum,L, T);
-        System.out.println(SysData.getInstance().insertQuestion(InserQuestion));
-        System.out.println(SysData.getInstance().getQuestions());
+        if(SysData.getInstance().insertQuestion(InserQuestion)){
+          Alert alert = new Alert(Alert.AlertType.INFORMATION);
+          alert.setTitle("Inserted Question");
+          alert.setHeaderText("The Question Inserted successfully");
+           String s ="The informations which was inserted:\nQuestion Body:"+InsertThisQuestion+"\nAnswer1: "+An1+ "\nAnswer2: "+An2+"Answer3: "+An3+"\nAnswer4: "+An4
+           +"\nCorrect Answer Number: "+CorrectAnsNum +"\nlevel: "+ L+"    Team: "+T;
+          alert.setContentText(s);
+          alert.show();
+
+          InsertQuestionBody.setText("");
+          CoInsertlevel.getSelectionModel().clearSelection();
+          CoInsertteams.getSelectionModel().clearSelection();
+          CoInsertCorrectAnswer.getSelectionModel().clearSelection();
+           InsertAnswer1.setText("");
+           InsertAnswer2.setText("");
+           InsertAnswer3.setText("");
+           InsertAnswer4.setText("");
+
+          items.setAll(reloadData());
+
+        }else {
+          Alert alert = new Alert(Alert.AlertType.ERROR);
+          alert.setTitle("Failed");
+          alert.setHeaderText("The Question Already existed ,Please try another one");
+          //String s ="There could be some missing fields,Please try again";
+          //alert.setContentText(s);
+          alert.show();
+        }
+
+      }else {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Failed");
+        alert.setHeaderText("Something went wrong ");
+        String s ="There could be some missing fields ,Please try again";
+        alert.setContentText(s);
+        alert.show();
       }
+    } else {
+      Alert alert = new Alert(Alert.AlertType.ERROR);
+      alert.setTitle("Failed");
+      alert.setHeaderText("Something went wrong");
+       String s ="There could be some missing fields ,Please try again";
+       alert.setContentText(s);
+       alert.show();
     }
   }
 }
