@@ -139,7 +139,6 @@ public final class SingleSnake extends Snake<SingleGame> {
       lives++;
       game.setLives(lives);
       game.spawnMouse();
-
     }
   }
 
@@ -179,12 +178,12 @@ public void playOnEvent(String fileName) {
 //    game.getTerrain().put(tile, null);
 //    // TODO Complete This Method - New Questions Should Be Shown
 //  }
-/*
-  @Override
+
+ /* @Override
   protected int getFoodX() {
     return game.getFood().get().getTileX();
-  }
-*/
+  }*/
+
   @Override
   protected Tile getClosestFood(){
     Tile closeTile = null;
@@ -205,13 +204,14 @@ public void playOnEvent(String fileName) {
     return closeTile;
 
 
+
   }
-  /*
-  @Override
+
+  /*@Override
   protected int getFoodY() {
     return game.getFood().get().getTileY();
-  }
-*/
+  }*/
+
   @Override
   protected void onQuestion(Tile tile, TileObject tileObject) {
 

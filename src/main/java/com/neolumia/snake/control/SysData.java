@@ -124,12 +124,10 @@ public class SysData {
       String level,
       String team) {
 
-    if (!ifExists(Updated)) return false;
-
-    if (!deleteQuestion(question)) return false;
+    SysData.getInstance().deleteQuestion(question);
 
     questions.add(new Question(Updated, answer, correctAns, level, team));
-   writeQuestionTojson();
+    writeQuestionTojson();
     return true;
   }
 
