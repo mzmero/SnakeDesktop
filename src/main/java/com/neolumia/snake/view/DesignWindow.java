@@ -21,6 +21,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -164,9 +165,36 @@ public final class DesignWindow extends Window {
     ComboUpdateCorrectAns.getItems().addAll(CoreectAns);
 
     ComboDelete.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
-      if(newValue!=null)
-        QuestionBody.setText(SysData.getInstance().getQuestion(newValue).toString());
-      else QuestionBody.setText("");
+        if(newValue!=null)
+          QuestionBody.setText(SysData.getInstance().getQuestion(newValue).toString());
+        else QuestionBody.setText("");
+      }
+    );
+
+    ComboChooseQuestion.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+        if(newValue!=null){
+          Question q=SysData.getInstance().getQuestion(newValue);
+          UpdateQuestionBody.setText(q.getQuestion());
+          ComboUpdateTeam.setValue(q.getTeam());
+          int num=Integer.parseInt(q.getCorrectAns());
+          ComboUpdateCorrectAns.setValue(num);
+          ComboUpdateLevel.setValue(q.getLevel());
+          UpdateAnswer1.setText(q.getAnswers().get(0));
+          UpdateAnswer2.setText(q.getAnswers().get(1));
+          UpdateAnswer3.setText(q.getAnswers().get(2));
+          UpdateAnswer4.setText(q.getAnswers().get(3));
+        }
+        else{
+          UpdateQuestionBody.setText("");
+          ComboUpdateTeam.getSelectionModel().clearSelection();
+          ComboUpdateCorrectAns.getSelectionModel().clearSelection();
+          ComboUpdateLevel.getSelectionModel().clearSelection();
+          UpdateAnswer1.setText("");
+          UpdateAnswer2.setText("");
+          UpdateAnswer3.setText("");
+          UpdateAnswer4.setText("");
+
+        }
       }
     );
   }
@@ -230,7 +258,7 @@ public final class DesignWindow extends Window {
   }
 
   @FXML
-  public void cancel() {
+  public void cancel() throws SQLException {
     app.updateDesign(new Design(terrainDesign, snakeDesign, bgDesign));
     app.getWindowManager().request(new MenuWindow(app));
   }
@@ -253,13 +281,33 @@ public final class DesignWindow extends Window {
       alert.show();
 
     } else
-    if(UpdateQuestionBody.getText()!=null && !ComboUpdateTeam.getSelectionModel().isEmpty() && !ComboUpdateLevel.getSelectionModel().isEmpty()
-      && !ComboUpdateCorrectAns.getSelectionModel().isEmpty() && UpdateAnswer1.getText()!=null && UpdateAnswer2.getText()!=null &&
-      UpdateAnswer3.getText()!=null && UpdateAnswer4.getText()!=null){
+    if(UpdateQuestionBody.getText()!=null && !UpdateQuestionBody.getText().isEmpty() &&!ComboUpdateTeam.getSelectionModel().isEmpty() && !ComboUpdateLevel.getSelectionModel().isEmpty()
+      && !ComboUpdateCorrectAns.getSelectionModel().isEmpty() && UpdateAnswer1.getText()!=null && !UpdateAnswer1.getText().isEmpty() && UpdateAnswer2.getText()!=null &&
+      !UpdateAnswer2.getText().isEmpty() && !UpdateAnswer3.getText().isEmpty() && UpdateAnswer3.getText()!=null && UpdateAnswer4.getText()!=null
+    && !UpdateAnswer4.getText().isEmpty()){
+      if(!ComboChooseQuestion.getValue().equals(UpdateQuestionBody.getText()) && SysData.getInstance().ifExists(UpdateQuestionBody.getText())){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Failed");
+        alert.setHeaderText("Something went wrong");
+        String s ="Your updating the QuestionBody to an existing one ,Please write a new question";
+        alert.setContentText(s);
+        alert.show();
+
+      }else{
+        ArrayList<String> answers=new ArrayList<>();
+        answers.add(UpdateAnswer1.getText());
+        answers.add(UpdateAnswer2.getText());
+        answers.add(UpdateAnswer3.getText());
+        answers.add(UpdateAnswer4.getText());
+        SysData.getInstance().updateQuestion(ComboChooseQuestion.getValue(),UpdateQuestionBody.getText(),answers,ComboUpdateCorrectAns.getValue().toString(),
+         ComboUpdateLevel.getValue(),ComboUpdateTeam.getValue());
+
+        ComboChooseQuestion.getSelectionModel().clearSelection();
+        items.setAll(reloadData());
 
 
 
-
+      }
 
     }else {
       Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -271,41 +319,6 @@ public final class DesignWindow extends Window {
     }
   }
 
-    /*
-    if (event.getSource().equals(btnUpdate)) {
-      String UpDateThisValue = ComboChooseQuestion.getValue();
-      if (UpDateThisValue != null) {
-        if (SysData.getInstance().ifExists(UpDateThisValue)) {
-          Question UpdateThisQ = null;
-          for (Question Q : SysData.getInstance().getQuestions()) {
-            if (Q.getQuestion().equals(UpDateThisValue)) {
-              UpdateThisQ = Q;
-            }
-          }
-          if (UpdateThisQ != null) {
-            ArrayList<String> UpdatedAnswers = new ArrayList<>();
-            int CorrectAns = ComboUpdateCorrectAns.getValue();
-            String GetTeamValue = ComboUpdateTeam.getValue();
-            String GetLevelValue = ComboUpdateLevel.getValue();
-            String UpdateBody = UpdateQuestionBody.getText();
-            String UpdateA1 = UpdateAnswer1.getText();
-            String UpdateA2 = UpdateAnswer2.getText();
-            String UpdateA3 = UpdateAnswer3.getText();
-            String UpdateA4 = UpdateAnswer4.getText();
-            if (UpdateBody != "" && UpdateA1 != "" && UpdateA2 != "" && UpdateA3 != "" && UpdateA4 != "" && GetTeamValue != null && GetLevelValue != "" && CorrectAns != 0)
-              UpdatedAnswers.add(UpdateA1);
-            UpdatedAnswers.add(UpdateA2);
-            UpdatedAnswers.add(UpdateA3);
-            UpdatedAnswers.add(UpdateA4);
-            String CorrectAnswer = UpdatedAnswers.get(CorrectAns);
-            if (SysData.getInstance().updateQuestion(UpDateThisValue, UpdateBody, UpdatedAnswers, CorrectAnswer, GetLevelValue, GetTeamValue))
-              ;
-          }
-        }
-      }
-
-    }
-  }*/
 
   @FXML
   public void DeleteQ(MouseEvent event) {
@@ -319,6 +332,7 @@ public final class DesignWindow extends Window {
            // alert.setContentText(s);
             alert.show();
             ComboDelete.getSelectionModel().clearSelection();
+          //  if(ComboChooseQuestion.getValue().equals(DeleteQ)) ComboChooseQuestion.getSelectionModel().clearSelection();
             items.setAll(reloadData());
 
               }
@@ -343,7 +357,7 @@ public final class DesignWindow extends Window {
   @FXML
   public void InsertQ(MouseEvent event) {
     String InsertThisQuestion = InsertQuestionBody.getText();
-    if (!InsertThisQuestion.equals("") && InsertThisQuestion!=null && !CoInsertteams.getSelectionModel().isEmpty()
+    if ( InsertThisQuestion!=null && !InsertThisQuestion.equals("") && !CoInsertteams.getSelectionModel().isEmpty()
       && !CoInsertlevel.getSelectionModel().isEmpty() &&!CoInsertCorrectAnswer.getSelectionModel().isEmpty()) {
       String T = CoInsertteams.getValue();
       String L = CoInsertlevel.getValue();
@@ -352,7 +366,7 @@ public final class DesignWindow extends Window {
       String An3 = InsertAnswer3.getText();
       String An4 = InsertAnswer4.getText();
       String CorrectAnsNum = CoInsertCorrectAnswer.getValue().toString();
-      if (T != null && L != null && An1 != null && An2 != null && An3 != null && An4 != null && CorrectAnsNum != "") {
+      if ( An1 != null && !An1.isEmpty() && An2 != null && !An2.isEmpty() &&  An3 != null && !An3.isEmpty()  && An4 != null && !An4.isEmpty() ) {
         ArrayList<String> newAnsInsert = new ArrayList<>();  //answers array
         newAnsInsert.add(An1);
         newAnsInsert.add(An2);
@@ -364,7 +378,7 @@ public final class DesignWindow extends Window {
           Alert alert = new Alert(Alert.AlertType.INFORMATION);
           alert.setTitle("Inserted Question");
           alert.setHeaderText("The Question Inserted successfully");
-           String s ="The informations which was inserted:\nQuestion Body:"+InsertThisQuestion+"\nAnswer1: "+An1+ "\nAnswer2: "+An2+"Answer3: "+An3+"\nAnswer4: "+An4
+           String s ="The informations which was inserted:\nQuestion Body:"+InsertThisQuestion+"\nAnswer1: "+An1+ "\nAnswer2: "+An2+"\nAnswer3: "+An3+"\nAnswer4: "+An4
            +"\nCorrect Answer Number: "+CorrectAnsNum +"\nlevel: "+ L+"    Team: "+T;
           alert.setContentText(s);
           alert.show();
