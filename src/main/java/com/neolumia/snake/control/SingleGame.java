@@ -19,11 +19,7 @@ import com.neolumia.snake.model.questions.Question;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.Optional;
-import java.util.Random;
-import java.util.Timer;
-
+import java.util.*;
 /**
  * This class represents a single game - one player - and the snake associated with
  */
@@ -31,7 +27,7 @@ public final class SingleGame extends Game {
 
   private static final Logger LOGGER = LogManager.getLogger(SingleGame.class);
   private final SingleSnake snake = new SingleSnake(this);
-  private Tile food;
+  private HashMap<Tile,Boolean> food = new HashMap<>() ;
   private Tile question;
   private Tile mouse_tile;
   private Mouse mouseObj;
@@ -241,6 +237,28 @@ public final class SingleGame extends Game {
     this.questions = questions;
   }
 
+  private Tile getTile() {
+    Tile tile;
+    while (true) {
+      int x = random.nextInt(terrain.getTileWidth());
+      int y = random.nextInt(terrain.getTileHeight());
+      final Optional<Tile> next = terrain.getTile(x, y);
+      if (next.isPresent() && !getTerrain().get(next.get()).isPresent()) {
+        tile = next.get();
+        break;
+      }
+    }
+    return tile;
+  }
+
+  @Override
+  public void tick() {
+    snake.tick();
+  }
+
+  public SingleSnake getSnake() {
+    return snake;
+  }
   public void initSpawnFood() {
     Tile tile;
     for (Item.Arguments argument : Item.getItems().keySet()) {
@@ -248,7 +266,8 @@ public final class SingleGame extends Game {
         && !(Item.getItems().get(argument).get() instanceof Pear) &&  !(Item.getItems().get(argument).get() instanceof Mouse)) {
         Item item = Item.getItems().get(argument).get();
         tile = getTile();
-        getTerrain().put(food = tile, item);
+        food.put(tile,true);
+        getTerrain().put(tile, item);
         LOGGER.info("Item spawned x={}, y={}", tile.getTileX(), tile.getTileY());
       }
     }
@@ -280,6 +299,7 @@ public final class SingleGame extends Game {
       final Optional<Tile> next = terrain.getTile(x, y);
       if (next.isPresent() && !getTerrain().get(next.get()).isPresent()) {
         tile = next.get();
+        food.put(tile,true);
         getTerrain().put(tile, new Pear());
         LOGGER.info(
           "Item spawned x={}, y={} , corener={} , corner.x={},corner.y={}",
@@ -291,48 +311,29 @@ public final class SingleGame extends Game {
       }
     }
   }
-
-  private Tile getTile() {
-    Tile tile;
-    while (true) {
-      int x = random.nextInt(terrain.getTileWidth());
-      int y = random.nextInt(terrain.getTileHeight());
-      final Optional<Tile> next = terrain.getTile(x, y);
-      if (next.isPresent() && !getTerrain().get(next.get()).isPresent()) {
-        tile = next.get();
-        break;
-      }
-    }
-    return tile;
-  }
-
-  @Override
-  public void tick() {
-    snake.tick();
-  }
-
-  public SingleSnake getSnake() {
-    return snake;
-  }
-
-  public Tile getFood() {
+  public HashMap<Tile,Boolean> getFood() {
     return food;
   }
 
   public void spawnApple() {
-    Timer t = new java.util.Timer();
-    t.schedule(
-      new java.util.TimerTask() {
-        @Override
-        public void run() {
-          Tile tile = getTile();
-          getTerrain().put(food = tile, new Apple());
-          LOGGER.info("Item spawned x={}, y={}", tile.getTileX(), tile.getTileY());
-          // close the thread
-          t.cancel();
-        }
-      },
-      5000);
+    Tile tile = getTile();
+    food.put(tile,true);
+    getTerrain().put(tile, new Apple());
+    LOGGER.info("Item spawned x={}, y={}", tile.getTileX(), tile.getTileY());
+	    /*
+	    Timer t = new java.util.Timer();
+	    t.schedule(
+	      new java.util.TimerTask() {
+	        @Override
+	        public void run() {
+	          Tile tile = getTile();
+	          getTerrain().put(food = tile, new Apple());
+	          LOGGER.info("Item spawned x={}, y={}", tile.getTileX(), tile.getTileY());
+	          // close the thread
+	          t.cancel();
+	        }
+	      },
+	      5000);*/
   }
 
   public void spawnBanana() {
@@ -342,7 +343,8 @@ public final class SingleGame extends Game {
         @Override
         public void run() {
           Tile tile = getTile();
-          getTerrain().put(food = tile, new Banana());
+          food.put(tile,true);
+          getTerrain().put(tile, new Banana());
           LOGGER.info("Item spawned x={}, y={}", tile.getTileX(), tile.getTileY());
           // close the thread
           t.cancel();
@@ -365,7 +367,7 @@ public final class SingleGame extends Game {
         break;
       }
     }
-    System.out.print("new corner :" + corner);
+
     int x = 0, y = 0;
     switch (corner) {
       case 1: { // UpperRight
@@ -392,6 +394,7 @@ public final class SingleGame extends Game {
     final Optional<Tile> next = terrain.getTile(x, y);
     if (next.isPresent() && !getTerrain().get(next.get()).isPresent()) {
       tile = next.get();
+      food.put(tile,true);
       getTerrain().put(tile, new Pear());
     }
     LOGGER.info("Item spawned at x={}, y={}", x, y);
@@ -400,12 +403,18 @@ public final class SingleGame extends Game {
   public void spawnQuestion(QuestionLevel level) {
     Tile tileQuestion = getTile();
     final Optional<Item> itemQuestion = Item.random(type, ItemType.QUESTION);
-    if (level.equals(QuestionLevel.ONE))
+    if (level.equals(QuestionLevel.ONE)) {
       getTerrain().put(question = tileQuestion, new Questionlvl1());
-    if (level.equals(QuestionLevel.TWO))
+      food.put(tileQuestion,true);
+    }
+    if (level.equals(QuestionLevel.TWO)){
+      food.put(tileQuestion,true);
       getTerrain().put(question = tileQuestion, new Questionlvl2());
-    if (level.equals(QuestionLevel.THREE))
+    }
+    if (level.equals(QuestionLevel.THREE)) {
+      food.put(tileQuestion,true);
       getTerrain().put(question = tileQuestion, new Questionlvl3());
+    }
     LOGGER.info("Question spawned x={}, y={}", tileQuestion.getTileX(), tileQuestion.getTileY());
   }
 
@@ -415,6 +424,7 @@ public final class SingleGame extends Game {
     mouse_tile=null;
     mouseDirection=null;
     counter=0;
+
     t.schedule(
       new java.util.TimerTask() {
         @Override
@@ -422,6 +432,7 @@ public final class SingleGame extends Game {
           Tile tile = getTile();
           mouseObj=new Mouse();
           getTerrain().put(mouse_tile= tile, mouseObj);
+          food.put(tile,true);
           LOGGER.info("mouse spawned x={}, y={}", tile.getTileX(), tile.getTileY());
           // close the thread
           t.cancel();
@@ -440,5 +451,10 @@ public final class SingleGame extends Game {
     double x2,
     double y2) {
     return Math.sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1));
+  }
+
+  public double tilesDistance( Tile a , Tile b) {
+    return Math.sqrt(b.getTileY() - a.getTileY()) * (((b.getTileY() - a.getTileY()) + ((b.getTileX() - a.getTileX()) * b.getTileX())) - a.getTileX());
+
   }
 }

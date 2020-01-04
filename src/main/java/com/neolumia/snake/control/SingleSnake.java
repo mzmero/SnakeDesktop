@@ -72,7 +72,7 @@ public final class SingleSnake extends Snake<SingleGame> {
   @Override
   public void onEat(Tile tile, TileObject object) {
     game.getTerrain().put(tile, null);
-  //  game.getFood().put(tile,false);
+    game.getFood().put(tile,false);
 
     if (object instanceof Apple) {
       playOnEvent("Food.mp3");
@@ -179,10 +179,10 @@ public void playOnEvent(String fileName) {
 //    // TODO Complete This Method - New Questions Should Be Shown
 //  }
 
-  @Override
+ /* @Override
   protected int getFoodX() {
     return game.getFood().get().getTileX();
-  }
+  }*/
 
   @Override
   protected Tile getClosestFood(){
@@ -207,10 +207,10 @@ public void playOnEvent(String fileName) {
 
   }
 
-  @Override
+  /*@Override
   protected int getFoodY() {
     return game.getFood().get().getTileY();
-  }
+  }*/
 
   @Override
   protected void onQuestion(Tile tile, TileObject tileObject) {
