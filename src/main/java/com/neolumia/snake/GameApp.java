@@ -1,35 +1,11 @@
-/*
- * This file is part of Snake, licensed under the MIT License (MIT).
- *
- * Copyright (c) 2018 Neolumia
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
-
 package com.neolumia.snake;
 
-import com.neolumia.snake.model.design.Design;
-import com.neolumia.snake.model.game.Game;
-import com.neolumia.snake.model.game.GameType;
-import com.neolumia.snake.model.game.duo.DuoGame;
-import com.neolumia.snake.model.game.single.SingleGame;
-import com.neolumia.snake.model.item.Item;
+import com.neolumia.snake.view.Login;
+import com.neolumia.snake.view.design.Design;
+import com.neolumia.snake.control.Game;
+import com.neolumia.snake.view.option.GameType;
+import com.neolumia.snake.control.SingleGame;
+import com.neolumia.snake.view.item.Item;
 import com.neolumia.snake.model.settings.Settings;
 import com.neolumia.snake.view.GameWindow;
 import com.neolumia.snake.view.MenuWindow;
@@ -46,6 +22,7 @@ import java.text.MessageFormat;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+/** This is the main class of the application which runs all modules */
 public final class GameApp extends Application {
 
   private static final Logger LOGGER = LogManager.getLogger(GameApp.class);
@@ -54,11 +31,11 @@ public final class GameApp extends Application {
   private static GameApp instance;
 
   private Database database;
-  private WindowManager windowManager;
+  public static WindowManager windowManager;
 
   private Design design = new Design();
   private Stats stats = new Stats();
-
+  private String playerName;
   private Settings settings;
   private int highscore = -1;
 
@@ -91,7 +68,8 @@ public final class GameApp extends Application {
   public void newGame(GameType type) {
     synchronized (this) {
       LOGGER.info("Creating a new game with type " + type.name());
-      Game game = (type == GameType.DUO) ? new DuoGame(this) : new SingleGame(this, type);
+      Game game = (type == GameType.DUO) ? new SingleGame(this, type) : new SingleGame(this, type);
+
       getWindowManager().request(new GameWindow(this, game));
       game.init();
       game.run();
@@ -100,7 +78,7 @@ public final class GameApp extends Application {
 
   public void updateDesign(Design design) {
     try {
-      database.updateDesign(this.design = design);
+      database.updateDesign(this.design = design,playerName);
     } catch (SQLException ex) {
       ex.printStackTrace();
     }
@@ -113,8 +91,8 @@ public final class GameApp extends Application {
       this.stats.items += stats.items;
       this.stats.walls += stats.walls;
     }
-    database.updateStats(stats);
-    System.out.println(this.stats.toString());
+    database.updateStats(stats,playerName);
+
   }
 
   public Design getDesign() {
@@ -159,11 +137,11 @@ public final class GameApp extends Application {
       database = new Database(this);
       database.init();
 
-      settings = database.getSettings();
-      highscore = database.getHighscore();
+     // settings = database.getSettings(); moved to MenuWindow Constructor to retive Sittings by plyer
+     // highscore = database.getHighscore();
 
-      design = database.loadDesign();
-      stats = database.loadStats();
+      //design = database.loadDesign();
+      //stats = database.loadStats();
 
       LOGGER.info(stats);
 
@@ -174,11 +152,35 @@ public final class GameApp extends Application {
 
       final long end = System.currentTimeMillis();
       LOGGER.info("Application initialized ({}ms)", end - start);
+      //TODO add pop-up for player name
+     // System.out.print(database.getSettings().toString());
 
-      windowManager.request(new MenuWindow(this));
+
+      windowManager.request(new Login(this));
       LOGGER.info("Application is now ready");
     } catch (Throwable throwable) {
       LOGGER.error("Could not start application", throwable);
     }
   }
+
+  public String getPlayerName() {
+    return playerName;
+  }
+
+  public void setPlayerName(String playerName) {
+    this.playerName = playerName;
+  }
+
+  public void setSettings(Settings settings) {
+    this.settings = settings;
+  }
+
+  public void setDesign(Design design) {
+    this.design = design;
+  }
+
+  public void setStats(Stats stats) {
+    this.stats = stats;
+  }
 }
+

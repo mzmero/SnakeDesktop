@@ -1,27 +1,3 @@
-/*
- * This file is part of Snake, licensed under the MIT License (MIT).
- *
- * Copyright (c) 2018 Neolumia
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
-
 package com.neolumia.snake.view;
 
 import com.neolumia.snake.GameApp;
@@ -34,10 +10,17 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
 
+/**
+ * This is the class which is responsible for the Question Management view - which manages the SE
+ * qustion insert, update and delete
+ */
 public final class SettingsWindow extends Window {
+  private static final Logger LOGGER = LogManager.getLogger(SettingsWindow.class);
 
   private final GameApp app;
 
@@ -102,37 +85,45 @@ public final class SettingsWindow extends Window {
 
   @FXML
   public void cancel() {
-    app.getWindowManager().request(new MenuWindow(app));
+    try {
+      app.getWindowManager().request(new MenuWindow(app));
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 
   @FXML
   public void save() throws SQLException {
-    app.getSettings().locale = locale.getSelectedToggle().equals(localeGerman) ? Locale.GERMAN : Locale.ENGLISH;
+    app.getSettings().locale =
+        locale.getSelectedToggle().equals(localeGerman) ? Locale.GERMAN : Locale.ENGLISH;
 
-    if(difficulty.getSelectedToggle() == difficultyEasy) {
+    if (difficulty.getSelectedToggle() == difficultyEasy) {
       app.getSettings().difficulty = Difficulty.EASY;
-    } else if(difficulty.getSelectedToggle() == difficultyMedium) {
+    } else if (difficulty.getSelectedToggle() == difficultyMedium) {
       app.getSettings().difficulty = Difficulty.MEDIUM;
-    } else if(difficulty.getSelectedToggle() == difficultyHard) {
+    } else if (difficulty.getSelectedToggle() == difficultyHard) {
       app.getSettings().difficulty = Difficulty.HARD;
     } else {
       app.getSettings().difficulty = Settings.DEFAULT_DIFFICULTY;
     }
 
-    if(terrain.getSelectedToggle() == terrainSmall) {
+    if (terrain.getSelectedToggle() == terrainSmall) {
       app.getSettings().size = Size.SMALL;
-    } else if(terrain.getSelectedToggle() == terrainMedium) {
+    } else if (terrain.getSelectedToggle() == terrainMedium) {
       app.getSettings().size = Size.MEDIUM;
-    } else if(terrain.getSelectedToggle() == terrainBig) {
+    } else if (terrain.getSelectedToggle() == terrainBig) {
       app.getSettings().size = Size.BIG;
     } else {
       app.getSettings().size = Settings.DEFAULT_SIZE;
     }
 
-    app.getSettings().playerName = playerName.getText();
+    //app.getSettings().playerName = playerName.getText();
     app.getSettings().leaderboard = leaderboard.isSelected();
 
     app.getDatabase().saveSettings(app.getSettings());
+    LOGGER.info(app.getDatabase().GetAllsetttings().toString());
+    //System.out.print(app.getDatabase().getettings().toString());
+
     cancel();
   }
 }

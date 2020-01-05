@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane fx:id="root" minHeight="520.0" minWidth="1000.0" prefHeight="520.0" prefWidth="1000.0" style="-fx-background-color: #82f5a8;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane fx:id="root" minHeight="437.0" minWidth="1000.0" prefHeight="520.0" prefWidth="1000.0" style="-fx-background-color: #82f5a8;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
     <ColumnConstraints maxWidth="20.0" minWidth="0.0" prefWidth="0.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity" prefWidth="1000.0" />
@@ -18,12 +18,12 @@
   <rowConstraints>
     <RowConstraints minHeight="-Infinity" percentHeight="55.0" prefHeight="275.0" vgrow="SOMETIMES" />
       <RowConstraints />
-      <RowConstraints />
-      <RowConstraints minHeight="-Infinity" percentHeight="45.0" prefHeight="225.0" />
+      <RowConstraints maxHeight="0.0" minHeight="0.0" percentHeight="0.0" prefHeight="0.0" />
+      <RowConstraints maxHeight="229.0" minHeight="-Infinity" percentHeight="44.0" prefHeight="229.0" />
       <RowConstraints />
   </rowConstraints>
- <StackPane GridPane.columnIndex="1">
-   <ImageView fx:id="typeView" fitHeight="297.0" fitWidth="529.0" onMouseClicked="#clickTitle" pickOnBounds="true" preserveRatio="true">
+ <StackPane prefHeight="113.0" prefWidth="1000.0" GridPane.columnIndex="1">
+   <ImageView fx:id="typeView" fitHeight="214.0" fitWidth="521.0" onMouseClicked="#clickTitle" pickOnBounds="true" preserveRatio="true">
      <Image url="@lib/title_classic.png" />
    </ImageView>
  </StackPane>
@@ -33,7 +33,7 @@
         <Insets bottom="10.0" />
       </VBox.margin>
     </Button>
-    <Button layoutX="310.0" layoutY="55.0" maxHeight="35.0" maxWidth="400.0" minHeight="35.0" minWidth="400.0" mnemonicParsing="false" onMouseClicked="#design" prefHeight="35.0" prefWidth="400.0" styleClass="button-large" text="%title.design">
+    <Button layoutX="310.0" layoutY="55.0" maxHeight="35.0" maxWidth="400.0" minHeight="35.0" minWidth="400.0" mnemonicParsing="false" onMouseClicked="#questions" prefHeight="35.0" prefWidth="400.0" styleClass="button-large" text="%title.questions">
       <VBox.margin>
         <Insets bottom="10.0" />
       </VBox.margin>
@@ -43,6 +43,10 @@
         <Insets bottom="10.0" />
       </VBox.margin>
     </Button>
-    <Button maxHeight="35.0" maxWidth="400.0" minHeight="35.0" minWidth="400.0" mnemonicParsing="false" onMouseClicked="#settings" prefHeight="35.0" prefWidth="400.0" styleClass="button-large" text="%title.settings" />
+    <Button maxHeight="35.0" maxWidth="400.0" minHeight="35.0" minWidth="400.0" mnemonicParsing="false" onMouseClicked="#settings" prefHeight="35.0" prefWidth="400.0" styleClass="button-large" text="%title.settings">
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin></Button>
+      <Button maxHeight="35.0" maxWidth="400.0" minHeight="35.0" minWidth="400.0" mnemonicParsing="false" onMouseClicked="#design" prefHeight="35.0" prefWidth="400.0" styleClass="button-large" text="%title.design" />
   </VBox>
 </GridPane>
