@@ -156,6 +156,8 @@ public abstract class Game extends Pane {
                   }
                   diff = System.currentTimeMillis() - start;
                   sleep = (int) (1000 / 60 - diff);
+
+
                   if (sleep > 0) {
                     Thread.sleep(sleep);
                   }
