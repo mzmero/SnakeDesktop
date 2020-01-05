@@ -172,16 +172,20 @@ public class SysData {
       e.printStackTrace();
       return null;
     }
-  }
 
+<<<<<<< HEAD
+  }
+=======
   /**
    * This method writes the questions from the questions array to the json file located in
    * "json/questions.json"
    */
+>>>>>>> fda816ecfba18552354e1731236da67c8bcbece7
   public void writeQuestionTojson() {
     JSONObject jObject = new JSONObject();
     try {
       JSONArray jArray = new JSONArray();
+      System.out.print("hala");
       for (Question Q : questions) {
         JSONObject Question = new JSONObject();
         Question.put("question", Q.getQuestion());
