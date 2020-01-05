@@ -163,6 +163,8 @@ public abstract class Game extends Pane {
               } catch (Throwable throwable) {
                 throwable.printStackTrace();
               }
+
+
             })
         .start();
   }
