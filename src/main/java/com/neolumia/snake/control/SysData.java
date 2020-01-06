@@ -58,6 +58,21 @@ public class SysData {
     return tableItems;
   }
 
+  public ArrayList<TableItem> getPlayerHistory(String playName) {
+    ArrayList<TableItem> tableItems = new ArrayList<>();
+    for (History history : this.history) {
+      if (history.getPlayer().equals(playName)) {
+        TableItem tableItem =
+            new TableItem(
+                history.getPlayer(),
+                Integer.toString(history.getPoints()),
+                Integer.toString(history.getLives()));
+        tableItems.add(tableItem);
+      }
+    }
+    return tableItems;
+  }
+
   public void setHistory() {
     this.history = readHistoryFromJson();
   }
@@ -172,15 +187,12 @@ public class SysData {
       e.printStackTrace();
       return null;
     }
-
-<<<<<<< HEAD
   }
-=======
+
   /**
    * This method writes the questions from the questions array to the json file located in
    * "json/questions.json"
    */
->>>>>>> fda816ecfba18552354e1731236da67c8bcbece7
   public void writeQuestionTojson() {
     JSONObject jObject = new JSONObject();
     try {
@@ -189,8 +201,8 @@ public class SysData {
       for (Question Q : questions) {
         JSONObject Question = new JSONObject();
         Question.put("question", Q.getQuestion());
-       // JSONArray array = new JSONArray();
-       // array.add(Q.getAnswers());
+        // JSONArray array = new JSONArray();
+        // array.add(Q.getAnswers());
         Question.put("answers", Q.getAnswers());
         Question.put("correct_ans", Q.getCorrectAns());
         Question.put("level", Q.getLevel());
@@ -277,17 +289,6 @@ public class SysData {
   public void addGameToHistory(History history) {
     this.history.add(history);
     writeHistoryTojson();
-  }
-
-  public ArrayList<TableItem> getPlayerHistory(String playerName) {
-    ArrayList<TableItem> gameHistories = new ArrayList<>();
-    for (int i = 0; i < history.size() && history.get(i).getPlayer().equals(playerName); i++)
-      gameHistories.add(
-          new TableItem(
-              history.get(i).getPlayer(),
-              Integer.toString(history.get(i).getPoints()),
-              Integer.toString(history.get(i).getLives())));
-    return gameHistories;
   }
 
   /**

@@ -102,7 +102,7 @@ public final class StatisticsWindow extends Window {
 
     data =
         FXCollections.observableArrayList(
-            SysData.getInstance().getPlayerHistory(app.getSettings().playerName));
+            SysData.getInstance().getPlayerHistory(app.getPlayerName()));
   }
 
   @FXML
