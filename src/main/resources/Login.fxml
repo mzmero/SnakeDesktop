@@ -1,11 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" >
+<AnchorPane fx:id="ap" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button layoutX="71.0" layoutY="59.0" mnemonicParsing="false" onMouseClicked="#login" text="Log-in!" />
-      <TextField fx:id="playerName" layoutX="14.0" layoutY="14.0" promptText=" " />
+      <VBox prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Login">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Text>
+            <TextField fx:id="playerName" promptText="player name" />
+            <Button fx:id="next" mnemonicParsing="false" onMouseClicked="#next" prefHeight="25.0" prefWidth="149.0" text="next" />
+            <Text fx:id="password_text" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Text>
+            <PasswordField fx:id="password" promptText="password" />
+            <Button fx:id="login" mnemonicParsing="false" onMouseClicked="#login" prefHeight="25.0" prefWidth="149.0" text="Log-in!" />
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

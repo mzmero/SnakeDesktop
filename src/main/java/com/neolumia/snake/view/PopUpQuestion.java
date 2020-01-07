@@ -74,28 +74,26 @@ public class PopUpQuestion extends Window {
                   public void handle(MouseEvent event) {
                     if (selectedCheckBoxes.size() != 0) {
                       if (Integer.parseInt(question.getCorrectAns()) == (selectedCheckBox)) {
-                        toast("Correct Answer :)");
+                        Toast.toast("Correct Answer :)");
                         submitButton.setDisable(true);
                         updatePoints(game, true);
                         submitButton.getScene().getWindow().hide();
                         GameWindow.setQuestions(game);
                       } else {
-                        toast("Wrong Answer :(");
+                        Toast.toast("Wrong Answer :(");
                         submitButton.setDisable(true);
                         updatePoints(game, false);
                         submitButton.getScene().getWindow().hide();
                         GameWindow.setQuestions(game);
                       }
-                    } else toast("Please Choose Answer");
+                    } else Toast.toast("Please Choose Answer");
                   }
                 });
           }
         });
   }
 
-  private void toast(String s) {
-    Toast.makeText(GameApp.windowManager.getStage(), s, 1500, 500, 500);
-  }
+
 
   private void updatePoints(SingleGame game, Boolean isCorrect) {
     if (isCorrect) {

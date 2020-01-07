@@ -27,7 +27,7 @@ public final class Toast {
     text.setFill(Color.WHITE);
 
     StackPane root = new StackPane(text);
-    root.setStyle("-fx-background-color: black; -fx-padding: 20px;");
+    root.setStyle("-fx-background-color: green; -fx-padding: 20px;");
 
     root.setOpacity(0);
 
@@ -59,5 +59,9 @@ public final class Toast {
       }).start();
     });
     fadeInTimeline.play();
+  }
+
+  public static void toast(String s) {
+    Toast.makeText(GameApp.windowManager.getStage(), s, 2500, 500, 500);
   }
 }

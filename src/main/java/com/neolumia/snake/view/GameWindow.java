@@ -32,6 +32,11 @@ public final class GameWindow extends Window {
   @FXML private ImageView life1;
   @FXML private ImageView life2;
   @FXML private ImageView life3;
+  @FXML private ImageView life4;
+  @FXML private ImageView life5;
+  @FXML private ImageView life6;
+  @FXML private ImageView life7;
+  @FXML private ImageView life8;
   public static boolean isQuestion1 = false;
   public static boolean isQuestion2 = false;
   public static boolean isQuestion3 = false;
@@ -56,20 +61,86 @@ public final class GameWindow extends Window {
         life1.visibleProperty().setValue(true);
         life2.visibleProperty().setValue(false);
         life3.visibleProperty().setValue(false);
+        life4.visibleProperty().setValue(false);
+        life5.visibleProperty().setValue(false);
+        life6.visibleProperty().setValue(false);
+        life7.visibleProperty().setValue(false);
+        life8.visibleProperty().setValue(false);
         break;
       case 2:
         life1.visibleProperty().setValue(true);
         life2.visibleProperty().setValue(true);
         life3.visibleProperty().setValue(false);
+        life4.visibleProperty().setValue(false);
+        life5.visibleProperty().setValue(false);
+        life6.visibleProperty().setValue(false);
+        life7.visibleProperty().setValue(false);
+        life8.visibleProperty().setValue(false);
         break;
       case 3:
         life1.visibleProperty().setValue(true);
         life2.visibleProperty().setValue(true);
         life3.visibleProperty().setValue(true);
+        life4.visibleProperty().setValue(false);
+        life5.visibleProperty().setValue(false);
+        life6.visibleProperty().setValue(false);
+        life7.visibleProperty().setValue(false);
+        life8.visibleProperty().setValue(false);
+        break;
+      case 4:
+        life1.visibleProperty().setValue(true);
+        life2.visibleProperty().setValue(true);
+        life3.visibleProperty().setValue(true);
+        life4.visibleProperty().setValue(true);
+        life5.visibleProperty().setValue(false);
+        life6.visibleProperty().setValue(false);
+        life7.visibleProperty().setValue(false);
+        life8.visibleProperty().setValue(false);
+        break;
+      case 5:
+        life1.visibleProperty().setValue(true);
+        life2.visibleProperty().setValue(true);
+        life3.visibleProperty().setValue(true);
+        life4.visibleProperty().setValue(true);
+        life5.visibleProperty().setValue(true);
+        life6.visibleProperty().setValue(false);
+        life7.visibleProperty().setValue(false);
+        life8.visibleProperty().setValue(false);
+        break;
+      case 6:
+        life1.visibleProperty().setValue(true);
+        life2.visibleProperty().setValue(true);
+        life3.visibleProperty().setValue(true);
+        life4.visibleProperty().setValue(true);
+        life5.visibleProperty().setValue(true);
+        life6.visibleProperty().setValue(true);
+        life7.visibleProperty().setValue(false);
+        life8.visibleProperty().setValue(false);
+        break;
+      case 7:
+        life1.visibleProperty().setValue(true);
+        life2.visibleProperty().setValue(true);
+        life3.visibleProperty().setValue(true);
+        life4.visibleProperty().setValue(true);
+        life5.visibleProperty().setValue(true);
+        life6.visibleProperty().setValue(true);
+        life7.visibleProperty().setValue(true);
+        life8.visibleProperty().setValue(false);
+        break;
+      case 8:
+        life1.visibleProperty().setValue(true);
+        life2.visibleProperty().setValue(true);
+        life3.visibleProperty().setValue(true);
+        life4.visibleProperty().setValue(true);
+        life5.visibleProperty().setValue(true);
+        life6.visibleProperty().setValue(true);
+        life7.visibleProperty().setValue(true);
+        life8.visibleProperty().setValue(true);
         break;
     }
     points.setText(t("gameOver.points", game.getPoints()));
     highscore.setText(t("gameOver.highscore", app.getHighscore()));
+    if(app.getHighscore()==-1)highscore.setVisible(false);
     if (isQuestion1) game.setPaused(true);
     if (isQuestion2) game.setPaused(true);
     if (isQuestion3) game.setPaused(true);
