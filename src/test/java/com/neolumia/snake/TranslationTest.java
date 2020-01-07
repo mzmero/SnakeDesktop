@@ -25,7 +25,7 @@
 package com.neolumia.snake;
 
 import com.neolumia.snake.control.SysData;
-import com.neolumia.snake.model.game.GameHistory;
+import com.neolumia.snake.model.questions.History;
 import com.neolumia.snake.model.questions.Question;
 import com.neolumia.snake.model.questions.QuestionLevel;
 import com.neolumia.snake.view.GameWindow;
@@ -34,7 +34,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 import static org.junit.Assert.*;
@@ -86,12 +85,12 @@ public final class TranslationTest {
 
   @Test
   public void testReadhistoryfromjson(){
-    GameHistory g= new GameHistory("3",20,1); // preparing the gamehistory object
+    com.neolumia.snake.model.questions.History g= new History("3",20,1); // preparing the History object
     SysData.getInstance().getHistory().add(g);   // adding the object to data structure
     SysData.getInstance().writeHistoryTojson();  // write the new object to json
 
    boolean flag=false;
-   for(GameHistory h:SysData.getInstance().readHistoryFromJson()){ // searching for the object after reading the jsonfile
+   for(History h:SysData.getInstance().readHistoryFromJson()){ // searching for the object after reading the jsonfile
        if(h.equals(g)) flag=true;
    }
    assertTrue(flag);
