@@ -43,6 +43,11 @@
             <Insets left="35.0" />
           </padding>
         </Label>
+            <Label fx:id="time" layoutX="93.0" layoutY="18.0" prefHeight="17.0" prefWidth="37.0">
+               <padding>
+                  <Insets left="35.0" />
+               </padding>
+            </Label>
       </HBox>
     </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">

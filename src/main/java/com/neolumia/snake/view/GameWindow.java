@@ -29,6 +29,7 @@ public final class GameWindow extends Window {
   @FXML private Group group;
   @FXML private Label points;
   @FXML private Label highscore;
+  @FXML private Label time;
   @FXML private ImageView life1;
   @FXML private ImageView life2;
   @FXML private ImageView life3;
@@ -40,6 +41,7 @@ public final class GameWindow extends Window {
   public static boolean isQuestion1 = false;
   public static boolean isQuestion2 = false;
   public static boolean isQuestion3 = false;
+  Timeline timeline;
 
   public GameWindow(GameApp app, Game game) {
     this.app = app;
@@ -49,7 +51,7 @@ public final class GameWindow extends Window {
             + Integer.toHexString(app.getDesign().background.getColor().hashCode())
             + "");
     group.getChildren().add(game);
-    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> update()));
+    timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> update()));
     timeline.setCycleCount(Animation.INDEFINITE);
     timeline.play();
     update();
@@ -140,6 +142,8 @@ public final class GameWindow extends Window {
     }
     points.setText(t("gameOver.points", game.getPoints()));
     highscore.setText(t("gameOver.highscore", app.getHighscore()));
+//TODO : Get duration from start and update text view - (time) - Note that time is already defined and added to FXML
+//TODO : Handle Timer On Pause
     if(app.getHighscore()==-1)highscore.setVisible(false);
     if (isQuestion1) game.setPaused(true);
     if (isQuestion2) game.setPaused(true);
@@ -180,7 +184,6 @@ public final class GameWindow extends Window {
             }
           }
         });
-
     stage.setMinWidth(game.getTerrain().getWidth() + 32);
     stage.setMinHeight(game.getTerrain().getHeight() + 96);
     app.getWindowManager().center();
