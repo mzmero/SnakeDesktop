@@ -1,8 +1,8 @@
 package com.neolumia.snake.control;
 
-import com.neolumia.snake.model.questions.History;
-import com.neolumia.snake.model.questions.Question;
-import com.neolumia.snake.model.questions.QuestionLevel;
+import com.neolumia.snake.model.History;
+import com.neolumia.snake.model.Question;
+import com.neolumia.snake.model.QuestionLevel;
 import com.neolumia.snake.view.TableItem;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

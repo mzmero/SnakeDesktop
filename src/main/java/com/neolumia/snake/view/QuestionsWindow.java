@@ -8,8 +8,8 @@ import com.neolumia.snake.view.option.BgDesign;
 import com.neolumia.snake.view.design.Design;
 import com.neolumia.snake.view.option.SnakeDesign;
 import com.neolumia.snake.view.option.TerrainDesign;
-import com.neolumia.snake.model.questions.Question;
-import com.neolumia.snake.model.questions.QuestionLevel;
+import com.neolumia.snake.model.Question;
+import com.neolumia.snake.model.QuestionLevel;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

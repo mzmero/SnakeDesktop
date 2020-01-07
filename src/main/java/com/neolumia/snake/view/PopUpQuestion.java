@@ -1,10 +1,9 @@
 package com.neolumia.snake.view;
 
 import com.neolumia.snake.GameApp;
-import com.neolumia.snake.control.Game;
 import com.neolumia.snake.control.SingleGame;
-import com.neolumia.snake.model.questions.Question;
-import com.neolumia.snake.model.questions.QuestionLevel;
+import com.neolumia.snake.model.Question;
+import com.neolumia.snake.model.QuestionLevel;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.IntegerBinding;
@@ -16,7 +15,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
-import javafx.stage.Popup;
 
 public class PopUpQuestion extends Window {
 
@@ -39,7 +37,6 @@ public class PopUpQuestion extends Window {
   private final int maxNumSelected = 1;
 
   public PopUpQuestion(SingleGame game, Question q) {
-    System.out.println(q);
     question = q;
     checkBoxes[0] = checkBox1;
     checkBoxes[1] = checkBox2;

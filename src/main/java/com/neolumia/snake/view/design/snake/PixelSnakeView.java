@@ -2,15 +2,15 @@
 package com.neolumia.snake.view.design.snake;
 
 import com.neolumia.snake.control.Snake;
-import com.neolumia.snake.view.game.SnakePart;
-import com.neolumia.snake.view.game.Tile;
-import com.neolumia.snake.model.util.Direction;
+import com.neolumia.snake.view.game.SnakePartView;
+import com.neolumia.snake.model.Tile;
+import com.neolumia.snake.model.Direction;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 import javax.annotation.Nullable;
 
-public class PixelSnake extends SnakePart {
+public class PixelSnakeView extends SnakePartView {
 
 
   private static final int MARGIN = 6;
@@ -19,7 +19,7 @@ public class PixelSnake extends SnakePart {
   private final Rectangle snake = new Rectangle(0, 0, Color.BLACK);
   private final Rectangle connector = new Rectangle(0, 0, Color.BLACK);
 
-  public PixelSnake(Snake snake2, Tile tile, Direction direction, @Nullable Color color) {
+  public PixelSnakeView(Snake snake2, Tile tile, Direction direction, @Nullable Color color) {
     super(snake2, tile, direction, color == null ? Color.BLACK : color);
     getChildren().addAll(snake, connector);
   }

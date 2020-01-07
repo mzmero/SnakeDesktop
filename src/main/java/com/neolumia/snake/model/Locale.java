@@ -1,4 +1,4 @@
-package com.neolumia.snake.model.settings;
+package com.neolumia.snake.model;
 
 /** The language of the game */
 public enum Locale {

@@ -1,7 +1,7 @@
 package com.neolumia.snake.control;
 
 import com.neolumia.snake.GameApp;
-import com.neolumia.snake.view.game.SnakePart;
+import com.neolumia.snake.view.game.SnakePartView;
 import com.neolumia.snake.view.item.Mouse;
 import com.neolumia.snake.view.item.food.Apple;
 import com.neolumia.snake.view.item.food.Banana;
@@ -9,17 +9,20 @@ import com.neolumia.snake.view.item.food.Pear;
 import com.neolumia.snake.view.item.questions.Questionlvl1;
 import com.neolumia.snake.view.item.questions.Questionlvl2;
 import com.neolumia.snake.view.item.questions.Questionlvl3;
-import com.neolumia.snake.model.questions.Question;
-import com.neolumia.snake.model.questions.QuestionLevel;
-import com.neolumia.snake.model.util.Direction;
-import com.neolumia.snake.view.game.Tile;
+import com.neolumia.snake.model.Question;
+import com.neolumia.snake.model.QuestionLevel;
+import com.neolumia.snake.model.Direction;
+import com.neolumia.snake.model.Tile;
 import com.neolumia.snake.view.item.TileObject;
 import com.neolumia.snake.view.item.food.Food;
 import com.neolumia.snake.view.*;
 import com.neolumia.snake.view.item.questions.SEQuestion;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Popup;
@@ -51,7 +54,7 @@ public final class SingleSnake extends Snake<SingleGame> {
     Iterator iterator = getParts().iterator();
 
     while (iterator.hasNext()) {
-      SnakePart sp = (SnakePart) iterator.next();
+      SnakePartView sp = (SnakePartView) iterator.next();
       Tile tile = game.getTerrain().getTile(sp.getX(), sp.getY()).get();
       game.getTerrain().put(tile, null);
     }
@@ -168,6 +171,14 @@ public void playOnEvent(String fileName) {
               e.printStackTrace();
             }
             popup.show(game.app.getWindowManager().getStage());
+            popup.requestFocus();
+            popup.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+              @Override
+              public void handle(KeyEvent event) {
+                if (event.getCode()== KeyCode.ESCAPE){
+                }
+              }
+            });
           }
         });
   }

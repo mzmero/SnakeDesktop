@@ -2,7 +2,7 @@
 package com.neolumia.snake.view.option;
 
 import com.neolumia.snake.view.design.DesignOption;
-import com.neolumia.snake.model.util.Position;
+import com.neolumia.snake.model.Position;
 import javafx.scene.paint.Color;
 
 import java.util.Optional;

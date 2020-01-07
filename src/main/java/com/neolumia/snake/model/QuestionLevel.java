@@ -1,4 +1,4 @@
-package com.neolumia.snake.model.questions;
+package com.neolumia.snake.model;
 
 /**
  * This ENUM class represents the level of the game

@@ -1,4 +1,4 @@
-package com.neolumia.snake.model.util;
+package com.neolumia.snake.model;
 /** Directions : North, East, South, West - which represents the move that the user requested */
 public enum Direction {
   NORTH,

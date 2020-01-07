@@ -9,7 +9,6 @@ public abstract class TileObject extends Pane {
 
   /** x - x coordinate y - y coordinate size - the size of the size */
   private int x;
-
   private int y;
   private int size;
 

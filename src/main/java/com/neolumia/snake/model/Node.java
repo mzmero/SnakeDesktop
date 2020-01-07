@@ -1,7 +1,4 @@
-package com.neolumia.snake.model.solver;
-
-import com.neolumia.snake.model.util.Direction;
-import com.neolumia.snake.view.game.Tile;
+package com.neolumia.snake.model;
 
 import java.util.Objects;
 

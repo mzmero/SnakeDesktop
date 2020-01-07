@@ -2,6 +2,7 @@ package com.neolumia.snake.view.item;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
+import com.neolumia.snake.model.FoodModel;
 import com.neolumia.snake.view.option.GameType;
 import com.neolumia.snake.view.item.food.Apple;
 import com.neolumia.snake.view.item.food.Banana;
@@ -30,13 +31,20 @@ public abstract class Item extends TileObject {
   private final ItemType type;
   private final String name;
 
-  protected int x;
-  protected int y;
-  protected int size;
+  FoodModel foodModel;
 
   public Item(ItemType type, String name) {
     this.type = checkNotNull(type, "Item type cannot be null");
     this.name = checkNotNull(name, "Name cannot be null");
+    foodModel=new FoodModel();
+  }
+
+  public static Random getRandom() {
+    return random;
+  }
+
+  public FoodModel getFoodModel() {
+    return foodModel;
   }
 
   public static void register(Arguments args, Supplier<Item> item) {
@@ -75,27 +83,27 @@ public abstract class Item extends TileObject {
   }
 
   public int getX() {
-    return x;
+    return foodModel.getX();
   }
 
   public void setX(int x) {
-    this.x = x;
+    foodModel.setX(x);
   }
 
   public int getY() {
-    return y;
+    return foodModel.getY();
   }
 
   public void setY(int y) {
-    this.y = y;
+    foodModel.setY(y);
   }
 
   public int getSize() {
-    return size;
+    return foodModel.getSize();
   }
 
   public void setSize(int size) {
-    this.size = size;
+    foodModel.setSize(size);
   }
 
   public final ItemType getType() {

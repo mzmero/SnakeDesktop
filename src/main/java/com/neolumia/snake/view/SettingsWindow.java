@@ -1,10 +1,10 @@
 package com.neolumia.snake.view;
 
 import com.neolumia.snake.GameApp;
-import com.neolumia.snake.model.settings.Difficulty;
-import com.neolumia.snake.model.settings.Locale;
-import com.neolumia.snake.model.settings.Settings;
-import com.neolumia.snake.model.settings.Size;
+import com.neolumia.snake.model.Difficulty;
+import com.neolumia.snake.model.Locale;
+import com.neolumia.snake.model.Settings;
+import com.neolumia.snake.model.Size;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;

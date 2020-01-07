@@ -1,7 +1,6 @@
-package com.neolumia.snake.view.game;
+package com.neolumia.snake.model;
 
 import com.neolumia.snake.control.Game;
-import com.neolumia.snake.model.util.Direction;
 import javafx.scene.shape.Rectangle;
 
 import java.util.Optional;
@@ -16,7 +15,7 @@ public final class Tile extends Rectangle {
 
   private final int y;
 
-  Tile(int x, int y, int size) {
+  public Tile(int x, int y, int size) {
     super(x * size, y * size, size, size);
     this.x = x;
     this.y = y;

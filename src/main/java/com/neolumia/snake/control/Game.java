@@ -2,10 +2,10 @@ package com.neolumia.snake.control;
 
 import com.neolumia.snake.GameApp;
 import com.neolumia.snake.Stats;
-import com.neolumia.snake.model.questions.History;
+import com.neolumia.snake.model.History;
 import com.neolumia.snake.view.option.GameType;
-import com.neolumia.snake.view.game.Terrain;
-import com.neolumia.snake.model.settings.Settings;
+import com.neolumia.snake.view.game.TerrainView;
+import com.neolumia.snake.model.Settings;
 import com.neolumia.snake.view.DeadWindow;
 import javafx.application.Platform;
 import javafx.scene.layout.Pane;
@@ -27,7 +27,7 @@ public abstract class Game extends Pane {
 
   protected final GameApp app;
   protected final GameType type;
-  protected final Terrain terrain;
+  protected final TerrainView terrain;
   static String playerName;
 
   private boolean running;
@@ -42,7 +42,7 @@ public abstract class Game extends Pane {
     this.type = type;
     this.lives = 3;
     playerName = app.getSettings().playerName;
-    terrain = new Terrain(this, app.getWindowManager().getStage().isMaximized() ? 43 : 32);
+    terrain = new TerrainView(this, app.getWindowManager().getStage().isMaximized() ? 43 : 32);
     terrain.init();
     app.getWindowManager()
         .getStage()
@@ -58,7 +58,7 @@ public abstract class Game extends Pane {
     return type;
   }
 
-  public Terrain getTerrain() {
+  public TerrainView getTerrain() {
     return terrain;
   }
 

@@ -21,7 +21,9 @@ public abstract class AbstractQuestion  extends SEQuestion  {
     super.setSize(size);
     view.setFitHeight(size);
     view.setFitWidth(size);
-    view.setX(x * size);
-    view.setY(y * size);
+
+
+    view.setX(getFoodModel().getX() * size);
+    view.setY(getFoodModel().getY() * size);
   }
 }

@@ -1,4 +1,4 @@
-package com.neolumia.snake.model.settings;
+package com.neolumia.snake.model;
 
 /** This class is for defining the settings like difficulty, size, player name and more */
 public final class Settings {

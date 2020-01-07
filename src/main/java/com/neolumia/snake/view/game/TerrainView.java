@@ -1,41 +1,40 @@
 package com.neolumia.snake.view.game;
 
 import com.neolumia.snake.control.Game;
+import com.neolumia.snake.model.Terrain;
+import com.neolumia.snake.model.Tile;
 import com.neolumia.snake.view.item.TileObject;
 import javafx.application.Platform;
 import javafx.scene.layout.*;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
 /** This class represents board matrix */
-public final class Terrain extends Pane {
+public final class TerrainView extends Pane {
 
   private final Game game;
-  private final int width;
-  private final int height;
-  private final Tile[][] tiles;
-  private final Map<Tile, TileObject> objects = new HashMap<>();
 
+  Terrain terrain;
   private int size;
 
-  public Terrain(Game game, int size) {
+  public TerrainView(Game game, int size) {
     this.game = game;
-    this.width = game.getSettings().size.getWidth();
-    this.height = game.getSettings().size.getHeight();
-    this.tiles = new Tile[width][height];
+    int width = game.getSettings().size.getWidth();
+    int height = game.getSettings().size.getHeight();
+    this.terrain = new Terrain(width, height);
     this.size = size;
     game.getChildren().add(this);
   }
 
   public void init() {
+    int width = terrain.getWidth();
+    int height = terrain.getHeight();
     for (int x = 0; x < width; x++) {
       for (int y = 0; y < height; y++) {
-        tiles[x][y] = new Tile(x, y, size);
-        getChildren().add(tiles[x][y]);
+        terrain.getTiles()[x][y] = new Tile(x, y, size);
+        getChildren().add(terrain.getTiles()[x][y]);
       }
     }
     setWidth(size * width);
@@ -44,7 +43,7 @@ public final class Terrain extends Pane {
 
   public Optional<Tile> getTile(int x, int y) {
     try {
-      return Optional.ofNullable(tiles[x][y]);
+      return Optional.ofNullable(terrain.getTiles()[x][y]);
     } catch (IndexOutOfBoundsException ex) {
       return Optional.empty();
     }
@@ -52,13 +51,13 @@ public final class Terrain extends Pane {
 
   public void setSize(int size) {
     this.size = size;
-    Arrays.stream(tiles).flatMap(Arrays::stream).forEach(t -> t.setSize(size));
-    objects.values().stream().filter(Objects::nonNull).forEach(o -> o.setSize(size));
+    Arrays.stream(terrain.getTiles()).flatMap(Arrays::stream).forEach(t -> t.setSize(size));
+    terrain.getObjects().values().stream().filter(Objects::nonNull).forEach(o -> o.setSize(size));
   }
 
   public void put(Tile tile, TileObject pane) {
 
-    final Pane old = objects.put(tile, pane);
+    final Pane old = terrain.getObjects().put(tile, pane);
 
     Platform.runLater(
         () -> {
@@ -79,14 +78,14 @@ public final class Terrain extends Pane {
   }
 
   public Optional<TileObject> get(Tile tile) {
-    return Optional.ofNullable(objects.get(tile));
+    return Optional.ofNullable(terrain.getObjects().get(tile));
   }
 
   public int getTileWidth() {
-    return width;
+    return terrain.getWidth();
   }
 
   public int getTileHeight() {
-    return height;
+    return terrain.getHeight();
   }
 }

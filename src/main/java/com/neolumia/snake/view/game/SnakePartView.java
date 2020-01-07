@@ -2,41 +2,40 @@ package com.neolumia.snake.view.game;
 
 import com.google.common.base.MoreObjects.ToStringHelper;
 import com.neolumia.snake.control.Snake;
-import com.neolumia.snake.model.util.Direction;
+import com.neolumia.snake.model.Direction;
+import com.neolumia.snake.model.SnakePart;
+import com.neolumia.snake.model.Tile;
 import com.neolumia.snake.view.item.TileObject;
 import javafx.scene.paint.Color;
 
-public abstract class SnakePart extends TileObject {
+public abstract class SnakePartView extends TileObject {
 
   private Snake snake;
-  private SnakePart parent;
-
-  private final Tile tile;
-  private final Direction direction;
+  private SnakePartView parent;
+  private SnakePart snakePart;
   private final Color color;
 
-  public SnakePart(Snake snake, Tile tile, Direction direction, Color color) {
+  public SnakePartView(Snake snake, Tile tile, Direction direction, Color color) {
     this.snake = snake;
-    this.tile = tile;
-    this.direction = direction;
+    snakePart= new SnakePart(tile,direction);
     this.color = color;
   }
 
   public abstract void update();
 
   public Tile getTile() {
-    return tile;
+    return snakePart.getTile();
   }
 
   public Direction getDirection() {
-    return direction;
+    return snakePart.getDirection();
   }
 
   public Color getColor() {
     return color;
   }
 
-  protected SnakePart getP() {
+  protected SnakePartView getP() {
     return parent;
   }
 
@@ -48,13 +47,13 @@ public abstract class SnakePart extends TileObject {
     return snake.getParts().getLast().equals(this);
   }
 
-  public void setP(SnakePart parent) {
+  public void setP(SnakePartView parent) {
     this.parent = parent;
   }
 
   @Override
   protected ToStringHelper toStringHelper() {
-    return super.toStringHelper().add("tile", tile).add("direction", direction).add("color", color);
+    return super.toStringHelper().add("tile", snakePart.getTile()).add("direction", snakePart.getDirection()).add("color", color);
   }
 
   @Override

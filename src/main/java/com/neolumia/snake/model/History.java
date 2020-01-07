@@ -1,4 +1,4 @@
-package com.neolumia.snake.model.questions;
+package com.neolumia.snake.model;
 
 /**
  * This Class Represents a single game as a history

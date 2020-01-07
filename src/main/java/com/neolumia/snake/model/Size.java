@@ -1,4 +1,4 @@
-package com.neolumia.snake.model.settings;
+package com.neolumia.snake.model;
 
 public enum Size {
 

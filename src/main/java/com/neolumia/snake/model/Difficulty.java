@@ -1,4 +1,4 @@
-package com.neolumia.snake.model.settings;
+package com.neolumia.snake.model;
 
 /** Represents the difficulty of the game : EASY, MEDIUM, HARD */
 public enum Difficulty {

@@ -1,4 +1,4 @@
-package com.neolumia.snake.model.util;
+package com.neolumia.snake.model;
 
 /** Represents the coordinates of an item in game by two coordinates */
 public final class Position {

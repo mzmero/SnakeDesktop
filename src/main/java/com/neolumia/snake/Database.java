@@ -6,11 +6,11 @@ import com.neolumia.snake.view.option.BgDesign;
 import com.neolumia.snake.view.option.SnakeDesign;
 import com.neolumia.snake.view.option.TerrainDesign;
 import com.neolumia.snake.control.Game;
-import com.neolumia.snake.model.settings.Difficulty;
-import com.neolumia.snake.model.settings.Locale;
-import com.neolumia.snake.model.settings.Settings;
-import com.neolumia.snake.model.settings.Size;
-import com.neolumia.snake.model.util.Q;
+import com.neolumia.snake.model.Difficulty;
+import com.neolumia.snake.model.Locale;
+import com.neolumia.snake.model.Settings;
+import com.neolumia.snake.model.Size;
+import com.neolumia.snake.model.Q;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 

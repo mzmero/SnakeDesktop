@@ -1,5 +1,5 @@
 
-package com.neolumia.snake.model.util;
+package com.neolumia.snake.model;
 
 public final class Q {
   public static final String PLAYER_TABLE = "CREATE TABLE IF NOT EXISTS players (id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, name  VARCHAR(30)UNIQUE NOT NULL );";

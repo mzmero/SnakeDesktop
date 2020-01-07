@@ -2,9 +2,9 @@
 package com.neolumia.snake.view.design.snake;
 
 import com.neolumia.snake.control.Snake;
-import com.neolumia.snake.view.game.SnakePart;
-import com.neolumia.snake.view.game.Tile;
-import com.neolumia.snake.model.util.Direction;
+import com.neolumia.snake.view.game.SnakePartView;
+import com.neolumia.snake.model.Tile;
+import com.neolumia.snake.model.Direction;
 import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
@@ -15,7 +15,7 @@ import javafx.scene.shape.Rectangle;
 
 import javax.annotation.Nullable;
 
-public class FredSnake extends SnakePart {
+public class FredSnakeView extends SnakePartView {
   /**
    * FredSnake is the default snake in the game
    */
@@ -38,7 +38,7 @@ public class FredSnake extends SnakePart {
    * @param direction
    * @param color
    */
-  public FredSnake(Snake snake, Tile tile, Direction direction, @Nullable Color color) {
+  public FredSnakeView(Snake snake, Tile tile, Direction direction, @Nullable Color color) {
     super(snake, tile, direction, color == null ? Color.WHITE : color);
   }
 
