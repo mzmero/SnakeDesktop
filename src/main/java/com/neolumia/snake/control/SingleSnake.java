@@ -89,7 +89,7 @@ public final class SingleSnake extends Snake<SingleGame> {
       playOnEvent("Food.mp3");
       LOGGER.info(" {} eaten at  x={}, y={}", "Banana", tile.getTileX(), tile.getTileY());
       game.setPoints(game.getPoints() + 15);
-      game.spawnBanana();
+      game.spawnBanana(10000);
     }
     if (object instanceof Pear) {
       playOnEvent("Food.mp3");
@@ -142,7 +142,11 @@ public final class SingleSnake extends Snake<SingleGame> {
       game.setPoints(game.getPoints() + 30 );
       lives++;
       game.setLives(lives);
-      game.spawnMouse();
+      game.mouseObj=null;
+      game.mouse_tile=null;
+      game.mouseDirection=null;
+      game.counter=0;
+      game.spawnMouse(60000);
     }
   }
 

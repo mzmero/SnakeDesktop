@@ -29,11 +29,11 @@ public final class SingleGame extends Game {
   private final SingleSnake snake = new SingleSnake(this);
   private HashMap<Tile,Boolean> food = new HashMap<>() ;
   private Tile question;
-  private Tile mouse_tile;
-  private Mouse mouseObj;
-  private Direction mouseDirection;
+  public Tile mouse_tile;
+  public Mouse mouseObj;
+  public Direction mouseDirection;
   private ArrayList<Question> questions;
-  static private int counter=0;
+  static public int counter=0;
   private ActiveTimer bananaTimer = new ActiveTimer(10000);
   public static ActiveTimer appleTimer = new ActiveTimer(5000);
   private ActiveTimer mouseTimer = new ActiveTimer(60000);
@@ -53,16 +53,37 @@ public final class SingleGame extends Game {
         appleTimer.stop();
 
       }
+      if(bananaTimer.isActive()) {
+      bananaTimer.stop();
+
+    }
+      if(mouseTimer.isActive()) {
+      mouseTimer.stop();
+
+    }
+
 
     }
     if(paused == false) {//resume game{
       //resume active timer;
-      System.out.print("here");
+
       if(appleTimer.isActive()) {
         long timeRemain = appleTimer.getRemainingTime();
         LOGGER.info("ini new timer with  {}", timeRemain);
         appleTimer = new ActiveTimer(5000);
         spawnApple(timeRemain);
+      }
+      if(bananaTimer.isActive()) {
+        long timeRemain = bananaTimer.getRemainingTime();
+        LOGGER.info("ini new timer with  {}", timeRemain);
+        bananaTimer = new ActiveTimer(60000);
+        spawnBanana(timeRemain);
+      }
+      if(mouseTimer.isActive()) {
+        long timeRemain = mouseTimer.getRemainingTime();
+        LOGGER.info("ini new timer with  {}", timeRemain);
+        mouseTimer = new ActiveTimer(60000);
+        spawnMouse(timeRemain);
       }
     }
     return this.paused = paused;
@@ -358,7 +379,7 @@ public final class SingleGame extends Game {
 	          Tile tile = getTile();
             food.put(tile,true);
 	          getTerrain().put(tile, new Apple());
-	          LOGGER.info("Item spawned x={}, y={}", tile.getTileX(), tile.getTileY());
+	          LOGGER.info("apple spawned x={}, y={}", tile.getTileX(), tile.getTileY());
 	          // close the thread
             appleTimer.setActive(false);
 	          appleTimer.cancel();
@@ -367,7 +388,9 @@ public final class SingleGame extends Game {
          remainingTime);
   }
 
-  public void spawnBanana() {
+  public void spawnBanana(long remainingTime) {
+
+    bananaTimer.start();
     bananaTimer.setActive(true);
     bananaTimer.schedule(
       new java.util.TimerTask() {
@@ -378,10 +401,11 @@ public final class SingleGame extends Game {
           getTerrain().put(tile, new Banana());
           LOGGER.info("Banana spawned x={}, y={}", tile.getTileX(), tile.getTileY());
           // close the thread
+          bananaTimer.setActive(false);
           bananaTimer.cancel();
         }
       },
-      10000);
+      remainingTime);
   }
 
   /**
@@ -449,14 +473,9 @@ public final class SingleGame extends Game {
     LOGGER.info("Question spawned x={}, y={}", tileQuestion.getTileX(), tileQuestion.getTileY());
   }
 
-  public void spawnMouse() {
-    Timer t =  new Timer();
-    mouseObj=null;
-    mouse_tile=null;
-    mouseDirection=null;
-    counter=0;
+  public void spawnMouse(long remainTime) {
 
-    t.schedule(
+    mouseTimer.schedule(
       new java.util.TimerTask() {
         @Override
         public void run() {
@@ -466,10 +485,11 @@ public final class SingleGame extends Game {
           food.put(tile,true);
           LOGGER.info("mouse spawned x={}, y={}", tile.getTileX(), tile.getTileY());
           // close the thread
-          t.cancel();
+          mouseTimer.setActive(false);
+          mouseTimer.cancel();
         }
       },
-      60000);
+      remainTime);
 
   }
 
