@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 public class PopUpQuestion extends Window {
@@ -74,19 +75,19 @@ public class PopUpQuestion extends Window {
                   public void handle(MouseEvent event) {
                     if (selectedCheckBoxes.size() != 0) {
                       if (Integer.parseInt(question.getCorrectAns()) == (selectedCheckBox)) {
-                        Toast.toast("Correct Answer :)");
+                        Toast.toast("Correct Answer :)", Color.GREEN);
                         submitButton.setDisable(true);
                         updatePoints(game, true);
                         submitButton.getScene().getWindow().hide();
                         GameWindow.setQuestions(game);
                       } else {
-                        Toast.toast("Wrong Answer :(");
+                        Toast.toast("Wrong Answer :(", Color.RED);
                         submitButton.setDisable(true);
                         updatePoints(game, false);
                         submitButton.getScene().getWindow().hide();
                         GameWindow.setQuestions(game);
                       }
-                    } else Toast.toast("Please Choose Answer");
+                    } else Toast.toast("Please Choose Answer", Color.RED);
                   }
                 });
           }

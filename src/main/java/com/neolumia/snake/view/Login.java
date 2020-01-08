@@ -16,6 +16,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -51,19 +52,19 @@ public class Login extends Window {
   public void login(MouseEvent mouseEvent) throws SQLException {
     if (isNew) {
       if (password.getText().length() < 6 || password.getText().length() > 12)
-        Toast.toast("Invalid Password Length, Length must be 6-12 chars");
+        Toast.toast("Invalid Password Length, Length must be 6-12 chars", Color.RED);
       else {
-        Toast.toast("Registered Successfully " + playerName.getText());
+        Toast.toast("Registered Successfully " + playerName.getText(),Color.GREEN);
         isValidPassword = true;
       }
 
     } else {
       if (password.getText().equals("a")) // TODO : Check PW from DB
       {
-        Toast.toast("Logged In Successfully " + playerName.getText());
+        Toast.toast("Logged In Successfully " + playerName.getText(), Color.GREEN);
         isValidPassword = true;
       } else {
-        Toast.toast("Invalid Password ! Please Try Again");
+        Toast.toast("Invalid Password ! Please Try Again", Color.RED);
         isValidPassword = false;
       }
     }
