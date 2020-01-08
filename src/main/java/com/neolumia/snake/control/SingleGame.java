@@ -43,6 +43,10 @@ public final class SingleGame extends Game {
     questions = new ArrayList<>();
   }
 
+  /**
+   * @param true =  paused , false = resumed
+   * @return
+   */
   @Override
   public boolean setPaused(boolean paused) {
     LOGGER.info("game setPaused {}", paused);
@@ -64,7 +68,8 @@ public final class SingleGame extends Game {
 
 
     }
-    if(paused == false) {//resume game{
+    if(paused == false) {
+      //resume game
       //resume active timer;
 
       if(appleTimer.isActive()) {

@@ -1,6 +1,7 @@
 package com.neolumia.snake.view;
 
 import com.neolumia.snake.GameApp;
+import com.neolumia.snake.control.Game;
 import com.neolumia.snake.control.SingleGame;
 import com.neolumia.snake.model.Question;
 import com.neolumia.snake.model.QuestionLevel;
@@ -36,7 +37,7 @@ public class PopUpQuestion extends Window {
   private ObservableSet<CheckBox> unselectedCheckBoxes = FXCollections.observableSet();
   private IntegerBinding numCheckBoxesSelected = Bindings.size(selectedCheckBoxes);
   private final int maxNumSelected = 1;
-
+   private Game game;
   public PopUpQuestion(SingleGame game, Question q) {
     question = q;
     checkBoxes[0] = checkBox1;
@@ -44,7 +45,7 @@ public class PopUpQuestion extends Window {
     checkBoxes[2] = checkBox3;
     checkBoxes[3] = checkBox4;
     submitButton.setDisable(true);
-
+    this.game = game;
     Platform.runLater(
         new Runnable() {
           @Override
@@ -79,13 +80,13 @@ public class PopUpQuestion extends Window {
                         submitButton.setDisable(true);
                         updatePoints(game, true);
                         submitButton.getScene().getWindow().hide();
-                        GameWindow.setQuestions(game);
+                        game.setPaused(false);
                       } else {
                         Toast.toast("Wrong Answer :(", Color.RED);
                         submitButton.setDisable(true);
                         updatePoints(game, false);
                         submitButton.getScene().getWindow().hide();
-                        GameWindow.setQuestions(game);
+                        game.setPaused(false);
                       }
                     } else Toast.toast("Please Choose Answer", Color.RED);
                   }

@@ -117,7 +117,7 @@ public final class SingleSnake extends Snake<SingleGame> {
     if (object instanceof Questionlvl1) {
       playOnEvent("Tome.mp3");
       game.setPaused(true);
-      GameWindow.isQuestion1 = true;
+      //GameWindow.isQuestion1 = true;
       popQuestion(QuestionLevel.ONE);
       game.getTerrain().put(tile, null);
       game.spawnQuestion(QuestionLevel.ONE);
@@ -125,7 +125,7 @@ public final class SingleSnake extends Snake<SingleGame> {
     if (object instanceof Questionlvl2) {
       playOnEvent("Tome.mp3");
       game.setPaused(true);
-      GameWindow.isQuestion2 = true;
+     // GameWindow.isQuestion2 = true;
       popQuestion(QuestionLevel.TWO);
       game.getTerrain().put(tile, null);
       game.spawnQuestion(QuestionLevel.TWO);
@@ -134,7 +134,7 @@ public final class SingleSnake extends Snake<SingleGame> {
     if (object instanceof Questionlvl3) {
       playOnEvent("Tome.mp3");
       game.setPaused(true);
-      GameWindow.isQuestion3 = true;
+     //GameWindow.isQuestion3 = true;
       popQuestion(QuestionLevel.THREE);
       game.getTerrain().put(tile, null);
       game.spawnQuestion(QuestionLevel.THREE);
