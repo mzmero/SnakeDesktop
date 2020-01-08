@@ -1,5 +1,6 @@
 package com.neolumia.snake.control;
 
+import com.neolumia.snake.GameApp;
 import com.neolumia.snake.model.History;
 import com.neolumia.snake.model.Question;
 import com.neolumia.snake.model.QuestionLevel;
@@ -15,6 +16,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -45,15 +47,18 @@ public class SysData {
     return history;
   }
 
-  public ArrayList<TableItem> getHistoryTableItems() {
+  public ArrayList<TableItem> getHistoryTableItems(GameApp app) throws SQLException {
     ArrayList<TableItem> tableItems = new ArrayList<>();
     for (History history : this.history) {
-      TableItem tableItem =
-          new TableItem(
-              history.getPlayer(),
-              Integer.toString(history.getPoints()),
-              Integer.toString(history.getLives()));
-      tableItems.add(tableItem);
+     if (app.getDatabase().getPlayerSettings(history.getPlayer()).leaderboard==true){
+       TableItem tableItem =
+         new TableItem(
+           history.getPlayer(),
+           Integer.toString(history.getPoints()),
+           Integer.toString(history.getLives()));
+       tableItems.add(tableItem);
+     }
+
     }
     return tableItems;
   }

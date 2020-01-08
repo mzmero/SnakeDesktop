@@ -51,7 +51,7 @@ public final class MenuWindow extends Window {
   }
 
   @FXML
-  public void statistics() {
+  public void statistics() throws SQLException {
     app.getWindowManager().request(new StatisticsWindow(app));
   }
 
