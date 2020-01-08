@@ -1,11 +1,14 @@
 package com.neolumia.snake.view.game;
 
 import com.neolumia.snake.control.Game;
+import com.neolumia.snake.model.Position;
 import com.neolumia.snake.model.Terrain;
 import com.neolumia.snake.model.Tile;
 import com.neolumia.snake.view.item.TileObject;
 import javafx.application.Platform;
+import javafx.geometry.Insets;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -33,7 +36,7 @@ public final class TerrainView extends Pane {
     int height = terrain.getHeight();
     for (int x = 0; x < width; x++) {
       for (int y = 0; y < height; y++) {
-        terrain.getTiles()[x][y] = new Tile(x, y, size);
+        terrain.getTiles()[x][y] = new Tile(x, y,size, game.getApp().getDesign().terrain.getColor().apply(Position.of(x, y)));
         getChildren().add(terrain.getTiles()[x][y]);
       }
     }

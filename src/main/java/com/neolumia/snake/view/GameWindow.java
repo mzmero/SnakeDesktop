@@ -6,13 +6,14 @@ import com.neolumia.snake.control.Game;
 import com.neolumia.snake.control.SingleGame;
 import javafx.animation.*;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -46,10 +47,11 @@ public final class GameWindow extends Window {
   public GameWindow(GameApp app, Game game) {
     this.app = app;
     this.game = game;
-    root.setStyle(
-        "-fx-background-color: #"
-            + Integer.toHexString(app.getDesign().background.getColor().hashCode())
-            + "");
+//    root.setStyle(
+//        "-fx-background-color: #"
+//            + Integer.toHexString(app.getDesign().background.getColor().hashCode())
+//            + "");
+    root.setStyle("-fx-background-color: white");
     group.getChildren().add(game);
     timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> update()));
     timeline.setCycleCount(Animation.INDEFINITE);
@@ -142,9 +144,10 @@ public final class GameWindow extends Window {
     }
     points.setText(t("gameOver.points", game.getPoints()));
     highscore.setText(t("gameOver.highscore", app.getHighscore()));
-//TODO : Get duration from start and update text view - (time) - Note that time is already defined and added to FXML
-//TODO : Handle Timer On Pause
-    if(app.getHighscore()==-1)highscore.setVisible(false);
+    // TODO : Get duration from start and update text view - (time) - Note that time is already
+    // defined and added to FXML
+    // TODO : Handle Timer On Pause
+    if (app.getHighscore() == -1) highscore.setVisible(false);
     if (isQuestion1) game.setPaused(true);
     if (isQuestion2) game.setPaused(true);
     if (isQuestion3) game.setPaused(true);

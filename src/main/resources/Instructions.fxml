@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="520.0" prefWidth="1000.0" style="-fx-background-color: #FFB000;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox>
+      <VBox alignment="CENTER" prefHeight="519.0" prefWidth="1002.0">
          <children>
             <VBox alignment="CENTER">
                <children>
@@ -21,7 +21,12 @@
                   </Label>
                </children>
             </VBox>
-            <HBox>
+            <Button mnemonicParsing="false" onMouseClicked="#enterGame" prefHeight="40.0" prefWidth="265.0" style="-fx-background-color: #9AD880; -fx-background-radius: 30;" text="play">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <HBox alignment="CENTER">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
@@ -78,7 +83,7 @@
                         </Label>
                      </children>
                   </VBox>
-                  <VBox alignment="TOP_RIGHT">
+                  <VBox alignment="CENTER">
                      <children>
                         <Label minHeight="60.0" minWidth="60.0" prefHeight="60.0" prefWidth="60.0" text="↑" textFill="WHITE">
                            <font>
@@ -100,7 +105,7 @@
                               <Font size="50.0" />
                            </font>
                         </Label>
-                        <Label prefHeight="60.0" prefWidth="78.0" text="P" textAlignment="CENTER" textFill="WHITE">
+                        <Label prefHeight="64.0" prefWidth="51.0" text="P" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font size="23.0" />
                            </font>
@@ -108,7 +113,7 @@
                               <Insets bottom="30.0" />
                            </padding>
                         </Label>
-                        <Label prefHeight="60.0" prefWidth="85.0" text="ECS" textFill="WHITE">
+                        <Label prefHeight="64.0" prefWidth="90.0" text="ECS" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font size="23.0" />
                            </font>
@@ -116,7 +121,6 @@
                               <Insets bottom="30.0" />
                            </padding>
                         </Label>
-                        <Button mnemonicParsing="false" onMouseClicked="#enterGame" prefHeight="25.0" prefWidth="121.0" text="play" />
                      </children>
                   </VBox>
                </children>

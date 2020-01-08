@@ -43,12 +43,7 @@ public final class QuestionsWindow extends Window {
 
   @FXML
   private GridPane grid;
-  @FXML
-  private ToggleButton terrain;
-  @FXML
-  private ToggleButton snake;
-  @FXML
-  private ToggleButton background;
+
 
   @FXML
   private ImageView before;
@@ -108,9 +103,7 @@ public final class QuestionsWindow extends Window {
     this.app = app;
     //TODO:Update view and remove custom settings
 
-    terrain.setToggleGroup(menu);
-    snake.setToggleGroup(menu);
-    background.setToggleGroup(menu);
+
 
 //    menu.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
 //      if (newValue.equals(terrain)) {
@@ -135,7 +128,7 @@ public final class QuestionsWindow extends Window {
     this.snakeDesign = app.getDesign().snake;
     this.bgDesign = app.getDesign().background;
 
-    menu.selectToggle(terrain);
+
     initCB();
   }
 
