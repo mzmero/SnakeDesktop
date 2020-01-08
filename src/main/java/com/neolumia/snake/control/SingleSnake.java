@@ -82,18 +82,22 @@ public final class SingleSnake extends Snake<SingleGame> {
 
       LOGGER.info(" {} eaten at  x={}, y={}", "Apple", tile.getTileX(), tile.getTileY());
       game.appleTimer = new SingleGame.ActiveTimer(5000);
+      game.appleTimer.start();
       game.spawnApple(5000);
       game.setPoints(game.getPoints() + 10);
     }
     if (object instanceof Banana) {
       playOnEvent("Food.mp3");
       LOGGER.info(" {} eaten at  x={}, y={}", "Banana", tile.getTileX(), tile.getTileY());
+      game.bananaTimer = new SingleGame.ActiveTimer(10000);
       game.setPoints(game.getPoints() + 15);
+      game.bananaTimer.start();
       game.spawnBanana(10000);
     }
     if (object instanceof Pear) {
       playOnEvent("Food.mp3");
       LOGGER.info(" {} eaten at  x={}, y={}", "Pear", tile.getTileX(), tile.getTileY());
+      game.mouseTimer = new SingleGame.ActiveTimer(60000);
       game.setPoints(game.getPoints() + 20);
 
       int x = tile.getTileX();
@@ -146,6 +150,7 @@ public final class SingleSnake extends Snake<SingleGame> {
       game.mouse_tile=null;
       game.mouseDirection=null;
       game.counter=0;
+      game.mouseTimer.start();
       game.spawnMouse(60000);
     }
   }

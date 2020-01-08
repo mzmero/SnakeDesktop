@@ -34,9 +34,9 @@ public final class SingleGame extends Game {
   public Direction mouseDirection;
   private ArrayList<Question> questions;
   static public int counter=0;
-  private ActiveTimer bananaTimer = new ActiveTimer(10000);
+  public static ActiveTimer bananaTimer = new ActiveTimer(10000);
   public static ActiveTimer appleTimer = new ActiveTimer(5000);
-  private ActiveTimer mouseTimer = new ActiveTimer(60000);
+  public static ActiveTimer mouseTimer = new ActiveTimer(60000);
 
   public SingleGame(GameApp app, GameType type) {
     super(app, type);
@@ -70,19 +70,22 @@ public final class SingleGame extends Game {
       if(appleTimer.isActive()) {
         long timeRemain = appleTimer.getRemainingTime();
         LOGGER.info("ini new timer with  {}", timeRemain);
-        appleTimer = new ActiveTimer(5000);
+        appleTimer = new ActiveTimer(timeRemain);
+        appleTimer.start();
         spawnApple(timeRemain);
       }
       if(bananaTimer.isActive()) {
         long timeRemain = bananaTimer.getRemainingTime();
         LOGGER.info("ini new timer with  {}", timeRemain);
-        bananaTimer = new ActiveTimer(60000);
+        bananaTimer = new ActiveTimer(timeRemain);
+        bananaTimer.start();
         spawnBanana(timeRemain);
       }
       if(mouseTimer.isActive()) {
         long timeRemain = mouseTimer.getRemainingTime();
         LOGGER.info("ini new timer with  {}", timeRemain);
-        mouseTimer = new ActiveTimer(60000);
+        mouseTimer = new ActiveTimer(timeRemain);
+        mouseTimer.start();
         spawnMouse(timeRemain);
       }
     }
@@ -368,7 +371,7 @@ public final class SingleGame extends Game {
   }
 
   public void spawnApple(long remainingTime) {
-    appleTimer.start();
+
     appleTimer.setActive(true);
  appleTimer.schedule(
 
@@ -390,7 +393,7 @@ public final class SingleGame extends Game {
 
   public void spawnBanana(long remainingTime) {
 
-    bananaTimer.start();
+
     bananaTimer.setActive(true);
     bananaTimer.schedule(
       new java.util.TimerTask() {
@@ -474,7 +477,7 @@ public final class SingleGame extends Game {
   }
 
   public void spawnMouse(long remainTime) {
-
+    mouseTimer.setActive(true);
     mouseTimer.schedule(
       new java.util.TimerTask() {
         @Override
@@ -508,7 +511,12 @@ public final class SingleGame extends Game {
     return Math.sqrt(b.getTileY() - a.getTileY()) * (((b.getTileY() - a.getTileY()) + ((b.getTileX() - a.getTileX()) * b.getTileX())) - a.getTileX());
 
   }
-
+    /**
+     * This class is implemented to allow a timer
+     * to be stopped and resume remaining timer when ever game is paused
+     * or when even a wild question appear
+     *
+     * */
   static class ActiveTimer extends Timer{
 
     private boolean isActive;
@@ -538,12 +546,18 @@ public final class SingleGame extends Game {
 
     public void start() {
       startTime = System.currentTimeMillis();
+      LOGGER.info("Timer Started at {}",startTime );
+      setActive(true);
+
     }
 
     public void stop() {
 
       this.remainTime = (timerDuration - ( System.currentTimeMillis()-this.startTime ));
-      appleTimer.cancel();
+      LOGGER.info("Remaining time is {} - ( {} - {} ) = {} ",timerDuration,System.currentTimeMillis(),this.startTime,this.remainTime );
+
+
+      this.cancel();
     }
   }
 }

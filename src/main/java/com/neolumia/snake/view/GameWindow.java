@@ -148,9 +148,12 @@ public final class GameWindow extends Window {
     // defined and added to FXML
     // TODO : Handle Timer On Pause
     if (app.getHighscore() == -1) highscore.setVisible(false);
-    if (isQuestion1) game.setPaused(true);
-    if (isQuestion2) game.setPaused(true);
-    if (isQuestion3) game.setPaused(true);
+    if (isQuestion1)             updatePaused(game.setPaused(true));
+
+    if (isQuestion2)             updatePaused(game.setPaused(true));
+
+    if (isQuestion3)             updatePaused(game.setPaused(true));
+
     app.getWindowManager().getStage().requestFocus();
   }
 
@@ -202,5 +205,6 @@ public final class GameWindow extends Window {
     isQuestion2 = false;
     isQuestion3 = false;
     game.setPaused(false);
+
   }
 }
