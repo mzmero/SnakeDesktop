@@ -31,7 +31,7 @@ public abstract class Game extends Pane {
   static String playerName;
 
   private boolean running;
-  private boolean paused;
+  protected boolean paused;
   private boolean auto;
   private int points;
   private int lives;
@@ -90,9 +90,7 @@ public abstract class Game extends Pane {
     return paused;
   }
 
-  public boolean setPaused(boolean paused) {
-    return this.paused = paused;
-  }
+  public abstract boolean setPaused(boolean paused);
 
   public boolean isAuto() {
     return auto;

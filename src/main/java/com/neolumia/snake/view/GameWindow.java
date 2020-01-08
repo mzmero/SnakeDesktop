@@ -159,7 +159,7 @@ public final class GameWindow extends Window {
 
     scene.setOnKeyPressed(
         event -> {
-          if (event.getCode() == KeyCode.ESCAPE) {
+          if (event.getCode() == KeyCode.P) {
             updatePaused(game.setPaused(!game.isPaused()));
             return;
           }

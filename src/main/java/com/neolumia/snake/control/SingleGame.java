@@ -34,6 +34,9 @@ public final class SingleGame extends Game {
   private Direction mouseDirection;
   private ArrayList<Question> questions;
   static private int counter=0;
+  private ActiveTimer bananaTimer = new ActiveTimer(10000);
+  public static ActiveTimer appleTimer = new ActiveTimer(5000);
+  private ActiveTimer mouseTimer = new ActiveTimer(60000);
 
   public SingleGame(GameApp app, GameType type) {
     super(app, type);
@@ -41,10 +44,38 @@ public final class SingleGame extends Game {
   }
 
   @Override
+  public boolean setPaused(boolean paused) {
+    LOGGER.info("game setPaused {}", paused);
+
+    if(paused == true)
+    {//stop active timer;
+      if(appleTimer.isActive()) {
+        appleTimer.stop();
+
+      }
+
+    }
+    if(paused == false) {//resume game{
+      //resume active timer;
+      System.out.print("here");
+      if(appleTimer.isActive()) {
+        long timeRemain = appleTimer.getRemainingTime();
+        LOGGER.info("ini new timer with  {}", timeRemain);
+        appleTimer = new ActiveTimer(5000);
+        spawnApple(timeRemain);
+      }
+    }
+    return this.paused = paused;
+
+  }
+
+  @Override
   public void init() {
-    snake.init();
+
+
     initSpawnFood();
     intSpawnMouse();
+    snake.init(); //TODO delay 2 sec
   }
 
 
@@ -315,39 +346,39 @@ public final class SingleGame extends Game {
     return food;
   }
 
-  public void spawnApple() {
-    Tile tile = getTile();
-    food.put(tile,true);
-    getTerrain().put(tile, new Apple());
-    LOGGER.info("Item spawned x={}, y={}", tile.getTileX(), tile.getTileY());
-	    /*
-	    Timer t = new java.util.Timer();
-	    t.schedule(
+  public void spawnApple(long remainingTime) {
+    appleTimer.start();
+    appleTimer.setActive(true);
+ appleTimer.schedule(
+
 	      new java.util.TimerTask() {
 	        @Override
 	        public void run() {
+
 	          Tile tile = getTile();
-	          getTerrain().put(food = tile, new Apple());
+            food.put(tile,true);
+	          getTerrain().put(tile, new Apple());
 	          LOGGER.info("Item spawned x={}, y={}", tile.getTileX(), tile.getTileY());
 	          // close the thread
-	          t.cancel();
+            appleTimer.setActive(false);
+	          appleTimer.cancel();
 	        }
 	      },
-	      5000);*/
+         remainingTime);
   }
 
   public void spawnBanana() {
-    Timer t = new java.util.Timer();
-    t.schedule(
+    bananaTimer.setActive(true);
+    bananaTimer.schedule(
       new java.util.TimerTask() {
         @Override
         public void run() {
           Tile tile = getTile();
           food.put(tile,true);
           getTerrain().put(tile, new Banana());
-          LOGGER.info("Item spawned x={}, y={}", tile.getTileX(), tile.getTileY());
+          LOGGER.info("Banana spawned x={}, y={}", tile.getTileX(), tile.getTileY());
           // close the thread
-          t.cancel();
+          bananaTimer.cancel();
         }
       },
       10000);
@@ -419,7 +450,7 @@ public final class SingleGame extends Game {
   }
 
   public void spawnMouse() {
-    Timer t = new java.util.Timer();
+    Timer t =  new Timer();
     mouseObj=null;
     mouse_tile=null;
     mouseDirection=null;
@@ -456,5 +487,43 @@ public final class SingleGame extends Game {
   public double tilesDistance( Tile a , Tile b) {
     return Math.sqrt(b.getTileY() - a.getTileY()) * (((b.getTileY() - a.getTileY()) + ((b.getTileX() - a.getTileX()) * b.getTileX())) - a.getTileX());
 
+  }
+
+  static class ActiveTimer extends Timer{
+
+    private boolean isActive;
+    private long timerDuration;
+    private long startTime;
+    private long remainTime;
+    ActiveTimer(long timerDuration){
+    isActive = false;
+    this.timerDuration = timerDuration;
+
+    }
+    public boolean isActive() {
+      return isActive;
+    }
+
+    public long getRemainingTime() {
+      return remainTime ;
+    }
+
+    public void setTimerDuration(int timerDuration) {
+      this.timerDuration = timerDuration;
+    }
+
+    public void setActive(boolean active) {
+      isActive = active;
+    }
+
+    public void start() {
+      startTime = System.currentTimeMillis();
+    }
+
+    public void stop() {
+
+      this.remainTime = (timerDuration - ( System.currentTimeMillis()-this.startTime ));
+      appleTimer.cancel();
+    }
   }
 }

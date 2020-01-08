@@ -81,7 +81,8 @@ public final class SingleSnake extends Snake<SingleGame> {
       playOnEvent("Food.mp3");
 
       LOGGER.info(" {} eaten at  x={}, y={}", "Apple", tile.getTileX(), tile.getTileY());
-      game.spawnApple();
+      game.appleTimer = new SingleGame.ActiveTimer(5000);
+      game.spawnApple(5000);
       game.setPoints(game.getPoints() + 10);
     }
     if (object instanceof Banana) {
