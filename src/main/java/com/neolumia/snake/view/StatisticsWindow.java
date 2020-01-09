@@ -67,13 +67,12 @@ public final class StatisticsWindow extends Window {
   @FXML private TableView<TableItem> historyTable = new TableView<TableItem>();
   @FXML private Label historyTitle;
   /** Board Controls */
-  private final ObservableList<TableItem> boardData =
-      FXCollections.observableArrayList(SysData.getInstance().getHistoryTableItems());
+  private final ObservableList<TableItem> boardData ;
 
   @FXML private TableView<TableItem> boardTable = new TableView<TableItem>();
   @FXML private Label boardTitle;
 
-  StatisticsWindow(GameApp app) {
+  StatisticsWindow(GameApp app) throws SQLException {
     this.app = app;
 
     stats.setToggleGroup(menu);
@@ -103,6 +102,9 @@ public final class StatisticsWindow extends Window {
     data =
         FXCollections.observableArrayList(
             SysData.getInstance().getPlayerHistory(app.getPlayerName()));
+
+    boardData =
+      FXCollections.observableArrayList(SysData.getInstance().getHistoryTableItems(app));
   }
 
   @FXML

@@ -19,5 +19,5 @@
 }
 
 .toggle-button:selected {
-  -fx-text-fill: black;
+  -fx-text-fill: white;
 }
