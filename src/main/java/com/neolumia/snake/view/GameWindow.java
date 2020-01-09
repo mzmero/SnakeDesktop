@@ -1,6 +1,7 @@
 package com.neolumia.snake.view;
 
 import com.neolumia.snake.GameApp;
+import com.neolumia.snake.control.SingleSnake;
 import com.neolumia.snake.model.Direction;
 import com.neolumia.snake.control.Game;
 import com.neolumia.snake.control.SingleGame;
@@ -47,10 +48,10 @@ public final class GameWindow extends Window {
   public GameWindow(GameApp app, Game game) {
     this.app = app;
     this.game = game;
-//    root.setStyle(
-//        "-fx-background-color: #"
-//            + Integer.toHexString(app.getDesign().background.getColor().hashCode())
-//            + "");
+    //    root.setStyle(
+    //        "-fx-background-color: #"
+    //            + Integer.toHexString(app.getDesign().background.getColor().hashCode())
+    //            + "");
     root.setStyle("-fx-background-color: white");
     group.getChildren().add(game);
     timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> update()));
@@ -166,7 +167,6 @@ public final class GameWindow extends Window {
             updatePaused(game.setPaused(!game.isPaused()));
             return;
           }
-
           if (event.getCode() == KeyCode.END) {
             game.setAuto(!game.isAuto());
             System.out.println("Auto: " + game.isAuto());
@@ -205,6 +205,7 @@ public final class GameWindow extends Window {
     isQuestion2 = false;
     isQuestion3 = false;
     game.setPaused(false);
-
   }
+
+
 }

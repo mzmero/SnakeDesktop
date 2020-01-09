@@ -35,6 +35,8 @@ import java.util.Optional;
 
 public final class SingleSnake extends Snake<SingleGame> {
   private static final Logger LOGGER = LogManager.getLogger(SingleGame.class);
+  public static MediaPlayer mp;
+  public static boolean isMute;
 
   SingleSnake(SingleGame game) {
     super(
@@ -42,9 +44,12 @@ public final class SingleSnake extends Snake<SingleGame> {
         Direction.WEST,
         node -> {
           final Optional<TileObject> object = game.getTerrain().get(node.getTile());
-          return object.isPresent()&&!(object.get() instanceof Food || object.get() instanceof SEQuestion ||object.get() instanceof Mouse  ) ;//&&
+          return object.isPresent()
+              && !(object.get() instanceof Food
+                  || object.get() instanceof SEQuestion
+                  || object.get() instanceof Mouse); // &&
         });
-
+    isMute=false;
   }
 
   /** Initiates Snake, and/or Clearing part from previous Life. */
@@ -75,7 +80,7 @@ public final class SingleSnake extends Snake<SingleGame> {
   @Override
   public void onEat(Tile tile, TileObject object) {
     game.getTerrain().put(tile, null);
-    game.getFood().put(tile,false);
+    game.getFood().put(tile, false);
 
     if (object instanceof Apple) {
       playOnEvent("Food.mp3");
@@ -117,7 +122,7 @@ public final class SingleSnake extends Snake<SingleGame> {
     if (object instanceof Questionlvl1) {
       playOnEvent("Tome.mp3");
       game.setPaused(true);
-      //GameWindow.isQuestion1 = true;
+      // GameWindow.isQuestion1 = true;
       popQuestion(QuestionLevel.ONE);
       game.getTerrain().put(tile, null);
       game.spawnQuestion(QuestionLevel.ONE);
@@ -125,42 +130,41 @@ public final class SingleSnake extends Snake<SingleGame> {
     if (object instanceof Questionlvl2) {
       playOnEvent("Tome.mp3");
       game.setPaused(true);
-     // GameWindow.isQuestion2 = true;
+      // GameWindow.isQuestion2 = true;
       popQuestion(QuestionLevel.TWO);
       game.getTerrain().put(tile, null);
       game.spawnQuestion(QuestionLevel.TWO);
-
     }
     if (object instanceof Questionlvl3) {
       playOnEvent("Tome.mp3");
       game.setPaused(true);
-     //GameWindow.isQuestion3 = true;
+      // GameWindow.isQuestion3 = true;
       popQuestion(QuestionLevel.THREE);
       game.getTerrain().put(tile, null);
       game.spawnQuestion(QuestionLevel.THREE);
-
     }
-    if(object instanceof Mouse){
+    if (object instanceof Mouse) {
       playOnEvent("Food.mp3");
       LOGGER.info(" {} eaten at  x={}, y={}", "Mouse", tile.getTileX(), tile.getTileY());
-      game.setPoints(game.getPoints() + 30 );
+      game.setPoints(game.getPoints() + 30);
       lives++;
       game.setLives(lives);
-      game.mouseObj=null;
-      game.mouse_tile=null;
-      game.mouseDirection=null;
-      game.counter=0;
+      game.mouseObj = null;
+      game.mouse_tile = null;
+      game.mouseDirection = null;
+      game.counter = 0;
       game.mouseTimer.start();
       game.spawnMouse(60000);
     }
   }
 
-public void playOnEvent(String fileName) {
-
-    String path = getClass().getResource("/sounds/" + fileName).toString();
-    Media media = new Media(path);
-    MediaPlayer mp = new MediaPlayer(media);
-    mp.play();
+  public void playOnEvent(String fileName) {
+    if (!isMute) {
+      String path = getClass().getResource("/sounds/" + fileName).toString();
+      Media media = new Media(path);
+      mp = new MediaPlayer(media);
+      mp.play();
+    }
   }
 
   private void popQuestion(QuestionLevel level) {
@@ -182,60 +186,35 @@ public void playOnEvent(String fileName) {
             }
             popup.show(game.app.getWindowManager().getStage());
             popup.requestFocus();
-            popup.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-              @Override
-              public void handle(KeyEvent event) {
-                if (event.getCode()== KeyCode.ESCAPE){
-                }
-              }
-            });
+            popup.addEventHandler(
+                KeyEvent.KEY_PRESSED,
+                new EventHandler<KeyEvent>() {
+                  @Override
+                  public void handle(KeyEvent event) {
+                    if (event.getCode() == KeyCode.ESCAPE) {}
+                  }
+                });
           }
         });
   }
 
-//  @Override
-//  public void onQuestion(Tile tile, TileObject object) {
-//    game.spawnQuestion();
-//    game.getTerrain().put(tile, null);
-//    // TODO Complete This Method - New Questions Should Be Shown
-//  }
-
- /* @Override
-  protected int getFoodX() {
-    return game.getFood().get().getTileX();
-  }*/
-
   @Override
-  protected Tile getClosestFood(){
+  protected Tile getClosestFood() {
     Tile closeTile = null;
     double distance = 10000;
-    for(Tile tile : game.getFood().keySet()){
-      if(game.getFood().get(tile)) {
-        if (closeTile == null)
-          closeTile = tile;
+    for (Tile tile : game.getFood().keySet()) {
+      if (game.getFood().get(tile)) {
+        if (closeTile == null) closeTile = tile;
         else {
 
           if (game.tilesDistance(tile, this.getParts().getFirst().getTile()) < distance)
             closeTile = tile;
-
-
         }
       }
     }
     return closeTile;
-
-
-
   }
-
-  /*@Override
-  protected int getFoodY() {
-    return game.getFood().get().getTileY();
-  }*/
 
   @Override
-  protected void onQuestion(Tile tile, TileObject tileObject) {
-
-  }
-
+  protected void onQuestion(Tile tile, TileObject tileObject) {}
 }
