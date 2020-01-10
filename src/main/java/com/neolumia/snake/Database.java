@@ -20,6 +20,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Database to save game details
+ */
 public final class Database {
 
   private final HikariDataSource dataSource;

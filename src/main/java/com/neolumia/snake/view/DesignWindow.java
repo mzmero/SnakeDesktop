@@ -19,6 +19,10 @@ import java.sql.SQLException;
 
 import static com.neolumia.snake.GameApp.t;
 
+/**
+ * this class is implemented in order to control design window that customizes snake view and board
+ * design and more
+ */
 public final class DesignWindow extends Window {
 
   private final GameApp app;
@@ -46,24 +50,26 @@ public final class DesignWindow extends Window {
     snake.setToggleGroup(menu);
     background.setToggleGroup(menu);
 
-    menu.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
-      if (newValue.equals(terrain)) {
-        grid.getChildren().removeAll(node);
-        grid.add(node = render("terrain"), 0, 0);
-        update(terrainDesign);
-        return;
-      }
-      if (newValue.equals(snake)) {
-        grid.getChildren().removeAll(node);
-        grid.add(node = render("snake"), 0, 0);
-        update(snakeDesign);
-      }
-      if (newValue.equals(background)) {
-        grid.getChildren().removeAll(node);
-        grid.add(node = render("background"), 0, 0);
-        update(bgDesign);
-      }
-    });
+    menu.selectedToggleProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              if (newValue.equals(terrain)) {
+                grid.getChildren().removeAll(node);
+                grid.add(node = render("terrain"), 0, 0);
+                update(terrainDesign);
+                return;
+              }
+              if (newValue.equals(snake)) {
+                grid.getChildren().removeAll(node);
+                grid.add(node = render("snake"), 0, 0);
+                update(snakeDesign);
+              }
+              if (newValue.equals(background)) {
+                grid.getChildren().removeAll(node);
+                grid.add(node = render("background"), 0, 0);
+                update(bgDesign);
+              }
+            });
 
     this.terrainDesign = app.getDesign().terrain;
     this.snakeDesign = app.getDesign().snake;
@@ -74,50 +80,68 @@ public final class DesignWindow extends Window {
 
   @FXML
   public void beforeTerrain() {
-    terrainDesign.before().ifPresent(d -> {
-      this.terrainDesign = d;
-      update(d);
-    });
+    terrainDesign
+        .before()
+        .ifPresent(
+            d -> {
+              this.terrainDesign = d;
+              update(d);
+            });
   }
 
   @FXML
   public void nextTerrain() {
-    terrainDesign.next().ifPresent(d -> {
-      this.terrainDesign = d;
-      update(d);
-    });
+    terrainDesign
+        .next()
+        .ifPresent(
+            d -> {
+              this.terrainDesign = d;
+              update(d);
+            });
   }
 
   @FXML
   public void beforeSnake() {
-    snakeDesign.before().ifPresent(d -> {
-      this.snakeDesign = d;
-      update(d);
-    });
+    snakeDesign
+        .before()
+        .ifPresent(
+            d -> {
+              this.snakeDesign = d;
+              update(d);
+            });
   }
 
   @FXML
   public void nextSnake() {
-    snakeDesign.next().ifPresent(d -> {
-      this.snakeDesign = d;
-      update(d);
-    });
+    snakeDesign
+        .next()
+        .ifPresent(
+            d -> {
+              this.snakeDesign = d;
+              update(d);
+            });
   }
 
   @FXML
   public void beforeBackground() {
-    bgDesign.before().ifPresent(d -> {
-      this.bgDesign = d;
-      update(d);
-    });
+    bgDesign
+        .before()
+        .ifPresent(
+            d -> {
+              this.bgDesign = d;
+              update(d);
+            });
   }
 
   @FXML
   public void nextBackground() {
-    bgDesign.next().ifPresent(d -> {
-      this.bgDesign = d;
-      update(d);
-    });
+    bgDesign
+        .next()
+        .ifPresent(
+            d -> {
+              this.bgDesign = d;
+              update(d);
+            });
   }
 
   @FXML

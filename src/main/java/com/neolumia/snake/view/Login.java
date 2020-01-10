@@ -22,6 +22,9 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * this class controls the login windows that is shown in order to manage users
+ */
 public class Login extends Window {
   GameApp app;
   @FXML TextField playerName;

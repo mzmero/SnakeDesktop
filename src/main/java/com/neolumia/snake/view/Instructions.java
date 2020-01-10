@@ -12,6 +12,9 @@ import javafx.scene.input.MouseEvent;
 
 import java.sql.SQLException;
 
+/**
+ * this class is used to control the instructions FXML which is shown prior to game start
+ */
 public class Instructions extends Window {
   GameApp app;
   Game game;

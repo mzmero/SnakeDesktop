@@ -1,7 +1,6 @@
 
 package com.neolumia.snake.model;
 import com.neolumia.snake.control.Game;
-import com.neolumia.snake.model.Direction;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 

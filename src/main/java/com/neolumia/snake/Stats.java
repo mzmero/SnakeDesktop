@@ -2,6 +2,9 @@ package com.neolumia.snake;
 
 import com.google.common.base.MoreObjects;
 
+/**
+ * Stats class is used to save game details in order to be shown later on in stats window
+ */
 public final class Stats {
 
   public double playtime;

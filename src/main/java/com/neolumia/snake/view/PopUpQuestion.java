@@ -37,7 +37,8 @@ public class PopUpQuestion extends Window {
   private ObservableSet<CheckBox> unselectedCheckBoxes = FXCollections.observableSet();
   private IntegerBinding numCheckBoxesSelected = Bindings.size(selectedCheckBoxes);
   private final int maxNumSelected = 1;
-   private Game game;
+  private Game game;
+
   public PopUpQuestion(SingleGame game, Question q) {
     question = q;
     checkBoxes[0] = checkBox1;
@@ -95,8 +96,12 @@ public class PopUpQuestion extends Window {
         });
   }
 
-
-
+  /**
+   * This method updates game points
+   *
+   * @param game
+   * @param isCorrect
+   */
   private void updatePoints(SingleGame game, Boolean isCorrect) {
     if (isCorrect) {
       if (question.getLevel().equals(QuestionLevel.ONE.getLevel()))
@@ -124,6 +129,11 @@ public class PopUpQuestion extends Window {
     }
   }
 
+  /**
+   * this method configures the checkboxes to ensure that only one checkbox is selected
+   *
+   * @param checkBox
+   */
   private void configureCheckBox(CheckBox checkBox) {
     if (checkBox.isSelected()) selectedCheckBoxes.add(checkBox);
     else unselectedCheckBoxes.add(checkBox);
@@ -142,6 +152,11 @@ public class PopUpQuestion extends Window {
             });
   }
 
+  /**
+   * this method updates the num of selected checkboxes
+   *
+   * @param checkBox
+   */
   private void updateSelected(CheckBox checkBox) {
     for (int i = 0; i < checkBoxes.length && checkBoxes[i].getId().equals(checkBox.getId()); i++)
       this.selectedCheckBox = i + 1;
