@@ -25,7 +25,7 @@
 package com.neolumia.snake.view;
 
 import com.neolumia.snake.GameApp;
-import com.neolumia.snake.Stats;
+import com.neolumia.snake.model.Stats;
 import com.neolumia.snake.control.SysData;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

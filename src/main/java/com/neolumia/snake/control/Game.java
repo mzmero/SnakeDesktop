@@ -1,7 +1,7 @@
 package com.neolumia.snake.control;
 
 import com.neolumia.snake.GameApp;
-import com.neolumia.snake.Stats;
+import com.neolumia.snake.model.Stats;
 import com.neolumia.snake.model.History;
 import com.neolumia.snake.view.option.GameType;
 import com.neolumia.snake.view.game.TerrainView;

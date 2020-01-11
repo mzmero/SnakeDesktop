@@ -1,4 +1,4 @@
-package com.neolumia.snake;
+package com.neolumia.snake.model;
 
 import com.google.common.base.MoreObjects;
 

@@ -1,5 +1,6 @@
 package com.neolumia.snake;
 
+import com.neolumia.snake.model.Stats;
 import com.neolumia.snake.view.Login;
 import com.neolumia.snake.view.design.Design;
 import com.neolumia.snake.control.Game;
