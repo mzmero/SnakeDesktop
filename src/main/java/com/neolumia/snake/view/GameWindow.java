@@ -48,11 +48,8 @@ public final class GameWindow extends Window {
   public GameWindow(GameApp app, Game game) {
     this.app = app;
     this.game = game;
-    //    root.setStyle(
-    //        "-fx-background-color: #"
-    //            + Integer.toHexString(app.getDesign().background.getColor().hashCode())
-    //            + "");
-    root.setStyle("-fx-background-color: white");
+        root.setStyle("-fx-background-color: #"+Integer.toHexString(app.getDesign().background.getColor().hashCode()));
+//    root.setStyle("-fx-background-color: white");
     group.getChildren().add(game);
     timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> update()));
     timeline.setCycleCount(Animation.INDEFINITE);

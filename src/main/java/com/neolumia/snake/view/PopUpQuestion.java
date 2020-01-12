@@ -60,17 +60,6 @@ public class PopUpQuestion extends Window {
             configureCheckBox(checkBox2);
             configureCheckBox(checkBox3);
             configureCheckBox(checkBox4);
-
-
-
-
-
-
-
-
-
-
-            ObservableSet<CheckBox> selectedCheckBoxes = FXCollections.observableSet();
             numCheckBoxesSelected.addListener(
                 (obs, oldSelectedCount, newSelectedCount) -> {
                   if (newSelectedCount.intValue() >= maxNumSelected) {
@@ -81,25 +70,6 @@ public class PopUpQuestion extends Window {
                     submitButton.setDisable(true);
                   }
                 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             submitButton.setOnMouseClicked(
                 new EventHandler<MouseEvent>() {
                   @Override
