@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="520.0" prefWidth="1000.0" style="-fx-background-color: #FFB000;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox alignment="CENTER" prefHeight="519.0" prefWidth="1002.0">
+         <children>
+            <VBox alignment="CENTER">
+               <children>
+                  <Label contentDisplay="CENTER" text="Key Bindings" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="42.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <ToggleButton fx:id="mute" onMouseClicked="#muteMediaPlayer" mnemonicParsing="false" prefHeight="40.0" prefWidth="265.0" style="-fx-background-color: #9AD880; -fx-background-radius: 30;" text="Mute">
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </ToggleButton>
+            <Button mnemonicParsing="false" onMouseClicked="#enterGame" prefHeight="40.0" prefWidth="265.0" style="-fx-background-color: #9AD880; -fx-background-radius: 30;" text="play">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <HBox alignment="CENTER">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+               <children>
+                  <VBox>
+                     <children>
+                        <Label text="Move Up" textFill="WHITE">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="30.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Move Down" textFill="WHITE">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="30.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Move Left" textFill="WHITE">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="30.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Move Right" textFill="WHITE">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="30.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Pause" textFill="WHITE">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="30.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Menu" textFill="WHITE">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="30.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <Label minHeight="60.0" minWidth="60.0" prefHeight="60.0" prefWidth="60.0" text="↑" textFill="WHITE">
+                           <font>
+                              <Font size="50.0" />
+                           </font>
+                        </Label>
+                        <Label minHeight="60.0" minWidth="60.0" prefHeight="60.0" prefWidth="60.0" text="↓" textFill="WHITE">
+                           <font>
+                              <Font size="50.0" />
+                           </font>
+                        </Label>
+                        <Label minHeight="60.0" minWidth="60.0" prefHeight="60.0" prefWidth="60.0" text="←" textFill="WHITE">
+                           <font>
+                              <Font size="50.0" />
+                           </font>
+                        </Label>
+                        <Label contentDisplay="CENTER" graphicTextGap="0.0" minHeight="60.0" minWidth="60.0" prefHeight="60.0" prefWidth="60.0" text="→" textFill="WHITE">
+                           <font>
+                              <Font size="50.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="64.0" prefWidth="51.0" text="P" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font size="23.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="30.0" />
+                           </padding>
+                        </Label>
+                        <Label prefHeight="64.0" prefWidth="90.0" text="ECS" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font size="23.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="30.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

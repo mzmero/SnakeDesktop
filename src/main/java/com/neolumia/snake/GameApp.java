@@ -1,14 +1,14 @@
 package com.neolumia.snake;
 
+import com.neolumia.snake.model.Stats;
 import com.neolumia.snake.view.Login;
 import com.neolumia.snake.view.design.Design;
 import com.neolumia.snake.control.Game;
 import com.neolumia.snake.view.option.GameType;
 import com.neolumia.snake.control.SingleGame;
 import com.neolumia.snake.view.item.Item;
-import com.neolumia.snake.model.settings.Settings;
+import com.neolumia.snake.model.Settings;
 import com.neolumia.snake.view.GameWindow;
-import com.neolumia.snake.view.MenuWindow;
 import com.neolumia.snake.view.WindowManager;
 import javafx.application.Application;
 import javafx.stage.Stage;

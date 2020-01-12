@@ -40,8 +40,8 @@ public final class RetroFood extends Food {
   public void setSize(int size) {
     super.setSize(size);
     circle.setRadius(16 - 6);
-    circle.setCenterX(x * size + 16 + 3);
-    circle.setCenterY(y * size + 16 + 3);
+    circle.setCenterX(getFoodModel().getX() * size+ 16 + 3);
+    circle.setCenterY(getFoodModel().getY() * size+ 16 + 3);
   }
 
 }

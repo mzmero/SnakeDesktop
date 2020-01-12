@@ -25,7 +25,7 @@
 package com.neolumia.snake.view;
 
 import com.neolumia.snake.GameApp;
-import com.neolumia.snake.Stats;
+import com.neolumia.snake.model.Stats;
 import com.neolumia.snake.control.SysData;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -67,13 +67,12 @@ public final class StatisticsWindow extends Window {
   @FXML private TableView<TableItem> historyTable = new TableView<TableItem>();
   @FXML private Label historyTitle;
   /** Board Controls */
-  private final ObservableList<TableItem> boardData =
-      FXCollections.observableArrayList(SysData.getInstance().getHistoryTableItems());
+  private final ObservableList<TableItem> boardData ;
 
   @FXML private TableView<TableItem> boardTable = new TableView<TableItem>();
   @FXML private Label boardTitle;
 
-  StatisticsWindow(GameApp app) {
+  StatisticsWindow(GameApp app) throws SQLException {
     this.app = app;
 
     stats.setToggleGroup(menu);
@@ -102,7 +101,10 @@ public final class StatisticsWindow extends Window {
 
     data =
         FXCollections.observableArrayList(
-            SysData.getInstance().getPlayerHistory(app.getSettings().playerName));
+            SysData.getInstance().getPlayerHistory(app.getPlayerName()));
+
+    boardData =
+      FXCollections.observableArrayList(SysData.getInstance().getHistoryTableItems(app));
   }
 
   @FXML

@@ -1,16 +1,12 @@
 
 package com.neolumia.snake;
 
+import com.neolumia.snake.model.*;
 import com.neolumia.snake.view.design.Design;
 import com.neolumia.snake.view.option.BgDesign;
 import com.neolumia.snake.view.option.SnakeDesign;
 import com.neolumia.snake.view.option.TerrainDesign;
 import com.neolumia.snake.control.Game;
-import com.neolumia.snake.model.settings.Difficulty;
-import com.neolumia.snake.model.settings.Locale;
-import com.neolumia.snake.model.settings.Settings;
-import com.neolumia.snake.model.settings.Size;
-import com.neolumia.snake.model.util.Q;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -20,6 +16,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Database to save game details
+ */
 public final class Database {
 
   private final HikariDataSource dataSource;

@@ -36,7 +36,8 @@ public final class MenuWindow extends Window {
 
   @FXML
   public void play() {
-    app.newGame(type);
+    /*app.newGame(type);*/
+    app.getWindowManager().request(new Instructions(app));
   }
 
   @FXML
@@ -50,7 +51,7 @@ public final class MenuWindow extends Window {
   }
 
   @FXML
-  public void statistics() {
+  public void statistics() throws SQLException {
     app.getWindowManager().request(new StatisticsWindow(app));
   }
 

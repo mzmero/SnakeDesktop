@@ -3,11 +3,11 @@ package com.neolumia.snake.view.option;
 
 import com.neolumia.snake.view.design.DesignOption;
 import com.neolumia.snake.view.design.SnakeSupplier;
-import com.neolumia.snake.view.design.snake.FredGucciSnake;
-import com.neolumia.snake.view.design.snake.FredSnake;
-import com.neolumia.snake.view.design.snake.PixelGucciSnake;
-import com.neolumia.snake.view.design.snake.PixelSnake;
-import com.neolumia.snake.view.game.SnakePart;
+import com.neolumia.snake.view.design.snake.FredGucciSnakeView;
+import com.neolumia.snake.view.design.snake.FredSnakeView;
+import com.neolumia.snake.view.design.snake.PixelGucciSnakeView;
+import com.neolumia.snake.view.design.snake.PixelSnakeView;
+import com.neolumia.snake.view.game.SnakePartView;
 
 import java.util.Optional;
 
@@ -16,16 +16,16 @@ public enum SnakeDesign implements DesignOption<SnakeDesign> {
   /**
    * Snake designs : PIXEL ,PIXEL_GUCCI, FRED, FRED_GUCCI
    */
-  PIXEL("design.pixel", "/lib/snake_pixel.png", PixelSnake::new),
-  PIXEL_GUCCI("design.pixel.gucci", "/lib/snake_pixel_gucci.png", PixelGucciSnake::new),
-  FRED("design.fred", "/lib/snake_fred.png", FredSnake::new),
-  FRED_GUCCI("design.fred.gucci", "/lib/snake_fred_gucci.png", FredGucciSnake::new);
+  PIXEL("design.pixel", "/lib/snake_pixel.png", PixelSnakeView::new),
+  PIXEL_GUCCI("design.pixel.gucci", "/lib/snake_pixel_gucci.png", PixelGucciSnakeView::new),
+  FRED("design.fred", "/lib/snake_fred.png", FredSnakeView::new),
+  FRED_GUCCI("design.fred.gucci", "/lib/snake_fred_gucci.png", FredGucciSnakeView::new);
 
   private final String name;
   private final String file;
-  private final SnakeSupplier<SnakePart> part;
+  private final SnakeSupplier<SnakePartView> part;
 
-  SnakeDesign(String name, String file, SnakeSupplier<SnakePart> part) {
+  SnakeDesign(String name, String file, SnakeSupplier<SnakePartView> part) {
     this.name = name;
     this.file = file;
     this.part = part;
@@ -57,7 +57,7 @@ public enum SnakeDesign implements DesignOption<SnakeDesign> {
     return Optional.ofNullable(values()[ordinal() + 1]);
   }
 
-  public SnakeSupplier<SnakePart> getPart() {
+  public SnakeSupplier<SnakePartView> getPart() {
     return part;
   }
 }

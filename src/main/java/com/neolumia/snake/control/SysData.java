@@ -1,8 +1,9 @@
 package com.neolumia.snake.control;
 
-import com.neolumia.snake.model.questions.History;
-import com.neolumia.snake.model.questions.Question;
-import com.neolumia.snake.model.questions.QuestionLevel;
+import com.neolumia.snake.GameApp;
+import com.neolumia.snake.model.History;
+import com.neolumia.snake.model.Question;
+import com.neolumia.snake.model.QuestionLevel;
 import com.neolumia.snake.view.TableItem;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -15,6 +16,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -45,15 +47,33 @@ public class SysData {
     return history;
   }
 
-  public ArrayList<TableItem> getHistoryTableItems() {
+  public ArrayList<TableItem> getHistoryTableItems(GameApp app) throws SQLException {
     ArrayList<TableItem> tableItems = new ArrayList<>();
     for (History history : this.history) {
-      TableItem tableItem =
-          new TableItem(
-              history.getPlayer(),
-              Integer.toString(history.getPoints()),
-              Integer.toString(history.getLives()));
-      tableItems.add(tableItem);
+     if (app.getDatabase().getPlayerSettings(history.getPlayer()).leaderboard==true){
+       TableItem tableItem =
+         new TableItem(
+           history.getPlayer(),
+           Integer.toString(history.getPoints()),
+           Integer.toString(history.getLives()));
+       tableItems.add(tableItem);
+     }
+
+    }
+    return tableItems;
+  }
+
+  public ArrayList<TableItem> getPlayerHistory(String playName) {
+    ArrayList<TableItem> tableItems = new ArrayList<>();
+    for (History history : this.history) {
+      if (history.getPlayer().equals(playName)) {
+        TableItem tableItem =
+            new TableItem(
+                history.getPlayer(),
+                Integer.toString(history.getPoints()),
+                Integer.toString(history.getLives()));
+        tableItems.add(tableItem);
+      }
     }
     return tableItems;
   }
@@ -172,15 +192,12 @@ public class SysData {
       e.printStackTrace();
       return null;
     }
-
-
   }
 
   /**
    * This method writes the questions from the questions array to the json file located in
    * "json/questions.json"
    */
-
   public void writeQuestionTojson() {
     JSONObject jObject = new JSONObject();
     try {
@@ -189,8 +206,8 @@ public class SysData {
       for (Question Q : questions) {
         JSONObject Question = new JSONObject();
         Question.put("question", Q.getQuestion());
-       // JSONArray array = new JSONArray();
-       // array.add(Q.getAnswers());
+        // JSONArray array = new JSONArray();
+        // array.add(Q.getAnswers());
         Question.put("answers", Q.getAnswers());
         Question.put("correct_ans", Q.getCorrectAns());
         Question.put("level", Q.getLevel());
@@ -277,17 +294,6 @@ public class SysData {
   public void addGameToHistory(History history) {
     this.history.add(history);
     writeHistoryTojson();
-  }
-
-  public ArrayList<TableItem> getPlayerHistory(String playerName) {
-    ArrayList<TableItem> gameHistories = new ArrayList<>();
-    for (int i = 0; i < history.size() && history.get(i).getPlayer().equals(playerName); i++)
-      gameHistories.add(
-          new TableItem(
-              history.get(i).getPlayer(),
-              Integer.toString(history.get(i).getPoints()),
-              Integer.toString(history.get(i).getLives())));
-    return gameHistories;
   }
 
   /**
