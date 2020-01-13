@@ -67,7 +67,7 @@ public final class StatisticsWindow extends Window {
   @FXML private TableView<TableItem> historyTable = new TableView<TableItem>();
   @FXML private Label historyTitle;
   /** Board Controls */
-  private final ObservableList<TableItem> boardData ;
+  private final ObservableList<TableItem> boardData;
 
   @FXML private TableView<TableItem> boardTable = new TableView<TableItem>();
   @FXML private Label boardTitle;
@@ -144,6 +144,8 @@ public final class StatisticsWindow extends Window {
 
     if (historyTable != null) historyTable.setVisible(false);
     if (historyTitle != null) historyTitle.setVisible(false);
+    if (boardTable !=null)  boardTable.setVisible(false);
+    if (boardTitle !=null)  boardTitle.setVisible(false);
     statsGames.setText(t("stats.games", stats.games));
     statsItems.setText(t("stats.items", stats.items));
     statsPlaytime.setText(t("stats.playtime", new DecimalFormat("#.##").format(stats.playtime)));

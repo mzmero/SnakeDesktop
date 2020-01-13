@@ -13,6 +13,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -29,6 +30,7 @@ public abstract class Game extends Pane {
   protected final GameType type;
   protected final TerrainView terrain;
   static String playerName;
+  private long playtime;
 
   private boolean running;
   protected boolean paused;
@@ -36,6 +38,11 @@ public abstract class Game extends Pane {
   private int points;
   private int lives;
   private long start;
+  private long def=0;
+  private long pauseDuration=0;
+  private boolean flag=false;
+  private int counter=0;
+  private long prevStop=0;
 
   public Game(GameApp app, GameType type) {
     this.app = app;
@@ -100,6 +107,10 @@ public abstract class Game extends Pane {
     this.auto = auto;
   }
 
+  public long getPlaytime() {
+    return playtime;
+  }
+
   /** check remaining lives and handle accordingly */
   public void end() {
 
@@ -140,7 +151,9 @@ public abstract class Game extends Pane {
   public void run() {
     running = true;
     start = System.currentTimeMillis();
-
+    def=0;
+    pauseDuration=0;
+    flag=false;
     new Thread(
             () -> {
               try {
@@ -152,10 +165,10 @@ public abstract class Game extends Pane {
                   if (!paused) {
                     tick();
                   }
+                  if(paused && counter==0) flag=true;
+                  calcPlayTime();
                   diff = System.currentTimeMillis() - start;
                   sleep = (int) (1000 / 60 - diff);
-
-
                   if (sleep > 0) {
                     Thread.sleep(sleep);
                   }
@@ -168,7 +181,23 @@ public abstract class Game extends Pane {
             })
         .start();
   }
-
+  public void calcPlayTime(){
+    if(running){
+    if(!paused) {
+      if (counter != 0) {
+        pauseDuration += System.currentTimeMillis() - prevStop;
+        counter = 0;
+      }
+      def = System.currentTimeMillis() - start - pauseDuration;
+      playtime = TimeUnit.MILLISECONDS.toSeconds(def);
+    }
+   else {
+     if(flag){
+       prevStop=System.currentTimeMillis();
+      flag=false;
+      counter++;
+    }}
+  }}
   protected abstract void moveMouse();
 
   public abstract void init();

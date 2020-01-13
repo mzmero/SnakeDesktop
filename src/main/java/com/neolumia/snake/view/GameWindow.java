@@ -18,6 +18,9 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.sql.SQLException;
+import java.text.DecimalFormat;
+
 import static com.neolumia.snake.GameApp.t;
 
 /** This is the class which is responsible for the GAME window */
@@ -32,6 +35,7 @@ public final class GameWindow extends Window {
   @FXML private Label points;
   @FXML private Label highscore;
   @FXML private Label time;
+  @FXML private Label timePlaylabel;
   @FXML private ImageView life1;
   @FXML private ImageView life2;
   @FXML private ImageView life3;
@@ -40,6 +44,7 @@ public final class GameWindow extends Window {
   @FXML private ImageView life6;
   @FXML private ImageView life7;
   @FXML private ImageView life8;
+  @FXML private ImageView back;
   public static boolean isQuestion1 = false;
   public static boolean isQuestion2 = false;
   public static boolean isQuestion3 = false;
@@ -140,6 +145,7 @@ public final class GameWindow extends Window {
         life8.visibleProperty().setValue(true);
         break;
     }
+    timePlaylabel.setText(t("stats.playtime", new DecimalFormat("#.###").format(game.getPlaytime())));
     points.setText(t("gameOver.points", game.getPoints()));
     highscore.setText(t("gameOver.highscore", app.getHighscore()));
     // TODO : Get duration from start and update text view - (time) - Note that time is already
@@ -202,6 +208,10 @@ public final class GameWindow extends Window {
     isQuestion2 = false;
     isQuestion3 = false;
     game.setPaused(false);
+  }
+  public void handleBack() throws SQLException {
+    game.setPaused(true);
+    app.getWindowManager().request(new MenuWindow(app));
   }
 
 

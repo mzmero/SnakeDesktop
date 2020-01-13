@@ -3,6 +3,7 @@ package com.neolumia.snake.view;
 
 import com.neolumia.snake.GameApp;
 import com.neolumia.snake.control.SysData;
+import com.neolumia.snake.model.QuestionsData;
 import com.neolumia.snake.view.design.DesignOption;
 import com.neolumia.snake.view.option.BgDesign;
 import com.neolumia.snake.view.design.Design;
@@ -16,6 +17,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -35,7 +37,7 @@ public final class QuestionsWindow extends Window {
   private final GameApp app;
   private final ToggleGroup menu = new ToggleGroup();
   private ObservableList<String> items = FXCollections.observableArrayList();
-
+  private ObservableList<QuestionsData> data = FXCollections.observableArrayList();
   private TerrainDesign terrainDesign;
   private SnakeDesign snakeDesign;
   private BgDesign bgDesign;
@@ -43,8 +45,10 @@ public final class QuestionsWindow extends Window {
 
   @FXML
   private GridPane grid;
-
-
+  @FXML
+  private TableView<QuestionsData> table1= new TableView<QuestionsData>();;
+  @FXML
+  private TableColumn<QuestionsData,String> QQ;
   @FXML
   private ImageView before;
   @FXML
@@ -135,9 +139,15 @@ public final class QuestionsWindow extends Window {
   private void initCB() {
     ComboDelete.setItems(items);
     ComboChooseQuestion.setItems(items);
+    //table1.setEditable(true);
+   // TableColumn QQ= new TableColumn();
+    QQ.setText("Question");
+   // QQ.setMinWidth(100);
+    QQ.setCellValueFactory(new PropertyValueFactory<QuestionsData,String>("question"));
+    data.add(new QuestionsData("hey"));
+    table1.setItems(data);
+    table1.getColumns().setAll(QQ);
     items.setAll(reloadData());
-    System.out.println(items);
-
     String[] teams = {"Chimp", "Crocodile", "Scorpion", "Giraffe", "Spider", "Viper", "Panther", "Wolf", "Sloth", "Lion", "Panda", "Piranha", "Rabbit", "Shark", "Hawk", "Husky"};
     ComboUpdateTeam.getItems().addAll(teams);
     CoInsertteams.getItems().addAll(teams);
