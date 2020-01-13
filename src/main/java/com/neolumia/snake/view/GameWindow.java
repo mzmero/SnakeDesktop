@@ -209,7 +209,7 @@ public final class GameWindow extends Window {
     isQuestion3 = false;
     game.setPaused(false);
   }
-  public void handleBack() throws SQLException {
+  public void handleBack() throws SQLException {    // exiting from the current game and opening the menu page
     game.setPaused(true);
     app.getWindowManager().request(new MenuWindow(app));
   }

@@ -62,7 +62,7 @@ public final class StatisticsWindow extends Window {
   @FXML private Label board1;
 
   /** History Controls */
-  private final ObservableList<TableItem> data;
+  private final ObservableList<TableItem> data;    //table data
 
   @FXML private TableView<TableItem> historyTable = new TableView<TableItem>();
   @FXML private Label historyTitle;
@@ -78,21 +78,21 @@ public final class StatisticsWindow extends Window {
     stats.setToggleGroup(menu);
     history.setToggleGroup(menu);
     leaderboard.setToggleGroup(menu);
-
+                                             // the page button listener
     menu.selectedToggleProperty()
         .addListener(
             (observable, oldValue, newValue) -> {
-              if (newValue.equals(stats)) {
+              if (newValue.equals(stats)) {               //stat button
                 grid.add(render("stats"), 0, 0);
                 menu.selectToggle(stats);
                 update(app.getStats());
               }
-              if (newValue.equals(history)) {
+              if (newValue.equals(history)) {      //history button
                 grid.add(render("history"), 0, 0);
                 menu.selectToggle(history);
                 fillHistory();
               }
-              if (newValue.equals(leaderboard)) {
+              if (newValue.equals(leaderboard)) {      //leaderboard button
                 grid.add(render("leaderboard"), 0, 0);
                 menu.selectToggle(leaderboard);
                 fillBoard();
@@ -111,8 +111,10 @@ public final class StatisticsWindow extends Window {
   public void cancel() throws SQLException {
     app.getWindowManager().request(new MenuWindow(app));
   }
+   /*for every button in the  main page(3 buttons) open a mini-page .every method  check if other mini-pages are opened
+   then disabling the visibility of other mini-pages if its true  */
 
-  private void fillHistory() {
+  private void fillHistory() {   //updating the history table method
     if (statsGames != null && statsItems != null && statsPlaytime != null && statsWall != null) {
       statsGames.setVisible(false);
       statsItems.setVisible(false);
@@ -126,7 +128,7 @@ public final class StatisticsWindow extends Window {
     fillTable();
   }
 
-  public void fillBoard() {
+  public void fillBoard() {   // updating the leaderboard table method
     if (statsGames != null && statsItems != null && statsPlaytime != null && statsWall != null) {
       statsGames.setVisible(false);
       statsItems.setVisible(false);
@@ -140,7 +142,7 @@ public final class StatisticsWindow extends Window {
     fillBoardTable();
   }
 
-  private void update(Stats stats) {
+  private void update(Stats stats) {   // fill the stats page data
 
     if (historyTable != null) historyTable.setVisible(false);
     if (historyTitle != null) historyTitle.setVisible(false);
@@ -160,7 +162,7 @@ public final class StatisticsWindow extends Window {
    * ------------------------------------------ Helper Methods
    * -----------------------------------------------------
    */
-  private void fillTable() {
+  private void fillTable() {  // updating the history table method
 
     TableColumn player = new TableColumn("player");
     player.setMinWidth(100);
@@ -177,7 +179,7 @@ public final class StatisticsWindow extends Window {
     historyTable.getColumns().addAll(player, points, lives);
   }
 
-  private void fillBoardTable() {
+  private void fillBoardTable() {   //updating the leaderboard method
     TableColumn player = new TableColumn("player");
     player.setMinWidth(100);
     player.setCellValueFactory(new PropertyValueFactory<TableItem, String>("player"));
