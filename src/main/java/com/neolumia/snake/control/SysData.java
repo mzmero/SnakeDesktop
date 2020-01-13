@@ -47,22 +47,32 @@ public class SysData {
     return history;
   }
 
+  /**
+   * getHistoryTableItems - retrieves the history of all games into ArrayList
+   * @param app
+   * @return
+   * @throws SQLException
+   */
   public ArrayList<TableItem> getHistoryTableItems(GameApp app) throws SQLException {
     ArrayList<TableItem> tableItems = new ArrayList<>();
     for (History history : this.history) {
-     if (app.getDatabase().getPlayerSettings(history.getPlayer()).leaderboard==true){
-       TableItem tableItem =
-         new TableItem(
-           history.getPlayer(),
-           Integer.toString(history.getPoints()),
-           Integer.toString(history.getLives()));
-       tableItems.add(tableItem);
-     }
-
+      if (app.getDatabase().getPlayerSettings(history.getPlayer()).leaderboard == true) {
+        TableItem tableItem =
+            new TableItem(
+                history.getPlayer(),
+                Integer.toString(history.getPoints()),
+                Integer.toString(history.getLives()));
+        tableItems.add(tableItem);
+      }
     }
     return tableItems;
   }
 
+  /**
+   * getPlayerHistory - is responsible to retrieve the history of games that is related to the player given as param
+   * @param playName - the player we want to have his history
+   * @return ArrayList of games in TableItem objects to fill the table in statistics window
+   */
   public ArrayList<TableItem> getPlayerHistory(String playName) {
     ArrayList<TableItem> tableItems = new ArrayList<>();
     for (History history : this.history) {
@@ -78,6 +88,9 @@ public class SysData {
     return tableItems;
   }
 
+  /**
+   * setHistory - initiates the history ArrayList from the json file located in json/history.json
+   */
   public void setHistory() {
     this.history = readHistoryFromJson();
   }
@@ -96,6 +109,12 @@ public class SysData {
     return questions;
   }
 
+
+  /**
+   * ifExists - helper method which checks if question body which is sent as a param already exists in the questions ArrayList
+   * @param ID - body of the question we want to delete
+   * @return True if question exists, False otherwise
+   */
   public boolean ifExists(String ID) {
     Question temp = null;
     for (Question d : questions) {
@@ -105,6 +124,12 @@ public class SysData {
     return false;
   }
 
+  /**
+   * deleteQuestion - is responsible to delete a question from the questions ArrayList
+   *
+   * @param ID - question body of the question that we want to delete
+   * @return True if update succeeded, False otherwise
+   */
   public boolean deleteQuestion(String ID) {
     boolean temp = ifExists(ID);
     Question DeleteQ = null;
@@ -136,6 +161,18 @@ public class SysData {
     }
   }
 
+  /**
+   * updateQuestion - gets the question fields and updates the specified question in questions
+   * ArrayList
+   *
+   * @param question - question body
+   * @param Updated - new question body
+   * @param answer - ArrayList of question's answers
+   * @param correctAns - the index of the correct answer
+   * @param level - level of the question
+   * @param team - name of team that added this question
+   * @return True if update succeeded, False otherwise
+   */
   public boolean updateQuestion(
       String question,
       String Updated,
@@ -143,9 +180,7 @@ public class SysData {
       String correctAns,
       String level,
       String team) {
-
     SysData.getInstance().deleteQuestion(question);
-
     questions.add(new Question(Updated, answer, correctAns, level, team));
     writeQuestionTojson();
     return true;
@@ -235,6 +270,13 @@ public class SysData {
     return null;
   }
 
+  /**
+   * readHistoryFromJson - iterates over the json file and converts items to History objects and
+   * returns an ArrayList of History items, every single object includes the details of a single
+   * game
+   *
+   * @return ArrayList of History objects which includes the details of a single game
+   */
   public ArrayList<History> readHistoryFromJson() {
     JSONParser jsonParser = new JSONParser();
     ArrayList<History> result = new ArrayList<>();
@@ -267,6 +309,10 @@ public class SysData {
     }
   }
 
+  /**
+   * writeHistoryTojson - inserts the History objects from History arraylist into the json file
+   * located in json/history.json
+   */
   public void writeHistoryTojson() {
     JSONObject jObject = new JSONObject();
     try {
