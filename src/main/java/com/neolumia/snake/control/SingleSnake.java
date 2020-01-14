@@ -191,7 +191,7 @@ public final class SingleSnake extends Snake<SingleGame> {
                 new EventHandler<KeyEvent>() {
                   @Override
                   public void handle(KeyEvent event) {
-                    if (event.getCode() == KeyCode.ESCAPE) {}
+                    if (event.getCode() == KeyCode.ESCAPE||event.getCode() == KeyCode.P) {}
                   }
                 });
           }

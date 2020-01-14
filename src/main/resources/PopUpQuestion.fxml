@@ -11,7 +11,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFB000;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox alignment="CENTER_LEFT" prefHeight="400.0" prefWidth="610.0" spacing="10.0">
+      <VBox alignment="CENTER_LEFT" prefHeight="400.0" prefWidth="610.0" spacing="10.0" style="-fx-border-color: #9AD880; -fx-border-width: 20;">
          <children>
             <Text fx:id="questionBody" strokeType="OUTSIDE" strokeWidth="0.0" text="QuestionBody">
                <font>

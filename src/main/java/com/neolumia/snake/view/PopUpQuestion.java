@@ -5,6 +5,7 @@ import com.neolumia.snake.control.Game;
 import com.neolumia.snake.control.SingleGame;
 import com.neolumia.snake.model.Question;
 import com.neolumia.snake.model.QuestionLevel;
+import com.sun.media.jfxmedia.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.IntegerBinding;
@@ -91,6 +92,8 @@ public class PopUpQuestion extends Window {
                     } else Toast.toast("Please Choose Answer", Color.RED);
                   }
                 });
+
+
           }
         });
   }
@@ -157,7 +160,9 @@ public class PopUpQuestion extends Window {
    * @param checkBox
    */
   private void updateSelected(CheckBox checkBox) {
-    for (int i = 0; i < checkBoxes.length && checkBoxes[i].getId().equals(checkBox.getId()); i++)
+    for (int i = 0; i < checkBoxes.length && checkBoxes[i].getId().equals(checkBox.getId()); i++) {
       this.selectedCheckBox = i + 1;
+      System.out.println("updateSelected :" + this.selectedCheckBox);
+    }
   }
 }
