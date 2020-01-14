@@ -49,6 +49,7 @@ public class SysData {
 
   /**
    * getHistoryTableItems - retrieves the history of all games into ArrayList
+   *
    * @param app
    * @return
    * @throws SQLException
@@ -69,7 +70,9 @@ public class SysData {
   }
 
   /**
-   * getPlayerHistory - is responsible to retrieve the history of games that is related to the player given as param
+   * getPlayerHistory - is responsible to retrieve the history of games that is related to the
+   * player given as param
+   *
    * @param playName - the player we want to have his history
    * @return ArrayList of games in TableItem objects to fill the table in statistics window
    */
@@ -109,9 +112,10 @@ public class SysData {
     return questions;
   }
 
-
   /**
-   * ifExists - helper method which checks if question body which is sent as a param already exists in the questions ArrayList
+   * ifExists - helper method which checks if question body which is sent as a param already exists
+   * in the questions ArrayList
+   *
    * @param ID - body of the question we want to delete
    * @return True if question exists, False otherwise
    */
@@ -354,6 +358,10 @@ public class SysData {
     for (Question p : this.questions) {
       if (p != null && p.getLevel().equals(level.getLevel()) && !questions.contains(p))
         array.add(p);
+    }
+    if (array.size() == 0) {
+      this.questions = questions;
+      return questions.get(new Random().nextInt(questions.size()));
     }
     int rnd = new Random().nextInt(array.size());
     return array.get(rnd);

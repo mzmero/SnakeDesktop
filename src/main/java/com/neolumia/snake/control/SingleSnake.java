@@ -166,7 +166,7 @@ public final class SingleSnake extends Snake<SingleGame> {
       mp.play();
     }
   }
-
+//TODO Move
   private void popQuestion(QuestionLevel level) {
     Popup popup = new Popup();
     Platform.runLater(

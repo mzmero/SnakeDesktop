@@ -313,6 +313,7 @@ public final class SingleGame extends Game {
     Tile tile = getTile();
     mouseObj = new Mouse();
     getTerrain().put(mouse_tile = tile, mouseObj);
+//    food.put(mouse_tile,true);
     LOGGER.info("Item spawned x={}, y={}", tile.getTileX(), tile.getTileY());
   }
 
@@ -353,7 +354,7 @@ public final class SingleGame extends Game {
   }
 
   /** this method initiates food on the board */
-  public void initSpawnFood() {
+  public void     initSpawnFood() {
     Tile tile;
     for (Item.Arguments argument : Item.getItems().keySet()) {
       if (argument.getGameTypes()[0] == GameType.CLASSIC
