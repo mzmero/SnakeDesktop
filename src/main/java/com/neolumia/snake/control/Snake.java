@@ -47,6 +47,7 @@ public abstract class Snake<T extends Game> {
       if (ticks % (game.isAuto() ? speed / 2 : speed) == 0) {
         move();
         game.moveMouse();
+
       }
       ticks++;
       break;

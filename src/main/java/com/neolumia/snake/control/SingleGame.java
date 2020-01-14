@@ -35,6 +35,7 @@ public final class SingleGame extends Game {
   public static ActiveTimer bananaTimer = new ActiveTimer(10000);
   public static ActiveTimer appleTimer = new ActiveTimer(5000);
   public static ActiveTimer mouseTimer = new ActiveTimer(60000);
+  public static ActiveTimer timePlay = new ActiveTimer(60000);
 
   public SingleGame(GameApp app, GameType type) {
     super(app, type);

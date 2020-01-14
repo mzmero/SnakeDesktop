@@ -13,6 +13,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -29,6 +30,7 @@ public abstract class Game extends Pane {
   protected final GameType type;
   protected final TerrainView terrain;
   static String playerName;
+  private long playtime;
 
   private boolean running;
   protected boolean paused;
@@ -36,6 +38,11 @@ public abstract class Game extends Pane {
   private int points;
   private int lives;
   private long start;
+  private long def=0;
+  private long pauseDuration=0;  // puaseDuration,flag,counter and prevstop is for calculating playtime
+  private boolean flag=false;
+  private int counter=0;
+  private long prevStop=0;
 
   public Game(GameApp app, GameType type) {
     this.app = app;
@@ -100,13 +107,17 @@ public abstract class Game extends Pane {
     this.auto = auto;
   }
 
-  /** check remaining lives and handle accordingly */
+  public long getPlaytime() {
+    return playtime;
+  }
+
+  /** in case the snake lost all of its lifes ,update the player stats and open dead window */
   public void end() {
 
     running = false;
     long stop = System.currentTimeMillis();
 
-    final boolean won = points > app.getHighscore();
+    final boolean won = points > app.getHighscore();    // case of surpassing your old hiscore
 
     try {
       app.getDatabase().saveGame(this);
@@ -132,15 +143,17 @@ public abstract class Game extends Pane {
       LOGGER.error("Could not update statistics", ex);
     }
 
-    LOGGER.info("The game has ended.");
+    LOGGER.info("The game has ended.");  // open dead window
     Platform.runLater(() -> app.getWindowManager().request(new DeadWindow(app, this, won)));
   }
 
-  /** This method handles running the game */
+  /** This method handles running the game by using a thread */
   public void run() {
     running = true;
     start = System.currentTimeMillis();
-
+    def=0;     //def , pauseDuartion and flag is for calculate playtime purpose
+    pauseDuration=0;
+    flag=false;
     new Thread(
             () -> {
               try {
@@ -150,8 +163,10 @@ public abstract class Game extends Pane {
                 while (running) {
                   start = System.currentTimeMillis();
                   if (!paused) {
-                    tick();
+                    tick();                 //tick function for moving snake and mouse . also adjusting the speed based on the chosen difficulty
                   }
+                  if(paused && counter==0) flag=true;  // for playtime calculate purpose
+                  calcPlayTime();
                   diff = System.currentTimeMillis() - start;
                   sleep = (int) (1000 / 60 - diff);
                   if (sleep > 0) {
@@ -161,10 +176,29 @@ public abstract class Game extends Pane {
               } catch (Throwable throwable) {
                 throwable.printStackTrace();
               }
+
+
             })
         .start();
   }
-
+  // calculate the current playtime by saving the time when the game is paused and updating the current playtime while running(Timer).
+  public void calcPlayTime(){
+    if(running){
+    if(!paused) {
+      if (counter != 0) {
+        pauseDuration += System.currentTimeMillis() - prevStop;
+        counter = 0;
+      }
+      def = System.currentTimeMillis() - start - pauseDuration;
+      playtime = TimeUnit.MILLISECONDS.toSeconds(def);
+    }
+   else {
+     if(flag){
+       prevStop=System.currentTimeMillis();
+      flag=false;
+      counter++;
+    }}
+  }}
   protected abstract void moveMouse();
 
   public abstract void init();
