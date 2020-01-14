@@ -45,12 +45,16 @@ public final class Toast {
     scene.getStylesheets().add("style/styles.css");
     scene.setFill(Color.TRANSPARENT);
     toastStage.setScene(scene);
-    toastStage.setX(
-        (GameApp.windowManager.getStage().getX() + GameApp.windowManager.getStage().getWidth())
-            / 2);
-    toastStage.setY(
-        (GameApp.windowManager.getStage().getY() + GameApp.windowManager.getStage().getHeight())
-            / 2);
+    //    toastStage.setX(
+    //        (GameApp.windowManager.getStage().getX() +
+    // GameApp.windowManager.getStage().getWidth())
+    //            / 2);
+    //    toastStage.setY(
+    //        (GameApp.windowManager.getStage().getY() +
+    // GameApp.windowManager.getStage().getHeight())
+    //            / 2);
+    toastStage.setX((GameApp.windowManager.getStage().getX() + 7));
+    toastStage.setY((GameApp.windowManager.getStage().getY() + 30));
     toastStage.show();
 
     Timeline fadeInTimeline = new Timeline();
