@@ -1,11 +1,9 @@
 package com.neolumia.snake.view;
 
-import com.neolumia.snake.GameApp;
 import com.neolumia.snake.control.Game;
 import com.neolumia.snake.control.SingleGame;
 import com.neolumia.snake.model.Question;
 import com.neolumia.snake.model.QuestionLevel;
-import com.sun.media.jfxmedia.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.IntegerBinding;
@@ -19,6 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
+/** this class is responsible to show a popup window to the user when the snake eats a question */
 public class PopUpQuestion extends Window {
 
   @FXML Text questionBody;
@@ -92,8 +91,6 @@ public class PopUpQuestion extends Window {
                     } else Toast.toast("Please Choose Answer", Color.RED);
                   }
                 });
-
-
           }
         });
   }

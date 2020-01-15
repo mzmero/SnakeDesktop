@@ -43,6 +43,11 @@ public final class DesignWindow extends Window {
   @FXML private ImageView current;
   @FXML private Label currentName;
 
+  /**
+   * initializer method for the design window
+   *
+   * @param app
+   */
   DesignWindow(GameApp app) {
     this.app = app;
 
@@ -77,7 +82,7 @@ public final class DesignWindow extends Window {
 
     menu.selectToggle(terrain);
   }
-
+  /** beforeTerrain - updates the new terrain when clicking on the before arrow */
   @FXML
   public void beforeTerrain() {
     terrainDesign
@@ -88,7 +93,7 @@ public final class DesignWindow extends Window {
               update(d);
             });
   }
-
+  /** nextTerrain - updates the new terrain when clicking on the next arrow */
   @FXML
   public void nextTerrain() {
     terrainDesign
@@ -99,7 +104,7 @@ public final class DesignWindow extends Window {
               update(d);
             });
   }
-
+  /** beforeSnake - updates the new snake when clicking on the before arrow */
   @FXML
   public void beforeSnake() {
     snakeDesign
@@ -110,7 +115,7 @@ public final class DesignWindow extends Window {
               update(d);
             });
   }
-
+  /** nextSnake - updates the new snake when clicking on the next arrow */
   @FXML
   public void nextSnake() {
     snakeDesign
@@ -121,7 +126,7 @@ public final class DesignWindow extends Window {
               update(d);
             });
   }
-
+  /** beforeBackground - updates the new background when clicking on the before arrow */
   @FXML
   public void beforeBackground() {
     bgDesign
@@ -133,6 +138,7 @@ public final class DesignWindow extends Window {
             });
   }
 
+  /** nextBackground - updates the new background when clicking on the next arrow */
   @FXML
   public void nextBackground() {
     bgDesign
@@ -143,7 +149,9 @@ public final class DesignWindow extends Window {
               update(d);
             });
   }
-
+  /**
+   * cancel - handles the back/cancel button which is responsible to return the user to menu window
+   */
   @FXML
   public void cancel() {
     app.updateDesign(new Design(terrainDesign, snakeDesign, bgDesign));
@@ -154,6 +162,12 @@ public final class DesignWindow extends Window {
     }
   }
 
+  /**
+   * this method updates the new design options that the user chose to his game for the next time
+   *
+   * @param option - the options of design concerning terrain snake and background the user chose
+   *     for his game
+   */
   private void update(DesignOption option) {
     before.setVisible(option.before().isPresent());
     next.setVisible(option.next().isPresent());

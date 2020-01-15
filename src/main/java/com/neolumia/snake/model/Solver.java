@@ -2,7 +2,6 @@ package com.neolumia.snake.model;
 
 import com.neolumia.snake.control.Game;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

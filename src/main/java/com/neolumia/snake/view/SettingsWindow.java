@@ -37,6 +37,11 @@ public final class SettingsWindow extends Window {
   @FXML private TextField playerName;
   @FXML private CheckBox leaderboard;
 
+  /**
+   * initializes settings window
+   *
+   * @param app
+   */
   SettingsWindow(GameApp app) {
     this.app = app;
 
@@ -76,6 +81,7 @@ public final class SettingsWindow extends Window {
     leaderboard.setSelected(app.getSettings().leaderboard);
   }
 
+  /** handles back to menu window */
   @FXML
   public void cancel() {
     try {
@@ -85,6 +91,11 @@ public final class SettingsWindow extends Window {
     }
   }
 
+  /**
+   * saving settings chosen by the user to the
+   *
+   * @throws SQLException
+   */
   @FXML
   public void save() throws SQLException {
     app.getSettings().locale = Locale.ENGLISH;

@@ -26,12 +26,6 @@ public final class MenuWindow extends Window {
     this.app.setSettings(app.getDatabase().getSettings(app.getPlayerName()));
     this.app.setDesign(app.getDatabase().loadDesign(app.getPlayerName()));
     this.app.setStats(app.getDatabase().loadStats(app.getPlayerName()));
-
-
-
-
-
-
   }
 
   @FXML

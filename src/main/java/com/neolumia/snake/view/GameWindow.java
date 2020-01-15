@@ -53,8 +53,10 @@ public final class GameWindow extends Window {
   public GameWindow(GameApp app, Game game) {
     this.app = app;
     this.game = game;
-        root.setStyle("-fx-background-color: #"+Integer.toHexString(app.getDesign().background.getColor().hashCode()));
-//    root.setStyle("-fx-background-color: white");
+    root.setStyle(
+        "-fx-background-color: #"
+            + Integer.toHexString(app.getDesign().background.getColor().hashCode()));
+    //    root.setStyle("-fx-background-color: white");
     group.getChildren().add(game);
     timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> update()));
     timeline.setCycleCount(Animation.INDEFINITE);
@@ -145,7 +147,8 @@ public final class GameWindow extends Window {
         life8.visibleProperty().setValue(true);
         break;
     }
-    timePlaylabel.setText(t("stats.playtime", new DecimalFormat("#.###").format(game.getPlaytime())));
+    timePlaylabel.setText(
+        t("stats.playtime", new DecimalFormat("#.###").format(game.getPlaytime())));
     points.setText(t("gameOver.points", game.getPoints()));
     highscore.setText(t("gameOver.highscore", app.getHighscore()));
     // TODO : Get duration from start and update text view - (time) - Note that time is already
@@ -198,21 +201,36 @@ public final class GameWindow extends Window {
     app.getWindowManager().center();
   }
 
+  /**
+   * this method enable the user to stop the game
+   *
+   * @param now
+   */
   public void updatePaused(boolean now) {
     if (now) root.getChildren().add(pause);
     else root.getChildren().remove(pause);
   }
 
+  /**
+   * this method is responsible to init questions to be false - no question is shown right now and
+   * resume game
+   *
+   * @param game
+   */
   public static void setQuestions(Game game) {
     isQuestion1 = false;
     isQuestion2 = false;
     isQuestion3 = false;
     game.setPaused(false);
   }
-  public void handleBack() throws SQLException {    // exiting from the current game and opening the menu page
+
+  /**
+   * this method handles the back click of the user from the game window to the menu window
+   * @throws SQLException
+   */
+  public void handleBack()
+      throws SQLException { // exiting from the current game and opening the menu page
     game.setPaused(true);
     app.getWindowManager().request(new MenuWindow(app));
   }
-
-
 }
