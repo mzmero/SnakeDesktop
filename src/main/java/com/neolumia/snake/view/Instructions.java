@@ -12,9 +12,7 @@ import javafx.scene.input.MouseEvent;
 
 import java.sql.SQLException;
 
-/**
- * this class is used to control the instructions FXML which is shown prior to game start
- */
+/** this class is used to control the instructions FXML which is shown prior to game start */
 public class Instructions extends Window {
   GameApp app;
   Game game;
@@ -26,6 +24,12 @@ public class Instructions extends Window {
     SingleSnake.isMute = false;
   }
 
+  /**
+   * this method initializes a new game
+   *
+   * @param mouseEvent
+   * @throws SQLException
+   */
   @FXML
   public void enterGame(MouseEvent mouseEvent) throws SQLException {
     synchronized (this) {
@@ -35,9 +39,13 @@ public class Instructions extends Window {
     }
   }
 
+  /**
+   * this method is responsible to stop media player
+   *
+   * @param mouseEvent
+   */
   @FXML
   public void muteMediaPlayer(MouseEvent mouseEvent) {
-
     if (mute.isSelected()) SingleSnake.isMute = true;
     else SingleSnake.isMute = false;
   }

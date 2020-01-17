@@ -1,6 +1,5 @@
 package com.neolumia.snake.view;
 
-import com.neolumia.snake.GameApp;
 import com.neolumia.snake.control.Game;
 import com.neolumia.snake.control.SingleGame;
 import com.neolumia.snake.model.Question;
@@ -18,6 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
+/** this class is responsible to show a popup window to the user when the snake eats a question */
 public class PopUpQuestion extends Window {
 
   @FXML Text questionBody;
@@ -157,7 +157,9 @@ public class PopUpQuestion extends Window {
    * @param checkBox
    */
   private void updateSelected(CheckBox checkBox) {
-    for (int i = 0; i < checkBoxes.length && checkBoxes[i].getId().equals(checkBox.getId()); i++)
+    for (int i = 0; i < checkBoxes.length && checkBoxes[i].getId().equals(checkBox.getId()); i++) {
       this.selectedCheckBox = i + 1;
+      System.out.println("updateSelected :" + this.selectedCheckBox);
+    }
   }
 }

@@ -72,6 +72,11 @@ public final class StatisticsWindow extends Window {
   @FXML private TableView<TableItem> boardTable = new TableView<TableItem>();
   @FXML private Label boardTitle;
 
+  /**
+   * initializer method for the statistics window
+   * @param app
+   * @throws SQLException
+   */
   StatisticsWindow(GameApp app) throws SQLException {
     this.app = app;
 
@@ -104,18 +109,27 @@ public final class StatisticsWindow extends Window {
     data =
         FXCollections.observableArrayList(
             SysData.getInstance().getPlayerHistory(app.getPlayerName()));
+    System.out.println(data);
 
     boardData =
       FXCollections.observableArrayList(SysData.getInstance().getHistoryTableItems(app));
+    System.out.println(boardData);
+
   }
 
+  /**
+   * this method handles the cancel button which redirects the user to the menu window
+   * @throws SQLException
+   */
   @FXML
   public void cancel() throws SQLException {
     app.getWindowManager().request(new MenuWindow(app));
   }
    /*for every button in the  main page(3 buttons) open a mini-page .every method  check if other mini-pages are opened
    then disabling the visibility of other mini-pages if its true  */
-
+  /**
+   * filling player history page
+   */
   private void fillHistory() {   //updating the history table method
     if (statsGames != null && statsItems != null && statsPlaytime != null && statsWall != null) {
       statsGames.setVisible(false);
@@ -130,6 +144,9 @@ public final class StatisticsWindow extends Window {
     fillTable();
   }
 
+  /**
+   * filling leader board page
+   */
   public void fillBoard() {   // updating the leaderboard table method
     if (statsGames != null && statsItems != null && statsPlaytime != null && statsWall != null) {
       statsGames.setVisible(false);
@@ -144,6 +161,10 @@ public final class StatisticsWindow extends Window {
     fillBoardTable();
   }
 
+  /**
+   * filling stats page
+   * @param stats
+   */
   private void update(Stats stats) {   // fill the stats page data
 
     if (historyTable != null) historyTable.setVisible(false);
@@ -161,8 +182,7 @@ public final class StatisticsWindow extends Window {
   }
 
   /**
-   * ------------------------------------------ Helper Methods
-   * -----------------------------------------------------
+   * filling history table
    */
   private void fillTable() {  // updating the history table method
 
@@ -181,6 +201,9 @@ public final class StatisticsWindow extends Window {
     historyTable.getColumns().addAll(player, points, lives);
   }
 
+  /**
+   * filling leader board table
+   */
   private void fillBoardTable() {   //updating the leaderboard method
     TableColumn player = new TableColumn("player");
     player.setMinWidth(100);

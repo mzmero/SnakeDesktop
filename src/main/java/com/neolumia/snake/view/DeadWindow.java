@@ -30,6 +30,12 @@ public final class DeadWindow extends Window {
   @FXML private Label points;
   @FXML private Label highscore;
 
+  /**
+   * DeadWindow - initiates the dead window
+   * @param app
+   * @param game
+   * @param won
+   */
   public DeadWindow(GameApp app, Game game, boolean won) {
     this.app = checkNotNull(app);
     this.game = checkNotNull(game);
@@ -52,6 +58,9 @@ public final class DeadWindow extends Window {
     app.newGame(game.getType());
   }
 
+  /**
+   * back - handles the click on back to the menu window
+   */
   @FXML
   public void back() {
     try {
@@ -61,6 +70,9 @@ public final class DeadWindow extends Window {
     }
   }
 
+  /**
+   * exit - handles the exit
+   */
   @FXML
   public void exit() {
     Platform.exit();

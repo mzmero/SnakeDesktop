@@ -25,6 +25,11 @@ public final class WindowManager {
 
   @Nullable private Window window;
 
+  /**
+   * Request for a new scene to be set
+   *
+   * @param window
+   */
   public void request(Window window) {
     if (this.window != null) {
       this.window.unload();
@@ -34,6 +39,7 @@ public final class WindowManager {
     window.load(stage, scene);
   }
 
+  /** Building a new screen and assigning style sheet and basic functionality */
   public void init() {
     scene.getStylesheets().add(CSS_FILE);
     scene.addEventHandler(
@@ -69,10 +75,16 @@ public final class WindowManager {
     stage.show();
   }
 
+  /**
+   * Returns the stage
+   *
+   * @return
+   */
   public Stage getStage() {
     return stage;
   }
 
+  /** Locates in the center of the screen */
   public void center() {
     Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
     stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);

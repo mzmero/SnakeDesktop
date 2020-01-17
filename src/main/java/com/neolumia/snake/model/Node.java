@@ -2,6 +2,7 @@ package com.neolumia.snake.model;
 
 import java.util.Objects;
 
+/** G F H are used for implementing A* algorithm for path traversal in auto mode */
 public final class Node {
 
   private final Tile tile;
@@ -38,10 +39,21 @@ public final class Node {
     return Objects.hash(tile.getTileX(), tile.getTileY());
   }
 
+  /**
+   * heuristics estimates the cost of the cheapest path from n to the target node
+   * @param foodX
+   * @param foodY
+   */
   void heuristics(int foodX, int foodY) {
     this.h = Math.abs(foodX - tile.getTileX()) + Math.abs(foodY - tile.getTileY());
   }
 
+  /**
+   * Updating G and F in each move
+   * @param from
+   * @param direction
+   * @param cost
+   */
   void update(Node from, Direction direction, int cost) {
     this.parent = from;
     this.direction = direction;

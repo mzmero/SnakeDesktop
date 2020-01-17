@@ -22,9 +22,7 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 import java.sql.SQLException;
 
-/**
- * this class controls the login windows that is shown in order to manage users
- */
+/** this class controls the login windows that is shown in order to manage users */
 public class Login extends Window {
   GameApp app;
   @FXML TextField playerName;
@@ -36,6 +34,11 @@ public class Login extends Window {
   Boolean isNew = false;
   Boolean isValidPassword = false;
 
+  /**
+   * Initializer method for the login window
+   *
+   * @param app
+   */
   public Login(GameApp app) {
     this.app = app;
 
@@ -51,13 +54,20 @@ public class Login extends Window {
             });
   }
 
+  /**
+   * login - responsible to authernticate the password of the user and validate password length and
+   * redirecting to the menu window
+   *
+   * @param mouseEvent
+   * @throws SQLException
+   */
   @FXML
   public void login(MouseEvent mouseEvent) throws SQLException {
     if (isNew) {
       if (password.getText().length() < 6 || password.getText().length() > 12)
         Toast.toast("Invalid Password Length, Length must be 6-12 chars", Color.RED);
       else {
-        Toast.toast("Registered Successfully " + playerName.getText(),Color.GREEN);
+        Toast.toast("Registered Successfully " + playerName.getText(), Color.GREEN);
         isValidPassword = true;
       }
 
@@ -79,6 +89,13 @@ public class Login extends Window {
     }
   }
 
+  /**
+   * next - handles the click on next in the login window which is responsible to show password
+   * field to user and authenticate
+   *
+   * @param mouseEvent
+   * @throws SQLException
+   */
   @FXML
   public void next(MouseEvent mouseEvent) throws SQLException {
     String playerName = "";
