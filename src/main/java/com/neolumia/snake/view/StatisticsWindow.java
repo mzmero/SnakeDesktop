@@ -93,6 +93,7 @@ public final class StatisticsWindow extends Window {
                 menu.selectToggle(history);
                 fillHistory();
               }
+
               if (newValue.equals(leaderboard)) {      //leaderboard button
                 grid.add(render("leaderboard"), 0, 0);
                 menu.selectToggle(leaderboard);
