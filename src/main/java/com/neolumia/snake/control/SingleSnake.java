@@ -36,7 +36,6 @@ import java.util.Optional;
 public final class SingleSnake extends Snake<SingleGame> {
   private static final Logger LOGGER = LogManager.getLogger(SingleGame.class);
   public static MediaPlayer mp;
-  public static boolean isMute;
 
   SingleSnake(SingleGame game) {
     super(
@@ -49,7 +48,7 @@ public final class SingleSnake extends Snake<SingleGame> {
                   || object.get() instanceof SEQuestion
                   || object.get() instanceof Mouse); // &&
         });
-    isMute=false;
+
   }
 
   /** Initiates Snake, and/or Clearing part from previous Life. */
@@ -159,7 +158,7 @@ public final class SingleSnake extends Snake<SingleGame> {
   }
 
   public void playOnEvent(String fileName) {
-    if (!isMute) {
+    if (!game.isMuted()) {
       String path = getClass().getResource("/sounds/" + fileName).toString();
       Media media = new Media(path);
       mp = new MediaPlayer(media);
@@ -198,6 +197,9 @@ public final class SingleSnake extends Snake<SingleGame> {
         });
   }
 
+  /**
+   * @return closest food to snaked head using Euclidean distance
+   */
   @Override
   protected Tile getClosestFood() {
     Tile closeTile = null;
