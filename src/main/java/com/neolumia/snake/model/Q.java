@@ -2,9 +2,9 @@
 package com.neolumia.snake.model;
 
 public final class Q {
-  public static final String PLAYER_TABLE = "CREATE TABLE IF NOT EXISTS players (id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, name  VARCHAR(30)UNIQUE NOT NULL );";
+  public static final String PLAYER_TABLE = "CREATE TABLE IF NOT EXISTS players (id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, name  VARCHAR(30)UNIQUE NOT NULL,password  VARCHAR(30)NOT NULL );";
   public static final String PLAYER_HIGHSCORE = "SELECT MAX(points) FROM games where games.playerName=?;";
-  public static final String PLAYER_SAVE = "INSERT INTO players (name) VALUES (?);";
+  public static final String PLAYER_SAVE = "INSERT INTO players (name,password) VALUES (?,?);";
 
 
 
@@ -31,6 +31,7 @@ public final class Q {
   public static final String LOAD_PLAYER_SETTINGS = "SELECT locale,difficulty,size,name,leaderboard FROM settings WHERE settings.name =  ?";
 
   public static final String GET_PLAYER_BY_ID = "SELECT id FROM players WHERE players.name =  ?";
+  public static final String GET_PLAYER_Password = "SELECT password FROM players WHERE players.name =  ?";
 
 
   private Q() {}

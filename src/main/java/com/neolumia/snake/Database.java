@@ -257,10 +257,29 @@ public final class Database {
     }
 
   }
-  public void newPlayer(String playerName) throws SQLException {
+  public String playerPassword(String playerName) throws SQLException {
+    try (Connection connection = dataSource.getConnection()) {
+      try (PreparedStatement statement = connection.prepareStatement(Q.GET_PLAYER_Password)) {
+        statement.setString(1, playerName);
+        try (ResultSet result = statement.executeQuery()) {
+
+          if (result.next()) {
+            String password = result.getString(1);
+            return password;
+
+          }
+          return null;
+
+        }
+      }
+    }
+
+  }
+  public void newPlayer(String playerName,String password) throws SQLException {
     try (Connection connection = dataSource.getConnection()) {
       try (PreparedStatement statement = connection.prepareStatement(Q.PLAYER_SAVE)) {
         statement.setString(1, playerName);
+        statement.setString(2, password);
 
         statement.executeUpdate();
       }

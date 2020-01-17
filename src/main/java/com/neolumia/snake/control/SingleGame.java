@@ -40,8 +40,20 @@ public final class SingleGame extends Game {
   public SingleGame(GameApp app, GameType type) {
     super(app, type);
     questions = new ArrayList<>();
+    isMuted=false;
   }
 
+  /**
+   * this method is responsible to controll the game's sound on//ff
+   * @param muted
+   *
+   * @return
+   */
+  @Override
+  public boolean setMuted(boolean muted) {
+    return this.isMuted = muted;
+
+  }
   /**
    * this method is responsible to stop the game
    *

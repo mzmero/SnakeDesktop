@@ -173,6 +173,7 @@ public abstract class Snake<T extends Game> {
         else {
           this.init();
           game.setPaused(true);
+
         }
         return false;
 
