@@ -87,6 +87,7 @@ public final class StatisticsWindow extends Window {
                 menu.selectToggle(stats);
                 update(app.getStats());
               }
+
               if (newValue.equals(history)) {      //history button
                 grid.add(render("history"), 0, 0);
                 menu.selectToggle(history);
