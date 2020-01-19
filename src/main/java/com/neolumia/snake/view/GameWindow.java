@@ -175,6 +175,10 @@ public final class GameWindow extends Window {
             updatePaused(game.setPaused(!game.isPaused()));
             return;
           }
+          if (event.getCode() == KeyCode.M) {
+            game.setMuted(!game.isMuted());
+            return;
+          }
           if (event.getCode() == KeyCode.END) {
             game.setAuto(!game.isAuto());
             System.out.println("Auto: " + game.isAuto());

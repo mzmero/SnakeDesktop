@@ -21,7 +21,7 @@ public class Instructions extends Window {
   public Instructions(GameApp app) {
     this.app = app;
     this.game = new SingleGame(app, GameType.CLASSIC);
-    SingleSnake.isMute = false;
+
   }
 
   /**
@@ -46,7 +46,7 @@ public class Instructions extends Window {
    */
   @FXML
   public void muteMediaPlayer(MouseEvent mouseEvent) {
-    if (mute.isSelected()) SingleSnake.isMute = true;
-    else SingleSnake.isMute = false;
+    if (mute.isSelected()) game.setMuted(true);
+    else game.setMuted(false);
   }
 }

@@ -34,6 +34,7 @@ public abstract class Game extends Pane {
 
   private boolean running;
   protected boolean paused;
+  protected boolean isMuted;
   private boolean auto;
   private int points;
   private int lives;
@@ -96,8 +97,13 @@ public abstract class Game extends Pane {
   public boolean isPaused() {
     return paused;
   }
+  public boolean isMuted() {
+    return isMuted;
+  }
 
   public abstract boolean setPaused(boolean paused);
+  public abstract boolean setMuted(boolean muted);
+
 
   public boolean isAuto() {
     return auto;
