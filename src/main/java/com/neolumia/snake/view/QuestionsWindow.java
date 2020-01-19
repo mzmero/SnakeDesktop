@@ -100,10 +100,10 @@ public final class QuestionsWindow extends Window {
     ComboChooseQuestion.setItems(items);
     items.setAll(reloadData());     //  preparing questions (items) for delete and update combo box
 
-     Q1.setText("Question");
-     Q1.setCellValueFactory(new PropertyValueFactory<DataItem,String>("question"));
-     data.setAll(reloadQuestionData());
-     tb.setItems(data);           // preparing  questions for table
+    Q1.setText("Question");
+    Q1.setCellValueFactory(new PropertyValueFactory<DataItem,String>("question"));
+    data.setAll(reloadQuestionData());
+    tb.setItems(data);           // preparing  questions for table
 
     String[] teams = {"Chimp", "Crocodile", "Scorpion", "Giraffe", "Spider", "Viper", "Panther", "Wolf", "Sloth", "Lion", "Panda", "Piranha", "Rabbit", "Shark", "Hawk", "Husky"};
     ComboUpdateTeam.getItems().addAll(teams);    // team combobox
@@ -200,54 +200,54 @@ public final class QuestionsWindow extends Window {
 
     } else
       // another input check
-    if(UpdateQuestionBody.getText()!=null && !UpdateQuestionBody.getText().isEmpty() &&!ComboUpdateTeam.getSelectionModel().isEmpty() && !ComboUpdateLevel.getSelectionModel().isEmpty()
-      && !ComboUpdateCorrectAns.getSelectionModel().isEmpty() && UpdateAnswer1.getText()!=null && !UpdateAnswer1.getText().isEmpty() && UpdateAnswer2.getText()!=null &&
-      !UpdateAnswer2.getText().isEmpty() && !UpdateAnswer3.getText().isEmpty() && UpdateAnswer3.getText()!=null && UpdateAnswer4.getText()!=null
-      && !UpdateAnswer4.getText().isEmpty()){
-      if(!ComboChooseQuestion.getValue().equals(UpdateQuestionBody.getText()) && SysData.getInstance().ifExists(UpdateQuestionBody.getText())){
+      if(UpdateQuestionBody.getText()!=null && !UpdateQuestionBody.getText().isEmpty() &&!ComboUpdateTeam.getSelectionModel().isEmpty() && !ComboUpdateLevel.getSelectionModel().isEmpty()
+        && !ComboUpdateCorrectAns.getSelectionModel().isEmpty() && UpdateAnswer1.getText()!=null && !UpdateAnswer1.getText().isEmpty() && UpdateAnswer2.getText()!=null &&
+        !UpdateAnswer2.getText().isEmpty() && !UpdateAnswer3.getText().isEmpty() && UpdateAnswer3.getText()!=null && UpdateAnswer4.getText()!=null
+        && !UpdateAnswer4.getText().isEmpty()){
+        if(!ComboChooseQuestion.getValue().equals(UpdateQuestionBody.getText()) && SysData.getInstance().ifExists(UpdateQuestionBody.getText())){
+          Alert alert = new Alert(Alert.AlertType.ERROR);
+          alert.setTitle("Failed");
+          alert.setHeaderText("Something went wrong");
+          String s ="Your updating the QuestionBody to an existing one ,Please write a new question";
+          alert.setContentText(s);
+          alert.show();
+
+        }else{    // input is legal
+          ArrayList<String> answers=new ArrayList<>();
+          answers.add(UpdateAnswer1.getText());
+          answers.add(UpdateAnswer2.getText());
+          answers.add(UpdateAnswer3.getText());
+          answers.add(UpdateAnswer4.getText());
+          SysData.getInstance().updateQuestion(ComboChooseQuestion.getValue(),UpdateQuestionBody.getText(),answers,ComboUpdateCorrectAns.getValue().toString(),
+            ComboUpdateLevel.getValue(),ComboUpdateTeam.getValue());
+          // popup for a success
+          Alert alert = new Alert(Alert.AlertType.INFORMATION);
+          alert.setTitle("Update Question successfully");
+          alert.setHeaderText("The Question updated successfully");
+          String s ="The informations which was inserted:\nQuestion Body:"+UpdateQuestionBody.getText()+"\nAnswer1: "+answers.get(0)+ "\nAnswer2: "+answers.get(1)+"\nAnswer3: "+answers.get(2)+"\nAnswer4: "+answers.get(3)
+            +"\nCorrect Answer Number: "+ComboUpdateCorrectAns.getValue().toString() +"\nlevel: "+ ComboUpdateLevel.getValue()+"    Team: "+ComboUpdateTeam.getValue();
+          alert.setContentText(s);
+          alert.show();
+
+
+          ComboChooseQuestion.getSelectionModel().clearSelection();  //empty update combobox and reload data
+          items.setAll(reloadData());
+          data.setAll(reloadQuestionData());
+
+
+
+
+
+        }
+
+      }else {   //error popup
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Failed");
         alert.setHeaderText("Something went wrong");
-        String s ="Your updating the QuestionBody to an existing one ,Please write a new question";
+        String s ="There could be some missing field , Please try again";
         alert.setContentText(s);
         alert.show();
-
-      }else{    // input is legal
-        ArrayList<String> answers=new ArrayList<>();
-        answers.add(UpdateAnswer1.getText());
-        answers.add(UpdateAnswer2.getText());
-        answers.add(UpdateAnswer3.getText());
-        answers.add(UpdateAnswer4.getText());
-        SysData.getInstance().updateQuestion(ComboChooseQuestion.getValue(),UpdateQuestionBody.getText(),answers,ComboUpdateCorrectAns.getValue().toString(),
-          ComboUpdateLevel.getValue(),ComboUpdateTeam.getValue());
-         // popup for a success
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Update Question successfully");
-        alert.setHeaderText("The Question updated successfully");
-        String s ="The informations which was inserted:\nQuestion Body:"+UpdateQuestionBody.getText()+"\nAnswer1: "+answers.get(0)+ "\nAnswer2: "+answers.get(1)+"\nAnswer3: "+answers.get(2)+"\nAnswer4: "+answers.get(3)
-          +"\nCorrect Answer Number: "+ComboUpdateCorrectAns.getValue().toString() +"\nlevel: "+ ComboUpdateLevel.getValue()+"    Team: "+ComboUpdateTeam.getValue();
-        alert.setContentText(s);
-        alert.show();
-
-
-        ComboChooseQuestion.getSelectionModel().clearSelection();  //empty update combobox and reload data
-        items.setAll(reloadData());
-        data.setAll(reloadQuestionData());
-
-
-
-
-
       }
-
-    }else {   //error popup
-      Alert alert = new Alert(Alert.AlertType.ERROR);
-      alert.setTitle("Failed");
-      alert.setHeaderText("Something went wrong");
-      String s ="There could be some missing field , Please try again";
-      alert.setContentText(s);
-      alert.show();
-    }
   }
 
   /*this method responsible for delete a question if the user clicked on delete*/

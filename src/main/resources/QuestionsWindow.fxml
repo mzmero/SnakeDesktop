@@ -62,15 +62,15 @@
             <Button fx:id="btnDelete" mnemonicParsing="false" onMouseClicked="#DeleteQ" style="-fx-background-color: white; -fx-background-radius: 30;" text="delete" />
           </children>
         </VBox>
-            <VBox prefHeight="421.0" prefWidth="342.0">
-               <children>
-                  <TableView fx:id="tb" onMouseClicked="#handleTable" prefHeight="417.0" prefWidth="322.0">
-                    <columns>
-                      <TableColumn fx:id="Q1" prefWidth="341.59998166561127" text="C1" />
-                    </columns>
-                  </TableView>
-               </children>
-            </VBox>
+        <VBox prefHeight="421.0" prefWidth="342.0">
+          <children>
+            <TableView fx:id="tb" onMouseClicked="#handleTable" prefHeight="417.0" prefWidth="322.0">
+              <columns>
+                <TableColumn fx:id="Q1" prefWidth="341.59998166561127" text="C1" />
+              </columns>
+            </TableView>
+          </children>
+        </VBox>
       </children>
     </HBox>
     <GridPane style="-fx-background-color: white;" GridPane.rowIndex="1">
