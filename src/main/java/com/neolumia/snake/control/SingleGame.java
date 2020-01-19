@@ -27,9 +27,9 @@ public final class SingleGame extends Game {
   private final SingleSnake snake = new SingleSnake(this);
   private HashMap<Tile, Boolean> food = new HashMap<>();
   private Tile question;
-  public Tile mouse_tile;
-  public Mouse mouseObj;
-  public Direction mouseDirection;
+  public Tile mouse_tile;   //mouse tile is the tile where the current mouse placed on
+  public Mouse mouseObj;    // the mouse object on the board
+  public Direction mouseDirection;  //the direction thats the mouse moved in the last move
   private ArrayList<Question> questions;
   public static int counter = 0;
   public static ActiveTimer bananaTimer = new ActiveTimer(10000);
@@ -99,7 +99,8 @@ public final class SingleGame extends Game {
     intSpawnMouse();
     snake.init(); // TODO delay 2 sec
   }
-
+  /*   random move is to randomly choose a direction for the mouse to move on the board
+  *  taking into account the mouse current place then checking the valid directions and choose one of them randomly*/
   protected void RandomMove() {
     int Y = mouse_tile.getTileY();
     int X = mouse_tile.getTileX();
@@ -155,7 +156,9 @@ public final class SingleGame extends Game {
     return true;
   }
 
-  /** this method is responsible to direct the mouse to move on board */
+  /** this method is responsible to direct the mouse to move on board
+   * the algorithm check the mouse current place if its aways from the snake head aor the corner , if one of them is close to the mouse
+   * then choose the best direction for your current situation */
   @Override
   protected void moveMouse() {
     if (mouse_tile != null) {
@@ -223,7 +226,7 @@ public final class SingleGame extends Game {
       }
     }
   }
-
+/*this method responsible for moving the mouse from current tile to given tile*/
   private void MouseTransfer(Optional<Tile> t) {
     if (!t.isPresent()) {
       RandomMove();

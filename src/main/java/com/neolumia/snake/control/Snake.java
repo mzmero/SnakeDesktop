@@ -41,7 +41,7 @@ public abstract class Snake<T extends Game> {
 
   public abstract void onEat(Tile tile, TileObject object);
 
-  public void tick() {
+  public void tick() {   // adjusting the snake/mouse speed thats depends on the difficulty settings
     while (true) {
 
       if (ticks % (game.isAuto() ? speed / 2 : speed) == 0) {
@@ -58,7 +58,7 @@ public abstract class Snake<T extends Game> {
     return parts;
   }
 
-  public void setNext(@Nullable Direction next) {
+  public void setNext(@Nullable Direction next) {    // changing the snake direction on the board
     if (direction != null && direction.opposite() == next) {
       return;
     }
@@ -73,7 +73,7 @@ public abstract class Snake<T extends Game> {
     return game.getApp().getDesign().snake.getPart().get(this, tile, direction, null);
   }
 
-  protected void addPart(Tile tile, Direction direction, boolean head) {
+  protected void addPart(Tile tile, Direction direction, boolean head) { //adding a new part of snake to the snakeparts list
     final SnakePartView sp = createPart(tile, direction);
     if (!parts.isEmpty()) {
       parts.getFirst().setP(sp);
@@ -87,7 +87,7 @@ public abstract class Snake<T extends Game> {
     parts.addLast(sp);
   }
 
-
+  //this function move the snake and check if the next tile have food/mouse/question or wall ,then do an action thats depend on it
 
   private boolean move() {
 
@@ -95,7 +95,7 @@ public abstract class Snake<T extends Game> {
       return false;
     }
 
-    if (game.isAuto()) {
+    if (game.isAuto()) {    // check if the game set on auto then find the best move (direction) for the snake and move it
       Direction best = findBest();
       if (best == null) {
         best = findTail();
@@ -139,7 +139,7 @@ public abstract class Snake<T extends Game> {
 
     final Optional<Tile> tile = game.getTerrain().getTile(nextX, nextY);
 
-    if (!tile.isPresent()) {
+    if (!tile.isPresent()) {  // tile is out of bounds ( wall)
       // TODO
       // -> Hit the wall -> check lived
       playOnEvent("Crash.mp3");
@@ -161,9 +161,9 @@ public abstract class Snake<T extends Game> {
     boolean quest = false;
 
     final Optional<TileObject> item = game.getTerrain().get(tile.get());
-    if (item.isPresent()) {
+    if (item.isPresent()) {   // if an item present , do an action thats depend on which item is present
 
-      if (item.get() instanceof SnakePartView) {
+      if (item.get() instanceof SnakePartView) {   // in case the snake head hit its part
         // Hit himself --> End
         playOnEvent("Crash.mp3");
         lives--;
@@ -187,21 +187,21 @@ public abstract class Snake<T extends Game> {
         eat = true;
       }
     } else {
-      game.getTerrain().put(parts.removeLast().getTile(), null);
+      game.getTerrain().put(parts.removeLast().getTile(), null);  // snake moved successfully to an empty tile
     }
 
-    if (eat) {
+    if (eat) {      // snake eated food or mouse
       game.getStats().items++;
       onEat(tile.get(), item.get());
    //   if(item.get() instanceof Mouse)
     //  addPart(, direction.opposite(), false);
-    } else if (quest) {
+    } else if (quest) {    //snake eated a question
       onQuestion(tile.get(), item.get());
       //  game.getStats().items++;
     }
 
 
-    addPart(tile.get(), direction.opposite(), true);
+    addPart(tile.get(), direction.opposite(), true);  // add part to the snake after eated a food/mouse/question
     return true;
   }
 
@@ -209,7 +209,7 @@ public abstract class Snake<T extends Game> {
 
   protected abstract void onQuestion(Tile tile, TileObject tileObject);
 
-  private boolean moveable(Direction direction) {
+  private boolean moveable(Direction direction) {     // check if the tile in a given direction is empty
     final Optional<Tile> next = parts.getFirst().getTile().getRelative(game, direction);
     if (!next.isPresent()) {
       return false;
@@ -218,7 +218,7 @@ public abstract class Snake<T extends Game> {
     return !obj.isPresent() || obj.get() instanceof Food;
   }
 
-  private Direction findBest() {
+  private Direction findBest() {    //algorithm thats find the best tile to move for the snake ,the game is on auto mode
     Tile food = getClosestFood();
   final Solver solver =
         new Solver(game, parts.getFirst().getTile(), food.getTileX(), food.getTileY(), blocking);

@@ -38,24 +38,10 @@ public final class QuestionsWindow extends Window {
   private final ToggleGroup menu = new ToggleGroup();
   private ObservableList<String> items = FXCollections.observableArrayList();  // observer for questions combobox
   private ObservableList<DataItem> data = FXCollections.observableArrayList(); // observer for questions in table
-
-  private TerrainDesign terrainDesign;
-  private SnakeDesign snakeDesign;
-  private BgDesign bgDesign;
-  private Node node;
-
-  @FXML
-  private GridPane grid;
   @FXML
   TableColumn Q1;
   @FXML
   TableView<DataItem> tb;
-  @FXML
-  private ImageView before;
-  @FXML
-  private ImageView next;
-  @FXML
-  private ImageView current;
   @FXML
   private Label currentName;
 
@@ -106,34 +92,6 @@ public final class QuestionsWindow extends Window {
 
   QuestionsWindow(GameApp app) {
     this.app = app;
-    //TODO:Update view and remove custom settings
-
-
-
-//    menu.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
-//      if (newValue.equals(terrain)) {
-//        grid.getChildren().removeAll(node);
-//        grid.add(node = render("terrain"), 0, 0);
-//        update(terrainDesign);
-//        return;
-//      }
-//      if (newValue.equals(snake)) {
-//        grid.getChildren().removeAll(node);
-//        grid.add(node = render("snake"), 0, 0);
-//        update(snakeDesign);
-//      }
-//      if (newValue.equals(background)) {
-//        grid.getChildren().removeAll(node);
-//        grid.add(node = render("background"), 0, 0);
-//        update(bgDesign);
-//      }
-//    });
-
-    this.terrainDesign = app.getDesign().terrain;
-    this.snakeDesign = app.getDesign().snake;
-    this.bgDesign = app.getDesign().background;
-
-
     initCB();
   }
 
@@ -223,67 +181,13 @@ public final class QuestionsWindow extends Window {
 
   }
 
-  @FXML
-  public void beforeTerrain() {
-    terrainDesign.before().ifPresent(d -> {
-      this.terrainDesign = d;
-      update(d);
-    });
-  }
-
-  @FXML
-  public void nextTerrain() {
-    terrainDesign.next().ifPresent(d -> {
-      this.terrainDesign = d;
-      update(d);
-    });
-  }
-
-  @FXML
-  public void beforeSnake() {
-    snakeDesign.before().ifPresent(d -> {
-      this.snakeDesign = d;
-      update(d);
-    });
-  }
-
-  @FXML
-  public void nextSnake() {
-    snakeDesign.next().ifPresent(d -> {
-      this.snakeDesign = d;
-      update(d);
-    });
-  }
-
-  @FXML
-  public void beforeBackground() {
-    bgDesign.before().ifPresent(d -> {
-      this.bgDesign = d;
-      update(d);
-    });
-  }
-
-  @FXML
-  public void nextBackground() {
-    bgDesign.next().ifPresent(d -> {
-      this.bgDesign = d;
-      update(d);
-    });
-  }
 
   @FXML
   public void cancel() throws SQLException {        // close page and return to menu
-    app.updateDesign(new Design(terrainDesign, snakeDesign, bgDesign));
     app.getWindowManager().request(new MenuWindow(app));
   }
 
-  private void update(DesignOption option) {
-    before.setVisible(option.before().isPresent());
-    next.setVisible(option.next().isPresent());
-    current.setImage(new Image(getClass().getResourceAsStream(option.getFile())));
-    currentName.setText(t(option.getName()));
-  }
-
+  /*this method responsible for updating the question if the user clicked on update*/
   @FXML
   public void UpdateQ(MouseEvent event) {               // update button event
     if(ComboChooseQuestion.getSelectionModel().isEmpty()){     //input check
@@ -346,7 +250,7 @@ public final class QuestionsWindow extends Window {
     }
   }
 
-
+  /*this method responsible for delete a question if the user clicked on delete*/
   @FXML
   public void DeleteQ(MouseEvent event) {    // delete button event
     String DeleteQ=ComboDelete.getValue();
@@ -381,7 +285,7 @@ public final class QuestionsWindow extends Window {
       alert.show();
     }}
 
-
+  /*this method responsible for inserting a new question if the user clicked on insert*/
   @FXML
   public void InsertQ(MouseEvent event) {         // insert question event
     String InsertThisQuestion = InsertQuestionBody.getText();

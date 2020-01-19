@@ -63,6 +63,7 @@ public final class GameWindow extends Window {
     timeline.play();
     update();
   }
+  /*this method responsible for updating the board with current stats(hearts count , timer , points and highscore*/
 
   private void update() {
     switch (game.getLives()) {
@@ -163,6 +164,7 @@ public final class GameWindow extends Window {
 
     app.getWindowManager().getStage().requestFocus();
   }
+  /*this method responsible for loading the board in the gamewindow*/
 
   @Override
   public void load(Stage stage, Scene scene) {

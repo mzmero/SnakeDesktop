@@ -36,9 +36,9 @@ import java.util.Optional;
 public final class SingleSnake extends Snake<SingleGame> {
   private static final Logger LOGGER = LogManager.getLogger(SingleGame.class);
   public static MediaPlayer mp;
-  public static boolean isMute;
+  public static boolean isMute; // check if the game is muted or not
 
-  SingleSnake(SingleGame game) {
+  SingleSnake(SingleGame game) { //preparing the snake
     super(
         game,
         Direction.WEST,
@@ -81,7 +81,7 @@ public final class SingleSnake extends Snake<SingleGame> {
   public void onEat(Tile tile, TileObject object) {
     game.getTerrain().put(tile, null);
     game.getFood().put(tile, false);
-
+                            // check which instance we eat , apply a new timer for the next spawn and update the game points
     if (object instanceof Apple) {
       playOnEvent("Food.mp3");
 
@@ -99,7 +99,7 @@ public final class SingleSnake extends Snake<SingleGame> {
       game.bananaTimer.start();
       game.spawnBanana(10000);
     }
-    if (object instanceof Pear) {
+    if (object instanceof Pear) {  //pear only spawn in corners
       playOnEvent("Food.mp3");
       LOGGER.info(" {} eaten at  x={}, y={}", "Pear", tile.getTileX(), tile.getTileY());
       game.mouseTimer = new SingleGame.ActiveTimer(60000);
@@ -158,7 +158,7 @@ public final class SingleSnake extends Snake<SingleGame> {
     }
   }
 
-  public void playOnEvent(String fileName) {
+  public void playOnEvent(String fileName) {   //sounds play function
     if (!isMute) {
       String path = getClass().getResource("/sounds/" + fileName).toString();
       Media media = new Media(path);
@@ -199,7 +199,7 @@ public final class SingleSnake extends Snake<SingleGame> {
   }
 
   @Override
-  protected Tile getClosestFood() {
+  protected Tile getClosestFood() {   // a function to find the closets food for the snake
     Tile closeTile = null;
     double distance = 10000;
     for (Tile tile : game.getFood().keySet()) {

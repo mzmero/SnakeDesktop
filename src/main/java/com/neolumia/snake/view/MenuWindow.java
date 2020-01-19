@@ -27,28 +27,28 @@ public final class MenuWindow extends Window {
     this.app.setDesign(app.getDatabase().loadDesign(app.getPlayerName()));
     this.app.setStats(app.getDatabase().loadStats(app.getPlayerName()));
   }
-
+  /*this method responsible for lunching the game window if the user clicked on play*/
   @FXML
   public void play() {
     /*app.newGame(type);*/
     app.getWindowManager().request(new Instructions(app));
   }
-
+  /*this method responsible for lunching the question window if the user clicked on Questions*/
   @FXML
   public void questions() {
     app.getWindowManager().request(new QuestionsWindow(app));
   }
-
+  /*this method responsible for lunching the design window if the user clicked on design*/
   @FXML
   public void design() {
     app.getWindowManager().request(new DesignWindow(app));
   }
-
+  /*this method responsible for lunching the statistics window if the user clicked on statistics*/
   @FXML
   public void statistics() throws SQLException {
     app.getWindowManager().request(new StatisticsWindow(app));
   }
-
+  /*this method responsible for lunching the settings window if the user clicked on settings*/
   @FXML
   public void settings() {
     app.getWindowManager().request(new SettingsWindow(app));
