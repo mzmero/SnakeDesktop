@@ -10,8 +10,8 @@ public enum BgDesign implements DesignOption<BgDesign> {
   /**
    * Background designs : CYAN and WHITE in order to let users customize the design of their game as they want
    */
-  CYAN("color.aqua", "/lib/bg_cyan.png", Color.rgb(224, 255, 255)),
-  WHITE("color.white", "/lib/bg_white.png", Color.WHITE);
+  CYAN("color.green", "/lib/bg_green.jpg", Color.rgb(147,196,125)),
+  WHITE("color.white", "/lib/bg_white.jpg", Color.rgb(255,255,255));
 
 
   private final String name;

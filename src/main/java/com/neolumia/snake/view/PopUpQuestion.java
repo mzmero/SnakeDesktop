@@ -1,10 +1,9 @@
 package com.neolumia.snake.view;
 
-import com.neolumia.snake.GameApp;
 import com.neolumia.snake.control.Game;
 import com.neolumia.snake.control.SingleGame;
-import com.neolumia.snake.model.questions.Question;
-import com.neolumia.snake.model.questions.QuestionLevel;
+import com.neolumia.snake.model.Question;
+import com.neolumia.snake.model.QuestionLevel;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.IntegerBinding;
@@ -15,9 +14,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import javafx.stage.Popup;
 
+/** this class is responsible to show a popup window to the user when the snake eats a question */
 public class PopUpQuestion extends Window {
 
   @FXML Text questionBody;
@@ -37,16 +37,16 @@ public class PopUpQuestion extends Window {
   private ObservableSet<CheckBox> unselectedCheckBoxes = FXCollections.observableSet();
   private IntegerBinding numCheckBoxesSelected = Bindings.size(selectedCheckBoxes);
   private final int maxNumSelected = 1;
+  private Game game;
 
   public PopUpQuestion(SingleGame game, Question q) {
-    System.out.println(q);
     question = q;
     checkBoxes[0] = checkBox1;
     checkBoxes[1] = checkBox2;
     checkBoxes[2] = checkBox3;
     checkBoxes[3] = checkBox4;
     submitButton.setDisable(true);
-
+    this.game = game;
     Platform.runLater(
         new Runnable() {
           @Override
@@ -70,36 +70,37 @@ public class PopUpQuestion extends Window {
                     submitButton.setDisable(true);
                   }
                 });
-
             submitButton.setOnMouseClicked(
                 new EventHandler<MouseEvent>() {
                   @Override
                   public void handle(MouseEvent event) {
                     if (selectedCheckBoxes.size() != 0) {
                       if (Integer.parseInt(question.getCorrectAns()) == (selectedCheckBox)) {
-                        toast("Correct Answer :)");
+                        Toast.toast("Correct Answer :)", Color.GREEN);
                         submitButton.setDisable(true);
                         updatePoints(game, true);
                         submitButton.getScene().getWindow().hide();
-                        GameWindow.setQuestions(game);
+                        game.setPaused(false);
                       } else {
-                        toast("Wrong Answer :(");
+                        Toast.toast("Wrong Answer :(", Color.RED);
                         submitButton.setDisable(true);
                         updatePoints(game, false);
                         submitButton.getScene().getWindow().hide();
-                        GameWindow.setQuestions(game);
+                        game.setPaused(false);
                       }
-                    } else toast("Please Choose Answer");
+                    } else Toast.toast("Please Choose Answer", Color.RED);
                   }
                 });
           }
         });
   }
 
-  private void toast(String s) {
-    Toast.makeText(GameApp.windowManager.getStage(), s, 1500, 500, 500);
-  }
-
+  /**
+   * This method updates game points
+   *
+   * @param game
+   * @param isCorrect
+   */
   private void updatePoints(SingleGame game, Boolean isCorrect) {
     if (isCorrect) {
       if (question.getLevel().equals(QuestionLevel.ONE.getLevel()))
@@ -127,6 +128,11 @@ public class PopUpQuestion extends Window {
     }
   }
 
+  /**
+   * this method configures the checkboxes to ensure that only one checkbox is selected
+   *
+   * @param checkBox
+   */
   private void configureCheckBox(CheckBox checkBox) {
     if (checkBox.isSelected()) selectedCheckBoxes.add(checkBox);
     else unselectedCheckBoxes.add(checkBox);
@@ -145,8 +151,15 @@ public class PopUpQuestion extends Window {
             });
   }
 
+  /**
+   * this method updates the num of selected checkboxes
+   *
+   * @param checkBox
+   */
   private void updateSelected(CheckBox checkBox) {
-    for (int i = 0; i < checkBoxes.length && checkBoxes[i].getId().equals(checkBox.getId()); i++)
+    for (int i = 0; i < checkBoxes.length && checkBoxes[i].getId().equals(checkBox.getId()); i++) {
       this.selectedCheckBox = i + 1;
+      System.out.println("updateSelected :" + this.selectedCheckBox);
+    }
   }
 }

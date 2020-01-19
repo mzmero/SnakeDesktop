@@ -1,11 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" >
+<AnchorPane fx:id="ap" prefHeight="520.0" prefWidth="1000.0" style="-fx-background-color: #FFB000;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button layoutX="71.0" layoutY="59.0" mnemonicParsing="false" onMouseClicked="#login" text="Log-in!" />
-      <TextField fx:id="playerName" layoutX="14.0" layoutY="14.0" promptText=" " />
+      <Group fx:id="grpLogin" layoutX="337.0">
+         <children>
+            <VBox alignment="CENTER" prefHeight="437.0" prefWidth="326.0" spacing="20.0">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Login">
+                     <font>
+                        <Font name="System Bold" size="68.0" />
+                     </font>
+                  </Text>
+                  <JFXTextField fx:id="playerName" labelFloat="true" prefHeight="40.0" promptText="player name" />
+                  <JFXButton fx:id="next" onMousePressed="#next" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #9AD880; -fx-background-radius: 30;" text="Next" />
+                  <JFXPasswordField fx:id="password" labelFloat="true" prefHeight="40.0" promptText="password" />
+                  <JFXButton fx:id="login" onMouseClicked="#login" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #9AD880; -fx-background-radius: 30;" text="Log-in!" />
+                  <JFXButton fx:id="loginSignup" onMouseClicked="#navSignup" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #9AD880; -fx-background-radius: 30;" text="Sign-Up!" />
+               </children>
+               <padding>
+                  <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+               </padding>
+            </VBox>
+         </children>
+      </Group>
+      <Group fx:id="grpSignup" layoutX="337.0" visible="false">
+         <children>
+            <JFXButton fx:id="Back" layoutX="40.0" layoutY="451.0" onMouseClicked="#backToLogin" prefHeight="40.0" prefWidth="59.0" style="-fx-background-color: #9AD880; -fx-background-radius: 30;" text="Back" />
+            <VBox alignment="CENTER" layoutY="-82.0" prefHeight="535.0" prefWidth="326.0" spacing="20.0">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign-Up" wrappingWidth="243.515625">
+                     <font>
+                        <Font name="System Bold" size="60.0" />
+                     </font>
+                  </Text>
+                  <JFXTextField fx:id="NewPlayerName" labelFloat="true" prefHeight="40.0" promptText="Player Name" />
+                  <JFXPasswordField fx:id="NewPassword" labelFloat="true" prefHeight="40.0" promptText="Password" />
+                  <JFXPasswordField fx:id="NewPassword1" labelFloat="true" promptText="Re-Enter Password" />
+                  <JFXButton fx:id="signup" onMouseClicked="#signupNewPlayer" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #9AD880; -fx-background-radius: 30;" text="Sign-Up!" />
+               </children>
+               <padding>
+                  <Insets bottom="40.0" left="40.0" right="40.0" top="150.0" />
+               </padding>
+            </VBox>
+         </children>
+      </Group>
    </children>
 </AnchorPane>

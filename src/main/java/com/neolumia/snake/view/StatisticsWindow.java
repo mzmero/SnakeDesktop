@@ -25,7 +25,7 @@
 package com.neolumia.snake.view;
 
 import com.neolumia.snake.GameApp;
-import com.neolumia.snake.Stats;
+import com.neolumia.snake.model.Stats;
 import com.neolumia.snake.control.SysData;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -62,38 +62,42 @@ public final class StatisticsWindow extends Window {
   @FXML private Label board1;
 
   /** History Controls */
-  private final ObservableList<TableItem> data;
+  private final ObservableList<TableItem> data;    //table data
 
   @FXML private TableView<TableItem> historyTable = new TableView<TableItem>();
   @FXML private Label historyTitle;
   /** Board Controls */
-  private final ObservableList<TableItem> boardData =
-      FXCollections.observableArrayList(SysData.getInstance().getHistoryTableItems());
+  private final ObservableList<TableItem> boardData;
 
   @FXML private TableView<TableItem> boardTable = new TableView<TableItem>();
   @FXML private Label boardTitle;
 
-  StatisticsWindow(GameApp app) {
+  /**
+   * initializer method for the statistics window
+   * @param app
+   * @throws SQLException
+   */
+  StatisticsWindow(GameApp app) throws SQLException {
     this.app = app;
 
     stats.setToggleGroup(menu);
     history.setToggleGroup(menu);
     leaderboard.setToggleGroup(menu);
-
+                                             // the page button listener
     menu.selectedToggleProperty()
         .addListener(
             (observable, oldValue, newValue) -> {
-              if (newValue.equals(stats)) {
+              if (newValue.equals(stats)) {               //stat button
                 grid.add(render("stats"), 0, 0);
                 menu.selectToggle(stats);
                 update(app.getStats());
               }
-              if (newValue.equals(history)) {
+              if (newValue.equals(history)) {      //history button
                 grid.add(render("history"), 0, 0);
                 menu.selectToggle(history);
                 fillHistory();
               }
-              if (newValue.equals(leaderboard)) {
+              if (newValue.equals(leaderboard)) {      //leaderboard button
                 grid.add(render("leaderboard"), 0, 0);
                 menu.selectToggle(leaderboard);
                 fillBoard();
@@ -102,15 +106,29 @@ public final class StatisticsWindow extends Window {
 
     data =
         FXCollections.observableArrayList(
-            SysData.getInstance().getPlayerHistory(app.getSettings().playerName));
+            SysData.getInstance().getPlayerHistory(app.getPlayerName()));
+    System.out.println(data);
+
+    boardData =
+      FXCollections.observableArrayList(SysData.getInstance().getHistoryTableItems(app));
+    System.out.println(boardData);
+
   }
 
+  /**
+   * this method handles the cancel button which redirects the user to the menu window
+   * @throws SQLException
+   */
   @FXML
   public void cancel() throws SQLException {
     app.getWindowManager().request(new MenuWindow(app));
   }
-
-  private void fillHistory() {
+   /*for every button in the  main page(3 buttons) open a mini-page .every method  check if other mini-pages are opened
+   then disabling the visibility of other mini-pages if its true  */
+  /**
+   * filling player history page
+   */
+  private void fillHistory() {   //updating the history table method
     if (statsGames != null && statsItems != null && statsPlaytime != null && statsWall != null) {
       statsGames.setVisible(false);
       statsItems.setVisible(false);
@@ -124,7 +142,10 @@ public final class StatisticsWindow extends Window {
     fillTable();
   }
 
-  public void fillBoard() {
+  /**
+   * filling leader board page
+   */
+  public void fillBoard() {   // updating the leaderboard table method
     if (statsGames != null && statsItems != null && statsPlaytime != null && statsWall != null) {
       statsGames.setVisible(false);
       statsItems.setVisible(false);
@@ -138,10 +159,16 @@ public final class StatisticsWindow extends Window {
     fillBoardTable();
   }
 
-  private void update(Stats stats) {
+  /**
+   * filling stats page
+   * @param stats
+   */
+  private void update(Stats stats) {   // fill the stats page data
 
     if (historyTable != null) historyTable.setVisible(false);
     if (historyTitle != null) historyTitle.setVisible(false);
+    if (boardTable !=null)  boardTable.setVisible(false);
+    if (boardTitle !=null)  boardTitle.setVisible(false);
     statsGames.setText(t("stats.games", stats.games));
     statsItems.setText(t("stats.items", stats.items));
     statsPlaytime.setText(t("stats.playtime", new DecimalFormat("#.##").format(stats.playtime)));
@@ -153,10 +180,9 @@ public final class StatisticsWindow extends Window {
   }
 
   /**
-   * ------------------------------------------ Helper Methods
-   * -----------------------------------------------------
+   * filling history table
    */
-  private void fillTable() {
+  private void fillTable() {  // updating the history table method
 
     TableColumn player = new TableColumn("player");
     player.setMinWidth(100);
@@ -173,7 +199,10 @@ public final class StatisticsWindow extends Window {
     historyTable.getColumns().addAll(player, points, lives);
   }
 
-  private void fillBoardTable() {
+  /**
+   * filling leader board table
+   */
+  private void fillBoardTable() {   //updating the leaderboard method
     TableColumn player = new TableColumn("player");
     player.setMinWidth(100);
     player.setCellValueFactory(new PropertyValueFactory<TableItem, String>("player"));

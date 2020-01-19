@@ -2,6 +2,9 @@ package com.neolumia.snake.view;
 
 import javafx.beans.property.SimpleStringProperty;
 
+/**
+ * This class is made in order to save items to be shown later in table
+ */
 public class TableItem {
 
     private final SimpleStringProperty player;

@@ -11,6 +11,9 @@ public abstract class Window {
 
   private final FXMLLoader loader;
 
+  /**
+   * Window assigns a window class to the fxml matching name and loads it to the screen
+   */
   Window() {
     loader = new FXMLLoader(getClass().getResource('/' + getResourceName()), GameApp.getBundle());
     loader.setController(this);
@@ -25,6 +28,11 @@ public abstract class Window {
     return loader;
   }
 
+  /**
+   * render - converts FXML design to screen view
+   * @param name
+   * @return
+   */
   public Node render(String name) {
     try {
       FXMLLoader loader =

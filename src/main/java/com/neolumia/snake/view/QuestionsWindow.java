@@ -1,4 +1,3 @@
-
 package com.neolumia.snake.view;
 
 import com.neolumia.snake.GameApp;
@@ -8,8 +7,8 @@ import com.neolumia.snake.view.option.BgDesign;
 import com.neolumia.snake.view.design.Design;
 import com.neolumia.snake.view.option.SnakeDesign;
 import com.neolumia.snake.view.option.TerrainDesign;
-import com.neolumia.snake.model.questions.Question;
-import com.neolumia.snake.model.questions.QuestionLevel;
+import com.neolumia.snake.model.Question;
+import com.neolumia.snake.model.QuestionLevel;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -43,12 +42,7 @@ public final class QuestionsWindow extends Window {
 
   @FXML
   private GridPane grid;
-  @FXML
-  private ToggleButton terrain;
-  @FXML
-  private ToggleButton snake;
-  @FXML
-  private ToggleButton background;
+
 
   @FXML
   private ImageView before;
@@ -108,9 +102,7 @@ public final class QuestionsWindow extends Window {
     this.app = app;
     //TODO:Update view and remove custom settings
 
-    terrain.setToggleGroup(menu);
-    snake.setToggleGroup(menu);
-    background.setToggleGroup(menu);
+
 
 //    menu.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
 //      if (newValue.equals(terrain)) {
@@ -135,7 +127,7 @@ public final class QuestionsWindow extends Window {
     this.snakeDesign = app.getDesign().snake;
     this.bgDesign = app.getDesign().background;
 
-    menu.selectToggle(terrain);
+
     initCB();
   }
 

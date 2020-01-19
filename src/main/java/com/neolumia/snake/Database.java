@@ -1,16 +1,12 @@
 
 package com.neolumia.snake;
 
+import com.neolumia.snake.model.*;
 import com.neolumia.snake.view.design.Design;
 import com.neolumia.snake.view.option.BgDesign;
 import com.neolumia.snake.view.option.SnakeDesign;
 import com.neolumia.snake.view.option.TerrainDesign;
 import com.neolumia.snake.control.Game;
-import com.neolumia.snake.model.settings.Difficulty;
-import com.neolumia.snake.model.settings.Locale;
-import com.neolumia.snake.model.settings.Settings;
-import com.neolumia.snake.model.settings.Size;
-import com.neolumia.snake.model.util.Q;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -20,6 +16,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Database to save game details
+ */
 public final class Database {
 
   private final HikariDataSource dataSource;
@@ -258,10 +257,29 @@ public final class Database {
     }
 
   }
-  public void newPlayer(String playerName) throws SQLException {
+  public String playerPassword(String playerName) throws SQLException {
+    try (Connection connection = dataSource.getConnection()) {
+      try (PreparedStatement statement = connection.prepareStatement(Q.GET_PLAYER_Password)) {
+        statement.setString(1, playerName);
+        try (ResultSet result = statement.executeQuery()) {
+
+          if (result.next()) {
+            String password = result.getString(1);
+            return password;
+
+          }
+          return null;
+
+        }
+      }
+    }
+
+  }
+  public void newPlayer(String playerName,String password) throws SQLException {
     try (Connection connection = dataSource.getConnection()) {
       try (PreparedStatement statement = connection.prepareStatement(Q.PLAYER_SAVE)) {
         statement.setString(1, playerName);
+        statement.setString(2, password);
 
         statement.executeUpdate();
       }

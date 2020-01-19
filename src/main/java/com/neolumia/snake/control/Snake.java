@@ -1,15 +1,12 @@
 package com.neolumia.snake.control;
 
-import com.neolumia.snake.view.game.SnakePart;
-import com.neolumia.snake.view.game.Tile;
-import com.neolumia.snake.view.item.Mouse;
+import com.neolumia.snake.view.game.SnakePartView;
+import com.neolumia.snake.model.Tile;
 import com.neolumia.snake.view.item.TileObject;
-import com.neolumia.snake.view.item.food.Banana;
 import com.neolumia.snake.view.item.food.Food;
-import com.neolumia.snake.model.solver.Node;
-import com.neolumia.snake.model.solver.Solver;
-import com.neolumia.snake.model.util.Direction;
-import com.neolumia.snake.view.item.food.Pear;
+import com.neolumia.snake.model.Node;
+import com.neolumia.snake.model.Solver;
+import com.neolumia.snake.model.Direction;
 
 import javax.annotation.Nullable;
 import java.util.Deque;
@@ -19,7 +16,7 @@ import java.util.function.Predicate;
 
 public abstract class Snake<T extends Game> {
 
-  private final ConcurrentLinkedDeque<SnakePart> parts = new ConcurrentLinkedDeque<>();
+  private final ConcurrentLinkedDeque<SnakePartView> parts = new ConcurrentLinkedDeque<>();
 
   protected final T game;
   private final Predicate<Node> blocking;
@@ -50,13 +47,14 @@ public abstract class Snake<T extends Game> {
       if (ticks % (game.isAuto() ? speed / 2 : speed) == 0) {
         move();
         game.moveMouse();
+
       }
       ticks++;
       break;
     }
   }
 
-  public Deque<SnakePart> getParts() {
+  public Deque<SnakePartView> getParts() {
     return parts;
   }
 
@@ -71,15 +69,15 @@ public abstract class Snake<T extends Game> {
     parts.forEach(p -> p.setSize(size));
   }
 
-  protected SnakePart createPart(Tile tile, Direction direction) {
+  protected SnakePartView createPart(Tile tile, Direction direction) {
     return game.getApp().getDesign().snake.getPart().get(this, tile, direction, null);
   }
 
   protected void addPart(Tile tile, Direction direction, boolean head) {
-    final SnakePart sp = createPart(tile, direction);
+    final SnakePartView sp = createPart(tile, direction);
     if (!parts.isEmpty()) {
       parts.getFirst().setP(sp);
-      parts.forEach(SnakePart::update);
+      parts.forEach(SnakePartView::update);
     }
     game.getTerrain().put(tile, sp);
     if (head) {
@@ -165,7 +163,7 @@ public abstract class Snake<T extends Game> {
     final Optional<TileObject> item = game.getTerrain().get(tile.get());
     if (item.isPresent()) {
 
-      if (item.get() instanceof SnakePart) {
+      if (item.get() instanceof SnakePartView) {
         // Hit himself --> End
         playOnEvent("Crash.mp3");
         lives--;
@@ -175,6 +173,7 @@ public abstract class Snake<T extends Game> {
         else {
           this.init();
           game.setPaused(true);
+
         }
         return false;
 

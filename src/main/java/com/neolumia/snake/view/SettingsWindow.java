@@ -1,10 +1,10 @@
 package com.neolumia.snake.view;
 
 import com.neolumia.snake.GameApp;
-import com.neolumia.snake.model.settings.Difficulty;
-import com.neolumia.snake.model.settings.Locale;
-import com.neolumia.snake.model.settings.Settings;
-import com.neolumia.snake.model.settings.Size;
+import com.neolumia.snake.model.Difficulty;
+import com.neolumia.snake.model.Locale;
+import com.neolumia.snake.model.Settings;
+import com.neolumia.snake.model.Size;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
@@ -28,8 +28,6 @@ public final class SettingsWindow extends Window {
   private final ToggleGroup difficulty = new ToggleGroup();
   private final ToggleGroup terrain = new ToggleGroup();
 
-  @FXML private ToggleButton localeGerman;
-  @FXML private ToggleButton localeEnglish;
   @FXML private ToggleButton difficultyEasy;
   @FXML private ToggleButton difficultyMedium;
   @FXML private ToggleButton difficultyHard;
@@ -39,11 +37,13 @@ public final class SettingsWindow extends Window {
   @FXML private TextField playerName;
   @FXML private CheckBox leaderboard;
 
+  /**
+   * initializes settings window
+   *
+   * @param app
+   */
   SettingsWindow(GameApp app) {
     this.app = app;
-
-    localeGerman.setToggleGroup(locale);
-    localeEnglish.setToggleGroup(locale);
 
     difficultyEasy.setToggleGroup(difficulty);
     difficultyMedium.setToggleGroup(difficulty);
@@ -52,8 +52,6 @@ public final class SettingsWindow extends Window {
     terrainSmall.setToggleGroup(terrain);
     terrainMedium.setToggleGroup(terrain);
     terrainBig.setToggleGroup(terrain);
-
-    locale.selectToggle(app.getSettings().locale == Locale.GERMAN ? localeGerman : localeEnglish);
 
     switch (app.getSettings().difficulty) {
       case EASY:
@@ -83,6 +81,7 @@ public final class SettingsWindow extends Window {
     leaderboard.setSelected(app.getSettings().leaderboard);
   }
 
+  /** handles back to menu window */
   @FXML
   public void cancel() {
     try {
@@ -92,11 +91,14 @@ public final class SettingsWindow extends Window {
     }
   }
 
+  /**
+   * saving settings chosen by the user to the
+   *
+   * @throws SQLException
+   */
   @FXML
   public void save() throws SQLException {
-    app.getSettings().locale =
-        locale.getSelectedToggle().equals(localeGerman) ? Locale.GERMAN : Locale.ENGLISH;
-
+    app.getSettings().locale = Locale.ENGLISH;
     if (difficulty.getSelectedToggle() == difficultyEasy) {
       app.getSettings().difficulty = Difficulty.EASY;
     } else if (difficulty.getSelectedToggle() == difficultyMedium) {
@@ -117,12 +119,12 @@ public final class SettingsWindow extends Window {
       app.getSettings().size = Settings.DEFAULT_SIZE;
     }
 
-    //app.getSettings().playerName = playerName.getText();
+    // app.getSettings().playerName = playerName.getText();
     app.getSettings().leaderboard = leaderboard.isSelected();
 
     app.getDatabase().saveSettings(app.getSettings());
     LOGGER.info(app.getDatabase().GetAllsetttings().toString());
-    //System.out.print(app.getDatabase().getettings().toString());
+    // System.out.print(app.getDatabase().getettings().toString());
 
     cancel();
   }

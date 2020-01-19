@@ -2,7 +2,7 @@
 package com.neolumia.snake.view.option;
 
 import com.neolumia.snake.view.design.DesignOption;
-import com.neolumia.snake.model.util.Position;
+import com.neolumia.snake.model.Position;
 import javafx.scene.paint.Color;
 
 import java.util.Optional;
@@ -14,7 +14,7 @@ public enum TerrainDesign implements DesignOption<TerrainDesign> {
    */
   SIMPLE("terrain.simple", "/lib/terrain_retro.png", pos -> Color.rgb(157, 213, 3)),
   GRASS("terrain.grass", "/lib/terrain_grass.png", pos -> (pos.getX() + pos.getY()) % 2 == 0 ? Color.rgb(111, 169, 111) : Color.rgb(127, 188, 124)),
-  CHESS("terrain.chess", "/lib/terrain_chess.png", pos -> (pos.getX() + pos.getY()) % 2 == 0 ? Color.rgb(207, 137, 72) : Color.rgb(255, 204, 156));
+  CHESS("terrain.chess", "/lib/terrain_chess.png", pos -> (pos.getX() + pos.getY()) % 2 == 0 ? Color.rgb(255,233,141): Color.rgb(255,176,0));
 
   private final String name;
   private final String file;
