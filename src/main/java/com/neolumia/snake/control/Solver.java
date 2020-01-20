@@ -1,12 +1,22 @@
-package com.neolumia.snake.model;
+package com.neolumia.snake.control;
 
 import com.neolumia.snake.control.Game;
+import com.neolumia.snake.control.Node;
+import com.neolumia.snake.model.Direction;
+import com.neolumia.snake.model.Tile;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
-
+/**
+ *
+ * this class implements the A* algorithm
+ * in order find the best path to closest food on terrian
+ * givin the snake's head coordinates , a blocking list in witch the path should not go throw (i.e. walls, and snake)
+ * for every iteration while game status equals AUTO, this class returns the optimal direction for the snake to go to
+ *
+ * */
 public final class Solver {
 
   private Node[][] nodes;

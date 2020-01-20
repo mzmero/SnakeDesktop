@@ -1,4 +1,7 @@
-package com.neolumia.snake.model;
+package com.neolumia.snake.control;
+
+import com.neolumia.snake.model.Direction;
+import com.neolumia.snake.model.Tile;
 
 import java.util.Objects;
 
