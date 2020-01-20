@@ -4,8 +4,6 @@ import com.neolumia.snake.view.game.SnakePartView;
 import com.neolumia.snake.model.Tile;
 import com.neolumia.snake.view.item.TileObject;
 import com.neolumia.snake.view.item.food.Food;
-import com.neolumia.snake.model.Node;
-import com.neolumia.snake.model.Solver;
 import com.neolumia.snake.model.Direction;
 
 import javax.annotation.Nullable;
