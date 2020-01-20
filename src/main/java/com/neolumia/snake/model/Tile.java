@@ -5,7 +5,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
 import java.util.Optional;
-
+/*tile model class*/
 public final class Tile extends Rectangle {
 
   private final int x;
@@ -25,7 +25,7 @@ public final class Tile extends Rectangle {
   public int getTileY() {
     return y;
   }
-
+/*this method responsible for returning a neighbour tile of a given tile based on direction*/
   public Optional<Tile> getRelative(Game game, Direction direction) {
     int nextX = x;
     int nextY = y;
@@ -45,7 +45,7 @@ public final class Tile extends Rectangle {
     }
     return (Optional<Tile>) game.getTerrain().getTile(nextX, nextY);
   }
-
+ /*size of tile on board*/
   public void setSize(int size) {
     setX(x * size);
     setY(y * size);

@@ -53,11 +53,11 @@ public final class MenuWindow extends Window {
   public void settings() {
     app.getWindowManager().request(new SettingsWindow(app));
   }
-
+  /*method responsible for switching game type for a future features*/
   public void clickTitle() {
     switchType(type.next());
   }
-
+  /*method responsible for switching game type for a future features*/
   private void switchType(GameType type) {
     if (this.type == type) {
       return;

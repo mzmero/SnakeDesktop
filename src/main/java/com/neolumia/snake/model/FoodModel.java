@@ -1,12 +1,11 @@
 package com.neolumia.snake.model;
-
+/* model class for food coordinates on the board*/
 public class FoodModel {
 
 
   protected int x;
   protected int y;
   protected int size;
-
 
   public FoodModel(int x, int y, int size) {
     this.x = x;

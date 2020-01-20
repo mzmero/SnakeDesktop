@@ -26,9 +26,9 @@ package com.neolumia.snake.view.item.food;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
+/*abstract food class , that`s food extend from*/
 public abstract class AbstractFood extends Food {
-  //TODO move to view
+
   private final ImageView view;
 
   AbstractFood(String name, String file) {

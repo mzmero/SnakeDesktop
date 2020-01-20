@@ -3,7 +3,7 @@ package com.neolumia.snake.model;
 import com.neolumia.snake.control.Snake;
 import com.neolumia.snake.view.game.SnakePartView;
 import javafx.scene.paint.Color;
-
+/*snake part model*/
 public class SnakePart {
 
   private final Tile tile;

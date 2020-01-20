@@ -103,7 +103,7 @@ public final class SingleGame extends Game {
     }
     return this.paused = paused;
   }
-
+ /*this method spawn food , mouse and question when the game start*/
   @Override
   public void init() {
 
@@ -160,7 +160,7 @@ public final class SingleGame extends Game {
       getTerrain().put(mouse_tile = tile.get(), mouseObj);
     }
   }
-
+/*this method responsible for checking if a given tile is empty and within the board*/
   public boolean checkifTileIsValid(Optional<Tile> t) {
     if (!t.isPresent()) return false;
     Optional<TileObject> item = getTerrain().get(t.get());
@@ -256,10 +256,10 @@ public final class SingleGame extends Game {
   /**
    * The best direction is for the mouse to move on the board
    *
-   * @param x
-   * @param y
-   * @param againtsX
-   * @param againtsY
+   * @param x cordinate x of mouse tile
+   * @param y cordinate y of mouse tile
+   * @param againtsX cordinate x for the snake head or the corner
+   * @param againtsY cordinate y for the snake head or the corner
    */
   public void bestDirectionForaGivenCordinates(int x, int y, int againtsX, int againtsY) {
     Direction dire = null;
@@ -529,7 +529,7 @@ public final class SingleGame extends Game {
     LOGGER.info("Item spawned at x={}, y={}", x, y);
   }
 
-
+/* this method responsible for spawning a question*/
   public void spawnQuestion(QuestionLevel level) {
     Tile tileQuestion = getTile();
     final Optional<Item> itemQuestion = Item.random(type, ItemType.QUESTION);
@@ -547,7 +547,7 @@ public final class SingleGame extends Game {
     }
     LOGGER.info("Question spawned x={}, y={}", tileQuestion.getTileX(), tileQuestion.getTileY());
   }
-
+  /* this method responsible for spawning the mouse*/
   public void spawnMouse(long remainTime) {
     mouseTimer.setActive(true);
     mouseTimer.schedule(
@@ -570,11 +570,11 @@ public final class SingleGame extends Game {
   public void addQuestion(Question question) {
     questions.add(question);
   }
-
+ /* a math method for calculating distance between 2 given points on the biard */
   public double calculateDistanceBetweenPoints(double x1, double y1, double x2, double y2) {
     return Math.sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1));
   }
-
+  /*a math method for calculating the distance between 2 tiles */
   public double tilesDistance(Tile a, Tile b) {
     return Math.sqrt(b.getTileY() - a.getTileY())
         * (((b.getTileY() - a.getTileY()) + ((b.getTileX() - a.getTileX()) * b.getTileX()))

@@ -1,6 +1,6 @@
 
 package com.neolumia.snake.model;
-
+/*model for sql queries*/
 public final class Q {
   public static final String PLAYER_TABLE = "CREATE TABLE IF NOT EXISTS players (id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, name  VARCHAR(30)UNIQUE NOT NULL,password  VARCHAR(30)NOT NULL );";
   public static final String PLAYER_HIGHSCORE = "SELECT MAX(points) FROM games where games.playerName=?;";

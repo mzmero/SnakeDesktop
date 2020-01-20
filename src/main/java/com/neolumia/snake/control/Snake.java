@@ -227,7 +227,7 @@ public abstract class Snake<T extends Game> {
   }
 
   protected abstract Tile getClosestFood();
-
+  /*using solver algorithm to find the tail */
   private Direction findTail() {
     final Solver solver =
         new Solver(

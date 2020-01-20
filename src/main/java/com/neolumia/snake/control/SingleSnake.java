@@ -156,7 +156,7 @@ public final class SingleSnake extends Snake<SingleGame> {
       game.spawnMouse(60000);
     }
   }
-
+  /*this method responsible for playing music*/
   public void playOnEvent(String fileName) {
     if (!game.isMuted()) {
       String path = getClass().getResource("/sounds/" + fileName).toString();
@@ -165,7 +165,7 @@ public final class SingleSnake extends Snake<SingleGame> {
       mp.play();
     }
   }
-//TODO Move
+/* this method responsible for popup a question */
   private void popQuestion(QuestionLevel level) {
     Popup popup = new Popup();
     Platform.runLater(

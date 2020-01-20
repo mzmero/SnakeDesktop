@@ -164,7 +164,7 @@ public final class GameWindow extends Window {
 
     app.getWindowManager().getStage().requestFocus();
   }
-  /*this method responsible for loading the board in the gamewindow*/
+  /*this method responsible for loading the board in the game window*/
 
   @Override
   public void load(Stage stage, Scene scene) {

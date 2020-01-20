@@ -52,7 +52,7 @@ public final class DeadWindow extends Window {
       headWon.setVisible(false);
     }
   }
-
+  /*method responsible for opening a new game window*/
   @FXML
   public void newGame() {
     app.newGame(game.getType());

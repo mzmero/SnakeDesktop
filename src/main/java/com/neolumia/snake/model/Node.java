@@ -60,7 +60,7 @@ public final class Node {
     g = g + cost;
     f = g + h;
   }
-
+ /* if we can get from node to another in lower cost , update the new low cost for the node (work like Dijkstra )*/
   void better(Node from, Direction direction, int cost) {
     int gCost = from.g + cost;
     if (gCost < g) {

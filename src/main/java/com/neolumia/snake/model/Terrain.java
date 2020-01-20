@@ -4,13 +4,13 @@ import com.neolumia.snake.view.item.TileObject;
 
 import java.util.HashMap;
 import java.util.Map;
-
+/*board model class*/
 public class Terrain {
 
   private final int width;
   private final int height;
   private final Tile[][] tiles;
-  private final Map<Tile, TileObject> objects = new HashMap<>();
+  private final Map<Tile, TileObject> objects = new HashMap<>(); // all the object on the board
 
   public Terrain(int width, int height) {
     this.width = width;

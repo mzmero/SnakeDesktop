@@ -94,7 +94,7 @@ public final class QuestionsWindow extends Window {
     this.app = app;
     initCB();
   }
-
+/* this method responsible for init the questions window */
   private void initCB() {
     ComboDelete.setItems(items);
     ComboChooseQuestion.setItems(items);
@@ -355,6 +355,7 @@ public final class QuestionsWindow extends Window {
       alert.show();
     }
   }
+  /*this method responsible for changing the combobox in question windiw , if the user clicked on a question from the table*/
   @FXML
   public void handleTable(MouseEvent event){    // table row listener
     DataItem d=tb.getSelectionModel().getSelectedItem();     // change combobox for a given selected row table

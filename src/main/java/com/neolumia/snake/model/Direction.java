@@ -5,7 +5,7 @@ public enum Direction {
   EAST,
   SOUTH,
   WEST;
-
+  /*this method responsible for return the opposite of a given direction */
   public Direction opposite() {
     switch (this) {
       case NORTH:
