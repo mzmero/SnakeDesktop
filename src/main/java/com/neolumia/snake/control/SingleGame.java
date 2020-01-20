@@ -57,7 +57,7 @@ public final class SingleGame extends Game {
   /**
    * this method is responsible to stop the game
    *
-   * @param paused - true -> pause , false -> resume
+   * @param paused
    * @return
    */
   @Override
