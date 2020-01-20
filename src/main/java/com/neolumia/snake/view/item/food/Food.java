@@ -23,7 +23,6 @@
  */
 
 package com.neolumia.snake.view.item.food;
-
 import com.neolumia.snake.view.item.Item;
 import com.neolumia.snake.view.item.ItemType;
 

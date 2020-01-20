@@ -23,7 +23,9 @@
  */
 
 package com.neolumia.snake.view.item.food;
-
+/*
+apple class thats responsible for showing the apple
+ */
 public final class Apple extends AbstractFood {
 
   public Apple() {

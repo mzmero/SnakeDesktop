@@ -2,7 +2,9 @@ package com.neolumia.snake.view.item;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
+/*
+mouse class thats responsible for showing the mouse
+ */
 public class Mouse extends Item {
   private final ImageView view;
 
